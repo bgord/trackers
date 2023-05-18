@@ -1,5 +1,11 @@
 {
   "app.name": "trackers",
   "app.logout": "logout",
-  "app.no_internet_connection": "No internet connection"
+  "app.no_internet_connection": "No internet connection",
+
+  "tracker.name.label": "Tracker name",
+  "tracker.name.placeholder": "Read 5 minutes a day...",
+  "tracker.name.error": "Invalid tracker name",
+  "tracker.create.submit": "Create",
+  "tracker.create.success": "Tracker created"
 }

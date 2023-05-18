@@ -7,6 +7,7 @@ import { SkipNavLink, SkipNavContent } from "@reach/skip-nav";
 
 import { Toasts } from "./toasts";
 import { Navigation } from "./navigation";
+import { Dashboard } from "./dashboard";
 
 export type InitialDataType = {
   url: string;
@@ -29,7 +30,9 @@ export function App(props: InitialDataType) {
           <Navigation />
           <SkipNavContent as="div" />
 
-          <Router url={props.url}></Router>
+          <Router url={props.url}>
+            <Dashboard path="/dashboard" />
+          </Router>
 
           <Toasts />
         </bg.ToastsContextProvider>

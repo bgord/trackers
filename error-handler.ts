@@ -1,6 +1,9 @@
 import express from "express";
 import * as bg from "@bgord/node";
+import z from "zod";
 import { logger } from "./logger";
+
+import * as VO from "./value-objects";
 
 export class ErrorHandler {
   /* eslint-disable max-params */
@@ -49,6 +52,19 @@ export class ErrorHandler {
       return response
         .status(429)
         .send({ message: "app.too_many_requests", _known: true });
+    }
+
+    if (error instanceof z.ZodError) {
+      if (
+        error.issues.find(
+          (issue) => issue.message === VO.TRACKER_NAME_ERROR_KEY
+        )
+      ) {
+        return response.status(400).send({
+          message: VO.TRACKER_NAME_ERROR_KEY,
+          _known: true,
+        });
+      }
     }
 
     logger.error({

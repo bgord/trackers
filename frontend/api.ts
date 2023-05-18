@@ -1,3 +1,4 @@
+import * as types from "./types";
 import { ServerError } from "./server-error";
 
 export const _api: typeof fetch = (input, init) =>
@@ -13,3 +14,12 @@ export const _api: typeof fetch = (input, init) =>
   })
     .then(ServerError.extract)
     .catch(ServerError.handle);
+
+export class Tracker {
+  static async create(tracker: { name: types.TrackerNameType }) {
+    return _api("/tracker", {
+      method: "POST",
+      body: JSON.stringify(tracker),
+    });
+  }
+}

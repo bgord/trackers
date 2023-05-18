@@ -1,1 +1,1 @@
-export const TRACKER_NAME_MIN_LENGTH = 256;
+export const TRACKER_NAME_MIN_LENGTH = 3;

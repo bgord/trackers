@@ -26,7 +26,6 @@ AuthShield.applyTo(app);
 bg.HttpLogger.applyTo(app, logger);
 
 app.get("/", bg.CsrfShield.attach, bg.Route(Routes.Home));
-
 app.post(
   "/login",
   bg.CsrfShield.verify,
@@ -41,6 +40,8 @@ app.get(
   bg.Cache.handle(bg.CacheStrategy.never),
   bg.Route(Routes.Dashboard)
 );
+
+app.post("/tracker", AuthShield.verify, bg.Route(Routes.TrackerCreate));
 
 app.get("*", (_, response) => response.redirect("/"));
 app.use(ErrorHandler.handle);
