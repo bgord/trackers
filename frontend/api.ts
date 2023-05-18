@@ -16,7 +16,10 @@ export const _api: typeof fetch = (input, init) =>
     .catch(ServerError.handle);
 
 export class Tracker {
-  static async create(tracker: { name: types.TrackerNameType }) {
+  static async create(tracker: {
+    name: types.TrackerNameType;
+    kind: types.TrackerKindEnum;
+  }) {
     return _api("/tracker", {
       method: "POST",
       body: JSON.stringify(tracker),

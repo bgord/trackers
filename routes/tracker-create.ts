@@ -9,12 +9,13 @@ export async function TrackerCreate(
   _next: express.NextFunction
 ) {
   const name = VO.TrackerName.parse(request.body.name);
+  const kind = VO.TrackerKind.parse(request.body.kind);
 
   logger.info({
     message: "Tracker create payload",
     operation: "tracker_create_payload",
-    metadata: { name },
+    metadata: { name, kind },
   });
 
-  return response.send();
+  return response.status(201).send();
 }

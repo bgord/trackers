@@ -6,6 +6,11 @@
   "tracker.name.label": "Tracker name",
   "tracker.name.placeholder": "Read 5 minutes a day...",
   "tracker.name.error": "Invalid tracker name",
+
+  "tracker.kind.label": "Tracker kind",
+  "tracker.kind.enum.one_value": "One value",
+  "tracker.kind.error": "Invalid tracker kind",
+
   "tracker.create.submit": "Create",
   "tracker.create.success": "Tracker created"
 }

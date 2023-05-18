@@ -65,6 +65,17 @@ export class ErrorHandler {
           _known: true,
         });
       }
+
+      if (
+        error.issues.find(
+          (issue) => issue.message === VO.TRACKER_KIND_ERROR_KEY
+        )
+      ) {
+        return response.status(400).send({
+          message: VO.TRACKER_KIND_ERROR_KEY,
+          _known: true,
+        });
+      }
     }
 
     logger.error({
