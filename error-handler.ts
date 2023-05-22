@@ -57,11 +57,11 @@ export class ErrorHandler {
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(
-          (issue) => issue.message === VO.TRACKER_NAME_ERROR_KEY
+          (issue) => issue.message === VO.TRACKER_NAME_STRUCTURE_ERROR_KEY
         )
       ) {
         return response.status(400).send({
-          message: VO.TRACKER_NAME_ERROR_KEY,
+          message: VO.TRACKER_NAME_STRUCTURE_ERROR_KEY,
           _known: true,
         });
       }
