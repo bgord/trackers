@@ -15,3 +15,9 @@ model Event {
   version   Int
   payload   String
 }
+
+model Tracker {
+  id           String     @id @default(uuid())
+  source       String
+  status       String
+}
