@@ -17,7 +17,8 @@ model Event {
 }
 
 model Tracker {
-  id           String     @id @default(uuid())
-  source       String
-  status       String
+  id        String @id @default(uuid())
+  kind      String
+  name      String
+  createdAt Int
 }

@@ -3,6 +3,7 @@ import z from "zod";
 import Emittery from "emittery";
 
 import * as VO from "./value-objects";
+import * as Repos from "./repositories";
 
 export const TRACKER_ADDED_EVENT = "TRACKER_ADDED_EVENT";
 export const TrackerAddedEvent = bg.EventDraft.merge(
@@ -20,4 +21,6 @@ export const emittery = new Emittery<{
   TRACKER_ADDED_EVENT: TrackerAddedEventType;
 }>();
 
-emittery.on(TRACKER_ADDED_EVENT, async () => {});
+emittery.on(TRACKER_ADDED_EVENT, async (event) => {
+  await Repos.TrackerRepository.create(event.payload);
+});

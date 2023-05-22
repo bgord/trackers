@@ -11,6 +11,7 @@ CREATE TABLE "Event" (
 -- CreateTable
 CREATE TABLE "Tracker" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "source" TEXT NOT NULL,
-    "status" TEXT NOT NULL
+    "kind" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" INTEGER NOT NULL
 );
