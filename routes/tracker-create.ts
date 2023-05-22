@@ -1,6 +1,7 @@
 import express from "express";
 
 import * as VO from "../value-objects";
+import * as Aggregates from "../aggregates";
 import { logger } from "../logger";
 
 export async function TrackerCreate(
@@ -16,6 +17,8 @@ export async function TrackerCreate(
     operation: "tracker_create_payload",
     metadata: { name, kind },
   });
+
+  await Aggregates.Tracker.add({ name, kind });
 
   return response.status(201).send();
 }
