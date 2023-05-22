@@ -4,6 +4,7 @@ import z from "zod";
 import { logger } from "./logger";
 
 import * as VO from "./value-objects";
+import * as Policies from "./policies";
 
 export class ErrorHandler {
   /* eslint-disable max-params */
@@ -52,6 +53,18 @@ export class ErrorHandler {
       return response
         .status(429)
         .send({ message: "app.too_many_requests", _known: true });
+    }
+
+    if (error instanceof Policies.TrackerNameIsUniqueError) {
+      logger.error({
+        message: "Tracker name is not unique",
+        operation: VO.TRACKER_NAME_UNIQUE_ERROR_KEY,
+        correlationId: request.requestId,
+      });
+
+      return response
+        .status(400)
+        .send({ message: VO.TRACKER_NAME_UNIQUE_ERROR_KEY, _known: true });
     }
 
     if (error instanceof z.ZodError) {

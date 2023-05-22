@@ -7,4 +7,8 @@ export class TrackerRepository {
   static async create(payload: VO.TrackerType) {
     return db.tracker.create({ data: payload });
   }
+
+  static async getNumberOfTrackersWithName(name: VO.TrackerNameType) {
+    return db.tracker.count({ where: { name } });
+  }
 }

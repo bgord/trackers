@@ -3,6 +3,7 @@ import * as bg from "@bgord/node";
 import * as Events from "../events";
 import * as VO from "../value-objects";
 import * as Repos from "../repositories";
+import * as Policies from "../policies";
 
 export class Tracker {
   id: VO.TrackerType["id"];
@@ -37,14 +38,16 @@ export class Tracker {
   }
 
   static async add(payload: Omit<VO.TrackerType, "id">) {
-    const newTrackerId = VO.TrackerId.parse(bg.NewUUID.generate());
+    const id = VO.TrackerId.parse(bg.NewUUID.generate());
+
+    await Policies.TrackerNameIsUnique.perform({ trackerName: payload.name });
 
     await Repos.EventRepository.save(
       Events.TrackerAddedEvent.parse({
         name: Events.TRACKER_ADDED_EVENT,
-        stream: Tracker.getStream(newTrackerId),
+        stream: Tracker.getStream(id),
         version: 1,
-        payload: { id: newTrackerId, ...payload },
+        payload: { id, ...payload },
       })
     );
   }
