@@ -3,6 +3,7 @@ import { h } from "preact";
 
 import * as hooks from "./hooks";
 import { TrackerCreate } from "./tracker-create";
+import { TrackerList } from "./tracker-list";
 
 export function Dashboard(_: RoutableProps) {
   hooks.useLeavingPrompt();
@@ -10,6 +11,7 @@ export function Dashboard(_: RoutableProps) {
   return (
     <main>
       <TrackerCreate />
+      <TrackerList />
     </main>
   );
 }

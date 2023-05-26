@@ -25,4 +25,10 @@ export class Tracker {
       body: JSON.stringify(tracker),
     });
   }
+
+  static async list(): Promise<types.TrackerType[]> {
+    return _api("/tracker", { method: "GET" }).then((response) =>
+      response.ok ? response.json() : []
+    );
+  }
 }

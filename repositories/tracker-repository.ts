@@ -8,6 +8,10 @@ export class TrackerRepository {
     return db.tracker.create({ data: payload });
   }
 
+  static async list() {
+    return db.tracker.findMany();
+  }
+
   static async getNumberOfTrackersWithName(name: VO.TrackerNameType) {
     return db.tracker.count({ where: { name } });
   }
