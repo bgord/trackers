@@ -1,6 +1,7 @@
 {
   "app.name": "trackers",
   "app.logout": "logout",
+  "app.loading": "loading...",
   "app.no_internet_connection": "No internet connection",
 
   "tracker.name.label": "Tracker name",
@@ -13,5 +14,8 @@
   "tracker.kind.error": "Invalid tracker kind",
 
   "tracker.create.submit": "Create",
-  "tracker.create.success": "Tracker created"
+  "tracker.create.success": "Tracker created",
+
+  "tracker.list.error": "Error while loading trackers",
+  "tracker.list.empty": "No available trackers"
 }

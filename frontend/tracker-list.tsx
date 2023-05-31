@@ -3,6 +3,7 @@ import { h } from "preact";
 import { useQuery } from "react-query";
 
 import * as api from "./api";
+import * as UI from "./ui";
 
 export function TrackerList() {
   const t = bg.useTranslations();
@@ -11,11 +12,15 @@ export function TrackerList() {
   const trackers = trackerListQuery.data ?? [];
 
   if (trackerListQuery.isLoading) {
-    return <div data-mx="24">Loading...</div>;
+    return <UI.Info data-mx="24">{t("app.loading")}</UI.Info>;
   }
 
   if (trackerListQuery.isError) {
-    return <div data-mx="24">Error occurred</div>;
+    return <UI.Info data-mx="24">{t("tracker.list.error")}</UI.Info>;
+  }
+
+  if (trackerListQuery.data?.length === 0) {
+    return <UI.Info data-mx="24">{t("tracker.list.empty")}</UI.Info>;
   }
 
   return (
@@ -23,7 +28,9 @@ export function TrackerList() {
       {trackers.map((tracker) => (
         <li data-display="flex" data-gap="12">
           <div class="c-badge">{t(`tracker.kind.enum.${tracker.kind}`)}</div>
-          <strong>{tracker.name}</strong>
+          <div data-fs="14" data-color="gray-700">
+            {tracker.name}
+          </div>
         </li>
       ))}
     </ul>
