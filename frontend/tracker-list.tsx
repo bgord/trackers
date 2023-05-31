@@ -5,6 +5,8 @@ import { useQuery } from "react-query";
 import * as api from "./api";
 import * as UI from "./ui";
 
+import { Tracker } from "./tracker";
+
 export function TrackerList() {
   const t = bg.useTranslations();
 
@@ -26,12 +28,7 @@ export function TrackerList() {
   return (
     <ul data-display="flex" data-direction="column" data-gap="24" data-m="24">
       {trackers.map((tracker) => (
-        <li data-display="flex" data-gap="12">
-          <div class="c-badge">{t(`tracker.kind.enum.${tracker.kind}`)}</div>
-          <div data-fs="14" data-color="gray-700">
-            {tracker.name}
-          </div>
-        </li>
+        <Tracker {...tracker} />
       ))}
     </ul>
   );
