@@ -1,6 +1,6 @@
 import * as bg from "@bgord/frontend";
 import { h } from "preact";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import * as api from "./api";
 import * as types from "./types";
@@ -11,6 +11,7 @@ import { ServerError } from "./server-error";
 export function TrackerCreate() {
   const t = bg.useTranslations();
   const notify = bg.useToastTrigger();
+  const queryClient = useQueryClient();
 
   const trackerName = bg.useField<types.TrackerNameType>("");
   const trackerKind = bg.useField<types.TrackerKindEnum>(
@@ -22,6 +23,7 @@ export function TrackerCreate() {
       trackerName.clear();
       trackerKind.clear();
 
+      queryClient.invalidateQueries("trackers");
       notify({ message: "tracker.create.success" });
     },
     onError: (error: ServerError) => notify({ message: error.message }),
