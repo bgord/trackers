@@ -17,5 +17,8 @@
   "tracker.create.success": "Tracker created",
 
   "tracker.list.error": "Error while loading trackers",
-  "tracker.list.empty": "No available trackers"
+  "tracker.list.empty": "No available trackers",
+
+  "tracker.details.hide": "Hide tracker details",
+  "tracker.details.show": "Show tracker details"
 }
