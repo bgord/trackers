@@ -7,19 +7,21 @@ import { SkipNavLink, SkipNavContent } from "@reach/skip-nav";
 
 import { Toasts } from "./toasts";
 import { Navigation } from "./navigation";
-import { Dashboard } from "./dashboard";
+import { Dashboard, InitialDashboardDataType } from "./dashboard";
 
 export type InitialDataType = {
   url: string;
   language: Schema.LanguageType;
   translations: TranslationsType;
-};
+} & InitialDashboardDataType;
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnMount: false } },
 });
 
 export function App(props: InitialDataType) {
+  queryClient.setQueryData("trackers", props.trackers);
+
   return (
     <QueryClientProvider client={queryClient}>
       <bg.TranslationsContextProvider

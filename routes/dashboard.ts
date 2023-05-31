@@ -20,6 +20,7 @@ export async function Dashboard(
     ...Repos.BuildRepository.getAll(),
     language: request.language,
     translations,
+    trackers: await Repos.TrackerRepository.list(),
   };
 
   const frontend = render(App({ ...state, url: request.url }));
