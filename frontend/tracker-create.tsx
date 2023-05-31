@@ -30,10 +30,8 @@ export function TrackerCreate() {
   return (
     <form
       data-display="flex"
-      data-direction="column"
       data-gap="24"
       data-p="24"
-      style={{ maxWidth: "350px" }}
       onSubmit={(event) => {
         event.preventDefault();
         trackerCreate.mutate({
@@ -55,6 +53,7 @@ export function TrackerCreate() {
           placeholder={t("tracker.name.placeholder")}
           required
           value={trackerName.value}
+          style={{ minWidth: "200px" }}
         />
       </div>
 
@@ -74,7 +73,12 @@ export function TrackerCreate() {
         </select>
       </div>
 
-      <button type="submit" class="c-button" data-variant="secondary">
+      <button
+        type="submit"
+        class="c-button"
+        data-variant="secondary"
+        data-self="end"
+      >
         {t("tracker.create.submit")}
       </button>
     </form>
