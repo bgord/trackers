@@ -44,6 +44,16 @@ app.get(
 app.post("/tracker", AuthShield.verify, bg.Route(Routes.TrackerCreate));
 app.get("/tracker", AuthShield.verify, bg.Route(Routes.TrackerList));
 
+app.get(
+  "/healthcheck",
+  bg.Healthcheck.build([
+    new bg.Prerequisite({
+      label: "self",
+      strategy: bg.PrerequisiteStrategyEnum.self,
+    }),
+  ])
+);
+
 app.get("*", (_, response) => response.redirect("/"));
 app.use(ErrorHandler.handle);
 
