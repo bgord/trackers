@@ -7,6 +7,8 @@ const EnvironmentSchema = z.object({
   ADMIN_PASSWORD: bg.Schema.AdminPassword,
   COOKIE_SECRET: bg.Schema.CookieSecret,
   LOGS_LEVEL: bg.Schema.LogLevel,
+  BASIC_AUTH_USERNAME: bg.Schema.BasicAuthUsername,
+  BASIC_AUTH_PASSWORD: bg.Schema.BasicAuthPassword,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 

@@ -23,6 +23,12 @@ const AuthShield = new bg.EnvUserAuthShield({
   ADMIN_PASSWORD: Env.ADMIN_PASSWORD,
 });
 AuthShield.applyTo(app);
+
+const BasicAuthShield = new bg.BasicAuthShield({
+  username: Env.BASIC_AUTH_USERNAME,
+  password: Env.BASIC_AUTH_PASSWORD,
+});
+
 bg.HttpLogger.applyTo(app, logger);
 
 app.get("/", bg.CsrfShield.attach, bg.Route(Routes.Home));
@@ -46,6 +52,7 @@ app.get("/tracker", AuthShield.verify, bg.Route(Routes.TrackerList));
 
 app.get(
   "/healthcheck",
+  BasicAuthShield.verify,
   bg.Healthcheck.build([
     new bg.Prerequisite({
       label: "self",
