@@ -20,5 +20,6 @@ model Tracker {
   id        String @id @default(uuid())
   kind      String
   name      String
+  value     Float
   createdAt Int
 }

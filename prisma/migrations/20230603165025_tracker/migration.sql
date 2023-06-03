@@ -13,5 +13,6 @@ CREATE TABLE "Tracker" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "kind" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "value" REAL NOT NULL,
     "createdAt" INTEGER NOT NULL
 );

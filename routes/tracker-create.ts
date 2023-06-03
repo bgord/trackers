@@ -15,6 +15,7 @@ export async function TrackerCreate(
   logger.info({
     message: "Tracker create payload",
     operation: "tracker_create_payload",
+    correlationId: request.requestId,
     metadata: { name, kind },
   });
 
