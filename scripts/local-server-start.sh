@@ -30,4 +30,5 @@ npx ts-node-dev \
   --exit-child \
   --transpile-only \
   --rs \
+  --watch '.env.local' \
   -- index.ts
