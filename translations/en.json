@@ -1,7 +1,8 @@
 {
-  "app.name": "trackers",
-  "app.logout": "logout",
+  "app.general.error": "Something went wrong",
   "app.loading": "loading...",
+  "app.logout": "logout",
+  "app.name": "trackers",
   "app.no_internet_connection": "No internet connection",
 
   "tracker.name.label": "Tracker name",
