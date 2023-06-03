@@ -52,6 +52,7 @@ app.get("/tracker", AuthShield.verify, bg.Route(Routes.TrackerList));
 
 app.get(
   "/healthcheck",
+  bg.Timeout.build({ timeoutMs: bg.Time.Seconds(2).toMs() }),
   BasicAuthShield.verify,
   bg.Healthcheck.build([
     new bg.Prerequisite({

@@ -67,6 +67,19 @@ export class ErrorHandler {
         .send({ message: VO.TRACKER_NAME_UNIQUE_ERROR_KEY, _known: true });
     }
 
+    if (error instanceof bg.Errors.RequestTimeoutError) {
+      logger.error({
+        message: "Request timeout error",
+        operation: "request_timeout_error",
+        correlationId: request.requestId,
+        metadata: { timeoutMs: error.timeoutMs },
+      });
+
+      return response
+        .status(408)
+        .send({ message: "request_timeout_error", _known: true });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(
