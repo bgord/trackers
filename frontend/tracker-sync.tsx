@@ -13,7 +13,9 @@ export function TrackerSync(props: types.TrackerType) {
   const trackerSync = useMutation(api.Tracker.sync, {
     onSuccess: () => {
       notify({ message: "tracker.value.sync.success" });
+
       queryClient.invalidateQueries("trackers");
+      queryClient.invalidateQueries("tracker-sync-datapoints");
     },
     onError: (error: bg.ServerError) => notify({ message: error.message }),
   });

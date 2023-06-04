@@ -3,7 +3,9 @@ import * as Icons from "iconoir-react";
 import { h } from "preact";
 
 import * as types from "./types";
+
 import { TrackerSync } from "./tracker-sync";
+import { TrackerSyncDatapoints } from "./tracker-sync-datapoints";
 
 export function Tracker(props: types.TrackerType) {
   const t = bg.useTranslations();
@@ -35,6 +37,7 @@ export function Tracker(props: types.TrackerType) {
       {details.on && (
         <div>
           <TrackerSync {...props} />
+          <TrackerSyncDatapoints {...props} />
         </div>
       )}
     </li>

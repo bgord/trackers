@@ -25,6 +25,7 @@ export function TrackerCreate() {
       trackerKind.clear();
 
       queryClient.invalidateQueries("trackers");
+
       notify({ message: "tracker.create.success" });
     },
     onError: (error: ServerError) => notify({ message: error.message }),

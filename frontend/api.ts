@@ -38,4 +38,12 @@ export class Tracker {
       body: JSON.stringify({ value: payload.value }),
     });
   }
+
+  static async getSyncDatapoints(
+    id: types.TrackerType["id"]
+  ): Promise<types.TrackerSyncDatapointType[]> {
+    return _api(`/tracker/${id}/sync/datapoints`, { method: "GET" }).then(
+      (response) => (response.ok ? response.json() : [])
+    );
+  }
 }

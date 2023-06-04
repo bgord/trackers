@@ -6,3 +6,4 @@ export type ToastType = bg.BaseToastType;
 export { TrackerKindEnum } from "../value-objects/tracker-kind-enum";
 
 export type { TrackerType } from "../value-objects/tracker";
+export type { TrackerSyncDatapointType } from "../value-objects/tracker-sync-datapoint";
