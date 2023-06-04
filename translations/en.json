@@ -1,9 +1,11 @@
 {
+  "app.clear": "Clear",
   "app.general.error": "Something went wrong",
   "app.loading": "loading...",
   "app.logout": "logout",
   "app.name": "trackers",
   "app.no_internet_connection": "No internet connection",
+  "app.sync": "Sync",
 
   "tracker.name.label": "Tracker name",
   "tracker.name.placeholder": "Read 5 minutes a day...",
@@ -13,6 +15,9 @@
   "tracker.kind.label": "Tracker kind",
   "tracker.kind.enum.one_value": "One value",
   "tracker.kind.error": "Invalid tracker kind",
+
+  "tracker.value.label": "Tracker value",
+  "tracker.value.sync.success": "Tracker value synced",
 
   "tracker.create.submit": "Create",
   "tracker.create.success": "Tracker created",

@@ -1,12 +1,25 @@
 import * as bg from "@bgord/frontend";
 import * as Icons from "iconoir-react";
 import { h } from "preact";
+import { useMutation, useQueryClient } from "react-query";
 
 import * as types from "./types";
+import * as api from "./api";
 
 export function Tracker(props: types.TrackerType) {
   const t = bg.useTranslations();
+  const notify = bg.useToastTrigger();
+  const queryClient = useQueryClient();
 
+  const trackerSync = useMutation(api.Tracker.sync, {
+    onSuccess: () => {
+      notify({ message: "tracker.value.sync.success" });
+      queryClient.invalidateQueries("trackers");
+    },
+    onError: (error: bg.ServerError) => notify({ message: error.message }),
+  });
+
+  const trackerValue = bg.useField<types.TrackerType["value"]>(props.value);
   const details = bg.useToggle();
 
   return (
@@ -31,7 +44,54 @@ export function Tracker(props: types.TrackerType) {
         </div>
       </div>
 
-      {details.on && <div>details</div>}
+      {details.on && (
+        <div>
+          <form
+            data-display="flex"
+            data-cross="end"
+            data-mt="12"
+            data-gap="12"
+            onSubmit={(event) => {
+              event.preventDefault();
+              trackerSync.mutate({ id: props.id, value: trackerValue.value });
+            }}
+          >
+            <div data-display="flex" data-direction="column">
+              <label class="c-label" htmlFor="value">
+                {t("tracker.value.label")}
+              </label>
+              <input
+                id="value"
+                name="value"
+                class="c-input"
+                value={trackerValue.value}
+                onChange={(event) =>
+                  trackerValue.set(Number(event.currentTarget.value))
+                }
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="c-button"
+              data-variant="primary"
+              disabled={props.value === trackerValue.value}
+            >
+              {t("app.sync")}
+            </button>
+
+            <button
+              type="button"
+              class="c-button"
+              data-variant="bare"
+              disabled={props.value === trackerValue.value}
+              onClick={trackerValue.clear}
+            >
+              {t("app.clear")}
+            </button>
+          </form>
+        </div>
+      )}
     </li>
   );
 }
