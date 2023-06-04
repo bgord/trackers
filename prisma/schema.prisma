@@ -22,4 +22,5 @@ model Tracker {
   name      String
   value     Float
   createdAt Int
+  updatedAt Int
 }

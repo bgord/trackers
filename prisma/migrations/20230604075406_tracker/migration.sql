@@ -14,5 +14,6 @@ CREATE TABLE "Tracker" (
     "kind" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "value" REAL NOT NULL,
-    "createdAt" INTEGER NOT NULL
+    "createdAt" INTEGER NOT NULL,
+    "updatedAt" INTEGER NOT NULL
 );
