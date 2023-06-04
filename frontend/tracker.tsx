@@ -20,6 +20,8 @@ export function Tracker(props: types.TrackerType) {
   });
 
   const trackerValue = bg.useField<types.TrackerType["value"]>(props.value);
+  const isTrackerValueTheSame = props.value === trackerValue.value;
+
   const details = bg.useToggle();
 
   return (
@@ -64,9 +66,12 @@ export function Tracker(props: types.TrackerType) {
                 id="value"
                 name="value"
                 class="c-input"
+                type="number"
+                step="0.01"
                 value={trackerValue.value}
+                disabled={trackerSync.isLoading}
                 onChange={(event) =>
-                  trackerValue.set(Number(event.currentTarget.value))
+                  trackerValue.set(event.currentTarget.valueAsNumber)
                 }
               />
             </div>
@@ -75,7 +80,7 @@ export function Tracker(props: types.TrackerType) {
               type="submit"
               class="c-button"
               data-variant="primary"
-              disabled={props.value === trackerValue.value}
+              disabled={isTrackerValueTheSame || trackerSync.isLoading}
             >
               {t("app.sync")}
             </button>
@@ -84,7 +89,7 @@ export function Tracker(props: types.TrackerType) {
               type="button"
               class="c-button"
               data-variant="bare"
-              disabled={props.value === trackerValue.value}
+              disabled={isTrackerValueTheSame || trackerSync.isLoading}
               onClick={trackerValue.clear}
             >
               {t("app.clear")}

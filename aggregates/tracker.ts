@@ -19,7 +19,7 @@ export class Tracker {
 
   async build() {
     const events = await Repos.EventRepository.find(
-      [Events.TrackerAddedEvent],
+      [Events.TrackerAddedEvent, Events.TrackerSyncedEvent],
       Tracker.getStream(this.id)
     );
 
@@ -27,6 +27,12 @@ export class Tracker {
       switch (event.name) {
         case Events.TRACKER_ADDED_EVENT:
           this.entity = event.payload;
+          break;
+
+        case Events.TRACKER_SYNCED_EVENT:
+          if (!this.entity) continue;
+          this.entity.value = event.payload.value;
+          this.entity.updatedAt = event.payload.updatedAt;
           break;
 
         default:

@@ -18,6 +18,7 @@
 
   "tracker.value.label": "Tracker value",
   "tracker.value.sync.success": "Tracker value synced",
+  "tracker.value.sync.error.value_not_changed": "Tracker value not changed",
 
   "tracker.create.submit": "Create",
   "tracker.create.success": "Tracker created",

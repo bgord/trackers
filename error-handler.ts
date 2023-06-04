@@ -55,6 +55,19 @@ export class ErrorHandler {
         .send({ message: "app.too_many_requests", _known: true });
     }
 
+    if (error instanceof bg.Errors.RequestTimeoutError) {
+      logger.error({
+        message: "Request timeout error",
+        operation: "request_timeout_error",
+        correlationId: request.requestId,
+        metadata: { timeoutMs: error.timeoutMs },
+      });
+
+      return response
+        .status(408)
+        .send({ message: "request_timeout_error", _known: true });
+    }
+
     if (error instanceof Policies.TrackerNameIsUniqueError) {
       logger.error({
         message: "Tracker name is not unique",
@@ -67,17 +80,17 @@ export class ErrorHandler {
         .send({ message: VO.TRACKER_NAME_UNIQUE_ERROR_KEY, _known: true });
     }
 
-    if (error instanceof bg.Errors.RequestTimeoutError) {
+    if (error instanceof Policies.TrackerValueShouldChangeError) {
       logger.error({
-        message: "Request timeout error",
-        operation: "request_timeout_error",
+        message: "Tracker value has not changed",
+        operation: "tracker_value_sync_error_value_not_changed",
         correlationId: request.requestId,
-        metadata: { timeoutMs: error.timeoutMs },
       });
 
-      return response
-        .status(408)
-        .send({ message: "request_timeout_error", _known: true });
+      return response.status(400).send({
+        message: "tracker.value.sync.error.value_not_changed",
+        _known: true,
+      });
     }
 
     if (error instanceof z.ZodError) {
