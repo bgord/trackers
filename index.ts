@@ -56,6 +56,12 @@ app.post(
 );
 
 app.get(
+  "/tracker/:trackerId/sync/datapoints",
+  AuthShield.verify,
+  bg.Route(Routes.TrackerSyncDatapoints)
+);
+
+app.get(
   "/healthcheck",
   bg.Timeout.build({ timeoutMs: bg.Time.Seconds(2).toMs() }),
   BasicAuthShield.verify,

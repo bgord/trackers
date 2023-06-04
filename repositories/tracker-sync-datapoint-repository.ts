@@ -14,4 +14,11 @@ export class TrackerSyncDatapointRepository {
       },
     });
   }
+
+  static async list(payload: Pick<VO.TrackerType, "id">) {
+    return db.trackerSyncDatapoint.findMany({
+      where: { trackerId: payload.id },
+      orderBy: { createdAt: "asc" },
+    });
+  }
 }
