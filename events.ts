@@ -38,4 +38,5 @@ emittery.on(TRACKER_ADDED_EVENT, async (event) => {
 
 emittery.on(TRACKER_SYNCED_EVENT, async (event) => {
   await Repos.TrackerRepository.sync(event.payload);
+  await Repos.TrackerSyncDatapointRepository.add(event.payload);
 });

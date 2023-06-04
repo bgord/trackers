@@ -17,10 +17,19 @@ model Event {
 }
 
 model Tracker {
-  id        String @id @default(uuid())
-  kind      String
-  name      String
+  id                   String                 @id @default(uuid())
+  kind                 String
+  name                 String
+  value                Float
+  createdAt            Int
+  updatedAt            Int
+  TrackerSyncDatapoint TrackerSyncDatapoint[]
+}
+
+model TrackerSyncDatapoint {
+  id        String  @id @default(uuid())
   value     Float
+  tracker   Tracker @relation(fields: [trackerId], references: [id])
+  trackerId String
   createdAt Int
-  updatedAt Int
 }
