@@ -13,8 +13,9 @@ export function TrackerCreate() {
   const notify = bg.useToastTrigger();
   const queryClient = useQueryClient();
 
-  const trackerName = bg.useField<types.TrackerNameType>("");
+  const trackerName = bg.useField<types.TrackerNameType>("tracker-name", "");
   const trackerKind = bg.useField<types.TrackerKindEnum>(
+    "tracker-kind",
     types.TrackerKindEnum.one_value
   );
 
@@ -43,31 +44,32 @@ export function TrackerCreate() {
       }}
     >
       <div data-display="flex" data-direction="column">
-        <label htmlFor="tracker.name" class="c-label">
+        <label class="c-label" {...trackerName.label.props}>
           {t("tracker.name.label")}
         </label>
         <input
           class="c-input"
-          id="tracker-name"
-          name="tracker-name"
           onChange={(event) => trackerName.set(event.currentTarget.value)}
           pattern={`.{${TRACKER_NAME_MIN_LENGTH},${TRACKER_NAME_MAX_LENGTH}}`}
           placeholder={t("tracker.name.placeholder")}
           required
-          value={trackerName.value}
           style={{ minWidth: "200px" }}
+          value={trackerName.value}
+          {...trackerName.input.props}
         />
       </div>
 
       <div data-display="flex" data-direction="column">
-        <label class="c-label">{t("tracker.kind.label")}</label>
+        <label class="c-label" {...trackerKind.label.props}>
+          {t("tracker.kind.label")}
+        </label>
+
         <select
           class="c-select"
-          id="tracker-kind"
-          name="tracker-kind"
           onChange={(event) => trackerKind.set(event.currentTarget.value)}
           required
           value={trackerKind.value}
+          {...trackerKind.input.props}
         >
           {Object.keys(types.TrackerKindEnum).map((option) => (
             <option value={option}>{t(`tracker.kind.enum.${option}`)}</option>

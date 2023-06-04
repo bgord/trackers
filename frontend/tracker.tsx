@@ -19,7 +19,10 @@ export function Tracker(props: types.TrackerType) {
     onError: (error: bg.ServerError) => notify({ message: error.message }),
   });
 
-  const trackerValue = bg.useField<types.TrackerType["value"]>(props.value);
+  const trackerValue = bg.useField<types.TrackerType["value"]>(
+    "tracker-value",
+    props.value
+  );
   const isTrackerValueTheSame = props.value === trackerValue.value;
 
   const details = bg.useToggle();
@@ -59,12 +62,11 @@ export function Tracker(props: types.TrackerType) {
             }}
           >
             <div data-display="flex" data-direction="column">
-              <label class="c-label" htmlFor="value">
+              <label class="c-label" {...trackerValue.label.props}>
                 {t("tracker.value.label")}
               </label>
+
               <input
-                id="value"
-                name="value"
                 class="c-input"
                 type="number"
                 step="0.01"
@@ -73,6 +75,7 @@ export function Tracker(props: types.TrackerType) {
                 onChange={(event) =>
                   trackerValue.set(event.currentTarget.valueAsNumber)
                 }
+                {...trackerValue.input.props}
               />
             </div>
 
