@@ -1,16 +1,18 @@
 import z from "zod";
 
-import { TrackerId } from "./tracker-id";
-import { TrackerName } from "./tracker-name";
-import { TrackerKind } from "./tracker-kind";
-import { TrackerValue } from "./tracker-value";
 import { TrackerCreatedAt } from "./tracker-created-at";
+import { TrackerId } from "./tracker-id";
+import { TrackerKind } from "./tracker-kind";
+import { TrackerName } from "./tracker-name";
+import { TrackerUpdatedAt } from "./tracker-updated-at";
+import { TrackerValue } from "./tracker-value";
 
 export const Tracker = z.object({
-  id: TrackerId,
-  name: TrackerName,
-  kind: TrackerKind,
-  value: TrackerValue,
   createdAt: TrackerCreatedAt,
+  id: TrackerId,
+  kind: TrackerKind,
+  name: TrackerName,
+  updatedAt: TrackerUpdatedAt,
+  value: TrackerValue,
 });
 export type TrackerType = z.infer<typeof Tracker>;
