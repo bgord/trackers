@@ -5,7 +5,9 @@ import { db } from "../db";
 
 import * as Events from "../events";
 
-type AcceptedEvent = typeof Events.TrackerAddedEvent;
+type AcceptedEvent =
+  | typeof Events.TrackerAddedEvent
+  | typeof Events.TrackerSyncedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {

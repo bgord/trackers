@@ -17,6 +17,14 @@ export class TrackerRepository {
     return z.array(VO.Tracker).parse(trackers);
   }
 
+  static async sync(
+    payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt">
+  ) {
+    const { id, ...data } = payload;
+
+    return db.tracker.update({ where: { id }, data });
+  }
+
   static async getNumberOfTrackersWithName(name: VO.TrackerNameType) {
     return db.tracker.count({ where: { name } });
   }

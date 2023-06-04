@@ -52,6 +52,24 @@ export class Tracker {
     );
   }
 
+  async sync(value: VO.TrackerValueType) {
+    if (!this.entity) return;
+
+    await Policies.TrackerValueShouldChange.perform({
+      currentValue: this.entity.value,
+      syncedValue: value,
+    });
+
+    await Repos.EventRepository.save(
+      Events.TrackerSyncedEvent.parse({
+        name: Events.TRACKER_SYNCED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id, value, updatedAt: Date.now() },
+      })
+    );
+  }
+
   static getStream(id: VO.TrackerIdType) {
     return `tracker_${id}`;
   }

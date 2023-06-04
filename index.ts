@@ -49,6 +49,11 @@ app.get(
 
 app.post("/tracker", AuthShield.verify, bg.Route(Routes.TrackerCreate));
 app.get("/tracker", AuthShield.verify, bg.Route(Routes.TrackerList));
+app.post(
+  "/tracker/:trackerId/sync",
+  AuthShield.verify,
+  bg.Route(Routes.TrackerSync)
+);
 
 app.get(
   "/healthcheck",
