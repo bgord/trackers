@@ -66,7 +66,7 @@ export function TrackerCreate() {
 
         <select
           class="c-select"
-          onChange={(event) => trackerKind.set(event.currentTarget.value)}
+          onBlur={(event) => trackerKind.set(event.currentTarget.value)}
           required
           value={trackerKind.value}
           {...trackerKind.input.props}
