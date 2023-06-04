@@ -47,7 +47,9 @@ export function TrackerSync(props: types.TrackerType) {
           value={trackerValue.value}
           disabled={trackerSync.isLoading}
           onChange={(event) =>
-            trackerValue.set(event.currentTarget.valueAsNumber)
+            trackerValue.set(
+              event.currentTarget.valueAsNumber as types.TrackerType["value"]
+            )
           }
           {...trackerValue.input.props}
         />
