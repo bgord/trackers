@@ -29,7 +29,7 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
   return (
     <ul data-display="flex" data-gap="12" data-mt="24">
       {trackerSyncDatapoints.data.map((datapoint) => (
-        <li key={datapoint.createdAt}>{datapoint.value}</li>
+        <li key={datapoint.id}>{datapoint.value}</li>
       ))}
     </ul>
   );
