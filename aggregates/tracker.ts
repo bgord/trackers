@@ -37,9 +37,7 @@ export class Tracker {
     return this;
   }
 
-  static async add(
-    payload: Omit<VO.TrackerType, "id" | "value" | "createdAt">
-  ) {
+  static async add(payload: Pick<VO.TrackerType, "kind" | "name">) {
     const id = VO.TrackerId.parse(bg.NewUUID.generate());
 
     await Policies.TrackerNameIsUnique.perform({ trackerName: payload.name });
