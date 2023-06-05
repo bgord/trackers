@@ -32,10 +32,16 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
         <li data-display="flex" key={datapoint.id}>
           <div
             data-display="flex"
+            data-main="center"
             data-cross="center"
             data-bg="gray-200"
             data-px="3"
-            style={{ minHeight: "24px", height: `${datapoint.value.scaled}px` }}
+            data-fs="12"
+            style={{
+              minHeight: "24px",
+              height: `${datapoint.value.scaled}px`,
+              minWidth: "36px",
+            }}
           >
             {datapoint.value.actual}
           </div>
