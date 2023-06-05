@@ -35,7 +35,7 @@ export function Tracker(props: types.TrackerType) {
       </div>
 
       {details.on && (
-        <div>
+        <div data-display="flex" data-direction="column" data-gap="12">
           <TrackerSync {...props} />
           <TrackerSyncDatapoints {...props} />
         </div>

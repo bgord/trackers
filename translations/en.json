@@ -1,7 +1,7 @@
 {
   "app.clear": "Clear",
   "app.general.error": "Something went wrong",
-  "app.loading": "loading...",
+  "app.loading": "Loading...",
   "app.logout": "logout",
   "app.name": "trackers",
   "app.no_internet_connection": "No internet connection",
