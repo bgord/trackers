@@ -37,6 +37,10 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
             data-bg="gray-200"
             data-px="3"
             data-fs="12"
+            data-bwb={datapoint.value.isMin ? "4" : undefined}
+            data-bcb={datapoint.value.isMin ? "gray-400" : undefined}
+            data-bwt={datapoint.value.isMax ? "4" : undefined}
+            data-bct={datapoint.value.isMax ? "gray-400" : undefined}
             style={{
               minHeight: "24px",
               height: `${datapoint.value.scaled}px`,

@@ -31,10 +31,7 @@ export class TrackerSyncDatapointRepository {
 
     return datapoints.map((point) => ({
       ...point,
-      value: {
-        actual: point.value,
-        scaled: minMaxScaler.scale(point.value),
-      },
+      value: minMaxScaler.scale(point.value),
     }));
   }
 }
