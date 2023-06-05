@@ -6,6 +6,8 @@ import * as UI from "./ui";
 import * as types from "./types";
 import * as api from "./api";
 
+import { TrackerSyncDatapointsBar } from "./tracker-sync-datapoints-bar";
+
 export function TrackerSyncDatapoints(props: types.TrackerType) {
   const t = bg.useTranslations();
 
@@ -36,27 +38,7 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
       data-gap="3"
     >
       {trackerSyncDatapoints.data.map((datapoint) => (
-        <li data-display="flex" key={datapoint.id}>
-          <div
-            data-display="flex"
-            data-main="center"
-            data-cross="center"
-            data-bg="gray-200"
-            data-px="3"
-            data-fs="12"
-            data-bwb={datapoint.value.isMin ? "4" : undefined}
-            data-bcb={datapoint.value.isMin ? "gray-400" : undefined}
-            data-bwt={datapoint.value.isMax ? "4" : undefined}
-            data-bct={datapoint.value.isMax ? "gray-400" : undefined}
-            style={{
-              minHeight: "24px",
-              height: `${datapoint.value.scaled}px`,
-              minWidth: "36px",
-            }}
-          >
-            {datapoint.value.actual}
-          </div>
-        </li>
+        <TrackerSyncDatapointsBar key={datapoint.id} {...datapoint} />
       ))}
     </ul>
   );
