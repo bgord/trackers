@@ -27,10 +27,18 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
   }
 
   return (
-    <ul data-display="flex" data-gap="12" data-mt="24">
+    <ul data-display="flex" data-cross="end" data-gap="3" data-mt="24">
       {trackerSyncDatapoints.data.map((datapoint) => (
-        <li key={datapoint.id}>
-          {datapoint.value.actual} ({datapoint.value.scaled})
+        <li data-display="flex" key={datapoint.id}>
+          <div
+            data-display="flex"
+            data-cross="center"
+            data-bg="gray-200"
+            data-px="3"
+            style={{ minHeight: "24px", height: `${datapoint.value.scaled}px` }}
+          >
+            {datapoint.value.actual}
+          </div>
         </li>
       ))}
     </ul>
