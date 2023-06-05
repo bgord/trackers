@@ -13,7 +13,7 @@ export function Tracker(props: types.TrackerType) {
   const details = bg.useToggle();
 
   return (
-    <li data-display="flex" data-direction="column">
+    <li data-display="flex" data-direction="column" data-max-width="100%">
       <div data-display="flex" data-cross="center" data-gap="12">
         <button
           class="c-button"
@@ -35,7 +35,12 @@ export function Tracker(props: types.TrackerType) {
       </div>
 
       {details.on && (
-        <div data-display="flex" data-direction="column" data-gap="12">
+        <div
+          data-display="flex"
+          data-direction="column"
+          data-max-width="100%"
+          data-gap="12"
+        >
           <TrackerSync {...props} />
           <TrackerSyncDatapoints {...props} />
         </div>

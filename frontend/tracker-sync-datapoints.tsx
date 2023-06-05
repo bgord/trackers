@@ -27,7 +27,15 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
   }
 
   return (
-    <ul data-display="flex" data-cross="end" data-gap="3" data-mt="24">
+    <ul
+      data-display="flex"
+      data-cross="end"
+      data-wrap="nowrap"
+      data-max-width="100%"
+      data-overflow="scroll"
+      data-gap="3"
+      data-mt="24"
+    >
       {trackerSyncDatapoints.data.map((datapoint) => (
         <li data-display="flex" key={datapoint.id}>
           <div
