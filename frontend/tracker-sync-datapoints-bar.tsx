@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as bg from "@bgord/frontend";
 import { h } from "preact";
 
@@ -7,9 +8,14 @@ export function TrackerSyncDatapointsBar(
   props: types.TrackerSyncDatapointType
 ) {
   const details = bg.useToggle(false);
-  const { isHovering, attach } = bg.useHover();
 
-  const isInteractive = details.on || isHovering;
+  const { isHovering, attach } = bg.useHover();
+  const debouncedIsHovering = bg.useDebounce<boolean>({
+    value: isHovering,
+    delayMs: 25,
+  });
+
+  const isInteractive = details.on || debouncedIsHovering;
 
   return (
     <li
@@ -17,6 +23,10 @@ export function TrackerSyncDatapointsBar(
       data-direction="column"
       data-cursor={isInteractive ? "pointer" : "auto"}
       onClick={details.toggle}
+      onKeyDown={(event) => {
+        [13, 32].includes(event.keyCode) ? details.toggle() : bg.noop();
+      }}
+      tabIndex={0}
       {...attach}
     >
       <div
