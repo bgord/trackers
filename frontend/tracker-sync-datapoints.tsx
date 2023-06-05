@@ -34,7 +34,6 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
       data-max-width="100%"
       data-overflow="scroll"
       data-gap="3"
-      data-mt="24"
     >
       {trackerSyncDatapoints.data.map((datapoint) => (
         <li data-display="flex" key={datapoint.id}>

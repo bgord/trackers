@@ -1,4 +1,5 @@
 import * as bg from "@bgord/frontend";
+import * as Icons from "iconoir-react";
 import { h } from "preact";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -31,7 +32,6 @@ export function TrackerSync(props: types.TrackerType) {
       data-display="flex"
       data-cross="end"
       data-mt="12"
-      data-gap="12"
       onSubmit={(event) => {
         event.preventDefault();
         trackerSync.mutate({ id: props.id, value: trackerValue.value });
@@ -58,9 +58,32 @@ export function TrackerSync(props: types.TrackerType) {
       </div>
 
       <button
+        class="c-button"
+        type="button"
+        data-variant="with-icon"
+        title={t("tracker.value.increase")}
+        onClick={() => trackerValue.set(trackerValue.value + 1)}
+        disabled={trackerSync.isLoading}
+      >
+        <Icons.Plus height="20" width="20" />
+      </button>
+
+      <button
+        class="c-button"
+        type="button"
+        data-variant="with-icon"
+        title={t("tracker.value.decrease")}
+        onClick={() => trackerValue.set(trackerValue.value - 1)}
+        disabled={trackerSync.isLoading}
+      >
+        <Icons.Minus height="20" width="20" />
+      </button>
+
+      <button
         type="submit"
         class="c-button"
         data-variant="primary"
+        data-mx="12"
         disabled={isTrackerValueTheSame || trackerSync.isLoading}
       >
         {t("app.sync")}
