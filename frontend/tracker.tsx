@@ -24,8 +24,8 @@ export function Tracker(props: types.TrackerType) {
           }
           onClick={details.toggle}
         >
-          {details.off && <Icons.NavArrowDown height="24" width="24" />}
-          {details.on && <Icons.NavArrowUp height="24" width="24" />}
+          {details.off && <Icons.NavArrowRight height="24" width="24" />}
+          {details.on && <Icons.NavArrowDown height="24" width="24" />}
         </button>
 
         <div class="c-badge">{t(`tracker.kind.enum.${props.kind}`)}</div>
