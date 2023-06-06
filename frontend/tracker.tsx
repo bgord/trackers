@@ -32,6 +32,10 @@ export function Tracker(props: types.TrackerType) {
         <div data-fs="14" data-color="gray-700">
           {props.name}
         </div>
+
+        <div data-fs="14" data-fw="700">
+          {props.value}
+        </div>
       </div>
 
       {details.on && (
