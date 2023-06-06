@@ -19,7 +19,7 @@ export class TrackerSyncDatapointRepository {
   static async list(payload: Pick<VO.TrackerType, "id">) {
     const datapoints = await db.trackerSyncDatapoint.findMany({
       where: { trackerId: payload.id },
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
     });
 
     if (datapoints.length === 0) return [];
