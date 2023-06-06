@@ -25,7 +25,10 @@ export class TrackerSyncDatapointRepository {
     if (datapoints.length === 0) return [];
 
     const minMaxScaler = new bg.MinMaxScaler({
-      bound: { lower: 24, upper: 200 },
+      bound: {
+        lower: VO.TRACKER_SYNC_DATAPOINT_BOUND_LOWER,
+        upper: VO.TRACKER_SYNC_DATAPOINT_BOUND_UPPER,
+      },
       ...bg.MinMaxScaler.getMinMax(datapoints.map((point) => point.value)),
     });
 

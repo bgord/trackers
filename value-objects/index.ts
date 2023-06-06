@@ -11,5 +11,7 @@ export * from "./tracker-name-structure-error-key";
 export * from "./tracker-name-unique-error-key";
 export * from "./tracker-sync-datapoint";
 export * from "./tracker-sync-datapoint-id";
+export * from "./tracker-sync-datapoint-bound-lower";
+export * from "./tracker-sync-datapoint-bound-upper";
 export * from "./tracker-updated-at";
 export * from "./tracker-value";
