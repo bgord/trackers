@@ -7,6 +7,7 @@ import * as types from "./types";
 import * as api from "./api";
 
 import { TrackerSyncDatapointsBar } from "./tracker-sync-datapoints-bar";
+import { TrackerSyncDatapointsPlaceholder } from "./tracker-sync-datapoints-bar-placeholder";
 
 export function TrackerSyncDatapoints(props: types.TrackerType) {
   const t = bg.useTranslations();
@@ -17,7 +18,7 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
   );
 
   if (trackerSyncDatapoints.isLoading) {
-    return <UI.Info>{t("app.loading")}</UI.Info>;
+    return <TrackerSyncDatapointsPlaceholder bars={15} />;
   }
 
   if (trackerSyncDatapoints.isError) {
