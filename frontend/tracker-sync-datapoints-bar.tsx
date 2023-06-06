@@ -24,10 +24,12 @@ export function TrackerSyncDatapointsBar(
       data-display="flex"
       data-direction="column"
       data-cursor={isInteractive ? "pointer" : "auto"}
+      data-wrap="nowrap"
       onClick={details.toggle}
       onKeyDown={(event) => {
         [13, 32].includes(event.keyCode) ? details.toggle() : bg.noop();
       }}
+      style={{ maxHeight: `${TRACKER_SYNC_DATAPOINT_BOUND_UPPER}px` }}
       tabIndex={0}
       {...attach}
     >

@@ -43,7 +43,7 @@ export function Tracker(props: types.TrackerType) {
           data-display="flex"
           data-direction="column"
           data-max-width="100%"
-          data-gap="12"
+          data-gap="36"
         >
           <TrackerSync {...props} />
           <TrackerSyncDatapoints {...props} />
