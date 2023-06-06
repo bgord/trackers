@@ -1,13 +1,12 @@
 import * as bg from "@bgord/node";
 import * as VO from "../value-objects";
-
-import { db } from "../db";
+import * as infra from "../infra";
 
 export class TrackerSyncDatapointRepository {
   static async add(
     payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt">
   ) {
-    return db.trackerSyncDatapoint.create({
+    return infra.db.trackerSyncDatapoint.create({
       data: {
         trackerId: payload.id,
         value: payload.value,
@@ -17,7 +16,7 @@ export class TrackerSyncDatapointRepository {
   }
 
   static async list(payload: Pick<VO.TrackerType, "id">) {
-    const datapoints = await db.trackerSyncDatapoint.findMany({
+    const datapoints = await infra.db.trackerSyncDatapoint.findMany({
       where: { trackerId: payload.id },
       orderBy: { createdAt: "desc" },
     });

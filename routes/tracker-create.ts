@@ -2,7 +2,7 @@ import express from "express";
 
 import * as VO from "../value-objects";
 import * as Aggregates from "../aggregates";
-import { logger } from "../logger";
+import * as infra from "../infra";
 
 export async function TrackerCreate(
   request: express.Request,
@@ -12,7 +12,7 @@ export async function TrackerCreate(
   const name = VO.TrackerName.parse(request.body.name);
   const kind = VO.TrackerKind.parse(request.body.kind);
 
-  logger.info({
+  infra.logger.info({
     message: "Tracker create payload",
     operation: "tracker_create_payload",
     correlationId: request.requestId,

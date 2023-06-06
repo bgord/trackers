@@ -1,10 +1,10 @@
 import express from "express";
 import * as bg from "@bgord/node";
 import z from "zod";
-import { logger } from "./logger";
 
-import * as VO from "./value-objects";
-import * as Policies from "./policies";
+import * as VO from "../value-objects";
+import * as Policies from "../policies";
+import * as infra from "../infra";
 
 export class ErrorHandler {
   /* eslint-disable max-params */
@@ -15,7 +15,7 @@ export class ErrorHandler {
     next
   ) => {
     if (error instanceof bg.Errors.InvalidCredentialsError) {
-      logger.error({
+      infra.logger.error({
         message: "Invalid credentials",
         operation: "invalid_credentials_error",
         correlationId: request.requestId,
@@ -24,7 +24,7 @@ export class ErrorHandler {
     }
 
     if (error instanceof bg.Errors.AccessDeniedError) {
-      logger.error({
+      infra.logger.error({
         message: "Access denied",
         operation: "access_denied_error",
         correlationId: request.requestId,
@@ -33,7 +33,7 @@ export class ErrorHandler {
     }
 
     if (error instanceof bg.Errors.FileNotFoundError) {
-      logger.error({
+      infra.logger.error({
         message: "File not found",
         operation: "file_not_found_error",
         correlationId: request.requestId,
@@ -43,7 +43,7 @@ export class ErrorHandler {
     }
 
     if (error instanceof bg.Errors.TooManyRequestsError) {
-      logger.error({
+      infra.logger.error({
         message: "Too many requests",
         operation: "too_many_requests",
         correlationId: request.requestId,
@@ -56,7 +56,7 @@ export class ErrorHandler {
     }
 
     if (error instanceof bg.Errors.RequestTimeoutError) {
-      logger.error({
+      infra.logger.error({
         message: "Request timeout error",
         operation: "request_timeout_error",
         correlationId: request.requestId,
@@ -69,7 +69,7 @@ export class ErrorHandler {
     }
 
     if (error instanceof Policies.TrackerNameIsUniqueError) {
-      logger.error({
+      infra.logger.error({
         message: "Tracker name is not unique",
         operation: VO.TRACKER_NAME_UNIQUE_ERROR_KEY,
         correlationId: request.requestId,
@@ -81,7 +81,7 @@ export class ErrorHandler {
     }
 
     if (error instanceof Policies.TrackerValueShouldChangeError) {
-      logger.error({
+      infra.logger.error({
         message: "Tracker value has not changed",
         operation: "tracker_value_sync_error_value_not_changed",
         correlationId: request.requestId,
@@ -117,7 +117,7 @@ export class ErrorHandler {
       }
     }
 
-    logger.error({
+    infra.logger.error({
       message: "Unknown error",
       operation: "unknown_error",
       correlationId: request.requestId,

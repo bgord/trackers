@@ -2,23 +2,20 @@ import express from "express";
 import * as bg from "@bgord/node";
 
 import * as Routes from "./routes";
-
-import { ErrorHandler } from "./error-handler";
-import { Env } from "./env";
-import { logger } from "./logger";
+import * as infra from "./infra";
 
 const AuthShield = new bg.EnvUserAuthShield({
-  ADMIN_USERNAME: Env.ADMIN_USERNAME,
-  ADMIN_PASSWORD: Env.ADMIN_PASSWORD,
+  ADMIN_USERNAME: infra.Env.ADMIN_USERNAME,
+  ADMIN_PASSWORD: infra.Env.ADMIN_PASSWORD,
 });
 
 const BasicAuthShield = new bg.BasicAuthShield({
-  username: Env.BASIC_AUTH_USERNAME,
-  password: Env.BASIC_AUTH_PASSWORD,
+  username: infra.Env.BASIC_AUTH_USERNAME,
+  password: infra.Env.BASIC_AUTH_PASSWORD,
 });
 
 const Session = new bg.Session({
-  secret: Env.COOKIE_SECRET,
+  secret: infra.Env.COOKIE_SECRET,
   store: bg.SessionFileStore.build({ ttl: bg.Time.Days(3).toSeconds() }),
 });
 
@@ -29,7 +26,7 @@ bg.Handlebars.applyTo(app);
 bg.Language.applyTo(app, bg.Schema.Path.parse("translations"));
 Session.applyTo(app);
 AuthShield.applyTo(app);
-bg.HttpLogger.applyTo(app, logger);
+bg.HttpLogger.applyTo(app, infra.logger);
 
 app.get("/", bg.CsrfShield.attach, bg.Route(Routes.Home));
 app.post(
@@ -74,32 +71,32 @@ app.get(
 );
 
 app.get("*", (_, response) => response.redirect("/"));
-app.use(ErrorHandler.handle);
+app.use(Routes.ErrorHandler.handle);
 
 (async function main() {
   await bg.GracefulStartup.check({
-    port: Env.PORT,
+    port: infra.Env.PORT,
     callback: () => {
-      logger.error({
+      infra.logger.error({
         message: "Busy port",
         operation: "server_startup_error",
-        metadata: { port: Env.PORT },
+        metadata: { port: infra.Env.PORT },
       });
 
       process.exit(1);
     },
   });
 
-  const server = app.listen(Env.PORT, async () => {
-    logger.info({
+  const server = app.listen(infra.Env.PORT, async () => {
+    infra.logger.info({
       message: "Server has started",
       operation: "server_startup",
-      metadata: { port: Env.PORT },
+      metadata: { port: infra.Env.PORT },
     });
   });
 
   bg.GracefulShutdown.applyTo(server, () => {
-    logger.info({
+    infra.logger.info({
       message: "Shutting down job scheduler",
       operation: "scheduler_shutdown",
     });
