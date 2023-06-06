@@ -15,9 +15,9 @@ export function TrackerSyncDatapointsBar(
     [bg.KeyNameEnum.Space]: details.toggle,
   });
 
-  const { isHovering, attach } = bg.useHover();
+  const hover = bg.useHover();
   const debouncedIsHovering = bg.useDebounce<boolean>({
-    value: isHovering,
+    value: hover.isHovering,
     delayMs: 25,
   });
 
@@ -31,9 +31,9 @@ export function TrackerSyncDatapointsBar(
       data-wrap="nowrap"
       onClick={details.toggle}
       onKeyDown={toggleDetailsKeyboardHandler}
-      style={{ maxHeight: `${TRACKER_SYNC_DATAPOINT_BOUND_UPPER}px` }}
       tabIndex={0}
-      {...attach}
+      style={{ maxHeight: `${TRACKER_SYNC_DATAPOINT_BOUND_UPPER}px` }}
+      {...hover.attach}
     >
       <div
         data-display="flex"

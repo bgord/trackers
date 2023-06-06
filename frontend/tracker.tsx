@@ -10,7 +10,7 @@ import { TrackerSyncDatapoints } from "./tracker-sync-datapoints";
 export function Tracker(props: types.TrackerType) {
   const t = bg.useTranslations();
 
-  const details = bg.useToggle();
+  const details = bg.usePersistentToggle(`tracker-details-${props.id}`);
 
   return (
     <li data-display="flex" data-direction="column" data-max-width="100%">
