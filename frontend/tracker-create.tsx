@@ -6,7 +6,6 @@ import * as api from "./api";
 import * as types from "./types";
 import { TRACKER_NAME_MIN_LENGTH } from "../value-objects/tracker-name-min-length";
 import { TRACKER_NAME_MAX_LENGTH } from "../value-objects/tracker-name-max-length";
-import { ServerError } from "./server-error";
 
 export function TrackerCreate() {
   const t = bg.useTranslations();
@@ -28,7 +27,7 @@ export function TrackerCreate() {
 
       notify({ message: "tracker.create.success" });
     },
-    onError: (error: ServerError) => notify({ message: error.message }),
+    onError: (error: bg.ServerError) => notify({ message: error.message }),
   });
 
   return (
