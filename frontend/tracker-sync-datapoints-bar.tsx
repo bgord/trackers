@@ -10,6 +10,10 @@ export function TrackerSyncDatapointsBar(
   props: types.TrackerSyncDatapointType
 ) {
   const details = bg.useToggle(false);
+  const toggleDetailsKeyboardHandler = bg.useKeyHandler({
+    [bg.KeyNameEnum.Enter]: details.toggle,
+    [bg.KeyNameEnum.Space]: details.toggle,
+  });
 
   const { isHovering, attach } = bg.useHover();
   const debouncedIsHovering = bg.useDebounce<boolean>({
@@ -17,18 +21,16 @@ export function TrackerSyncDatapointsBar(
     delayMs: 25,
   });
 
-  const isInteractive = details.on || debouncedIsHovering;
+  const isActive = details.on || debouncedIsHovering;
 
   return (
     <li
       data-display="flex"
       data-direction="column"
-      data-cursor={isInteractive ? "pointer" : "auto"}
+      data-cursor={isActive ? "pointer" : "auto"}
       data-wrap="nowrap"
       onClick={details.toggle}
-      onKeyDown={(event) => {
-        [13, 32].includes(event.keyCode) ? details.toggle() : bg.noop();
-      }}
+      onKeyDown={toggleDetailsKeyboardHandler}
       style={{ maxHeight: `${TRACKER_SYNC_DATAPOINT_BOUND_UPPER}px` }}
       tabIndex={0}
       {...attach}
@@ -37,7 +39,7 @@ export function TrackerSyncDatapointsBar(
         data-display="flex"
         data-main="center"
         data-cross="center"
-        data-bg={isInteractive ? "gray-300" : "gray-200"}
+        data-bg={isActive ? "gray-300" : "gray-200"}
         data-px="3"
         data-fs="12"
         data-bwb={props.value.isMin ? "4" : undefined}
@@ -53,7 +55,7 @@ export function TrackerSyncDatapointsBar(
         {props.value.actual}
       </div>
 
-      {isInteractive && (
+      {isActive && (
         <div data-fs="12">{bg.DateFormatter.monthDay(props.createdAt)}</div>
       )}
     </li>
