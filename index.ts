@@ -64,7 +64,8 @@ app.get(
 
 app.get(
   "/healthcheck",
-  bg.Timeout.build({ timeoutMs: bg.Time.Seconds(2).toMs() }),
+  bg.RateLimitShield.build({ limitMs: bg.Time.Minutes(1).toMs() }),
+  bg.Timeout.build({ timeoutMs: bg.Time.Seconds(5).toMs() }),
   BasicAuthShield.verify,
   bg.Healthcheck.build([
     new bg.Prerequisite({
