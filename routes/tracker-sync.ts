@@ -22,5 +22,5 @@ export async function TrackerSync(
   const tracker = await new Aggregates.Tracker(id).build();
   await tracker.sync(value);
 
-  return response.status(200).send();
+  return response.status(201).send();
 }
