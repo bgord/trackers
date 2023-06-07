@@ -19,6 +19,8 @@ const Session = new bg.Session({
   store: bg.SessionFileStore.build({ ttl: bg.Time.Days(3).toSeconds() }),
 });
 
+const CacheResponse = new bg.CacheResponse(infra.ResponseCache);
+
 const app = express();
 
 bg.addExpressEssentials(app);
@@ -49,12 +51,14 @@ app.get("/tracker", AuthShield.verify, bg.Route(Routes.TrackerList));
 app.post(
   "/tracker/:trackerId/sync",
   AuthShield.verify,
+  CacheResponse.clear,
   bg.Route(Routes.TrackerSync)
 );
 
 app.get(
   "/tracker/:trackerId/sync/datapoints",
   AuthShield.verify,
+  CacheResponse.handle,
   bg.Route(Routes.TrackerSyncDatapoints)
 );
 
