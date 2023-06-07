@@ -1,8 +1,9 @@
 /* eslint-disable */
 import * as bg from "@bgord/frontend";
-import { h } from "preact";
+import { h, Fragment } from "preact";
 
 import * as types from "./types";
+import { TrackerRevertDatapoint } from "./tracker-revert-datapoint";
 import { TRACKER_SYNC_DATAPOINT_BOUND_LOWER } from "../value-objects/tracker-sync-datapoint-bound-lower";
 import { TRACKER_SYNC_DATAPOINT_BOUND_UPPER } from "../value-objects/tracker-sync-datapoint-bound-upper";
 
@@ -56,7 +57,10 @@ export function TrackerSyncDatapointsBar(
       </div>
 
       {isActive && (
-        <div data-fs="12">{bg.DateFormatter.monthDay(props.createdAt)}</div>
+        <Fragment>
+          <div data-fs="12">{bg.DateFormatter.monthDay(props.createdAt)}</div>
+          <TrackerRevertDatapoint {...props} />
+        </Fragment>
       )}
     </li>
   );

@@ -39,6 +39,14 @@ export class Tracker {
     });
   }
 
+  static async revert(
+    payload: Pick<types.TrackerSyncDatapointType, "id" | "trackerId">
+  ) {
+    return _api(`/tracker/${payload.trackerId}/revert/${payload.id}`, {
+      method: "DELETE",
+    });
+  }
+
   static async getSyncDatapoints(
     id: types.TrackerType["id"]
   ): Promise<types.TrackerSyncDatapointType[]> {

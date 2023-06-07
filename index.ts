@@ -54,6 +54,12 @@ app.post(
   CacheResponse.clear,
   bg.Route(Routes.TrackerSync)
 );
+app.delete(
+  "/tracker/:trackerId/revert/:datapointId",
+  AuthShield.verify,
+  CacheResponse.clear,
+  bg.Route(Routes.TrackerRevert)
+);
 
 app.get(
   "/tracker/:trackerId/sync/datapoints",

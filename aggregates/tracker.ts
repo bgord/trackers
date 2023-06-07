@@ -1,4 +1,5 @@
 import * as bg from "@bgord/node";
+import _ from "lodash";
 
 import * as Events from "../events";
 import * as VO from "../value-objects";
@@ -19,9 +20,15 @@ export class Tracker {
 
   async build() {
     const events = await Repos.EventRepository.find(
-      [Events.TrackerAddedEvent, Events.TrackerSyncedEvent],
+      [
+        Events.TrackerAddedEvent,
+        Events.TrackerSyncedEvent,
+        Events.TrackerRevertEvent,
+      ],
       Tracker.getStream(this.id)
     );
+
+    const values = [];
 
     for (const event of events) {
       switch (event.name) {
@@ -31,8 +38,19 @@ export class Tracker {
 
         case Events.TRACKER_SYNCED_EVENT:
           if (!this.entity) continue;
-          this.entity.value = event.payload.value;
+
+          values.push({
+            datapointId: event.payload.datapointId,
+            value: event.payload.value,
+          });
+
+          this.entity.value = _.last(values)!.value ?? VO.DEFAULT_TRACKER_VALUE;
           this.entity.updatedAt = event.payload.updatedAt;
+          break;
+
+        case Events.TRACKER_REVERT_EVENT:
+          if (!this.entity) continue;
+          _.remove(values, (v) => v.datapointId === event.payload.datapointId);
           break;
 
         default:
@@ -74,6 +92,19 @@ export class Tracker {
         stream: this.stream,
         version: 1,
         payload: { id: this.id, value, updatedAt: Date.now(), datapointId },
+      })
+    );
+  }
+
+  async revert(datapointId: VO.TrackerSyncDatapointIdType) {
+    if (!this.entity) return;
+
+    await Repos.EventRepository.save(
+      Events.TrackerRevertEvent.parse({
+        name: Events.TRACKER_REVERT_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id, datapointId },
       })
     );
   }

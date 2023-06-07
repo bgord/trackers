@@ -18,6 +18,14 @@ export class TrackerSyncDatapointRepository {
     });
   }
 
+  static async remove(payload: {
+    datapointId: VO.TrackerSyncDatapointType["id"];
+  }) {
+    return infra.db.trackerSyncDatapoint.delete({
+      where: { id: payload.datapointId },
+    });
+  }
+
   static async list(payload: Pick<VO.TrackerType, "id">) {
     const datapoints = await infra.db.trackerSyncDatapoint.findMany({
       where: { trackerId: payload.id },

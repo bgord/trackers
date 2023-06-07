@@ -57,4 +57,8 @@ emittery.on(TRACKER_SYNCED_EVENT, async (event) => {
   await Repos.TrackerSyncDatapointRepository.add(event.payload);
 });
 
-emittery.on(TRACKER_REVERT_EVENT, console.log);
+emittery.on(TRACKER_REVERT_EVENT, async (event) => {
+  await Repos.TrackerSyncDatapointRepository.remove({
+    datapointId: event.payload.datapointId,
+  });
+});
