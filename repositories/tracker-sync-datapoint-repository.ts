@@ -4,10 +4,13 @@ import * as infra from "../infra";
 
 export class TrackerSyncDatapointRepository {
   static async add(
-    payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt">
+    payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt"> & {
+      datapointId: VO.TrackerSyncDatapointType["id"];
+    }
   ) {
     return infra.db.trackerSyncDatapoint.create({
       data: {
+        id: payload.datapointId,
         trackerId: payload.id,
         value: payload.value,
         createdAt: payload.updatedAt,

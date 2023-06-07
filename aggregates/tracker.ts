@@ -66,12 +66,14 @@ export class Tracker {
       syncedValue: value,
     });
 
+    const datapointId = VO.TrackerSyncDatapointId.parse(bg.NewUUID.generate());
+
     await Repos.EventRepository.save(
       Events.TrackerSyncedEvent.parse({
         name: Events.TRACKER_SYNCED_EVENT,
         stream: this.stream,
         version: 1,
-        payload: { id: this.id, value, updatedAt: Date.now() },
+        payload: { id: this.id, value, updatedAt: Date.now(), datapointId },
       })
     );
   }
