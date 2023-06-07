@@ -27,11 +27,25 @@ export const TrackerSyncedEvent = bg.EventDraft.merge(
 );
 export type TrackerSyncedEventType = z.infer<typeof TrackerSyncedEvent>;
 
+export const TRACKER_REVERT_EVENT = "TRACKER_REVERT_EVENT";
+export const TrackerRevertEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(TRACKER_REVERT_EVENT),
+    version: z.literal(1),
+    payload: z.object({
+      id: VO.TrackerId,
+      datapointId: VO.TrackerSyncDatapointId,
+    }),
+  })
+);
+export type TrackerRevertEventType = z.infer<typeof TrackerRevertEvent>;
+
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{
   TRACKER_ADDED_EVENT: TrackerAddedEventType;
   TRACKER_SYNCED_EVENT: TrackerSyncedEventType;
+  TRACKER_REVERT_EVENT: TrackerRevertEventType;
 }>();
 
 emittery.on(TRACKER_ADDED_EVENT, async (event) => {
@@ -42,3 +56,5 @@ emittery.on(TRACKER_SYNCED_EVENT, async (event) => {
   await Repos.TrackerRepository.sync(event.payload);
   await Repos.TrackerSyncDatapointRepository.add(event.payload);
 });
+
+emittery.on(TRACKER_REVERT_EVENT, console.log);
