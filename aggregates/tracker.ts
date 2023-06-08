@@ -43,20 +43,24 @@ export class Tracker {
         case Events.TRACKER_SYNCED_EVENT:
           if (!this.entity) continue;
 
-          values.push({
-            datapointId: event.payload.datapointId,
-            value: event.payload.value,
-          });
+          values.push(event.payload);
 
-          this.entity.value =
-            _.last(values)!.value ?? this.DEFAULT_TRACKER_VALUE;
+          this.entity.value = VO.TrackerValue.parse(
+            _.last(values)?.value ?? this.DEFAULT_TRACKER_VALUE
+          );
 
           this.entity.updatedAt = event.payload.updatedAt;
           break;
 
         case Events.TRACKER_REVERT_EVENT:
           if (!this.entity) continue;
+
           _.remove(values, (v) => v.datapointId === event.payload.datapointId);
+
+          this.entity.value = VO.TrackerValue.parse(
+            _.last(values)?.value ?? this.DEFAULT_TRACKER_VALUE
+          );
+
           break;
 
         default:
