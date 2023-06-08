@@ -9,6 +9,11 @@ const EnvironmentSchema = z.object({
   LOGS_LEVEL: bg.Schema.LogLevel,
   BASIC_AUTH_USERNAME: bg.Schema.BasicAuthUsername,
   BASIC_AUTH_PASSWORD: bg.Schema.BasicAuthPassword,
+  SMTP_HOST: bg.Schema.SmtpHost,
+  SMTP_PORT: bg.Schema.SmtpPort,
+  SMTP_USER: bg.Schema.SmtpUser,
+  SMTP_PASS: bg.Schema.SmtpPass,
+  EMAIL_FROM: bg.Schema.Email,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 
