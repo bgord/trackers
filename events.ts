@@ -27,10 +27,10 @@ export const TrackerSyncedEvent = bg.EventDraft.merge(
 );
 export type TrackerSyncedEventType = z.infer<typeof TrackerSyncedEvent>;
 
-export const TRACKER_REVERT_EVENT = "TRACKER_REVERT_EVENT";
-export const TrackerRevertEvent = bg.EventDraft.merge(
+export const TRACKER_REVERTED_EVENT = "TRACKER_REVERTED_EVENT";
+export const TrackerRevertedEvent = bg.EventDraft.merge(
   z.object({
-    name: z.literal(TRACKER_REVERT_EVENT),
+    name: z.literal(TRACKER_REVERTED_EVENT),
     version: z.literal(1),
     payload: z.object({
       id: VO.TrackerId,
@@ -39,14 +39,14 @@ export const TrackerRevertEvent = bg.EventDraft.merge(
     }),
   })
 );
-export type TrackerRevertEventType = z.infer<typeof TrackerRevertEvent>;
+export type TrackerRevertedEventType = z.infer<typeof TrackerRevertedEvent>;
 
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{
   TRACKER_ADDED_EVENT: TrackerAddedEventType;
   TRACKER_SYNCED_EVENT: TrackerSyncedEventType;
-  TRACKER_REVERT_EVENT: TrackerRevertEventType;
+  TRACKER_REVERTED_EVENT: TrackerRevertedEventType;
 }>();
 
 emittery.on(TRACKER_ADDED_EVENT, async (event) => {
@@ -58,7 +58,7 @@ emittery.on(TRACKER_SYNCED_EVENT, async (event) => {
   await Repos.TrackerSyncDatapointRepository.add(event.payload);
 });
 
-emittery.on(TRACKER_REVERT_EVENT, async (event) => {
+emittery.on(TRACKER_REVERTED_EVENT, async (event) => {
   await Repos.TrackerSyncDatapointRepository.remove({
     datapointId: event.payload.datapointId,
   });

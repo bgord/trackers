@@ -7,7 +7,7 @@ import * as Events from "../events";
 type AcceptedEvent =
   | typeof Events.TrackerAddedEvent
   | typeof Events.TrackerSyncedEvent
-  | typeof Events.TrackerRevertEvent;
+  | typeof Events.TrackerRevertedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {

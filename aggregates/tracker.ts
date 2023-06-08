@@ -27,7 +27,7 @@ export class Tracker {
       [
         Events.TrackerAddedEvent,
         Events.TrackerSyncedEvent,
-        Events.TrackerRevertEvent,
+        Events.TrackerRevertedEvent,
       ],
       Tracker.getStream(this.id)
     );
@@ -52,7 +52,7 @@ export class Tracker {
           this.entity.updatedAt = event.payload.updatedAt;
           break;
 
-        case Events.TRACKER_REVERT_EVENT:
+        case Events.TRACKER_REVERTED_EVENT:
           if (!this.entity) continue;
 
           _.remove(values, (v) => v.datapointId === event.payload.datapointId);
@@ -124,8 +124,8 @@ export class Tracker {
     await Policies.TrackerShouldExist.perform({ tracker: this });
 
     await Repos.EventRepository.save(
-      Events.TrackerRevertEvent.parse({
-        name: Events.TRACKER_REVERT_EVENT,
+      Events.TrackerRevertedEvent.parse({
+        name: Events.TRACKER_REVERTED_EVENT,
         stream: this.stream,
         version: 1,
         payload: { id: this.id, datapointId, updatedAt: Date.now() },
