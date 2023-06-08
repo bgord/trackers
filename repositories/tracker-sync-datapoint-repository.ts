@@ -1,6 +1,7 @@
 import * as bg from "@bgord/node";
 import * as VO from "../value-objects";
 import * as infra from "../infra";
+import startOfDay from "date-fns/startOfDay";
 
 export class TrackerSyncDatapointRepository {
   static async add(
@@ -56,8 +57,14 @@ export class TrackerSyncDatapointRepository {
   }
 
   static async getDatapointsForToday(
-    _trackerId: VO.TrackerIdType
+    trackerId: VO.TrackerIdType,
+    tz: bg.TimeZoneOffsetsType
   ): Promise<number> {
-    return 4;
+    const today = new Date(Date.now() - tz.miliseconds);
+    const startOfTodayMs = startOfDay(today).getTime();
+
+    return infra.db.trackerSyncDatapoint.count({
+      where: { trackerId, createdAt: { gte: startOfTodayMs } },
+    });
   }
 }

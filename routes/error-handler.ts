@@ -93,6 +93,19 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Policies.TrackerSyncDatapointsLimitPerDayError) {
+      infra.logger.error({
+        message: "Tracker datapoints per day limit reached",
+        operation: "tracker_datapoints_per_day_limit_reached",
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: "tracker.value.sync.error.datapoints_per_daylimit_reached",
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(

@@ -61,6 +61,8 @@ export class Tracker {
             _.last(values)?.value ?? this.DEFAULT_TRACKER_VALUE
           );
 
+          this.entity.updatedAt = event.payload.updatedAt;
+
           break;
 
         default:
@@ -86,7 +88,7 @@ export class Tracker {
     );
   }
 
-  async sync(value: VO.TrackerValueType) {
+  async sync(value: VO.TrackerValueType, tz: bg.TimeZoneOffsetsType) {
     if (!this.entity) return;
 
     await Policies.TrackerValueShouldChange.perform({
@@ -97,6 +99,7 @@ export class Tracker {
     await Policies.TrackerSyncDatapointsLimitPerDay.perform({
       trackerId: this.id,
       limit: this.DATAPOINTS_LIMIT_PER_DAY,
+      tz,
     });
 
     await Repos.EventRepository.save(
@@ -122,7 +125,7 @@ export class Tracker {
         name: Events.TRACKER_REVERT_EVENT,
         stream: this.stream,
         version: 1,
-        payload: { id: this.id, datapointId },
+        payload: { id: this.id, datapointId, updatedAt: Date.now() },
       })
     );
   }

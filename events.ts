@@ -35,6 +35,7 @@ export const TrackerRevertEvent = bg.EventDraft.merge(
     payload: z.object({
       id: VO.TrackerId,
       datapointId: VO.TrackerSyncDatapointId,
+      updatedAt: VO.TrackerUpdatedAt,
     }),
   })
 );
@@ -72,6 +73,6 @@ emittery.on(TRACKER_REVERT_EVENT, async (event) => {
     value: VO.TrackerValue.parse(
       latestDatapointForTracker?.value ?? VO.DEFAULT_TRACKER_VALUE
     ),
-    updatedAt: VO.TrackerUpdatedAt.parse(Date.now()),
+    updatedAt: event.payload.updatedAt,
   });
 });

@@ -20,7 +20,7 @@ export async function TrackerSync(
   });
 
   const tracker = await new Aggregates.Tracker(id).build();
-  await tracker.sync(value);
+  await tracker.sync(value, request.timeZoneOffset);
 
   return response.status(201).send();
 }
