@@ -4,6 +4,7 @@ import Emittery from "emittery";
 
 import * as VO from "./value-objects";
 import * as Repos from "./repositories";
+import * as Services from "./services";
 
 export const TRACKER_ADDED_EVENT = "TRACKER_ADDED_EVENT";
 export const TrackerAddedEvent = bg.EventDraft.merge(
@@ -108,5 +109,12 @@ emittery.on(TRACKER_DELETED_EVENT, async (event) => {
 });
 
 emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
-  console.log("export scheduled", event.payload);
+  const TrackerDatapointsFile = new Services.TrackerDatapointsFile({
+    repository: Repos.TrackerSyncDatapointRepository,
+    ...event.payload,
+  });
+
+  const filename = await TrackerDatapointsFile.generate();
+
+  await Services.TrackerExportSender.send({ filename, ...event.payload });
 });
