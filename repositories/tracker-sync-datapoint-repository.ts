@@ -58,9 +58,9 @@ export class TrackerSyncDatapointRepository {
 
   static async getDatapointsForToday(
     trackerId: VO.TrackerIdType,
-    tz: bg.TimeZoneOffsetsType
+    context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ): Promise<number> {
-    const today = new Date(Date.now() - tz.miliseconds);
+    const today = new Date(Date.now() - context.timeZoneOffset.miliseconds);
     const startOfTodayMs = startOfDay(today).getTime();
 
     return infra.db.trackerSyncDatapoint.count({

@@ -16,7 +16,7 @@ export class TrackerSyncDatapointsLimitPerDayError extends Error {
 type TrackerSyncDatapointsLimitPerDayConfigType = {
   trackerId: VO.TrackerIdType;
   limit: number;
-  tz: bg.TimeZoneOffsetsType;
+  timeZoneOffset: bg.TimeZoneOffsetsType;
 };
 
 class TrackerSyncDatapointsLimitPerDayFactory extends bg.Policy<TrackerSyncDatapointsLimitPerDayConfigType> {
@@ -26,7 +26,7 @@ class TrackerSyncDatapointsLimitPerDayFactory extends bg.Policy<TrackerSyncDatap
     const numberOfTrackerSyncDatapointsToday =
       await Repos.TrackerSyncDatapointRepository.getDatapointsForToday(
         config.trackerId,
-        config.tz
+        { timeZoneOffset: config.timeZoneOffset }
       );
 
     return config.limit <= numberOfTrackerSyncDatapointsToday;

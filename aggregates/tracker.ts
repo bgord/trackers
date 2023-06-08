@@ -88,7 +88,10 @@ export class Tracker {
     );
   }
 
-  async sync(value: VO.TrackerValueType, tz: bg.TimeZoneOffsetsType) {
+  async sync(
+    value: VO.TrackerValueType,
+    context: { timeZoneOffset: bg.TimeZoneOffsetsType }
+  ) {
     if (!this.entity) return;
 
     await Policies.TrackerValueShouldChange.perform({
@@ -99,7 +102,7 @@ export class Tracker {
     await Policies.TrackerSyncDatapointsLimitPerDay.perform({
       trackerId: this.id,
       limit: this.DATAPOINTS_LIMIT_PER_DAY,
-      tz,
+      ...context,
     });
 
     await Repos.EventRepository.save(
