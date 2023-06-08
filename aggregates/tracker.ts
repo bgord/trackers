@@ -13,6 +13,10 @@ export class Tracker {
 
   entity: VO.TrackerType | null = null;
 
+  DEFAULT_TRACKER_VALUE = VO.DEFAULT_TRACKER_VALUE;
+
+  DATAPOINTS_LIMIT_PER_DAY = VO.TRACKER_SYNC_DATAPOINTS_LIMIT_PER_DAY;
+
   constructor(id: VO.TrackerType["id"]) {
     this.id = id;
     this.stream = Tracker.getStream(id);
@@ -44,7 +48,9 @@ export class Tracker {
             value: event.payload.value,
           });
 
-          this.entity.value = _.last(values)!.value ?? VO.DEFAULT_TRACKER_VALUE;
+          this.entity.value =
+            _.last(values)!.value ?? this.DEFAULT_TRACKER_VALUE;
+
           this.entity.updatedAt = event.payload.updatedAt;
           break;
 
@@ -84,14 +90,17 @@ export class Tracker {
       syncedValue: value,
     });
 
-    const datapointId = VO.TrackerSyncDatapointId.parse(bg.NewUUID.generate());
-
     await Repos.EventRepository.save(
       Events.TrackerSyncedEvent.parse({
         name: Events.TRACKER_SYNCED_EVENT,
         stream: this.stream,
         version: 1,
-        payload: { id: this.id, value, updatedAt: Date.now(), datapointId },
+        payload: {
+          id: this.id,
+          value,
+          updatedAt: Date.now(),
+          datapointId: VO.TrackerSyncDatapointId.parse(bg.NewUUID.generate()),
+        },
       })
     );
   }
