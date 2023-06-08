@@ -11,7 +11,7 @@ export function TrackerSync(props: types.TrackerType) {
   const notify = bg.useToastTrigger();
   const queryClient = useQueryClient();
 
-  const trackerSync = useMutation(api.Tracker.sync, {
+  const trackerSyncMutation = useMutation(api.Tracker.sync, {
     onSuccess: () => {
       notify({ message: "tracker.value.sync.success" });
 
@@ -26,6 +26,12 @@ export function TrackerSync(props: types.TrackerType) {
     props.value
   );
 
+  const trackerSync = bg.useRateLimiter({
+    limitMs: bg.Time.Seconds(10).toMs(),
+    action: () =>
+      trackerSyncMutation.mutate({ id: props.id, value: trackerValue.value }),
+  });
+
   const isTrackerValueTheSame = props.value === trackerValue.value;
 
   return (
@@ -35,7 +41,7 @@ export function TrackerSync(props: types.TrackerType) {
       data-mt="12"
       onSubmit={(event) => {
         event.preventDefault();
-        trackerSync.mutate({ id: props.id, value: trackerValue.value });
+        trackerSync();
       }}
     >
       <div data-display="flex" data-direction="column">
@@ -48,7 +54,7 @@ export function TrackerSync(props: types.TrackerType) {
           type="number"
           step="0.01"
           value={trackerValue.value}
-          disabled={trackerSync.isLoading}
+          disabled={trackerSyncMutation.isLoading}
           onChange={(event) =>
             trackerValue.set(
               event.currentTarget.valueAsNumber as types.TrackerType["value"]
@@ -64,7 +70,7 @@ export function TrackerSync(props: types.TrackerType) {
         data-variant="with-icon"
         title={t("tracker.value.increase")}
         onClick={() => trackerValue.set(trackerValue.value + 1)}
-        disabled={trackerSync.isLoading}
+        disabled={trackerSyncMutation.isLoading}
       >
         <Icons.Plus height="20" width="20" />
       </button>
@@ -75,7 +81,7 @@ export function TrackerSync(props: types.TrackerType) {
         data-variant="with-icon"
         title={t("tracker.value.decrease")}
         onClick={() => trackerValue.set(trackerValue.value - 1)}
-        disabled={trackerSync.isLoading}
+        disabled={trackerSyncMutation.isLoading}
       >
         <Icons.Minus height="20" width="20" />
       </button>
@@ -85,7 +91,7 @@ export function TrackerSync(props: types.TrackerType) {
         class="c-button"
         data-variant="primary"
         data-mx="12"
-        disabled={isTrackerValueTheSame || trackerSync.isLoading}
+        disabled={isTrackerValueTheSame || trackerSyncMutation.isLoading}
       >
         {t("app.sync")}
       </button>
@@ -94,7 +100,7 @@ export function TrackerSync(props: types.TrackerType) {
         type="button"
         class="c-button"
         data-variant="bare"
-        disabled={isTrackerValueTheSame || trackerSync.isLoading}
+        disabled={isTrackerValueTheSame || trackerSyncMutation.isLoading}
         onClick={trackerValue.clear}
       >
         {t("app.clear")}

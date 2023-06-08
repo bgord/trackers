@@ -14,6 +14,7 @@ export function TrackerSyncDatapointsPlaceholder(props: { bars: number }) {
   return (
     <ul data-display="flex" data-cross="end" data-gap="3">
       {bars.map((value, index) => (
+        /* eslint-disable react/no-array-index-key */
         <TrackerSyncDatapointsPlaceholderBar key={index} height={value} />
       ))}
     </ul>
