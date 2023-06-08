@@ -51,6 +51,20 @@ export const TrackerDeletedEvent = bg.EventDraft.merge(
 );
 export type TrackerDeletedEventType = z.infer<typeof TrackerDeletedEvent>;
 
+export const TRACKER_EXPORTED_EVENT = "TRACKER_EXPORTED_EVENT";
+export const TrackerExportedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(TRACKER_EXPORTED_EVENT),
+    version: z.literal(1),
+    payload: z.object({
+      id: VO.TrackerId,
+      scheduledAt: bg.Schema.Timestamp,
+      email: bg.Schema.Email,
+    }),
+  })
+);
+export type TrackerExportedEventType = z.infer<typeof TrackerExportedEvent>;
+
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{
@@ -58,6 +72,7 @@ export const emittery = new Emittery<{
   TRACKER_SYNCED_EVENT: TrackerSyncedEventType;
   TRACKER_REVERTED_EVENT: TrackerRevertedEventType;
   TRACKER_DELETED_EVENT: TrackerDeletedEventType;
+  TRACKER_EXPORTED_EVENT: TrackerExportedEventType;
 }>();
 
 emittery.on(TRACKER_ADDED_EVENT, async (event) => {
@@ -90,4 +105,8 @@ emittery.on(TRACKER_REVERTED_EVENT, async (event) => {
 
 emittery.on(TRACKER_DELETED_EVENT, async (event) => {
   await Repos.TrackerRepository.delete({ id: event.payload.id });
+});
+
+emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
+  console.log("export scheduled", event.payload);
 });

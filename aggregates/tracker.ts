@@ -29,6 +29,7 @@ export class Tracker {
         Events.TrackerSyncedEvent,
         Events.TrackerRevertedEvent,
         Events.TrackerDeletedEvent,
+        Events.TrackerExportedEvent,
       ],
       Tracker.getStream(this.id)
     );
@@ -148,6 +149,19 @@ export class Tracker {
         stream: this.stream,
         version: 1,
         payload: { id: this.id },
+      })
+    );
+  }
+
+  async export(email: bg.Schema.EmailType) {
+    await Policies.TrackerShouldExist.perform({ tracker: this });
+
+    await Repos.EventRepository.save(
+      Events.TrackerExportedEvent.parse({
+        name: Events.TRACKER_EXPORTED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id, scheduledAt: Date.now(), email },
       })
     );
   }

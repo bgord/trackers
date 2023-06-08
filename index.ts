@@ -59,6 +59,11 @@ app.post(
   CacheResponse.clear,
   bg.Route(Routes.TrackerSync)
 );
+app.post(
+  "/tracker/:trackerId/export",
+  AuthShield.verify,
+  bg.Route(Routes.TrackerSync)
+);
 app.delete(
   "/tracker/:trackerId/revert/:datapointId",
   AuthShield.verify,
