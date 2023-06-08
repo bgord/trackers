@@ -28,6 +28,7 @@ export class Tracker {
         Events.TrackerAddedEvent,
         Events.TrackerSyncedEvent,
         Events.TrackerRevertedEvent,
+        Events.TrackerDeletedEvent,
       ],
       Tracker.getStream(this.id)
     );
@@ -62,7 +63,12 @@ export class Tracker {
           );
 
           this.entity.updatedAt = event.payload.updatedAt;
+          break;
 
+        case Events.TRACKER_DELETED_EVENT:
+          if (!this.entity) continue;
+
+          this.entity = null;
           break;
 
         default:
@@ -129,6 +135,19 @@ export class Tracker {
         stream: this.stream,
         version: 1,
         payload: { id: this.id, datapointId, updatedAt: Date.now() },
+      })
+    );
+  }
+
+  async delete() {
+    await Policies.TrackerShouldExist.perform({ tracker: this });
+
+    await Repos.EventRepository.save(
+      Events.TrackerDeletedEvent.parse({
+        name: Events.TRACKER_DELETED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id },
       })
     );
   }

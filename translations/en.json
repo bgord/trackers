@@ -1,5 +1,7 @@
 {
+  "app.cancel": "Cancel",
   "app.clear": "Clear",
+  "app.delete": "Delete",
   "app.general.error": "Something went wrong",
   "app.loading": "Loading...",
   "app.logout": "logout",
@@ -37,5 +39,11 @@
   "tracker.sync-datapoint.revert.error": "Tracker datapoint revert error",
 
   "tracker.sync-datapoints.error": "Error while loading tracker sync datapoints",
-  "tracker.sync-datapoints.empty": "No tracker sync datapoints"
+  "tracker.sync-datapoints.empty": "No tracker sync datapoints",
+
+  "tracker.delete.success": "Tracker deleted",
+  "tracker.delete.error": "Delete tracker error",
+  "tracker.delete": "Delete tracker",
+  "tracker.delete.in_progress": "Deleting tracker",
+  "tracker.delete.confirmation": "Are you sure you want to delete this tracker?"
 }

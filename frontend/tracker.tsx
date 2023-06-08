@@ -5,6 +5,7 @@ import { h } from "preact";
 import * as types from "./types";
 
 import { TrackerSync } from "./tracker-sync";
+import { TrackerDelete } from "./tracker-delete";
 import { TrackerSyncDatapoints } from "./tracker-sync-datapoints";
 
 export function Tracker(props: types.TrackerType) {
@@ -36,6 +37,8 @@ export function Tracker(props: types.TrackerType) {
         <div data-fs="14" data-fw="700">
           {props.value}
         </div>
+
+        {details.on && <TrackerDelete data-ml="24" {...props} />}
       </div>
 
       {details.on && (

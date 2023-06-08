@@ -41,12 +41,23 @@ export const TrackerRevertedEvent = bg.EventDraft.merge(
 );
 export type TrackerRevertedEventType = z.infer<typeof TrackerRevertedEvent>;
 
+export const TRACKER_DELETED_EVENT = "TRACKER_DELETED_EVENT";
+export const TrackerDeletedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(TRACKER_DELETED_EVENT),
+    version: z.literal(1),
+    payload: z.object({ id: VO.TrackerId }),
+  })
+);
+export type TrackerDeletedEventType = z.infer<typeof TrackerDeletedEvent>;
+
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{
   TRACKER_ADDED_EVENT: TrackerAddedEventType;
   TRACKER_SYNCED_EVENT: TrackerSyncedEventType;
   TRACKER_REVERTED_EVENT: TrackerRevertedEventType;
+  TRACKER_DELETED_EVENT: TrackerDeletedEventType;
 }>();
 
 emittery.on(TRACKER_ADDED_EVENT, async (event) => {
@@ -75,4 +86,8 @@ emittery.on(TRACKER_REVERTED_EVENT, async (event) => {
     ),
     updatedAt: event.payload.updatedAt,
   });
+});
+
+emittery.on(TRACKER_DELETED_EVENT, async (event) => {
+  await Repos.TrackerRepository.delete({ id: event.payload.id });
 });

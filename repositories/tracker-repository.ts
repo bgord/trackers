@@ -26,6 +26,12 @@ export class TrackerRepository {
     });
   }
 
+  static async delete(payload: Pick<VO.TrackerType, "id">) {
+    return infra.db.tracker.delete({
+      where: { id: payload.id },
+    });
+  }
+
   static async getNumberOfTrackersWithName(name: VO.TrackerNameType) {
     return infra.db.tracker.count({ where: { name } });
   }

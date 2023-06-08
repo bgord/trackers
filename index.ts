@@ -48,6 +48,11 @@ app.get(
 
 app.post("/tracker", AuthShield.verify, bg.Route(Routes.TrackerCreate));
 app.get("/tracker", AuthShield.verify, bg.Route(Routes.TrackerList));
+app.delete(
+  "/tracker/:trackerId",
+  AuthShield.verify,
+  bg.Route(Routes.TrackerDelete)
+);
 app.post(
   "/tracker/:trackerId/sync",
   AuthShield.verify,

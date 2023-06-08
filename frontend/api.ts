@@ -47,6 +47,12 @@ export class Tracker {
     });
   }
 
+  static async delete(payload: Pick<types.TrackerType, "id">) {
+    return _api(`/tracker/${payload.id}`, {
+      method: "DELETE",
+    });
+  }
+
   static async getSyncDatapoints(
     id: types.TrackerType["id"]
   ): Promise<types.TrackerSyncDatapointType[]> {
