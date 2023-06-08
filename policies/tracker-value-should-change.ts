@@ -8,15 +8,13 @@ export class TrackerValueShouldChangeError extends Error {
   }
 }
 
-type TrackerValueShouldChangeErrorConfigType = {
+type TrackerValueShouldChangeConfigType = {
   currentValue: VO.TrackerValueType;
   syncedValue: VO.TrackerValueType;
 };
 
-class TrackerValueShouldChangeFactory extends bg.Policy<TrackerValueShouldChangeErrorConfigType> {
-  async fails(
-    config: TrackerValueShouldChangeErrorConfigType
-  ): Promise<boolean> {
+class TrackerValueShouldChangeFactory extends bg.Policy<TrackerValueShouldChangeConfigType> {
+  async fails(config: TrackerValueShouldChangeConfigType): Promise<boolean> {
     return config.currentValue === config.syncedValue;
   }
 
