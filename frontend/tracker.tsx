@@ -6,6 +6,7 @@ import * as types from "./types";
 
 import { TrackerSync } from "./tracker-sync";
 import { TrackerDelete } from "./tracker-delete";
+import { TrackerExport } from "./tracker-export";
 import { TrackerSyncDatapoints } from "./tracker-sync-datapoints";
 
 export function Tracker(props: types.TrackerType) {
@@ -39,6 +40,7 @@ export function Tracker(props: types.TrackerType) {
         </div>
 
         {details.on && <TrackerDelete data-ml="24" {...props} />}
+        {details.on && <TrackerExport data-ml="24" {...props} />}
       </div>
 
       {details.on && (

@@ -1,6 +1,8 @@
 import type * as bg from "@bgord/frontend";
 import type { AsyncReturnType } from "@bgord/node";
 
+export type { EmailType } from "@bgord/node/dist/schema";
+
 import type { TrackerSyncDatapointRepository } from "../repositories/tracker-sync-datapoint-repository";
 
 export type { TrackerNameType } from "../value-objects/tracker-name";

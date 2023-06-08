@@ -1,4 +1,5 @@
 import * as bg from "@bgord/frontend";
+
 import * as types from "./types";
 
 export const _api: typeof fetch = (input, init) =>
@@ -50,6 +51,15 @@ export class Tracker {
   static async delete(payload: Pick<types.TrackerType, "id">) {
     return _api(`/tracker/${payload.id}`, {
       method: "DELETE",
+    });
+  }
+
+  static async export(
+    payload: Pick<types.TrackerType, "id"> & { email: types.EmailType }
+  ) {
+    return _api(`/tracker/${payload.id}/export`, {
+      method: "POST",
+      body: JSON.stringify({ email: payload.email }),
     });
   }
 

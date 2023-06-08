@@ -62,7 +62,7 @@ app.post(
 app.post(
   "/tracker/:trackerId/export",
   AuthShield.verify,
-  bg.Route(Routes.TrackerSync)
+  bg.Route(Routes.TrackerExport)
 );
 app.delete(
   "/tracker/:trackerId/revert/:datapointId",
