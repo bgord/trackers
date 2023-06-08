@@ -54,4 +54,10 @@ export class TrackerSyncDatapointRepository {
       orderBy: { createdAt: "desc" },
     });
   }
+
+  static async getDatapointsForToday(
+    _trackerId: VO.TrackerIdType
+  ): Promise<number> {
+    return 4;
+  }
 }

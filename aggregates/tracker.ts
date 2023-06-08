@@ -90,6 +90,11 @@ export class Tracker {
       syncedValue: value,
     });
 
+    await Policies.TrackerSyncDatapointsLimitPerDay.perform({
+      trackerId: this.id,
+      limit: this.DATAPOINTS_LIMIT_PER_DAY,
+    });
+
     await Repos.EventRepository.save(
       Events.TrackerSyncedEvent.parse({
         name: Events.TRACKER_SYNCED_EVENT,
