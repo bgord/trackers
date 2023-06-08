@@ -1,4 +1,5 @@
 import * as bg from "@bgord/frontend";
+import * as Icons from "iconoir-react";
 import { h, Fragment } from "preact";
 import { useMutation } from "react-query";
 
@@ -36,9 +37,10 @@ export function TrackerExport(
         disabled={exportTracker.isLoading || exportTracker.isSuccess}
         class="c-button"
         data-variant="bare"
+        title={t("tracker.export")}
         {...rest}
       >
-        {exportTracker.isIdle && t("tracker.export")}
+        {exportTracker.isIdle && <Icons.Download height="24" width="24" />}
         {exportTracker.isLoading && t("tracker.export.in_progress")}
         {exportTracker.isSuccess && t("tracker.export.success")}
         {exportTracker.isError && t("tracker.export.error")}

@@ -1,4 +1,5 @@
 import * as bg from "@bgord/frontend";
+import * as Icons from "iconoir-react";
 import { h, Fragment } from "preact";
 import { useQueryClient, useMutation } from "react-query";
 
@@ -36,9 +37,12 @@ export function TrackerDelete(
         disabled={deleteTracker.isLoading || deleteTracker.isSuccess}
         class="c-button"
         data-variant="bare"
+        title={t("tracker.delete")}
         {...rest}
       >
-        {deleteTracker.isIdle && t("tracker.delete")}
+        {deleteTracker.isIdle && (
+          <Icons.DeleteCircledOutline height="24" width="24" />
+        )}
         {deleteTracker.isLoading && t("tracker.delete.in_progress")}
         {deleteTracker.isSuccess && t("tracker.delete.success")}
         {deleteTracker.isError && t("tracker.delete.error")}

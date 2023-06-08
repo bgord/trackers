@@ -40,7 +40,7 @@ export function Tracker(props: types.TrackerType) {
         </div>
 
         {details.on && <TrackerDelete data-ml="24" {...props} />}
-        {details.on && <TrackerExport data-ml="24" {...props} />}
+        {details.on && <TrackerExport {...props} />}
       </div>
 
       {details.on && (

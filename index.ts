@@ -62,6 +62,7 @@ app.post(
 app.post(
   "/tracker/:trackerId/export",
   AuthShield.verify,
+  bg.RateLimitShield.build({ limitMs: bg.Time.Hours(1).toMs() }),
   bg.Route(Routes.TrackerExport)
 );
 app.delete(
