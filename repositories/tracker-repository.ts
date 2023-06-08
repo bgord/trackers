@@ -18,13 +18,12 @@ export class TrackerRepository {
   }
 
   static async sync(
-    payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt"> & {
-      datapointId: VO.TrackerSyncDatapointType["id"];
-    }
+    payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt">
   ) {
-    const { id, datapointId, ...data } = payload;
-
-    return infra.db.tracker.update({ where: { id }, data });
+    return infra.db.tracker.update({
+      where: { id: payload.id },
+      data: _.pick(payload, ["value", "updatedAt"]),
+    });
   }
 
   static async getNumberOfTrackersWithName(name: VO.TrackerNameType) {

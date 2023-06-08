@@ -61,4 +61,17 @@ emittery.on(TRACKER_REVERT_EVENT, async (event) => {
   await Repos.TrackerSyncDatapointRepository.remove({
     datapointId: event.payload.datapointId,
   });
+
+  const latestDatapointForTracker =
+    await Repos.TrackerSyncDatapointRepository.getLatestDatapointForTracker(
+      event.payload.id
+    );
+
+  await Repos.TrackerRepository.sync({
+    id: event.payload.id,
+    value: VO.TrackerValue.parse(
+      latestDatapointForTracker?.value ?? VO.DEFAULT_TRACKER_VALUE
+    ),
+    updatedAt: VO.TrackerUpdatedAt.parse(Date.now()),
+  });
 });

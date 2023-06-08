@@ -45,8 +45,8 @@ export function Tracker(props: types.TrackerType) {
           data-max-width="100%"
           data-gap="36"
         >
-          <TrackerSync {...props} />
-          <TrackerSyncDatapoints {...props} />
+          <TrackerSync key={props.updatedAt} {...props} />
+          <TrackerSyncDatapoints key={props.updatedAt} {...props} />
         </div>
       )}
     </li>

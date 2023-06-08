@@ -32,8 +32,8 @@
   "tracker.details.show": "Show tracker details",
 
   "tracker.sync-datapoint.revert": "Revert tracker datapoint",
-  "tracker.sync-datapoint.success": "Tracker datapoint reverted",
-  "tracker.sync-datapoint.error": "Tracker datapoint revert error",
+  "tracker.sync-datapoint.revert.success": "Tracker datapoint reverted",
+  "tracker.sync-datapoint.revert.error": "Tracker datapoint revert error",
 
   "tracker.sync-datapoints.error": "Error while loading tracker sync datapoints",
   "tracker.sync-datapoints.empty": "No tracker sync datapoints"

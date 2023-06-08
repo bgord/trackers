@@ -47,4 +47,11 @@ export class TrackerSyncDatapointRepository {
       value: minMaxScaler.scale(point.value),
     }));
   }
+
+  static async getLatestDatapointForTracker(trackerId: VO.TrackerIdType) {
+    return infra.db.trackerSyncDatapoint.findFirst({
+      where: { trackerId },
+      orderBy: { createdAt: "desc" },
+    });
+  }
 }

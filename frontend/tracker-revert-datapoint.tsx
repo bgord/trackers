@@ -17,13 +17,15 @@ export function TrackerRevertDatapoint(props: {
 
   const trackerRevertDatapoint = useMutation(api.Tracker.revert, {
     onSuccess: () => {
-      notify({ message: "tracker.sync-datapoint.success" });
+      notify({ message: "tracker.sync-datapoint.revert.success" });
+
+      queryClient.invalidateQueries("trackers");
       queryClient.invalidateQueries([
         "tracker-sync-datapoints",
         props.trackerId,
       ]);
     },
-    onError: () => notify({ message: "tracker.sync-datapoint.error" }),
+    onError: () => notify({ message: "tracker.sync-datapoint.revert.error" }),
   });
 
   return (

@@ -25,6 +25,7 @@ export function TrackerSync(props: types.TrackerType) {
     "tracker-value",
     props.value
   );
+
   const isTrackerValueTheSame = props.value === trackerValue.value;
 
   return (
