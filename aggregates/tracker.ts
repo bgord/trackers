@@ -92,10 +92,10 @@ export class Tracker {
     value: VO.TrackerValueType,
     context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ) {
-    if (!this.entity) return;
+    await Policies.TrackerShouldExist.perform({ tracker: this });
 
     await Policies.TrackerValueShouldChange.perform({
-      currentValue: this.entity.value,
+      currentValue: this.entity!.value,
       syncedValue: value,
     });
 
@@ -121,7 +121,7 @@ export class Tracker {
   }
 
   async revert(datapointId: VO.TrackerSyncDatapointIdType) {
-    if (!this.entity) return;
+    await Policies.TrackerShouldExist.perform({ tracker: this });
 
     await Repos.EventRepository.save(
       Events.TrackerRevertEvent.parse({
