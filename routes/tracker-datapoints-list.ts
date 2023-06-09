@@ -12,9 +12,9 @@ export async function TrackerDatapointsList(
 ) {
   const id = VO.TrackerId.parse(request.params.trackerId);
 
-  const trackerSyncDatapoints = await Repos.TrackerSyncDatapointRepository.list(
-    { id }
-  );
+  const trackerSyncDatapoints = await Repos.TrackerDatapointRepository.list({
+    id,
+  });
 
   infra.ResponseCache.set(
     request.url,

@@ -6,13 +6,13 @@ import * as VO from "../value-objects";
 import * as Repos from "../repositories";
 
 type DatapointType = bg.AsyncReturnType<
-  typeof Repos.TrackerSyncDatapointRepository["list"]
+  typeof Repos.TrackerDatapointRepository["list"]
 >[0];
 
 type TrackerDatapointsFileConfigType = {
   id: VO.TrackerIdType;
   scheduledAt: bg.Schema.TimestampType;
-  repository: typeof Repos.TrackerSyncDatapointRepository;
+  repository: typeof Repos.TrackerDatapointRepository;
 };
 
 export class TrackerDatapointsFile {

@@ -82,16 +82,16 @@ emittery.on(TRACKER_ADDED_EVENT, async (event) => {
 
 emittery.on(TRACKER_SYNCED_EVENT, async (event) => {
   await Repos.TrackerRepository.sync(event.payload);
-  await Repos.TrackerSyncDatapointRepository.add(event.payload);
+  await Repos.TrackerDatapointRepository.add(event.payload);
 });
 
 emittery.on(TRACKER_REVERTED_EVENT, async (event) => {
-  await Repos.TrackerSyncDatapointRepository.remove({
+  await Repos.TrackerDatapointRepository.remove({
     datapointId: event.payload.datapointId,
   });
 
   const latestDatapointForTracker =
-    await Repos.TrackerSyncDatapointRepository.getLatestDatapointForTracker(
+    await Repos.TrackerDatapointRepository.getLatestDatapointForTracker(
       event.payload.id
     );
 
@@ -110,7 +110,7 @@ emittery.on(TRACKER_DELETED_EVENT, async (event) => {
 
 emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
   const TrackerDatapointsFile = new Services.TrackerDatapointsFile({
-    repository: Repos.TrackerSyncDatapointRepository,
+    repository: Repos.TrackerDatapointRepository,
     ...event.payload,
   });
 

@@ -3,7 +3,7 @@ import * as VO from "../value-objects";
 import * as infra from "../infra";
 import startOfDay from "date-fns/startOfDay";
 
-export class TrackerSyncDatapointRepository {
+export class TrackerDatapointRepository {
   static async add(
     payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt"> & {
       datapointId: VO.TrackerDatapointType["id"];
