@@ -16,3 +16,6 @@ export * from "./tracker-datapoint-id";
 export * from "./tracker-datapoints-limit-per-day";
 export * from "./tracker-updated-at";
 export * from "./tracker-value";
+
+export * from "./settings";
+export * from "./settings-weekly-trackers-report-enabled";
