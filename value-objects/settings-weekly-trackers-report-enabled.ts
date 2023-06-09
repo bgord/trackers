@@ -1,9 +1,10 @@
 import { z } from "zod";
 
+import { SETTINGS_WEEKLY_TRACKERS_REPORT_ENABLED_DEFAULT_VALUE } from "./settings-weekly-trackers-report-enabled-default-value";
+
 export const SettingsWeeklyTrackersReportEnabled = z
   .boolean()
-  .brand<"settings-weekly-trackers-report-enabled">()
-  .default(false);
+  .default(SETTINGS_WEEKLY_TRACKERS_REPORT_ENABLED_DEFAULT_VALUE);
 
 export type SettingsWeeklyTrackersReportEnabledType = z.infer<
   typeof SettingsWeeklyTrackersReportEnabled
