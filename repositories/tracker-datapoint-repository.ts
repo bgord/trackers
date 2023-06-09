@@ -47,6 +47,12 @@ export class TrackerDatapointRepository {
     }));
   }
 
+  static async countDatapointsForTracker(
+    payload: Pick<VO.TrackerDatapointType, "trackerId">
+  ) {
+    return infra.db.trackerDatapoint.count({ where: payload });
+  }
+
   static async getLatestDatapointForTracker(trackerId: VO.TrackerIdType) {
     return infra.db.trackerDatapoint.findFirst({
       where: { trackerId },

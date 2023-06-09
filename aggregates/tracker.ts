@@ -156,6 +156,8 @@ export class Tracker {
   async export(email: bg.Schema.EmailType) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
 
+    await Policies.TrackerShouldHaveDatapoints.perform({ trackerId: this.id });
+
     await Repos.EventRepository.save(
       Events.TrackerExportedEvent.parse({
         name: Events.TRACKER_EXPORTED_EVENT,

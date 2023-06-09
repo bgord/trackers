@@ -106,6 +106,19 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Policies.TrackerShouldHaveDatapointsError) {
+      infra.logger.error({
+        message: "Tracker has no datapoints",
+        operation: "tracker_has_no_datapoints",
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: "tracker.sync.error.no_datapoints",
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(

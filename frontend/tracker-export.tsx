@@ -20,12 +20,14 @@ export function TrackerExport(
 
   const exportTracker = useMutation(api.Tracker.export, {
     onSuccess() {
+      setTimeout(exportTracker.reset, 5000);
       dialog.disable();
       notify({ message: "tracker.export.success" });
     },
-    onError() {
+    onError(error: bg.ServerError) {
       setTimeout(exportTracker.reset, 5000);
-      notify({ message: "tracker.export.error" });
+      dialog.disable();
+      notify({ message: error.message });
     },
   });
 
@@ -34,7 +36,7 @@ export function TrackerExport(
       <button
         type="button"
         onClick={dialog.enable}
-        disabled={exportTracker.isLoading || exportTracker.isSuccess}
+        disabled={!exportTracker.isIdle}
         class="c-button"
         data-variant="bare"
         title={t("tracker.export")}

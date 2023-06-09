@@ -26,6 +26,7 @@
   "tracker.sync.success": "Tracker datapoint synced",
   "tracker.sync.error.value_not_changed": "Tracker value not changed",
   "tracker.sync.error.datapoints_per_daylimit_reached": "Tracker datapoints per day limit reached",
+  "tracker.sync.error.no_datapoints": "Tracker has no datapoints",
 
   "tracker.create.submit": "Create",
   "tracker.create.success": "Tracker created",
