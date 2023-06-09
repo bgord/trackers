@@ -78,4 +78,10 @@ export class Settings {
       response.json()
     );
   }
+
+  static async weeklyTrackersReportEnable() {
+    return _api("/settings/weekly-trackers-report/enable", {
+      method: "POST",
+    });
+  }
 }

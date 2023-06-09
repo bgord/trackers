@@ -100,6 +100,11 @@ app.get(
 );
 
 app.get("/settings/data", AuthShield.verify, bg.Route(Routes.SettingsData));
+app.post(
+  "/settings/weekly-trackers-report/enable",
+  AuthShield.verify,
+  bg.Route(Routes.SettingsWeeklyTrackersReportEnable)
+);
 
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
