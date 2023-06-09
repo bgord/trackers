@@ -114,6 +114,12 @@ app.post(
 );
 
 app.post(
+  "/settings/email/change",
+  AuthShield.verify,
+  bg.Route(Routes.SettingsEmailChange)
+);
+
+app.post(
   "/test-weekly-trackers-report",
   AuthShield.verify,
   async (_, response) => {
