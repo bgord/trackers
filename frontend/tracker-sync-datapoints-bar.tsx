@@ -4,8 +4,8 @@ import { h, Fragment } from "preact";
 
 import * as types from "./types";
 import { TrackerRevertDatapoint } from "./tracker-revert-datapoint";
-import { TRACKER_SYNC_DATAPOINT_BOUND_LOWER } from "../value-objects/tracker-sync-datapoint-bound-lower";
-import { TRACKER_SYNC_DATAPOINT_BOUND_UPPER } from "../value-objects/tracker-sync-datapoint-bound-upper";
+import { TRACKER_DATAPOINT_BOUND_LOWER } from "../value-objects/tracker-datapoint-bound-lower";
+import { TRACKER_DATAPOINT_BOUND_UPPER } from "../value-objects/tracker-datapoint-bound-upper";
 
 export function TrackerSyncDatapointsBar(
   props: types.TrackerSyncDatapointType
@@ -33,7 +33,7 @@ export function TrackerSyncDatapointsBar(
       onClick={details.toggle}
       onKeyDown={toggleDetailsKeyboardHandler}
       tabIndex={0}
-      style={{ maxHeight: `${TRACKER_SYNC_DATAPOINT_BOUND_UPPER}px` }}
+      style={{ maxHeight: `${TRACKER_DATAPOINT_BOUND_UPPER}px` }}
       {...hover.attach}
     >
       <div
@@ -48,7 +48,7 @@ export function TrackerSyncDatapointsBar(
         data-bwt={props.value.isMax ? "4" : undefined}
         data-bct={props.value.isMax ? "gray-400" : undefined}
         style={{
-          minHeight: `${TRACKER_SYNC_DATAPOINT_BOUND_LOWER}px`,
+          minHeight: `${TRACKER_DATAPOINT_BOUND_LOWER}px`,
           height: `${props.value.scaled}px`,
           minWidth: "36px",
         }}

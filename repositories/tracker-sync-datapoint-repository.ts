@@ -6,7 +6,7 @@ import startOfDay from "date-fns/startOfDay";
 export class TrackerSyncDatapointRepository {
   static async add(
     payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt"> & {
-      datapointId: VO.TrackerSyncDatapointType["id"];
+      datapointId: VO.TrackerDatapointType["id"];
     }
   ) {
     return infra.db.trackerSyncDatapoint.create({
@@ -19,9 +19,7 @@ export class TrackerSyncDatapointRepository {
     });
   }
 
-  static async remove(payload: {
-    datapointId: VO.TrackerSyncDatapointType["id"];
-  }) {
+  static async remove(payload: { datapointId: VO.TrackerDatapointType["id"] }) {
     return infra.db.trackerSyncDatapoint.delete({
       where: { id: payload.datapointId },
     });
@@ -37,8 +35,8 @@ export class TrackerSyncDatapointRepository {
 
     const minMaxScaler = new bg.MinMaxScaler({
       bound: {
-        lower: VO.TRACKER_SYNC_DATAPOINT_BOUND_LOWER,
-        upper: VO.TRACKER_SYNC_DATAPOINT_BOUND_UPPER,
+        lower: VO.TRACKER_DATAPOINT_BOUND_LOWER,
+        upper: VO.TRACKER_DATAPOINT_BOUND_UPPER,
       },
       ...bg.MinMaxScaler.getMinMax(datapoints.map((point) => point.value)),
     });

@@ -15,7 +15,7 @@ export class Tracker {
 
   DEFAULT_TRACKER_VALUE = VO.DEFAULT_TRACKER_VALUE;
 
-  DATAPOINTS_LIMIT_PER_DAY = VO.TRACKER_SYNC_DATAPOINTS_LIMIT_PER_DAY;
+  DATAPOINTS_LIMIT_PER_DAY = VO.TRACKER_DATAPOINTS_LIMIT_PER_DAY;
 
   constructor(id: VO.TrackerType["id"]) {
     this.id = id;
@@ -121,13 +121,13 @@ export class Tracker {
           id: this.id,
           value,
           updatedAt: Date.now(),
-          datapointId: VO.TrackerSyncDatapointId.parse(bg.NewUUID.generate()),
+          datapointId: VO.TrackerDatapointId.parse(bg.NewUUID.generate()),
         },
       })
     );
   }
 
-  async revert(datapointId: VO.TrackerSyncDatapointIdType) {
+  async revert(datapointId: VO.TrackerDatapointIdType) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
 
     await Repos.EventRepository.save(

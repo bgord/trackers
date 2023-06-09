@@ -1,0 +1,1 @@
+export const TRACKER_DATAPOINTS_LIMIT_PER_DAY = 5;
