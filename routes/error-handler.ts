@@ -93,7 +93,7 @@ export class ErrorHandler {
       });
     }
 
-    if (error instanceof Policies.TrackerSyncDatapointsLimitPerDayError) {
+    if (error instanceof Policies.TrackerDatapointsLimitPerDayError) {
       infra.logger.error({
         message: "Tracker datapoints per day limit reached",
         operation: "tracker_datapoints_per_day_limit_reached",

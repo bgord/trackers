@@ -106,7 +106,7 @@ export class Tracker {
       syncedValue: value,
     });
 
-    await Policies.TrackerSyncDatapointsLimitPerDay.perform({
+    await Policies.TrackerDatapointsLimitPerDay.perform({
       trackerId: this.id,
       limit: this.DATAPOINTS_LIMIT_PER_DAY,
       ...context,
