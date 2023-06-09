@@ -119,16 +119,13 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
     const attachment = await trackerExportFile.generate();
 
     await Services.TrackerExportSender.send({ attachment, ...event.payload });
+
     await trackerExportFile.delete();
   } catch (error) {
     infra.logger.error({
       message: "TRACKER_EXPORTED_EVENT error",
       operation: "tracker_exported_event_error",
-      metadata: {
-        message: (error as Error)?.message,
-        name: (error as Error)?.name,
-        stack: (error as Error)?.stack,
-      },
+      metadata: infra.logger.formatError(error as Error),
     });
     await trackerExportFile.delete();
   }
