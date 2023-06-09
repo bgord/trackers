@@ -116,6 +116,7 @@ export const emittery = new Emittery<{
 
   WEEKLY_TRACKERS_REPORT_ENABLED: WeeklyTrackersReportEnabledEventType;
   WEEKLY_TRACKERS_REPORT_DISABLED: WeeklyTrackersReportDisabledEventType;
+
   WEEKLY_TRACKERS_REPORT_SCHEDULED: WeeklyTrackersReportScheduledEventype;
 }>();
 
@@ -174,5 +175,11 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
 });
 
 emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
-  console.log(event.payload);
+  const weeklyTrackersReportGenerator =
+    new Services.WeeklyTrackersReportGenerator({
+      repository: Repos.TrackerRepository,
+      ...event.payload,
+    });
+
+  await weeklyTrackersReportGenerator.generate();
 });
