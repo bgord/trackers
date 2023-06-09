@@ -80,6 +80,11 @@ export class Settings {
   }
 
   async changeEmail(email: VO.SettingsEmailType) {
+    await Policies.SettingsEmailShouldChange.perform({
+      current: this.email,
+      changed: email,
+    });
+
     await Repos.EventRepository.save(
       Events.SettingsEmailChangedEvent.parse({
         name: Events.SETTINGS_EMAIL_CHANGED,
