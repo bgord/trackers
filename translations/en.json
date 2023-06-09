@@ -22,9 +22,10 @@
   "tracker.value.label": "Tracker value",
   "tracker.value.increase": "Increase tracker value by 1",
   "tracker.value.decrease": "Decrease tracker value by 1",
-  "tracker.value.sync.success": "Tracker value synced",
-  "tracker.value.sync.error.value_not_changed": "Tracker value not changed",
-  "tracker.value.sync.error.datapoints_per_daylimit_reached": "Tracker datapoints per day limit reached",
+
+  "tracker.sync.success": "Tracker datapoint synced",
+  "tracker.sync.error.value_not_changed": "Tracker value not changed",
+  "tracker.sync.error.datapoints_per_daylimit_reached": "Tracker datapoints per day limit reached",
 
   "tracker.create.submit": "Create",
   "tracker.create.success": "Tracker created",
@@ -35,12 +36,12 @@
   "tracker.details.hide": "Hide tracker details",
   "tracker.details.show": "Show tracker details",
 
-  "tracker.sync-datapoint.revert": "Revert tracker datapoint",
-  "tracker.sync-datapoint.revert.success": "Tracker datapoint reverted",
-  "tracker.sync-datapoint.revert.error": "Tracker datapoint revert error",
+  "tracker.datapoint.revert": "Revert tracker datapoint",
+  "tracker.datapoint.revert.success": "Tracker datapoint reverted",
+  "tracker.datapoint.revert.error": "Tracker datapoint revert error",
 
-  "tracker.sync-datapoints.error": "Error while loading tracker sync datapoints",
-  "tracker.sync-datapoints.empty": "No tracker sync datapoints",
+  "tracker.datapoints.error": "Error while loading tracker datapoints",
+  "tracker.datapoints.empty": "No tracker datapoints",
 
   "tracker.delete.success": "Tracker deleted",
   "tracker.delete.error": "Delete tracker error",

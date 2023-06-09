@@ -63,7 +63,7 @@ export class Tracker {
     });
   }
 
-  static async getSyncDatapoints(
+  static async getDatapoints(
     id: types.TrackerType["id"]
   ): Promise<types.TrackerDatapointType[]> {
     return _api(`/tracker/${id}/datapoints`, { method: "GET" }).then(

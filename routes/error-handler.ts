@@ -83,12 +83,12 @@ export class ErrorHandler {
     if (error instanceof Policies.TrackerValueShouldChangeError) {
       infra.logger.error({
         message: "Tracker value has not changed",
-        operation: "tracker_value_sync_error_value_not_changed",
+        operation: "tracker_sync_error_value_not_changed",
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "tracker.value.sync.error.value_not_changed",
+        message: "tracker.sync.error.value_not_changed",
         _known: true,
       });
     }
@@ -101,7 +101,7 @@ export class ErrorHandler {
       });
 
       return response.status(400).send({
-        message: "tracker.value.sync.error.datapoints_per_daylimit_reached",
+        message: "tracker.sync.error.datapoints_per_daylimit_reached",
         _known: true,
       });
     }
