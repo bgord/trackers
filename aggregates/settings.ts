@@ -2,6 +2,7 @@ import * as bg from "@bgord/node";
 
 import * as Events from "../events";
 import * as Repos from "../repositories";
+import * as Policies from "../policies";
 import * as VO from "../value-objects";
 
 export class Settings {
@@ -42,6 +43,10 @@ export class Settings {
   }
 
   async enableWeeklyTrackersReport() {
+    await Policies.WeeklyTrackersReportIsDisabled.perform({
+      current: this.isWeeklyTrackersReportEnabled,
+    });
+
     await Repos.EventRepository.save(
       Events.WeeklyTrackersReportEnabledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_ENABLED,
