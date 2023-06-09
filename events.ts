@@ -105,6 +105,18 @@ export type WeeklyTrackersReportScheduledEventype = z.infer<
   typeof WeeklyTrackersReportScheduledEvent
 >;
 
+export const SETTINGS_EMAIL_CHANGED = "SETTINGS_EMAIL_CHANGED";
+export const SettingsEmailChangedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(SETTINGS_EMAIL_CHANGED),
+    version: z.literal(1),
+    payload: z.object({ email: bg.Schema.Email }),
+  })
+);
+export type SettingsEmailChangedEventEvenType = z.infer<
+  typeof SettingsEmailChangedEvent
+>;
+
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{
@@ -118,6 +130,7 @@ export const emittery = new Emittery<{
   WEEKLY_TRACKERS_REPORT_DISABLED: WeeklyTrackersReportDisabledEventType;
 
   WEEKLY_TRACKERS_REPORT_SCHEDULED: WeeklyTrackersReportScheduledEventype;
+  SETTINGS_EMAIL_CHANGED: SettingsEmailChangedEventEvenType;
 }>();
 
 emittery.on(TRACKER_ADDED_EVENT, async (event) => {
