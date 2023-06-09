@@ -1,6 +1,7 @@
 import * as bg from "@bgord/node";
 import fs from "fs/promises";
 import csv from "csv";
+import _path from "path";
 
 import * as VO from "../value-objects";
 import * as Repos from "../repositories";
@@ -15,22 +16,36 @@ type TrackerDatapointsFileConfigType = {
   repository: typeof Repos.TrackerDatapointRepository;
 };
 
-export class TrackerDatapointsFile {
+export type TrackerExportAttachment = {
+  filename: bg.Schema.PathType;
+  path: bg.Schema.PathType;
+};
+
+export class TrackerExportFile {
   private readonly config: TrackerDatapointsFileConfigType;
 
-  private datapoints: DatapointType[];
+  private readonly TRACKER_EXPORTS_DIRECTORY = "tracker-exports";
 
-  columns = ["id", "value", "createdAt", "date", "isMin", "isMax"];
+  private readonly columns = [
+    "id",
+    "value",
+    "createdAt",
+    "date",
+    "isMin",
+    "isMax",
+  ];
+
+  private datapoints: DatapointType[];
 
   constructor(config: TrackerDatapointsFileConfigType) {
     this.config = config;
     this.datapoints = [];
   }
 
-  async generate(): Promise<bg.Schema.PathType> {
+  async generate(): Promise<TrackerExportAttachment> {
     await this.fetchDatapoints();
 
-    const filename = this.createFilename();
+    const file = this.getPaths();
     const data = this.prepare(this.datapoints);
 
     const content = csv.stringify(data, {
@@ -38,19 +53,25 @@ export class TrackerDatapointsFile {
       columns: this.columns,
     });
 
-    await fs.writeFile(filename, content);
+    await fs.writeFile(file.path, content);
 
-    return filename;
+    return file;
   }
 
   private async fetchDatapoints() {
     this.datapoints = await this.config.repository.list({ id: this.config.id });
   }
 
-  private createFilename(): bg.Schema.PathType {
-    const filename = `${this.config.id}-${this.config.scheduledAt}.csv`;
+  private getPaths(): TrackerExportAttachment {
+    const filename = bg.Schema.Path.parse(
+      `${this.config.id}-${this.config.scheduledAt}.csv`
+    );
 
-    return bg.Schema.Path.parse(filename);
+    const path = bg.Schema.Path.parse(
+      _path.resolve(this.TRACKER_EXPORTS_DIRECTORY, filename)
+    );
+
+    return { filename, path };
   }
 
   private prepare(datapoints: DatapointType[]) {

@@ -1,9 +1,10 @@
 import * as bg from "@bgord/node";
 
 import * as infra from "../infra";
+import * as Services from "../services";
 
 type TrackerExportSenderConfigType = {
-  filename: bg.Schema.PathType;
+  attachment: Services.TrackerExportAttachment;
   email: bg.Schema.EmailType;
   scheduledAt: bg.Schema.TimestampType;
 };
@@ -17,7 +18,9 @@ export class TrackerExportSender {
       to: config.email,
       subject: `Tracker export file from ${date}`,
       text: "See the attachment.",
-      attachments: [{ filename: config.filename, path: config.filename }],
+      attachments: [
+        { filename: config.attachment.filename, path: config.attachment.path },
+      ],
     });
   }
 }

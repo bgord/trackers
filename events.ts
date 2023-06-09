@@ -109,12 +109,12 @@ emittery.on(TRACKER_DELETED_EVENT, async (event) => {
 });
 
 emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
-  const TrackerDatapointsFile = new Services.TrackerDatapointsFile({
+  const trackerExportFile = new Services.TrackerExportFile({
     repository: Repos.TrackerDatapointRepository,
     ...event.payload,
   });
 
-  const filename = await TrackerDatapointsFile.generate();
+  const attachment = await trackerExportFile.generate();
 
-  await Services.TrackerExportSender.send({ filename, ...event.payload });
+  await Services.TrackerExportSender.send({ attachment, ...event.payload });
 });
