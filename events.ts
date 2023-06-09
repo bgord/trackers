@@ -177,9 +177,14 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
 emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
   const weeklyTrackersReportGenerator =
     new Services.WeeklyTrackersReportGenerator({
-      repository: Repos.TrackerRepository,
+      repos: {
+        tracker: Repos.TrackerRepository,
+        datapoint: Repos.TrackerDatapointRepository,
+      },
       ...event.payload,
     });
 
-  await weeklyTrackersReportGenerator.generate();
+  const report = await weeklyTrackersReportGenerator.generate();
+
+  await Services.WeeklyTrackersReportSender.send({ content: report });
 });
