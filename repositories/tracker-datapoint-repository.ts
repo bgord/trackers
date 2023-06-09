@@ -9,7 +9,7 @@ export class TrackerDatapointRepository {
       datapointId: VO.TrackerDatapointType["id"];
     }
   ) {
-    return infra.db.trackerSyncDatapoint.create({
+    return infra.db.trackerDatapoint.create({
       data: {
         id: payload.datapointId,
         trackerId: payload.id,
@@ -20,13 +20,13 @@ export class TrackerDatapointRepository {
   }
 
   static async remove(payload: { datapointId: VO.TrackerDatapointType["id"] }) {
-    return infra.db.trackerSyncDatapoint.delete({
+    return infra.db.trackerDatapoint.delete({
       where: { id: payload.datapointId },
     });
   }
 
   static async list(payload: Pick<VO.TrackerType, "id">) {
-    const datapoints = await infra.db.trackerSyncDatapoint.findMany({
+    const datapoints = await infra.db.trackerDatapoint.findMany({
       where: { trackerId: payload.id },
       orderBy: { createdAt: "desc" },
     });
@@ -48,7 +48,7 @@ export class TrackerDatapointRepository {
   }
 
   static async getLatestDatapointForTracker(trackerId: VO.TrackerIdType) {
-    return infra.db.trackerSyncDatapoint.findFirst({
+    return infra.db.trackerDatapoint.findFirst({
       where: { trackerId },
       orderBy: { createdAt: "desc" },
     });
@@ -61,7 +61,7 @@ export class TrackerDatapointRepository {
     const today = new Date(Date.now() - context.timeZoneOffset.miliseconds);
     const startOfTodayMs = startOfDay(today).getTime();
 
-    return infra.db.trackerSyncDatapoint.count({
+    return infra.db.trackerDatapoint.count({
       where: { trackerId, createdAt: { gte: startOfTodayMs } },
     });
   }
