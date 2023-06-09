@@ -104,6 +104,11 @@ fi
 
 # ==========================================================
 
+mkdir $OUT_DIR/tracker-exports
+info "Created tracker-exports directory"
+
+# ==========================================================
+
 npx gzip build/static/*.js --extension=gz --extension=br
 npx gzip build/static/*.css --extension=gz --extension=br
 npx gzip build/static/*.png --extension=gz --extension=br
