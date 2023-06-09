@@ -1,5 +1,11 @@
-export class SettingsRepository {
-  static async enableWeeklyTrackersReport() {}
+import * as Aggregates from "../aggregates";
 
-  static async disableWeeklyTrackersReport() {}
+export class SettingsRepository {
+  static async get() {
+    const settings = await new Aggregates.Settings().build();
+
+    return {
+      isWeeklyTrackersReportEnabled: settings.isWeeklyTrackersReportEnabled,
+    };
+  }
 }

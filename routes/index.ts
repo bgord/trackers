@@ -8,4 +8,6 @@ export * from "./tracker-revert";
 export * from "./tracker-sync";
 export * from "./tracker-datapoint-list";
 
+export * from "./settings-data";
+
 export * from "./error-handler";
