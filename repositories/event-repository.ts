@@ -11,7 +11,8 @@ type AcceptedEvent =
   | typeof Events.TrackerDeletedEvent
   | typeof Events.TrackerExportedEvent
   | typeof Events.WeeklyTrackersReportEnabledEvent
-  | typeof Events.WeeklyTrackersReportDisabledEvent;
+  | typeof Events.WeeklyTrackersReportDisabledEvent
+  | typeof Events.WeeklyTrackersReportScheduledEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {

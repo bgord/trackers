@@ -92,6 +92,19 @@ export type WeeklyTrackersReportDisabledEventType = z.infer<
   typeof WeeklyTrackersReportDisabledEvent
 >;
 
+export const WEEKLY_TRACKERS_REPORT_SCHEDULED =
+  "WEEKLY_TRACKERS_REPORT_SCHEDULED";
+export const WeeklyTrackersReportScheduledEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(WEEKLY_TRACKERS_REPORT_SCHEDULED),
+    version: z.literal(1),
+    payload: z.object({ scheduledAt: bg.Schema.Timestamp }),
+  })
+);
+export type WeeklyTrackersReportScheduledEventype = z.infer<
+  typeof WeeklyTrackersReportScheduledEvent
+>;
+
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{
@@ -103,6 +116,7 @@ export const emittery = new Emittery<{
 
   WEEKLY_TRACKERS_REPORT_ENABLED: WeeklyTrackersReportEnabledEventType;
   WEEKLY_TRACKERS_REPORT_DISABLED: WeeklyTrackersReportDisabledEventType;
+  WEEKLY_TRACKERS_REPORT_SCHEDULED: WeeklyTrackersReportScheduledEventype;
 }>();
 
 emittery.on(TRACKER_ADDED_EVENT, async (event) => {
@@ -157,4 +171,8 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
     });
     await trackerExportFile.delete();
   }
+});
+
+emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
+  console.log(event.payload);
 });
