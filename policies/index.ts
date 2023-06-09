@@ -4,3 +4,4 @@ export * from "./tracker-datapoints-limit-per-day";
 export * from "./tracker-should-exist";
 export * from "./tracker-should-have-datapoints";
 export * from "./weekly-trackers-report-is-disabled";
+export * from "./weekly-trackers-report-is-enabled";

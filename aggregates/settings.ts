@@ -58,6 +58,10 @@ export class Settings {
   }
 
   async disbleWeeklyTrackersReport() {
+    await Policies.WeeklyTrackersReportIsEnabled.perform({
+      current: this.isWeeklyTrackersReportEnabled,
+    });
+
     await Repos.EventRepository.save(
       Events.WeeklyTrackersReportDisabledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_DISABLED,
