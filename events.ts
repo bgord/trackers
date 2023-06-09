@@ -110,7 +110,7 @@ export const SettingsEmailChangedEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(SETTINGS_EMAIL_CHANGED),
     version: z.literal(1),
-    payload: z.object({ email: bg.Schema.Email }),
+    payload: z.object({ email: VO.SettingsEmail }),
   })
 );
 export type SettingsEmailChangedEventEvenType = z.infer<
