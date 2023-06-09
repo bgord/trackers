@@ -13,3 +13,4 @@ export * from "./settings-data";
 
 export * from "./error-handler";
 export * from "./settings-weekly-trackers-report-enable";
+export * from "./settings-weekly-trackers-report-disable";

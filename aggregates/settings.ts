@@ -57,7 +57,7 @@ export class Settings {
     );
   }
 
-  async disbleWeeklyTrackersReport() {
+  async disableWeeklyTrackersReport() {
     await Policies.WeeklyTrackersReportIsEnabled.perform({
       current: this.isWeeklyTrackersReportEnabled,
     });

@@ -84,4 +84,10 @@ export class Settings {
       method: "POST",
     });
   }
+
+  static async weeklyTrackersReportDisable() {
+    return _api("/settings/weekly-trackers-report/disable", {
+      method: "POST",
+    });
+  }
 }

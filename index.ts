@@ -105,6 +105,11 @@ app.post(
   AuthShield.verify,
   bg.Route(Routes.SettingsWeeklyTrackersReportEnable)
 );
+app.post(
+  "/settings/weekly-trackers-report/disable",
+  AuthShield.verify,
+  bg.Route(Routes.SettingsWeeklyTrackersReportDisable)
+);
 
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
