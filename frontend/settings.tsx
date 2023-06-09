@@ -1,7 +1,7 @@
 import * as bg from "@bgord/frontend";
 import { RoutableProps } from "preact-router";
 import { h } from "preact";
-import { useQuery } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 import * as api from "./api";
 import * as hooks from "./hooks";
@@ -16,8 +16,19 @@ export function Settings(_: RoutableProps) {
   hooks.useLeavingPrompt();
 
   const t = bg.useTranslations();
+  const queryClient = useQueryClient();
 
   const settings = useQuery("settings", api.Settings.get);
+
+  const enableWeeklyTrackersReport = useMutation(
+    api.Settings.weeklyTrackersReportEnable,
+    { onSuccess: () => queryClient.invalidateQueries("settings") }
+  );
+
+  const disableWeeklyTrackersReport = useMutation(
+    api.Settings.weeklyTrackersReportDisable,
+    { onSuccess: () => queryClient.invalidateQueries("settings") }
+  );
 
   if (settings.isError) {
     return <UI.Info data-m="24">{t("settings.error")}</UI.Info>;
@@ -52,6 +63,17 @@ export function Settings(_: RoutableProps) {
           data-variant="primary"
           data-ml="auto"
           type="button"
+          onClick={() => {
+            if (settings.data.isWeeklyTrackersReportEnabled) {
+              disableWeeklyTrackersReport.mutate();
+            } else {
+              enableWeeklyTrackersReport.mutate();
+            }
+          }}
+          disabled={
+            enableWeeklyTrackersReport.isLoading ||
+            disableWeeklyTrackersReport.isLoading
+          }
         >
           {settings.data.isWeeklyTrackersReportEnabled
             ? t("settings.weekly_trackers_report.disable")

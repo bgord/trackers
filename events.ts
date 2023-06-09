@@ -158,11 +158,3 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
     await trackerExportFile.delete();
   }
 });
-
-emittery.on(WEEKLY_TRACKERS_REPORT_ENABLED, async (event) => {
-  console.log(event);
-});
-
-emittery.on(WEEKLY_TRACKERS_REPORT_DISABLED, async (event) => {
-  console.log(event);
-});
