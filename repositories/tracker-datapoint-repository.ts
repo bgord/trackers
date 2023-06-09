@@ -54,7 +54,7 @@ export class TrackerDatapointRepository {
     });
   }
 
-  static async getDatapointsForToday(
+  static async countDatapointsFromToday(
     trackerId: VO.TrackerIdType,
     context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ): Promise<number> {
