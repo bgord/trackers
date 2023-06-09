@@ -5,6 +5,7 @@ import Emittery from "emittery";
 import * as VO from "./value-objects";
 import * as Repos from "./repositories";
 import * as Services from "./services";
+import * as infra from "./infra";
 
 export const TRACKER_ADDED_EVENT = "TRACKER_ADDED_EVENT";
 export const TrackerAddedEvent = bg.EventDraft.merge(
@@ -114,7 +115,21 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
     ...event.payload,
   });
 
-  const attachment = await trackerExportFile.generate();
+  try {
+    const attachment = await trackerExportFile.generate();
 
-  await Services.TrackerExportSender.send({ attachment, ...event.payload });
+    await Services.TrackerExportSender.send({ attachment, ...event.payload });
+    await trackerExportFile.delete();
+  } catch (error) {
+    infra.logger.error({
+      message: "TRACKER_EXPORTED_EVENT error",
+      operation: "tracker_exported_event_error",
+      metadata: {
+        message: (error as Error)?.message,
+        name: (error as Error)?.name,
+        stack: (error as Error)?.stack,
+      },
+    });
+    await trackerExportFile.delete();
+  }
 });

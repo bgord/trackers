@@ -58,6 +58,11 @@ export class TrackerExportFile {
     return file;
   }
 
+  async delete() {
+    const file = this.getPaths();
+    await fs.unlink(file.path);
+  }
+
   private async fetchDatapoints() {
     this.datapoints = await this.config.repository.list({ id: this.config.id });
   }
