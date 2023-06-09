@@ -73,7 +73,7 @@ app.delete(
 );
 
 app.get(
-  "/tracker/:trackerId/sync/datapoints",
+  "/tracker/:trackerId/datapoints",
   AuthShield.verify,
   CacheResponse.handle,
   bg.Route(Routes.TrackerDatapointsList)

@@ -8,8 +8,8 @@ import * as api from "./api";
 import * as types from "./types";
 
 export function TrackerRevertDatapoint(props: {
-  id: types.TrackerSyncDatapointType["id"];
-  trackerId: types.TrackerSyncDatapointType["id"];
+  id: types.TrackerDatapointType["id"];
+  trackerId: types.TrackerDatapointType["id"];
 }) {
   const t = bg.useTranslations();
   const notify = bg.useToastTrigger();

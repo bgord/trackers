@@ -7,7 +7,7 @@ import * as types from "./types";
 import { TrackerSync } from "./tracker-sync";
 import { TrackerDelete } from "./tracker-delete";
 import { TrackerExport } from "./tracker-export";
-import { TrackerSyncDatapoints } from "./tracker-sync-datapoints";
+import { TrackerDatapointList } from "./tracker-datapoint-list";
 
 export function Tracker(props: types.TrackerType) {
   const t = bg.useTranslations();
@@ -51,7 +51,7 @@ export function Tracker(props: types.TrackerType) {
           data-gap="36"
         >
           <TrackerSync key={props.updatedAt} {...props} />
-          <TrackerSyncDatapoints key={props.updatedAt} {...props} />
+          <TrackerDatapointList key={props.updatedAt} {...props} />
         </div>
       )}
     </li>

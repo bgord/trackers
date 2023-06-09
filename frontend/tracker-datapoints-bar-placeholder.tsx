@@ -3,7 +3,7 @@ import { h } from "preact";
 import { TRACKER_DATAPOINT_BOUND_LOWER } from "../value-objects/tracker-datapoint-bound-lower";
 import { TRACKER_DATAPOINT_BOUND_UPPER } from "../value-objects/tracker-datapoint-bound-upper";
 
-export function TrackerSyncDatapointsPlaceholder(props: { bars: number }) {
+export function TrackerDatapointsChartPlaceholder(props: { bars: number }) {
   const min = TRACKER_DATAPOINT_BOUND_LOWER;
   const max = TRACKER_DATAPOINT_BOUND_UPPER;
 
@@ -15,13 +15,13 @@ export function TrackerSyncDatapointsPlaceholder(props: { bars: number }) {
     <ul data-display="flex" data-cross="end" data-gap="3">
       {bars.map((value, index) => (
         /* eslint-disable react/no-array-index-key */
-        <TrackerSyncDatapointsPlaceholderBar key={index} height={value} />
+        <TrackerDatapointBarPlaceholder key={index} height={value} />
       ))}
     </ul>
   );
 }
 
-function TrackerSyncDatapointsPlaceholderBar(props: { height: number }) {
+function TrackerDatapointBarPlaceholder(props: { height: number }) {
   return (
     <li
       data-bg="gray-100"

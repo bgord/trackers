@@ -7,9 +7,7 @@ import { TrackerRevertDatapoint } from "./tracker-revert-datapoint";
 import { TRACKER_DATAPOINT_BOUND_LOWER } from "../value-objects/tracker-datapoint-bound-lower";
 import { TRACKER_DATAPOINT_BOUND_UPPER } from "../value-objects/tracker-datapoint-bound-upper";
 
-export function TrackerSyncDatapointsBar(
-  props: types.TrackerSyncDatapointType
-) {
+export function TrackerDatapointBar(props: types.TrackerDatapointType) {
   const details = bg.useToggle(false);
   const toggleDetailsKeyboardHandler = bg.useKeyHandler({
     [bg.KeyNameEnum.Enter]: details.toggle,

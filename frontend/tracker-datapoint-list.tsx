@@ -6,19 +6,19 @@ import * as UI from "./ui";
 import * as types from "./types";
 import * as api from "./api";
 
-import { TrackerSyncDatapointsBar } from "./tracker-sync-datapoints-bar";
-import { TrackerSyncDatapointsPlaceholder } from "./tracker-sync-datapoints-bar-placeholder";
+import { TrackerDatapointBar } from "./tracker-datapoint-bar";
+import { TrackerDatapointsChartPlaceholder } from "./tracker-datapoints-bar-placeholder";
 
-export function TrackerSyncDatapoints(props: types.TrackerType) {
+export function TrackerDatapointList(props: types.TrackerType) {
   const t = bg.useTranslations();
 
   const trackerSyncDatapoints = useQuery(
-    ["tracker-sync-datapoints", props.id],
+    ["tracker-datapoint-list", props.id],
     () => api.Tracker.getSyncDatapoints(props.id)
   );
 
   if (trackerSyncDatapoints.isLoading) {
-    return <TrackerSyncDatapointsPlaceholder bars={15} />;
+    return <TrackerDatapointsChartPlaceholder bars={15} />;
   }
 
   if (trackerSyncDatapoints.isError) {
@@ -39,7 +39,7 @@ export function TrackerSyncDatapoints(props: types.TrackerType) {
       data-gap="3"
     >
       {trackerSyncDatapoints.data.map((datapoint) => (
-        <TrackerSyncDatapointsBar key={datapoint.id} {...datapoint} />
+        <TrackerDatapointBar key={datapoint.id} {...datapoint} />
       ))}
     </ul>
   );
