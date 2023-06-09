@@ -5,7 +5,7 @@ import * as VO from "../value-objects";
 import * as Repos from "../repositories";
 import * as infra from "../infra";
 
-export async function TrackerSyncDatapoints(
+export async function TrackerDatapointsList(
   request: express.Request,
   response: express.Response,
   _next: express.NextFunction

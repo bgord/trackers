@@ -76,7 +76,7 @@ app.get(
   "/tracker/:trackerId/sync/datapoints",
   AuthShield.verify,
   CacheResponse.handle,
-  bg.Route(Routes.TrackerSyncDatapoints)
+  bg.Route(Routes.TrackerDatapointsList)
 );
 
 app.get(
