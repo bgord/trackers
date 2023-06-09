@@ -59,5 +59,13 @@
   "tracker.export.in_progress": "Exporting tracker",
   "tracker.export.confirmation": "Write an email adress to send the exported file to",
   "tracker.export.email.label": "Email",
-  "tracker.export.email.placeholder": "joe@example.com"
+  "tracker.export.email.placeholder": "joe@example.com",
+
+  "settings.loading": "Loading settings...",
+  "settings.error": "Error wihle loading settings",
+  "settings.weekly_trackers_report": "Weekly trackers report",
+  "settings.weekly_trackers_report.enable": "Enable",
+  "settings.weekly_trackers_report.enabled": "Enabled",
+  "settings.weekly_trackers_report.disable": "Disable",
+  "settings.weekly_trackers_report.disabled": "Disabled"
 }

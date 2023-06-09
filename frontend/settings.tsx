@@ -1,3 +1,4 @@
+import * as bg from "@bgord/frontend";
 import { RoutableProps } from "preact-router";
 import { h } from "preact";
 import { useQuery } from "react-query";
@@ -5,6 +6,7 @@ import { useQuery } from "react-query";
 import * as api from "./api";
 import * as hooks from "./hooks";
 import * as types from "./types";
+import * as UI from "./ui";
 
 export type InitialSettingsDataType = {
   settings: types.SettingsType;
@@ -13,9 +15,49 @@ export type InitialSettingsDataType = {
 export function Settings(_: RoutableProps) {
   hooks.useLeavingPrompt();
 
+  const t = bg.useTranslations();
+
   const settings = useQuery("settings", api.Settings.get);
 
-  console.log(settings);
+  if (settings.isError) {
+    return <UI.Info data-m="24">{t("settings.error")}</UI.Info>;
+  }
 
-  return <main>settings</main>;
+  if (!settings.isSuccess) {
+    return <UI.Info data-m="24">{t("settings.loading")}</UI.Info>;
+  }
+
+  return (
+    <main
+      data-display="flex"
+      data-direction="column"
+      data-gap="48"
+      data-p="24"
+      data-max-width="768"
+      data-mx="auto"
+    >
+      <header data-fs="20">{t("app.settings")}</header>
+
+      <div data-display="flex" data-cross="center" data-gap="48">
+        <div class="c-badge">
+          {settings.data.isWeeklyTrackersReportEnabled
+            ? t("settings.weekly_trackers_report.enabled")
+            : t("settings.weekly_trackers_report.disabled")}
+        </div>
+
+        <div>{t("settings.weekly_trackers_report")}</div>
+
+        <button
+          class="c-button"
+          data-variant="primary"
+          data-ml="auto"
+          type="button"
+        >
+          {settings.data.isWeeklyTrackersReportEnabled
+            ? t("settings.weekly_trackers_report.disable")
+            : t("settings.weekly_trackers_report.enable")}
+        </button>
+      </div>
+    </main>
+  );
 }
