@@ -71,3 +71,11 @@ export class Tracker {
     );
   }
 }
+
+export class Settings {
+  static async get(): Promise<types.SettingsType> {
+    return _api("/settings/data", { method: "GET" }).then((response) =>
+      response.json()
+    );
+  }
+}

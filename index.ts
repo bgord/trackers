@@ -92,6 +92,13 @@ app.get(
   ])
 );
 
+app.get(
+  "/settings",
+  AuthShield.verify,
+  bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
+  bg.Route(Routes.Settings)
+);
+
 app.get("/settings/data", AuthShield.verify, bg.Route(Routes.SettingsData));
 
 app.get("*", (_, response) => response.redirect("/"));

@@ -8,12 +8,14 @@ import { SkipNavLink, SkipNavContent } from "@reach/skip-nav";
 import { Toasts } from "./toasts";
 import { Navigation } from "./navigation";
 import { Dashboard, InitialDashboardDataType } from "./dashboard";
+import { Settings, InitialSettingsDataType } from "./settings";
 
 export type InitialDataType = {
   url: string;
   language: Schema.LanguageType;
   translations: TranslationsType;
-} & InitialDashboardDataType;
+} & InitialDashboardDataType &
+  InitialSettingsDataType;
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnMount: false } },
@@ -21,6 +23,7 @@ const queryClient = new QueryClient({
 
 export function App(props: InitialDataType) {
   queryClient.setQueryData("trackers", props.trackers);
+  queryClient.setQueryData("settings", props.settings);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -34,6 +37,7 @@ export function App(props: InitialDataType) {
 
           <Router url={props.url}>
             <Dashboard path="/dashboard" />
+            <Settings path="/settings" />
           </Router>
 
           <Toasts />

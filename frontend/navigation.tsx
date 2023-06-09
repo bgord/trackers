@@ -21,6 +21,8 @@ function NavigationDesktop() {
       <OfflineIndicator />
 
       <div data-display="flex" data-gap="24">
+        <NavigationLink href="/settings">{t("app.settings")}</NavigationLink>
+
         <strong data-mx="12" data-color="white">
           admin
         </strong>
@@ -100,24 +102,6 @@ function NavigationMobile() {
             data-gap="24"
             data-my="24"
           >
-            <NavigationLink
-              onClick={navigation.disable}
-              href="/archive/articles"
-            >
-              {t("app.articles")}
-            </NavigationLink>
-
-            <NavigationLink
-              onClick={navigation.disable}
-              href="/archive/newspapers"
-            >
-              {t("app.newspapers")}
-            </NavigationLink>
-
-            <NavigationLink onClick={navigation.disable} href="/archive/files">
-              {t("app.files")}
-            </NavigationLink>
-
             <NavigationLink onClick={navigation.disable} href="/settings">
               {t("app.settings")}
             </NavigationLink>

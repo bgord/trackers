@@ -6,7 +6,7 @@ import * as Services from "../services";
 import * as Repos from "../repositories";
 import { App } from "../frontend/app";
 
-export async function Dashboard(
+export async function Settings(
   request: express.Request,
   response: express.Response,
   _next: express.NextFunction
@@ -20,7 +20,7 @@ export async function Dashboard(
     ...Repos.BuildRepository.getAll(),
     language: request.language,
     translations,
-    trackers: await Repos.TrackerRepository.list(),
+    trackers: [],
     settings: await Repos.SettingsRepository.get(),
   };
 

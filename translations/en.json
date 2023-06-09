@@ -6,8 +6,11 @@
   "app.general.error": "Something went wrong",
   "app.loading": "Loading...",
   "app.logout": "logout",
+  "app.menu.close": "close menu",
+  "app.menu.show": "show menu",
   "app.name": "trackers",
   "app.no_internet_connection": "No internet connection",
+  "app.settings": "Settings",
   "app.sync": "Sync",
 
   "tracker.name.label": "Tracker name",
