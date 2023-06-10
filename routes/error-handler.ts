@@ -119,6 +119,45 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Policies.SettingsEmailShouldChangeError) {
+      infra.logger.error({
+        message: "Email has not changed",
+        operation: "settings_email_has_not_changed_error",
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: "settings.email.change.error.the_same",
+        _known: true,
+      });
+    }
+
+    if (error instanceof Policies.WeeklyTrackersReportIsEnabledError) {
+      infra.logger.error({
+        message: "Weekly trackers report already enabled",
+        operation: "settings.weekly_trackers_report.enable.error",
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: "settings.weekly_trackers_report.enable.error",
+        _known: true,
+      });
+    }
+
+    if (error instanceof Policies.WeeklyTrackersReportIsDisabledError) {
+      infra.logger.error({
+        message: "Weekly trackers report already disabled",
+        operation: "settings.weekly_trackers_report.disable.error",
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: "settings.weekly_trackers_report.disable.error",
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(

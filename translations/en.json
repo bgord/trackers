@@ -65,7 +65,22 @@
   "settings.error": "Error wihle loading settings",
   "settings.weekly_trackers_report": "Weekly trackers report",
   "settings.weekly_trackers_report.enable": "Enable",
+  "settings.weekly_trackers_report.enable.error": "Weekly trackers report already enabled",
   "settings.weekly_trackers_report.enabled": "Enabled",
   "settings.weekly_trackers_report.disable": "Disable",
-  "settings.weekly_trackers_report.disabled": "Disabled"
+  "settings.weekly_trackers_report.disable.error": "Weekly trackers report already disabled",
+  "settings.weekly_trackers_report.disabled": "Disabled",
+
+  "settings.email": "Email address",
+  "settings.email.empty": "no email set",
+  "settings.email.set": "email set",
+  "settings.email.show": "show",
+  "settings.email.hide": "hide",
+  "settings.email.new.label": "New email",
+  "settings.email.new.placeholder": "new@example.com",
+  "settings.email.current": "Current email: {{value}}",
+  "settings.email.change": "Change",
+  "settings.email.change.success": "Email changed",
+  "settings.email.change.error": "Error while changing email",
+  "settings.email.change.error.the_same": "Email has not changed"
 }

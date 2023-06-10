@@ -9,6 +9,7 @@ import * as types from "./types";
 import * as UI from "./ui";
 
 import { SettingsWeeklyTrackersReport } from "./settings-weekly-trackers-report";
+import { SettingsEmail } from "./settings-email";
 
 export type InitialSettingsDataType = {
   settings: types.SettingsType;
@@ -39,8 +40,8 @@ export function Settings(_: RoutableProps) {
       data-mx="auto"
     >
       <header data-fs="20">{t("app.settings")}</header>
-
       <SettingsWeeklyTrackersReport {...settings.data} />
+      <SettingsEmail {...settings.data} />
     </main>
   );
 }

@@ -90,4 +90,11 @@ export class Settings {
       method: "POST",
     });
   }
+
+  static async emailChange(payload: { email: types.SettingsEmailType }) {
+    return _api("/settings/email/change", {
+      method: "POST",
+      body: JSON.stringify({ email: payload.email }),
+    });
+  }
 }

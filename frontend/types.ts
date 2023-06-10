@@ -7,6 +7,7 @@ import type { TrackerDatapointRepository } from "../repositories/tracker-datapoi
 import type { SettingsRepository } from "../repositories/settings-repository";
 
 export type { TrackerNameType } from "../value-objects/tracker-name";
+
 export type ToastType = bg.BaseToastType;
 
 export { TrackerKindEnum } from "../value-objects/tracker-kind-enum";
@@ -18,3 +19,5 @@ export type TrackerDatapointType = AsyncReturnType<
 >[0];
 
 export type SettingsType = AsyncReturnType<typeof SettingsRepository["get"]>;
+
+export type { SettingsEmailType } from "../value-objects/settings-email";
