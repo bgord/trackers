@@ -1,5 +1,5 @@
 import * as bg from "@bgord/frontend";
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useMutation, useQueryClient } from "react-query";
 import * as Icons from "iconoir-react";
 
@@ -72,17 +72,19 @@ export function SettingsEmail(props: types.SettingsType) {
       </div>
 
       {details.on && (
-        <div
-          data-display="flex"
-          data-cross="end"
-          data-gap="24"
-          data-wrap="nowrap"
-        >
-          {props.email && (
-            <UI.Info data-fs="14" data-mb="6" data-transform="nowrap">
-              {t("settings.email.current", { value: props.email })}
-            </UI.Info>
-          )}
+        <Fragment>
+          <div
+            data-display="flex"
+            data-cross="end"
+            data-gap="24"
+            data-wrap="nowrap"
+          >
+            {props.email && (
+              <UI.Info data-fs="14" data-transform="nowrap">
+                {t("settings.email.current", { value: props.email })}
+              </UI.Info>
+            )}
+          </div>
 
           <form
             data-display="flex"
@@ -134,7 +136,7 @@ export function SettingsEmail(props: types.SettingsType) {
               disabled={changeEmail.isLoading}
             />
           </form>
-        </div>
+        </Fragment>
       )}
     </div>
   );
