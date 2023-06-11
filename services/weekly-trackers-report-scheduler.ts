@@ -18,7 +18,7 @@ export enum DayOfTheWeekEnum {
 export class WeeklyTrackersReportScheduler {
   static DAY_OF_THE_WEEK: DayOfTheWeekEnum = DayOfTheWeekEnum.Monday;
 
-  static UTC_HOUR: bg.Schema.HourType = 6;
+  static UTC_HOUR: bg.Schema.HourType = 5;
 
   static getCronExpression() {
     const { UTC_HOUR, DAY_OF_THE_WEEK } = WeeklyTrackersReportScheduler;
