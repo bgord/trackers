@@ -201,16 +201,18 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
 });
 
 emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
+  const { scheduledAt, email } = event.payload;
+
   const config = {
     repos: {
       tracker: Repos.TrackerRepository,
       datapoint: Repos.TrackerDatapointRepository,
     },
-    scheduledAt: event.payload.scheduledAt,
+    scheduledAt,
   };
 
   const reportGenerator = new Services.WeeklyTrackersReportGenerator(config);
   const report = await reportGenerator.generate();
 
-  await Services.WeeklyTrackersReportSender.send(report, event.payload.email);
+  infra.Mailer.send({ ...report, from: infra.Env.EMAIL_FROM, to: email });
 });
