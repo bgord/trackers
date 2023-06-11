@@ -1,4 +1,5 @@
 import * as bg from "@bgord/node";
+import format from "date-fns/format";
 
 import * as VO from "../value-objects";
 import * as Repos from "../repositories";
@@ -18,10 +19,16 @@ type WeeklyTrackersReportGeneratorConfigType = {
 export class WeeklyTrackersReportGenerator {
   private readonly config: WeeklyTrackersReportGeneratorConfigType;
 
+  private readonly range: {
+    from: bg.Schema.TimestampType;
+    to: bg.Schema.TimestampType;
+  };
+
   private trackers: VO.TrackerType[];
 
   constructor(config: WeeklyTrackersReportGeneratorConfigType) {
     this.config = config;
+    this.range = this.getDateRange(config);
 
     this.trackers = [];
   }
@@ -65,5 +72,12 @@ export class WeeklyTrackersReportGenerator {
 
   private async getTrackers() {
     this.trackers = await this.config.repos.tracker.list();
+  }
+
+  private getDateRange(config: WeeklyTrackersReportGeneratorConfigType) {
+    return {
+      from: config.scheduledAt - bg.Time.Days(7).toMs(),
+      to: config.scheduledAt,
+    };
   }
 }
