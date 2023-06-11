@@ -121,8 +121,20 @@ export const SettingsEmailChangedEvent = bg.EventDraft.merge(
     }),
   })
 );
-export type SettingsEmailChangedEventEvenType = z.infer<
+export type SettingsEmailChangedEventType = z.infer<
   typeof SettingsEmailChangedEvent
+>;
+
+export const SETTINGS_EMAIL_DELETED = "SETTINGS_EMAIL_DELETED";
+export const SettingsEmailDeletedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(SETTINGS_EMAIL_DELETED),
+    version: z.literal(1),
+    payload: z.object({ updatedAt: bg.Schema.Timestamp }),
+  })
+);
+export type SettingsEmailDeletedEventType = z.infer<
+  typeof SettingsEmailDeletedEvent
 >;
 
 Emittery.isDebugEnabled = true;
@@ -138,7 +150,9 @@ export const emittery = new Emittery<{
   WEEKLY_TRACKERS_REPORT_DISABLED: WeeklyTrackersReportDisabledEventType;
 
   WEEKLY_TRACKERS_REPORT_SCHEDULED: WeeklyTrackersReportScheduledEventype;
-  SETTINGS_EMAIL_CHANGED: SettingsEmailChangedEventEvenType;
+
+  SETTINGS_EMAIL_CHANGED: SettingsEmailChangedEventType;
+  SETTINGS_EMAIL_DELETED: SettingsEmailDeletedEventType;
 }>();
 
 emittery.on(TRACKER_ADDED_EVENT, async (event) => {
