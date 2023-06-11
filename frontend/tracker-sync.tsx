@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 import * as types from "./types";
 import * as api from "./api";
+import * as UI from "./ui";
 
 export function TrackerSync(props: types.TrackerType) {
   const t = bg.useTranslations();
@@ -96,15 +97,10 @@ export function TrackerSync(props: types.TrackerType) {
         {t("app.sync")}
       </button>
 
-      <button
-        type="button"
-        class="c-button"
-        data-variant="bare"
-        disabled={isTrackerValueTheSame || trackerSyncMutation.isLoading}
+      <UI.ClearButton
         onClick={trackerValue.clear}
-      >
-        {t("app.clear")}
-      </button>
+        disabled={isTrackerValueTheSame || trackerSyncMutation.isLoading}
+      />
     </form>
   );
 }

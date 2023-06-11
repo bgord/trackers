@@ -1,3 +1,5 @@
+import * as bg from "@bgord/frontend";
+import * as Icons from "iconoir-react";
 import { h } from "preact";
 
 export function Info(props: h.JSX.IntrinsicElements["div"]) {
@@ -9,5 +11,24 @@ export function Info(props: h.JSX.IntrinsicElements["div"]) {
       data-color="gray-600"
       {...props}
     />
+  );
+}
+
+export function ClearButton(props: h.JSX.IntrinsicElements["button"]) {
+  const t = bg.useTranslations();
+
+  return (
+    <button
+      title={t("app.clear_query")}
+      type="button"
+      class="c-button"
+      data-variant="bare"
+      data-display="flex"
+      data-main="center"
+      data-cross="center"
+      {...props}
+    >
+      <Icons.Cancel width="24" height="24" />
+    </button>
   );
 }

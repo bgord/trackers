@@ -89,7 +89,7 @@ export function SettingsEmail(props: types.SettingsType) {
             data-cross="end"
             data-wrap="nowrap"
             data-width="100%"
-            data-gap="24"
+            data-gap="12"
             onSubmit={(event) => {
               event.preventDefault();
               changeEmail.mutate({ email: newEmailField.value });
@@ -115,13 +115,24 @@ export function SettingsEmail(props: types.SettingsType) {
                 required
                 data-width="100%"
                 value={newEmailField.value}
+                disabled={changeEmail.isLoading}
                 {...newEmailField.input.props}
               />
             </div>
 
-            <button class="c-button" data-variant="primary" type="submit">
+            <button
+              class="c-button"
+              data-variant="primary"
+              type="submit"
+              disabled={changeEmail.isLoading}
+            >
               {t("settings.email.change")}
             </button>
+
+            <UI.ClearButton
+              onClick={newEmailField.clear}
+              disabled={changeEmail.isLoading}
+            />
           </form>
         </div>
       )}
