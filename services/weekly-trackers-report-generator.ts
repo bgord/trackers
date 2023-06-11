@@ -5,7 +5,7 @@ import * as VO from "../value-objects";
 import * as Repos from "../repositories";
 
 type DatapointType = bg.AsyncReturnType<
-  typeof Repos.TrackerDatapointRepository["list"]
+  typeof Repos.TrackerDatapointRepository["listFromRange"]
 >[0];
 
 type WeeklyTrackersReportGeneratorConfigType = {
@@ -41,13 +41,19 @@ export class WeeklyTrackersReportGenerator {
 
     for (const tracker of this.trackers) {
       report += this.createTrackerRow(tracker);
+      report += this.addNewLine(2);
 
-      const datapoints = await this.config.repos.datapoint.list({
+      const datapoints = await this.config.repos.datapoint.listFromRange({
         id: tracker.id,
+        ...this.range,
       });
+
+      report += this.createTrackerDatapointCountRow(datapoints);
+      report += this.addNewLine(2);
 
       for (const datapoint of datapoints) {
         report += this.createTrackerDatapointRow(datapoint);
+        report += this.addNewLine(1);
       }
     }
 
@@ -66,11 +72,17 @@ export class WeeklyTrackersReportGenerator {
   }
 
   private createTrackerRow(tracker: VO.TrackerType) {
-    return `\nTracker: ${tracker.name} [${tracker.kind}], current value: ${tracker.value}\n`;
+    return `<strong>${tracker.name}</strong> tracker (${tracker.kind}), current value: <strong>${tracker.value}</strong>`;
+  }
+
+  private createTrackerDatapointCountRow(datapoints: DatapointType[]) {
+    return `<strong>${datapoints.length}</strong> new datapoints`;
   }
 
   private createTrackerDatapointRow(datapoint: DatapointType) {
-    return `- ${datapoint.value.actual} (${datapoint.createdAt})\n`;
+    return `- <strong>${
+      datapoint.value.actual
+    }</strong> (${bg.DateFormatters.datetime(datapoint.createdAt)})`;
   }
 
   private async getTrackers() {
