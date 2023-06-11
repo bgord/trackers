@@ -169,10 +169,12 @@ emittery.on(TRACKER_DELETED_EVENT, async (event) => {
 });
 
 emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
-  const trackerExportFile = new Services.TrackerExportFile({
+  const config = {
     repository: Repos.TrackerDatapointRepository,
     ...event.payload,
-  });
+  };
+
+  const trackerExportFile = new Services.TrackerExportFile(config);
 
   try {
     const attachment = await trackerExportFile.generate();
@@ -186,21 +188,22 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
       operation: "tracker_exported_event_error",
       metadata: infra.logger.formatError(error as Error),
     });
+
     await trackerExportFile.delete();
   }
 });
 
 emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
-  const weeklyTrackersReportGenerator =
-    new Services.WeeklyTrackersReportGenerator({
-      repos: {
-        tracker: Repos.TrackerRepository,
-        datapoint: Repos.TrackerDatapointRepository,
-      },
-      ...event.payload,
-    });
+  const config = {
+    repos: {
+      tracker: Repos.TrackerRepository,
+      datapoint: Repos.TrackerDatapointRepository,
+    },
+    ...event.payload,
+  };
 
-  const report = await weeklyTrackersReportGenerator.generate();
+  const reportGenerator = new Services.WeeklyTrackersReportGenerator(config);
+  const report = await reportGenerator.generate();
 
-  await Services.WeeklyTrackersReportSender.send({ content: report });
+  await Services.WeeklyTrackersReportSender.send(report);
 });

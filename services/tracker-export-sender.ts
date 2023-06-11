@@ -18,9 +18,7 @@ export class TrackerExportSender {
       to: config.email,
       subject: `Tracker export file from ${date}`,
       text: "See the attachment.",
-      attachments: [
-        { filename: config.attachment.filename, path: config.attachment.path },
-      ],
+      attachments: [config.attachment],
     });
   }
 }

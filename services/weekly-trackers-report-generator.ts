@@ -28,12 +28,12 @@ export class WeeklyTrackersReportGenerator {
 
   constructor(config: WeeklyTrackersReportGeneratorConfigType) {
     this.config = config;
-    this.range = this.getDateRange(config);
+    this.range = this.getDateRange();
 
     this.trackers = [];
   }
 
-  async generate() {
+  async generate(): Promise<VO.WeeklyTrackersReportType> {
     await this.getTrackers();
 
     let report = this.createHeader();
@@ -53,11 +53,18 @@ export class WeeklyTrackersReportGenerator {
 
       for (const datapoint of datapoints) {
         report += this.createTrackerDatapointRow(datapoint);
-        report += this.addNewLine(1);
+        report += this.addNewLine();
       }
     }
 
-    return report;
+    return { html: report, subject: this.createSubject() };
+  }
+
+  private createSubject() {
+    const from = format(this.range.from, "yyyy-MM-dd");
+    const to = format(this.range.to, "yyyy-MM-dd");
+
+    return `Weekly trackers report ${from} - ${to}`;
   }
 
   private createHeader() {
@@ -89,10 +96,10 @@ export class WeeklyTrackersReportGenerator {
     this.trackers = await this.config.repos.tracker.list();
   }
 
-  private getDateRange(config: WeeklyTrackersReportGeneratorConfigType) {
+  private getDateRange() {
     return {
-      from: config.scheduledAt - bg.Time.Days(7).toMs(),
-      to: config.scheduledAt,
+      from: this.config.scheduledAt - bg.Time.Days(7).toMs(),
+      to: this.config.scheduledAt,
     };
   }
 }
