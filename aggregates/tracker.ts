@@ -160,7 +160,12 @@ export class Tracker {
         name: Events.TRACKER_EXPORTED_EVENT,
         stream: this.stream,
         version: 1,
-        payload: { id: this.id, scheduledAt: Date.now(), email },
+        payload: {
+          id: this.id,
+          scheduledAt: Date.now(),
+          email,
+          name: this.entity!.name,
+        },
       })
     );
   }

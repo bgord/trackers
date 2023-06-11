@@ -62,6 +62,7 @@ export const TrackerExportedEvent = bg.EventDraft.merge(
       id: VO.TrackerId,
       scheduledAt: bg.Schema.Timestamp,
       email: bg.Schema.Email,
+      name: VO.TrackerName,
     }),
   })
 );
@@ -172,7 +173,7 @@ emittery.on(TRACKER_DELETED_EVENT, async (event) => {
 });
 
 emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
-  const { id, scheduledAt, email } = event.payload;
+  const { id, scheduledAt, email, name } = event.payload;
 
   const trackerExportFile = new Services.TrackerExportFile({
     repository: Repos.TrackerDatapointRepository,
@@ -187,7 +188,7 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
     await infra.Mailer.send({
       from: infra.Env.EMAIL_FROM,
       to: email,
-      subject: `Tracker export file from ${date}`,
+      subject: `"${name}" tracker export file from ${date}`,
       text: "See the attachment below.",
       attachments: [attachment],
     });
