@@ -57,8 +57,8 @@ export class WeeklyTrackersReportGenerator {
   }
 
   private createSubject() {
-    const from = format(this.range.from, "yyyy-MM-dd");
-    const to = format(this.range.to, "yyyy-MM-dd");
+    const from = bg.DateFormatters.date(this.range.from);
+    const to = bg.DateFormatters.date(this.range.to);
 
     return `Weekly trackers report ${from} - ${to}`;
   }
