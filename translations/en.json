@@ -70,6 +70,7 @@
   "settings.weekly_trackers_report.disable": "Disable",
   "settings.weekly_trackers_report.disable.error": "Weekly trackers report already disabled",
   "settings.weekly_trackers_report.disabled": "Disabled",
+  "settings.weekly_trackers_report.info": "You have to set an email to be able to receive weekly trackers reports.",
 
   "settings.email": "Email address",
   "settings.email.empty": "no email set",
