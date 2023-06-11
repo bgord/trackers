@@ -2,8 +2,8 @@ import express from "express";
 import * as bg from "@bgord/node";
 
 import * as Routes from "./routes";
-import * as Repos from "./repositories";
-import * as Events from "./events";
+import * as Services from "./services";
+import * as Aggregates from "./aggregates";
 import * as infra from "./infra";
 
 const AuthShield = new bg.EnvUserAuthShield({
@@ -118,19 +118,6 @@ app.post(
   AuthShield.verify,
   bg.Route(Routes.SettingsEmailChange)
 );
-
-app.post("/test-weekly-trackers-report", async (_, response) => {
-  await Repos.EventRepository.save(
-    Events.WeeklyTrackersReportScheduledEvent.parse({
-      name: Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
-      stream: "test-weekly-trackers-report",
-      version: 1,
-      payload: { scheduledAt: Date.now(), email: "joe@example.com" },
-    })
-  );
-
-  return response.status(200).send();
-});
 
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
