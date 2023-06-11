@@ -11,6 +11,38 @@ type WeeklyTrackersReportGeneratorConfigType = {
   scheduledAt: bg.Schema.TimestampType;
 };
 
+type ReportContentType = string;
+
+export enum ReportTypeEnum {
+  text = "text",
+  html = "html",
+}
+
+export class Report {
+  content: ReportContentType;
+
+  type: ReportTypeEnum;
+
+  constructor(type: ReportTypeEnum) {
+    this.content = "";
+    this.type = type;
+  }
+
+  addNewLine(count = 1) {
+    if (this.type === ReportTypeEnum.text) {
+      this.content += "\n".repeat(count);
+    }
+
+    if (this.type === ReportTypeEnum.html) {
+      this.content += "<br />".repeat(count);
+    }
+  }
+
+  append(text: ReportContentType) {
+    this.content += text;
+  }
+}
+
 export class WeeklyTrackersReportGenerator {
   private readonly config: WeeklyTrackersReportGeneratorConfigType;
 
@@ -29,30 +61,32 @@ export class WeeklyTrackersReportGenerator {
   }
 
   async generate(): Promise<VO.WeeklyTrackersReportType> {
+    const report = new Report(ReportTypeEnum.html);
+
+    report.append(this.createHeader());
+    report.addNewLine(2);
+
     const trackers = await this.config.repos.tracker.list();
 
-    let report = this.createHeader();
-    report += this.addNewLine(2);
-
     for (const tracker of trackers) {
-      report += this.createTrackerRow(tracker);
-      report += this.addNewLine(2);
+      report.append(this.createTrackerRow(tracker));
+      report.addNewLine(2);
 
       const datapoints = (await this.config.repos.datapoint.listFromRange({
         id: tracker.id,
         ...this.range,
       })) as VO.TrackerDatapointType[];
 
-      report += this.createTrackerDatapointCountRow(datapoints);
-      report += this.addNewLine(2);
+      report.append(this.createTrackerDatapointCountRow(datapoints));
+      report.addNewLine(2);
 
       for (const datapoint of datapoints) {
-        report += this.createTrackerDatapointRow(datapoint);
-        report += this.addNewLine();
+        report.append(this.createTrackerDatapointRow(datapoint));
+        report.addNewLine();
       }
     }
 
-    return { html: report, subject: this.createSubject() };
+    return { html: report.content, subject: this.createSubject() };
   }
 
   private createSubject() {
@@ -64,10 +98,6 @@ export class WeeklyTrackersReportGenerator {
 
   private createHeader() {
     return `<strong>${this.createSubject()}</strong>`;
-  }
-
-  private addNewLine(count = 1) {
-    return "<br />".repeat(count);
   }
 
   private createTrackerRow(tracker: VO.TrackerType) {
