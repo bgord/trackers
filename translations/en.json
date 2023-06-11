@@ -77,6 +77,8 @@
   "settings.email.set": "email set",
   "settings.email.show": "show",
   "settings.email.hide": "hide",
+  "settings.email.delete": "delete",
+  "settings.email.delete.success": "Settings email deleted",
   "settings.email.new.label": "New email",
   "settings.email.new.placeholder": "new@example.com",
   "settings.email.current": "Current email: {{value}}",

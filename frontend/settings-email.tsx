@@ -27,6 +27,14 @@ export function SettingsEmail(props: types.SettingsType) {
     onError: (error: bg.ServerError) => notify({ message: error.message }),
   });
 
+  const deleteEmail = useMutation(api.Settings.emailDelete, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("settings");
+      notify({ message: "settings.email.delete.success" });
+    },
+    onError: (error: bg.ServerError) => notify({ message: error.message }),
+  });
+
   return (
     <div data-display="flex" data-direction="column" data-gap="24">
       <div data-display="flex" data-gap="24" data-cross="center">
@@ -73,18 +81,23 @@ export function SettingsEmail(props: types.SettingsType) {
 
       {details.on && (
         <Fragment>
-          <div
-            data-display="flex"
-            data-cross="end"
-            data-gap="24"
-            data-wrap="nowrap"
-          >
-            {props.email && (
+          {props.email && (
+            <div data-display="flex" data-gap="24" data-wrap="nowrap">
               <UI.Info data-fs="14" data-transform="nowrap">
                 {t("settings.email.current", { value: props.email })}
               </UI.Info>
-            )}
-          </div>
+
+              <button
+                class="c-button"
+                data-variant="bare"
+                type="button"
+                onClick={() => deleteEmail.mutate()}
+                disabled={deleteEmail.isLoading || changeEmail.isLoading}
+              >
+                {t("settings.email.delete")}
+              </button>
+            </div>
+          )}
 
           <form
             data-display="flex"
@@ -126,7 +139,7 @@ export function SettingsEmail(props: types.SettingsType) {
               class="c-button"
               data-variant="primary"
               type="submit"
-              disabled={changeEmail.isLoading}
+              disabled={changeEmail.isLoading || deleteEmail.isLoading}
             >
               {t("settings.email.change")}
             </button>

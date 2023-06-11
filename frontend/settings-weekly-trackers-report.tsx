@@ -1,5 +1,5 @@
 import * as bg from "@bgord/frontend";
-import { h, Fragment } from "preact";
+import { h } from "preact";
 import { useMutation, useQueryClient } from "react-query";
 
 import * as api from "./api";
@@ -79,7 +79,9 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
         )}
       </div>
 
-      <UI.Info>{t("settings.weekly_trackers_report.info")}</UI.Info>
+      {!props.isWeeklyTrackersReportEnabled && (
+        <UI.Info>{t("settings.weekly_trackers_report.info")}</UI.Info>
+      )}
     </div>
   );
 }

@@ -44,6 +44,7 @@ export class Settings {
 
         case Events.SETTINGS_EMAIL_DELETED:
           this.email = null;
+          this.isWeeklyTrackersReportEnabled = false;
           break;
 
         default:
@@ -106,8 +107,8 @@ export class Settings {
     await Policies.SettingsEmailIsConfigured.perform({ email: this.email });
 
     await Repos.EventRepository.save(
-      Events.SettingsEmailChangedEvent.parse({
-        name: Events.SETTINGS_EMAIL_CHANGED,
+      Events.SettingsEmailDeletedEvent.parse({
+        name: Events.SETTINGS_EMAIL_DELETED,
         stream: this.stream,
         version: 1,
         payload: { updatedAt: Date.now() },
