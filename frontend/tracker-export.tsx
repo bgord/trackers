@@ -23,6 +23,7 @@ export function TrackerExport(
       setTimeout(exportTracker.reset, 5000);
       dialog.disable();
       notify({ message: "tracker.export.success" });
+      email.clear();
     },
     onError(error: bg.ServerError) {
       setTimeout(exportTracker.reset, 5000);
