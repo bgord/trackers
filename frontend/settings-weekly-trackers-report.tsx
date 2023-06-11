@@ -10,24 +10,32 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
   hooks.useLeavingPrompt();
 
   const t = bg.useTranslations();
+  const notify = bg.useToastTrigger();
   const queryClient = useQueryClient();
 
   const enableWeeklyTrackersReport = useMutation(
     api.Settings.weeklyTrackersReportEnable,
-    { onSuccess: () => queryClient.invalidateQueries("settings") }
+    {
+      onSuccess: () => queryClient.invalidateQueries("settings"),
+      onError: (error: bg.ServerError) => notify({ message: error.message }),
+    }
   );
 
   const disableWeeklyTrackersReport = useMutation(
     api.Settings.weeklyTrackersReportDisable,
-    { onSuccess: () => queryClient.invalidateQueries("settings") }
+    {
+      onSuccess: () => queryClient.invalidateQueries("settings"),
+      onError: (error: bg.ServerError) => notify({ message: error.message }),
+    }
   );
 
-  const isChangeDisabled =
+  const canToggleWeeklyTrackersReport =
+    !props.email ||
     enableWeeklyTrackersReport.isLoading ||
     disableWeeklyTrackersReport.isLoading;
 
   return (
-    <div data-display="flex" data-cross="center" data-gap="48">
+    <div data-display="flex" data-cross="center" data-gap="24">
       {props.isWeeklyTrackersReportEnabled && (
         <div class="c-badge">
           {t("settings.weekly_trackers_report.enabled")}
@@ -49,7 +57,7 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
           data-ml="auto"
           type="button"
           onClick={() => disableWeeklyTrackersReport.mutate()}
-          disabled={isChangeDisabled}
+          disabled={canToggleWeeklyTrackersReport}
         >
           {t("settings.weekly_trackers_report.disable")}
         </button>
@@ -62,7 +70,7 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
           data-ml="auto"
           type="button"
           onClick={() => enableWeeklyTrackersReport.mutate()}
-          disabled={isChangeDisabled}
+          disabled={canToggleWeeklyTrackersReport}
         >
           {t("settings.weekly_trackers_report.enable")}
         </button>

@@ -134,26 +134,39 @@ export class ErrorHandler {
 
     if (error instanceof Policies.WeeklyTrackersReportIsEnabledError) {
       infra.logger.error({
-        message: "Weekly trackers report already enabled",
-        operation: "settings.weekly_trackers_report.enable.error",
+        message: "Weekly trackers report already disabled",
+        operation: "settings.weekly_trackers_report_disable_error",
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "settings.weekly_trackers_report.enable.error",
+        message: "settings.weekly_trackers_report.disable.error",
         _known: true,
       });
     }
 
     if (error instanceof Policies.WeeklyTrackersReportIsDisabledError) {
       infra.logger.error({
-        message: "Weekly trackers report already disabled",
-        operation: "settings.weekly_trackers_report.disable.error",
+        message: "Weekly trackers report already enabled",
+        operation: "settings.weekly_trackers_report_enable_error",
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
         message: "settings.weekly_trackers_report.disable.error",
+        _known: true,
+      });
+    }
+
+    if (error instanceof Policies.SettingsEmailIsConfiguredError) {
+      infra.logger.error({
+        message: "Settings email is not configured",
+        operation: "settings_email_error_not_configured",
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: "settings.email.error.not_configured",
         _known: true,
       });
     }
