@@ -11,9 +11,11 @@ type DatapointType = bg.AsyncReturnType<
 >[0];
 
 type TrackerDatapointsFileConfigType = {
-  id: VO.TrackerIdType;
-  scheduledAt: bg.Schema.TimestampType;
   repository: typeof Repos.TrackerDatapointRepository;
+  tracker: {
+    id: VO.TrackerIdType;
+    scheduledAt: bg.Schema.TimestampType;
+  };
 };
 
 export class TrackerExportFile {
@@ -36,7 +38,7 @@ export class TrackerExportFile {
 
   async generate(): Promise<bg.Schema.EmailAttachmentType> {
     const datapoints = await this.config.repository.list({
-      id: this.config.id,
+      id: this.config.tracker.id,
     });
 
     const file = this.getPaths();
@@ -58,7 +60,7 @@ export class TrackerExportFile {
   }
 
   private getPaths(): bg.Schema.EmailAttachmentType {
-    const filename = `${this.config.id}-${this.config.scheduledAt}.csv`;
+    const filename = `${this.config.tracker.id}-${this.config.tracker.scheduledAt}.csv`;
 
     const path = _path.resolve(this.TRACKER_EXPORTS_DIRECTORY, filename);
 

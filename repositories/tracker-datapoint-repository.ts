@@ -79,7 +79,10 @@ export class TrackerDatapointRepository {
     trackerId: VO.TrackerIdType,
     context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ): Promise<number> {
-    const today = new Date(Date.now() - context.timeZoneOffset.miliseconds);
+    const today = bg.TimeZoneOffset.adjustDate(
+      Date.now(),
+      context.timeZoneOffset.miliseconds
+    );
     const startOfTodayMs = startOfDay(today).getTime();
 
     return infra.db.trackerDatapoint.count({

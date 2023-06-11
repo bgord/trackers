@@ -174,22 +174,21 @@ emittery.on(TRACKER_DELETED_EVENT, async (event) => {
 });
 
 emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
-  const { id, scheduledAt, email, name } = event.payload;
+  const { id, scheduledAt, email, name, timeZoneOffsetMs } = event.payload;
 
   const trackerExportFile = new Services.TrackerExportFile({
     repository: Repos.TrackerDatapointRepository,
-    id,
-    scheduledAt,
+    tracker: { id, scheduledAt },
   });
 
   try {
     const attachment = await trackerExportFile.generate();
-    const date = new Date(scheduledAt).toUTCString();
+    const date = bg.TimeZoneOffset.adjustDate(scheduledAt, timeZoneOffsetMs);
 
     await infra.Mailer.send({
       from: infra.Env.EMAIL_FROM,
       to: email,
-      subject: `"${name}" tracker export file from ${date}`,
+      subject: `"${name}" tracker export file from ${date.toUTCString()}`,
       text: "See the attachment below.",
       attachments: [attachment],
     });
