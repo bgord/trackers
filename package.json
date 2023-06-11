@@ -51,6 +51,7 @@
     "@prisma/client": "^3.7.0",
     "@reach/skip-nav": "^0.17.0",
     "axios": "^0.24.0",
+    "croner": "^6.0.3",
     "csv": "^6.3.1",
     "emittery": "^0.10.0",
     "execa": "^5.1.1",
@@ -65,7 +66,7 @@
     "react-dom": "npm:@preact/compat@^17.1.0",
     "react-query": "^3.34.7",
     "serialize-javascript": "^6.0.0",
-    "toad-scheduler": "^1.6.1",
+    "toad-scheduler": "^2.3.0",
     "typescript": "^4.7.4",
     "winston": "^3.8.2",
     "zod": "^3.20.2"

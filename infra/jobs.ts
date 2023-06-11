@@ -1,5 +1,6 @@
-import { ToadScheduler, SimpleIntervalJob, AsyncTask } from "toad-scheduler";
+import { ToadScheduler, AsyncTask, CronJob } from "toad-scheduler";
 
+import * as Services from "../services";
 import { logger } from "./logger";
 
 export const Scheduler = new ToadScheduler();
@@ -14,9 +15,11 @@ const WeeklyTrackersReportSchedulerTask = new AsyncTask(
   }
 );
 
-const WeeklyTrackersReportSchedulerJob = new SimpleIntervalJob(
-  { seconds: 10, runImmediately: true },
+const WeeklyTrackersReportSchedulerJob = new CronJob(
+  {
+    cronExpression: `0 ${Services.WeeklyTrackersReportScheduler.UTC_HOUR} * * ${Services.WeeklyTrackersReportScheduler.DAY_OF_THE_WEEK}`,
+  },
   WeeklyTrackersReportSchedulerTask
 );
 
-Scheduler.addSimpleIntervalJob(WeeklyTrackersReportSchedulerJob);
+Scheduler.addCronJob(WeeklyTrackersReportSchedulerJob);
