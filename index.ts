@@ -125,7 +125,7 @@ app.post("/test-weekly-trackers-report", async (_, response) => {
       name: Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
       stream: "test-weekly-trackers-report",
       version: 1,
-      payload: { scheduledAt: Date.now() },
+      payload: { scheduledAt: Date.now(), email: "joe@example.com" },
     })
   );
 

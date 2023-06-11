@@ -30,18 +30,17 @@ export class TrackerExportFile {
     "isMax",
   ];
 
-  private datapoints: DatapointType[];
-
   constructor(config: TrackerDatapointsFileConfigType) {
     this.config = config;
-    this.datapoints = [];
   }
 
   async generate(): Promise<bg.Schema.EmailAttachmentType> {
-    await this.fetchDatapoints();
+    const datapoints = await this.config.repository.list({
+      id: this.config.id,
+    });
 
     const file = this.getPaths();
-    const data = this.prepare(this.datapoints);
+    const data = this.prepare(datapoints);
 
     const content = csv.stringify(data, {
       header: true,
@@ -56,10 +55,6 @@ export class TrackerExportFile {
   async delete() {
     const file = this.getPaths();
     await fs.unlink(file.path);
-  }
-
-  private async fetchDatapoints() {
-    this.datapoints = await this.config.repository.list({ id: this.config.id });
   }
 
   private getPaths(): bg.Schema.EmailAttachmentType {

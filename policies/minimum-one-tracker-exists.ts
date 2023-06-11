@@ -9,10 +9,10 @@ export class MinimumOneTrackerExistsError extends Error {
   }
 }
 
-type MinimumOneTrackerExistsConfigType = {};
+type MinimumOneTrackerExistsConfigType = Record<string, never>;
 
 class MinimumOneTrackerExistsFactory extends bg.Policy<MinimumOneTrackerExistsConfigType> {
-  async fails(): Promise<boolean> {
+  async fails(_config: MinimumOneTrackerExistsConfigType): Promise<boolean> {
     const numberOfTrackers = await Repos.TrackerRepository.count();
 
     return numberOfTrackers === 0;

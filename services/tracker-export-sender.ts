@@ -16,7 +16,7 @@ export class TrackerExportSender {
       from: infra.Env.EMAIL_FROM,
       to: config.to,
       subject: `Tracker export file from ${date}`,
-      text: "See the attachment.",
+      text: "See the attachment below.",
       attachments: [config.attachment],
     });
   }

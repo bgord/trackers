@@ -184,8 +184,8 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
 
     await Services.TrackerExportSender.send({
       attachment,
-      to: config.email,
-      scheduledAt: config.scheduledAt,
+      to: event.payload.email,
+      scheduledAt: event.payload.scheduledAt,
     });
 
     await trackerExportFile.delete();
