@@ -151,7 +151,10 @@ export class Tracker {
     );
   }
 
-  async export(email: bg.Schema.EmailType) {
+  async export(
+    email: bg.Schema.EmailType,
+    context: { timeZoneOffset: bg.TimeZoneOffsetsType }
+  ) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
     await Policies.TrackerShouldHaveDatapoints.perform({ trackerId: this.id });
 
@@ -165,6 +168,7 @@ export class Tracker {
           scheduledAt: Date.now(),
           email,
           name: this.entity!.name,
+          timeZoneOffsetMs: context.timeZoneOffset.miliseconds,
         },
       })
     );

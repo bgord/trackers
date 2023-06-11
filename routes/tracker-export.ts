@@ -9,11 +9,13 @@ export async function TrackerExport(
   response: express.Response,
   _next: express.NextFunction
 ) {
+  const context = { timeZoneOffset: request.timeZoneOffset };
+
   const id = VO.TrackerId.parse(request.params.trackerId);
   const email = bg.Schema.Email.parse(request.body.email);
 
   const tracker = await new Aggregates.Tracker(id).build();
-  await tracker.export(email);
+  await tracker.export(email, context);
 
   return response.status(200).send();
 }

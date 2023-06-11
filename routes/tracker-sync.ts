@@ -9,6 +9,8 @@ export async function TrackerSync(
   response: express.Response,
   _next: express.NextFunction
 ) {
+  const context = { timeZoneOffset: request.timeZoneOffset };
+
   const id = VO.TrackerId.parse(request.params.trackerId);
   const value = VO.TrackerValue.parse(request.body.value);
 
@@ -20,7 +22,7 @@ export async function TrackerSync(
   });
 
   const tracker = await new Aggregates.Tracker(id).build();
-  await tracker.sync(value, { timeZoneOffset: request.timeZoneOffset });
+  await tracker.sync(value, context);
 
   return response.status(201).send();
 }

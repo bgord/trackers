@@ -63,6 +63,7 @@ export const TrackerExportedEvent = bg.EventDraft.merge(
       scheduledAt: bg.Schema.Timestamp,
       email: bg.Schema.Email,
       name: VO.TrackerName,
+      timeZoneOffsetMs: bg.Schema.TimeZoneOffsetValue,
     }),
   })
 );
