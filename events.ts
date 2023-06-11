@@ -172,20 +172,24 @@ emittery.on(TRACKER_DELETED_EVENT, async (event) => {
 });
 
 emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
-  const config = {
-    repository: Repos.TrackerDatapointRepository,
-    ...event.payload,
-  };
+  const { id, scheduledAt, email } = event.payload;
 
-  const trackerExportFile = new Services.TrackerExportFile(config);
+  const trackerExportFile = new Services.TrackerExportFile({
+    repository: Repos.TrackerDatapointRepository,
+    id,
+    scheduledAt,
+  });
 
   try {
     const attachment = await trackerExportFile.generate();
+    const date = new Date(scheduledAt).toUTCString();
 
-    await Services.TrackerExportSender.send({
-      attachment,
-      to: event.payload.email,
-      scheduledAt: event.payload.scheduledAt,
+    await infra.Mailer.send({
+      from: infra.Env.EMAIL_FROM,
+      to: email,
+      subject: `Tracker export file from ${date}`,
+      text: "See the attachment below.",
+      attachments: [attachment],
     });
 
     await trackerExportFile.delete();
@@ -214,5 +218,5 @@ emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
   const reportGenerator = new Services.WeeklyTrackersReportGenerator(config);
   const report = await reportGenerator.generate();
 
-  infra.Mailer.send({ ...report, from: infra.Env.EMAIL_FROM, to: email });
+  await infra.Mailer.send({ ...report, from: infra.Env.EMAIL_FROM, to: email });
 });
