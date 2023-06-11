@@ -51,6 +51,7 @@ app.get("/tracker", AuthShield.verify, bg.Route(Routes.TrackerList));
 app.delete(
   "/tracker/:trackerId",
   AuthShield.verify,
+  CacheResponse.clear,
   bg.Route(Routes.TrackerDelete)
 );
 app.post(
@@ -62,7 +63,7 @@ app.post(
 app.post(
   "/tracker/:trackerId/export",
   AuthShield.verify,
-  // bg.RateLimitShield.build({ limitMs: bg.Time.Hours(1).toMs() }),
+  bg.RateLimitShield.build({ limitMs: bg.Time.Hours(1).toMs() }),
   bg.Route(Routes.TrackerExport)
 );
 app.delete(
