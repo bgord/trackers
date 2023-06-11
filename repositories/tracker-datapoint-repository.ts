@@ -53,28 +53,13 @@ export class TrackerDatapointRepository {
       to: bg.Schema.TimestampType;
     }
   ) {
-    const datapoints = await infra.db.trackerDatapoint.findMany({
+    return infra.db.trackerDatapoint.findMany({
       where: {
         trackerId: payload.id,
         createdAt: { gte: payload.from, lte: payload.to },
       },
       orderBy: { createdAt: "desc" },
     });
-
-    if (datapoints.length === 0) return [];
-
-    const minMaxScaler = new bg.MinMaxScaler({
-      bound: {
-        lower: VO.TRACKER_DATAPOINT_BOUND_LOWER,
-        upper: VO.TRACKER_DATAPOINT_BOUND_UPPER,
-      },
-      ...bg.MinMaxScaler.getMinMax(datapoints.map((point) => point.value)),
-    });
-
-    return datapoints.map((point) => ({
-      ...point,
-      value: minMaxScaler.scale(point.value),
-    }));
   }
 
   static async countDatapointsForTracker(

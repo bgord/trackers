@@ -10,7 +10,9 @@ import { Tracker } from "./tracker";
 export function TrackerList() {
   const t = bg.useTranslations();
 
-  const trackerListQuery = useQuery("trackers", api.Tracker.list);
+  const trackerListQuery = useQuery("trackers", api.Tracker.list, {
+    refetchOnMount: true,
+  });
   const trackers = trackerListQuery.data ?? [];
 
   if (trackerListQuery.isLoading) {

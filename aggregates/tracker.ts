@@ -100,12 +100,10 @@ export class Tracker {
     context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
-
     await Policies.TrackerValueShouldChange.perform({
       currentValue: this.entity!.value,
       syncedValue: value,
     });
-
     await Policies.TrackerDatapointsLimitPerDay.perform({
       trackerId: this.id,
       limit: this.DATAPOINTS_LIMIT_PER_DAY,
@@ -155,7 +153,6 @@ export class Tracker {
 
   async export(email: bg.Schema.EmailType) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
-
     await Policies.TrackerShouldHaveDatapoints.perform({ trackerId: this.id });
 
     await Repos.EventRepository.save(

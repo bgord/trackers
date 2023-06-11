@@ -4,10 +4,6 @@ import format from "date-fns/format";
 import * as VO from "../value-objects";
 import * as Repos from "../repositories";
 
-type DatapointType = bg.AsyncReturnType<
-  typeof Repos.TrackerDatapointRepository["listFromRange"]
->[0];
-
 type WeeklyTrackersReportGeneratorConfigType = {
   repos: {
     tracker: typeof Repos.TrackerRepository;
@@ -43,10 +39,10 @@ export class WeeklyTrackersReportGenerator {
       report += this.createTrackerRow(tracker);
       report += this.addNewLine(2);
 
-      const datapoints = await this.config.repos.datapoint.listFromRange({
+      const datapoints = (await this.config.repos.datapoint.listFromRange({
         id: tracker.id,
         ...this.range,
-      });
+      })) as VO.TrackerDatapointType[];
 
       report += this.createTrackerDatapointCountRow(datapoints);
       report += this.addNewLine(2);
@@ -81,12 +77,14 @@ export class WeeklyTrackersReportGenerator {
     return `<strong>${name}</strong> tracker (${kind}), current value: <strong>${value}</strong>`;
   }
 
-  private createTrackerDatapointCountRow(datapoints: DatapointType[]) {
+  private createTrackerDatapointCountRow(
+    datapoints: VO.TrackerDatapointType[]
+  ) {
     return `<strong>${datapoints.length}</strong> new datapoints`;
   }
 
-  private createTrackerDatapointRow(datapoint: DatapointType) {
-    const value = datapoint.value.actual;
+  private createTrackerDatapointRow(datapoint: VO.TrackerDatapointType) {
+    const value = datapoint.value;
     const createdAt = bg.DateFormatters.datetime(datapoint.createdAt);
 
     return `- <strong>${value}</strong> (${createdAt})`;
