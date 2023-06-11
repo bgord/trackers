@@ -162,5 +162,7 @@ app.use(Routes.ErrorHandler.handle);
       message: "Shutting down job scheduler",
       operation: "scheduler_shutdown",
     });
+
+    infra.Scheduler.stop();
   });
 })();
