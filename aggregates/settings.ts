@@ -23,6 +23,7 @@ export class Settings {
         Events.WeeklyTrackersReportEnabledEvent,
         Events.WeeklyTrackersReportDisabledEvent,
         Events.SettingsEmailChangedEvent,
+        Events.SettingsEmailDeletedEvent,
       ],
       this.stream
     );
@@ -39,6 +40,10 @@ export class Settings {
 
         case Events.SETTINGS_EMAIL_CHANGED:
           this.email = event.payload.email;
+          break;
+
+        case Events.SETTINGS_EMAIL_DELETED:
+          this.email = null;
           break;
 
         default:
@@ -93,6 +98,19 @@ export class Settings {
         stream: this.stream,
         version: 1,
         payload: { email, updatedAt: Date.now() },
+      })
+    );
+  }
+
+  async deleteEmail() {
+    await Policies.SettingsEmailIsConfigured.perform({ email: this.email });
+
+    await Repos.EventRepository.save(
+      Events.SettingsEmailChangedEvent.parse({
+        name: Events.SETTINGS_EMAIL_CHANGED,
+        stream: this.stream,
+        version: 1,
+        payload: { updatedAt: Date.now() },
       })
     );
   }
