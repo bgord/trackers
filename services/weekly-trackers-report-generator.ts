@@ -55,7 +55,10 @@ export class WeeklyTrackersReportGenerator {
   }
 
   private createHeader() {
-    return "<strong>Weekly trackers report</strong>";
+    const from = format(this.range.from, "yyyy-MM-dd");
+    const to = format(this.range.to, "yyyy-MM-dd");
+
+    return `<strong>Weekly trackers report ${from} - ${to}</strong>`;
   }
 
   private addNewLine(count = 1) {
