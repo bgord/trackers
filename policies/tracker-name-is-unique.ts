@@ -16,9 +16,7 @@ type TrackerNameIsUniqueErrorConfigType = {
 class TrackerNameIsUniqueFactory extends bg.Policy<TrackerNameIsUniqueErrorConfigType> {
   async fails(config: TrackerNameIsUniqueErrorConfigType): Promise<boolean> {
     const numberOfTrackersWithName =
-      await Repos.TrackerRepository.getNumberOfTrackersWithName(
-        config.trackerName
-      );
+      await Repos.TrackerRepository.countTrackersWithName(config.trackerName);
 
     return numberOfTrackersWithName > 0;
   }

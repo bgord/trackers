@@ -32,7 +32,11 @@ export class TrackerRepository {
     });
   }
 
-  static async getNumberOfTrackersWithName(name: VO.TrackerNameType) {
+  static async countTrackersWithName(name: VO.TrackerNameType) {
     return infra.db.tracker.count({ where: { name } });
+  }
+
+  static async count() {
+    return infra.db.tracker.count();
   }
 }
