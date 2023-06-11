@@ -1,13 +1,11 @@
-import { ToadScheduler, AsyncTask, CronJob } from "toad-scheduler";
+import { Cron } from "croner";
 
 import * as Aggregates from "../aggregates";
 import * as Services from "../services";
 import { logger } from "./logger";
 
-export const Scheduler = new ToadScheduler();
-
-const WeeklyTrackersReportSchedulerTask = new AsyncTask(
-  "weekly-trackers-report-scheduler-task",
+const WeeklyTrackersReportSchedulerJob = Cron(
+  Services.WeeklyTrackersReportScheduler.getCronExpression(),
   async () => {
     try {
       logger.info({
@@ -32,11 +30,4 @@ const WeeklyTrackersReportSchedulerTask = new AsyncTask(
   }
 );
 
-const WeeklyTrackersReportSchedulerJob = new CronJob(
-  {
-    cronExpression: Services.WeeklyTrackersReportScheduler.getCronExpression(),
-  },
-  WeeklyTrackersReportSchedulerTask
-);
-
-Scheduler.addCronJob(WeeklyTrackersReportSchedulerJob);
+export const jobs = { WeeklyTrackersReportSchedulerJob };

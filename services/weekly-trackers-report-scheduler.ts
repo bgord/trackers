@@ -6,19 +6,19 @@ import * as Repos from "../repositories";
 import * as Events from "../events";
 
 export enum DayOfTheWeekEnum {
-  Monday = 0,
-  Tuesday = 1,
-  Wednesday = 2,
-  Thursday = 3,
-  Friday = 4,
-  Saturday = 5,
-  Sunday = 6,
+  Monday = 1,
+  Tuesday = 2,
+  Wednesday = 3,
+  Thursday = 4,
+  Friday = 5,
+  Saturday = 6,
+  Sunday = 0,
 }
 
 export class WeeklyTrackersReportScheduler {
   static DAY_OF_THE_WEEK: DayOfTheWeekEnum = DayOfTheWeekEnum.Monday;
 
-  static UTC_HOUR: bg.Schema.HourType = 9;
+  static UTC_HOUR: bg.Schema.HourType = 6;
 
   static getCronExpression() {
     const { UTC_HOUR, DAY_OF_THE_WEEK } = WeeklyTrackersReportScheduler;

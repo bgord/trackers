@@ -2,8 +2,6 @@ import express from "express";
 import * as bg from "@bgord/node";
 
 import * as Routes from "./routes";
-import * as Services from "./services";
-import * as Aggregates from "./aggregates";
 import * as infra from "./infra";
 
 const AuthShield = new bg.EnvUserAuthShield({
@@ -150,6 +148,6 @@ app.use(Routes.ErrorHandler.handle);
       operation: "scheduler_shutdown",
     });
 
-    infra.Scheduler.stop();
+    infra.jobs.WeeklyTrackersReportSchedulerJob.stop();
   });
 })();
