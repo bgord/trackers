@@ -97,4 +97,8 @@ export class Settings {
       body: JSON.stringify({ email: payload.email }),
     });
   }
+
+  static async emailDelete() {
+    return _api("/settings/email", { method: "DELETE" });
+  }
 }

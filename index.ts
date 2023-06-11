@@ -105,6 +105,12 @@ app.post(
   bg.Route(Routes.SettingsEmailChange)
 );
 
+app.delete(
+  "/settings/email",
+  AuthShield.verify,
+  bg.Route(Routes.SettingsEmailDelete)
+);
+
 app.get(
   "/healthcheck",
   bg.RateLimitShield.build({ limitMs: bg.Time.Minutes(1).toMs() }),
