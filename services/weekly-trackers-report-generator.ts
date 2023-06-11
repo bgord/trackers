@@ -30,6 +30,7 @@ export class WeeklyTrackersReportGenerator {
     await this.getTrackers();
 
     let report = this.createHeader();
+    report += this.addNewLine(2);
 
     for (const tracker of this.trackers) {
       report += this.createTrackerRow(tracker);
@@ -47,7 +48,11 @@ export class WeeklyTrackersReportGenerator {
   }
 
   private createHeader() {
-    return "Weekly trackers report\n";
+    return "<strong>Weekly trackers report</strong>";
+  }
+
+  private addNewLine(count = 1) {
+    return "<br />".repeat(count);
   }
 
   private createTrackerRow(tracker: VO.TrackerType) {
@@ -59,8 +64,6 @@ export class WeeklyTrackersReportGenerator {
   }
 
   private async getTrackers() {
-    const trackers = await this.config.repos.tracker.list();
-
-    this.trackers = trackers;
+    this.trackers = await this.config.repos.tracker.list();
   }
 }

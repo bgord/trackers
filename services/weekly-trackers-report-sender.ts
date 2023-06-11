@@ -10,7 +10,6 @@ export class WeeklyTrackersReportSender {
       from: infra.Env.EMAIL_FROM,
       to: "joe@example.com",
       subject: `Weekly trackers report`,
-      text: config.content,
       html: config.content,
     });
   }
