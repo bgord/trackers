@@ -54,6 +54,8 @@ export class Settings {
       current: this.isWeeklyTrackersReportEnabled,
     });
 
+    await Policies.SettingsEmailIsConfigured.perform({ email: this.email });
+
     await Repos.EventRepository.save(
       Events.WeeklyTrackersReportEnabledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_ENABLED,
