@@ -98,7 +98,10 @@ export const WeeklyTrackersReportScheduledEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(WEEKLY_TRACKERS_REPORT_SCHEDULED),
     version: z.literal(1),
-    payload: z.object({ scheduledAt: bg.Schema.Timestamp }),
+    payload: z.object({
+      scheduledAt: bg.Schema.Timestamp,
+      email: bg.Schema.EmailTo,
+    }),
   })
 );
 export type WeeklyTrackersReportScheduledEventype = z.infer<
@@ -209,5 +212,5 @@ emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
   const reportGenerator = new Services.WeeklyTrackersReportGenerator(config);
   const report = await reportGenerator.generate();
 
-  await Services.WeeklyTrackersReportSender.send(report);
+  await Services.WeeklyTrackersReportSender.send(report, event.payload.email);
 });

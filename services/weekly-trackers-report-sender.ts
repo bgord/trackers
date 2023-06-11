@@ -1,14 +1,10 @@
+import * as bg from "@bgord/node";
+
 import * as infra from "../infra";
 import * as VO from "../value-objects";
 
-type TrackerExportSenderConfigType = VO.WeeklyTrackersReportType;
-
 export class WeeklyTrackersReportSender {
-  static send(config: TrackerExportSenderConfigType) {
-    return infra.Mailer.send({
-      from: infra.Env.EMAIL_FROM,
-      to: "joe@example.com",
-      ...config,
-    });
+  static send(report: VO.WeeklyTrackersReportType, to: bg.Schema.EmailToType) {
+    return infra.Mailer.send({ from: infra.Env.EMAIL_FROM, ...report, to });
   }
 }
