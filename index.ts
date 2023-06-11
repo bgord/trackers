@@ -80,19 +80,6 @@ app.get(
 );
 
 app.get(
-  "/healthcheck",
-  bg.RateLimitShield.build({ limitMs: bg.Time.Minutes(1).toMs() }),
-  bg.Timeout.build({ timeoutMs: bg.Time.Seconds(5).toMs() }),
-  BasicAuthShield.verify,
-  bg.Healthcheck.build([
-    new bg.Prerequisite({
-      label: "self",
-      strategy: bg.PrerequisiteStrategyEnum.self,
-    }),
-  ])
-);
-
-app.get(
   "/settings",
   AuthShield.verify,
   bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
@@ -115,6 +102,19 @@ app.post(
   "/settings/email/change",
   AuthShield.verify,
   bg.Route(Routes.SettingsEmailChange)
+);
+
+app.get(
+  "/healthcheck",
+  bg.RateLimitShield.build({ limitMs: bg.Time.Minutes(1).toMs() }),
+  bg.Timeout.build({ timeoutMs: bg.Time.Seconds(5).toMs() }),
+  BasicAuthShield.verify,
+  bg.Healthcheck.build([
+    new bg.Prerequisite({
+      label: "self",
+      strategy: bg.PrerequisiteStrategyEnum.self,
+    }),
+  ])
 );
 
 app.get("*", (_, response) => response.redirect("/"));

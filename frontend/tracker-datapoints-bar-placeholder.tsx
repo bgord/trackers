@@ -12,7 +12,12 @@ export function TrackerDatapointsChartPlaceholder(props: { bars: number }) {
   );
 
   return (
-    <ul data-display="flex" data-cross="end" data-gap="3">
+    <ul
+      data-display="flex"
+      data-cross="end"
+      data-gap="3"
+      style={{ height: `${max}px` }}
+    >
       {bars.map((value, index) => (
         /* eslint-disable react/no-array-index-key */
         <TrackerDatapointBarPlaceholder key={index} height={value} />
