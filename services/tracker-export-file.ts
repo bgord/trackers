@@ -16,11 +16,6 @@ type TrackerDatapointsFileConfigType = {
   repository: typeof Repos.TrackerDatapointRepository;
 };
 
-export type TrackerExportAttachment = {
-  filename: bg.Schema.PathType;
-  path: bg.Schema.PathType;
-};
-
 export class TrackerExportFile {
   private readonly config: TrackerDatapointsFileConfigType;
 
@@ -42,7 +37,7 @@ export class TrackerExportFile {
     this.datapoints = [];
   }
 
-  async generate(): Promise<TrackerExportAttachment> {
+  async generate(): Promise<bg.Schema.EmailAttachmentType> {
     await this.fetchDatapoints();
 
     const file = this.getPaths();
@@ -67,16 +62,12 @@ export class TrackerExportFile {
     this.datapoints = await this.config.repository.list({ id: this.config.id });
   }
 
-  private getPaths(): TrackerExportAttachment {
-    const filename = bg.Schema.Path.parse(
-      `${this.config.id}-${this.config.scheduledAt}.csv`
-    );
+  private getPaths(): bg.Schema.EmailAttachmentType {
+    const filename = `${this.config.id}-${this.config.scheduledAt}.csv`;
 
-    const path = bg.Schema.Path.parse(
-      _path.resolve(this.TRACKER_EXPORTS_DIRECTORY, filename)
-    );
+    const path = _path.resolve(this.TRACKER_EXPORTS_DIRECTORY, filename);
 
-    return { filename, path };
+    return bg.Schema.EmailAttachment.parse({ filename, path });
   }
 
   private prepare(datapoints: DatapointType[]) {

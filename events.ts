@@ -179,7 +179,11 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
   try {
     const attachment = await trackerExportFile.generate();
 
-    await Services.TrackerExportSender.send({ attachment, ...event.payload });
+    await Services.TrackerExportSender.send({
+      attachment,
+      to: config.email,
+      scheduledAt: config.scheduledAt,
+    });
 
     await trackerExportFile.delete();
   } catch (error) {
@@ -199,7 +203,7 @@ emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
       tracker: Repos.TrackerRepository,
       datapoint: Repos.TrackerDatapointRepository,
     },
-    ...event.payload,
+    scheduledAt: event.payload.scheduledAt,
   };
 
   const reportGenerator = new Services.WeeklyTrackersReportGenerator(config);

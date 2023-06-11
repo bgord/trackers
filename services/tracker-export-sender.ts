@@ -1,11 +1,10 @@
 import * as bg from "@bgord/node";
 
 import * as infra from "../infra";
-import * as Services from "../services";
 
 type TrackerExportSenderConfigType = {
-  attachment: Services.TrackerExportAttachment;
-  email: bg.Schema.EmailType;
+  attachment: bg.Schema.EmailAttachmentType;
+  to: bg.Schema.EmailType;
   scheduledAt: bg.Schema.TimestampType;
 };
 
@@ -15,7 +14,7 @@ export class TrackerExportSender {
 
     return infra.Mailer.send({
       from: infra.Env.EMAIL_FROM,
-      to: config.email,
+      to: config.to,
       subject: `Tracker export file from ${date}`,
       text: "See the attachment.",
       attachments: [config.attachment],

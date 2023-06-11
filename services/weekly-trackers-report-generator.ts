@@ -9,11 +9,11 @@ type DatapointType = bg.AsyncReturnType<
 >[0];
 
 type WeeklyTrackersReportGeneratorConfigType = {
-  scheduledAt: bg.Schema.TimestampType;
   repos: {
     tracker: typeof Repos.TrackerRepository;
     datapoint: typeof Repos.TrackerDatapointRepository;
   };
+  scheduledAt: bg.Schema.TimestampType;
 };
 
 export class WeeklyTrackersReportGenerator {
@@ -24,22 +24,22 @@ export class WeeklyTrackersReportGenerator {
     to: bg.Schema.TimestampType;
   };
 
-  private trackers: VO.TrackerType[];
-
   constructor(config: WeeklyTrackersReportGeneratorConfigType) {
     this.config = config;
-    this.range = this.getDateRange();
 
-    this.trackers = [];
+    this.range = {
+      from: this.config.scheduledAt - bg.Time.Days(7).toMs(),
+      to: this.config.scheduledAt,
+    };
   }
 
   async generate(): Promise<VO.WeeklyTrackersReportType> {
-    await this.getTrackers();
+    const trackers = await this.config.repos.tracker.list();
 
     let report = this.createHeader();
     report += this.addNewLine(2);
 
-    for (const tracker of this.trackers) {
+    for (const tracker of trackers) {
       report += this.createTrackerRow(tracker);
       report += this.addNewLine(2);
 
@@ -68,10 +68,7 @@ export class WeeklyTrackersReportGenerator {
   }
 
   private createHeader() {
-    const from = format(this.range.from, "yyyy-MM-dd");
-    const to = format(this.range.to, "yyyy-MM-dd");
-
-    return `<strong>Weekly trackers report ${from} - ${to}</strong>`;
+    return `<strong>${this.createSubject()}</strong>`;
   }
 
   private addNewLine(count = 1) {
@@ -79,7 +76,9 @@ export class WeeklyTrackersReportGenerator {
   }
 
   private createTrackerRow(tracker: VO.TrackerType) {
-    return `<strong>${tracker.name}</strong> tracker (${tracker.kind}), current value: <strong>${tracker.value}</strong>`;
+    const { name, kind, value } = tracker;
+
+    return `<strong>${name}</strong> tracker (${kind}), current value: <strong>${value}</strong>`;
   }
 
   private createTrackerDatapointCountRow(datapoints: DatapointType[]) {
@@ -87,19 +86,9 @@ export class WeeklyTrackersReportGenerator {
   }
 
   private createTrackerDatapointRow(datapoint: DatapointType) {
-    return `- <strong>${
-      datapoint.value.actual
-    }</strong> (${bg.DateFormatters.datetime(datapoint.createdAt)})`;
-  }
+    const value = datapoint.value.actual;
+    const createdAt = bg.DateFormatters.datetime(datapoint.createdAt);
 
-  private async getTrackers() {
-    this.trackers = await this.config.repos.tracker.list();
-  }
-
-  private getDateRange() {
-    return {
-      from: this.config.scheduledAt - bg.Time.Days(7).toMs(),
-      to: this.config.scheduledAt,
-    };
+    return `- <strong>${value}</strong> (${createdAt})`;
   }
 }
