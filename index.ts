@@ -119,22 +119,18 @@ app.post(
   bg.Route(Routes.SettingsEmailChange)
 );
 
-app.post(
-  "/test-weekly-trackers-report",
-  AuthShield.verify,
-  async (_, response) => {
-    await Repos.EventRepository.save(
-      Events.WeeklyTrackersReportScheduledEvent.parse({
-        name: Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
-        stream: "test-weekly-trackers-report",
-        version: 1,
-        payload: { scheduledAt: Date.now() },
-      })
-    );
+app.post("/test-weekly-trackers-report", async (_, response) => {
+  await Repos.EventRepository.save(
+    Events.WeeklyTrackersReportScheduledEvent.parse({
+      name: Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
+      stream: "test-weekly-trackers-report",
+      version: 1,
+      payload: { scheduledAt: Date.now() },
+    })
+  );
 
-    return response.status(200).send();
-  }
-);
+  return response.status(200).send();
+});
 
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
