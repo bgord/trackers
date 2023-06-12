@@ -8,3 +8,4 @@ export * from "./weekly-trackers-report-is-enabled";
 export * from "./settings-email-should-change";
 export * from "./settings-email-is-configured";
 export * from "./minimum-one-tracker-exists";
+export * from "./tracker-name-has-changed";

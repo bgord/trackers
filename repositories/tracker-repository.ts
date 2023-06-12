@@ -32,6 +32,13 @@ export class TrackerRepository {
     });
   }
 
+  static async changeName(payload: Pick<VO.TrackerType, "id" | "name">) {
+    return infra.db.tracker.update({
+      where: { id: payload.id },
+      data: { name: payload.name },
+    });
+  }
+
   static async countTrackersWithName(name: VO.TrackerNameType) {
     return infra.db.tracker.count({ where: { name } });
   }

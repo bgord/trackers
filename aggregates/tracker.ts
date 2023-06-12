@@ -30,6 +30,7 @@ export class Tracker {
         Events.TrackerRevertedEvent,
         Events.TrackerDeletedEvent,
         Events.TrackerExportedEvent,
+        Events.TrackerNameChangedEvent,
       ],
       Tracker.getStream(this.id)
     );
@@ -70,6 +71,12 @@ export class Tracker {
           if (!this.entity) continue;
 
           this.entity = null;
+          break;
+
+        case Events.TRACKER_NAME_CHANGED_EVENT:
+          if (!this.entity) continue;
+
+          this.entity.name = event.payload.name;
           break;
 
         default:
@@ -170,6 +177,24 @@ export class Tracker {
           name: this.entity!.name,
           timeZoneOffsetMs: context.timeZoneOffset.miliseconds,
         },
+      })
+    );
+  }
+
+  async changeName(name: VO.TrackerNameType) {
+    await Policies.TrackerShouldExist.perform({ tracker: this });
+    await Policies.TrackerNameHasChanged.perform({
+      current: this.entity!.name,
+      next: name,
+    });
+    await Policies.TrackerNameIsUnique.perform({ trackerName: name });
+
+    await Repos.EventRepository.save(
+      Events.TrackerNameChangedEvent.parse({
+        name: Events.TRACKER_NAME_CHANGED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id, name },
       })
     );
   }

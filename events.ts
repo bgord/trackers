@@ -69,6 +69,18 @@ export const TrackerExportedEvent = bg.EventDraft.merge(
 );
 export type TrackerExportedEventType = z.infer<typeof TrackerExportedEvent>;
 
+export const TRACKER_NAME_CHANGED_EVENT = "TRACKER_NAME_CHANGED_EVENT";
+export const TrackerNameChangedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(TRACKER_NAME_CHANGED_EVENT),
+    version: z.literal(1),
+    payload: z.object({ id: VO.TrackerId, name: VO.TrackerName }),
+  })
+);
+export type TrackerNameChangedEventType = z.infer<
+  typeof TrackerNameChangedEvent
+>;
+
 export const WEEKLY_TRACKERS_REPORT_ENABLED = "WEEKLY_TRACKERS_REPORT_ENABLED";
 export const WeeklyTrackersReportEnabledEvent = bg.EventDraft.merge(
   z.object({
@@ -145,6 +157,7 @@ export const emittery = new Emittery<{
   TRACKER_REVERTED_EVENT: TrackerRevertedEventType;
   TRACKER_DELETED_EVENT: TrackerDeletedEventType;
   TRACKER_EXPORTED_EVENT: TrackerExportedEventType;
+  TRACKER_NAME_CHANGED_EVENT: TrackerNameChangedEventType;
 
   WEEKLY_TRACKERS_REPORT_ENABLED: WeeklyTrackersReportEnabledEventType;
   WEEKLY_TRACKERS_REPORT_DISABLED: WeeklyTrackersReportDisabledEventType;
@@ -217,6 +230,10 @@ emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
 
     await trackerExportFile.delete();
   }
+});
+
+emittery.on(TRACKER_NAME_CHANGED_EVENT, async (event) => {
+  await Repos.TrackerRepository.changeName(event.payload);
 });
 
 emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {

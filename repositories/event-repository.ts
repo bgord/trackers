@@ -10,6 +10,7 @@ type AcceptedEvent =
   | typeof Events.TrackerRevertedEvent
   | typeof Events.TrackerDeletedEvent
   | typeof Events.TrackerExportedEvent
+  | typeof Events.TrackerNameChangedEvent
   | typeof Events.WeeklyTrackersReportEnabledEvent
   | typeof Events.WeeklyTrackersReportDisabledEvent
   | typeof Events.WeeklyTrackersReportScheduledEvent
