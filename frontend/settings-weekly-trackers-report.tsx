@@ -39,7 +39,7 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
     <div data-display="flex" data-direction="column" data-gap="12">
       <div data-display="flex" data-cross="center" data-gap="24">
         {props.isWeeklyTrackersReportEnabled && (
-          <div class="c-badge">
+          <div class="c-badge" data-color="green-600" data-bg="green-100">
             {t("settings.weekly_trackers_report.enabled")}
           </div>
         )}
