@@ -20,7 +20,8 @@
 
   "tracker.name.new.label": "New tracker name",
   "tracker.name.new.change": "Change",
-  "tracker.name.new.change.success": "Change",
+  "tracker.name.new.change.success": "Tracker name changed",
+  "tracker.name.new.change.error.not_changed": "Tracker name has not changed",
 
   "tracker.kind.label": "Tracker kind",
   "tracker.kind.enum.one_value": "One value",

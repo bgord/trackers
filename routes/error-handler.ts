@@ -171,6 +171,19 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Policies.TrackerNameHasChangedError) {
+      infra.logger.error({
+        message: "Tracker name has not changed",
+        operation: "tracker_name_has_not_changed",
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: "tracker.name.new.change.error.not_changed",
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(

@@ -74,7 +74,11 @@ export const TrackerNameChangedEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(TRACKER_NAME_CHANGED_EVENT),
     version: z.literal(1),
-    payload: z.object({ id: VO.TrackerId, name: VO.TrackerName }),
+    payload: z.object({
+      id: VO.TrackerId,
+      name: VO.TrackerName,
+      updatedAt: VO.TrackerUpdatedAt,
+    }),
   })
 );
 export type TrackerNameChangedEventType = z.infer<

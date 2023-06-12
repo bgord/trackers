@@ -33,7 +33,7 @@ export function TrackerNameChange(props: types.TrackerType) {
       data-gap="12"
       onSubmit={(event) => {
         event.preventDefault();
-        changeName.mutate({ id: props.id, name: props.name });
+        changeName.mutate({ id: props.id, name: newTrackerName.value });
       }}
     >
       <div data-display="flex" data-direction="column">

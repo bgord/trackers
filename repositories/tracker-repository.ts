@@ -32,10 +32,12 @@ export class TrackerRepository {
     });
   }
 
-  static async changeName(payload: Pick<VO.TrackerType, "id" | "name">) {
+  static async changeName(
+    payload: Pick<VO.TrackerType, "id" | "name" | "updatedAt">
+  ) {
     return infra.db.tracker.update({
       where: { id: payload.id },
-      data: { name: payload.name },
+      data: { name: payload.name, updatedAt: payload.updatedAt },
     });
   }
 

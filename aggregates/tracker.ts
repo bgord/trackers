@@ -77,6 +77,7 @@ export class Tracker {
           if (!this.entity) continue;
 
           this.entity.name = event.payload.name;
+          this.entity.updatedAt = event.payload.updatedAt;
           break;
 
         default:
@@ -194,7 +195,7 @@ export class Tracker {
         name: Events.TRACKER_NAME_CHANGED_EVENT,
         stream: this.stream,
         version: 1,
-        payload: { id: this.id, name },
+        payload: { id: this.id, name, updatedAt: Date.now() },
       })
     );
   }
