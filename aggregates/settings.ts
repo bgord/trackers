@@ -13,6 +13,8 @@ export class Settings {
 
   email: VO.SettingsType["email"] = null;
 
+  updatedAt: VO.SettingsType["updatedAt"] = null;
+
   constructor() {
     this.stream = Settings.getStream();
   }
@@ -32,19 +34,23 @@ export class Settings {
       switch (event.name) {
         case Events.WEEKLY_TRACKERS_REPORT_ENABLED:
           this.isWeeklyTrackersReportEnabled = true;
+          this.updatedAt = event.payload.updatedAt;
           break;
 
         case Events.WEEKLY_TRACKERS_REPORT_DISABLED:
           this.isWeeklyTrackersReportEnabled = false;
+          this.updatedAt = event.payload.updatedAt;
           break;
 
         case Events.SETTINGS_EMAIL_CHANGED:
           this.email = event.payload.email;
+          this.updatedAt = event.payload.updatedAt;
           break;
 
         case Events.SETTINGS_EMAIL_DELETED:
           this.email = null;
           this.isWeeklyTrackersReportEnabled = false;
+          this.updatedAt = event.payload.updatedAt;
           break;
 
         default:
