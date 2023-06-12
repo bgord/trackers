@@ -19,7 +19,7 @@ export function ClearButton(props: h.JSX.IntrinsicElements["button"]) {
 
   return (
     <button
-      title={t("app.clear_query")}
+      title={t("app.clear")}
       type="button"
       class="c-button"
       data-variant="bare"

@@ -60,6 +60,7 @@
   "tracker.export.confirmation": "Write an email adress to send the exported file to",
   "tracker.export.email.label": "Email",
   "tracker.export.email.placeholder": "joe@example.com",
+  "tracker.export.email.confirmation": "Are you sure you want to delete settings email?",
 
   "settings.loading": "Loading settings...",
   "settings.error": "Error wihle loading settings",
@@ -79,6 +80,8 @@
   "settings.email.hide": "hide",
   "settings.email.delete": "delete",
   "settings.email.delete.success": "Settings email deleted",
+  "settings.email.delete.loading": "Deleting",
+  "settings.email.delete.error": "Error deleting settings email",
   "settings.email.new.label": "New email",
   "settings.email.new.placeholder": "new@example.com",
   "settings.email.current": "Current email: {{value}}",
