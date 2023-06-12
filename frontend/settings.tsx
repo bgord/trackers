@@ -39,7 +39,17 @@ export function Settings(_: RoutableProps) {
       data-max-width="768"
       data-mx="auto"
     >
-      <header data-fs="20">{t("app.settings")}</header>
+      <header data-display="flex" data-main="between" data-fs="20">
+        <div>{t("app.settings")}</div>
+
+        {settings.data.updatedAt && (
+          <UI.Info>
+            {t("settings.updated_at", {
+              when: String(settings.data.updatedAt?.relative),
+            })}
+          </UI.Info>
+        )}
+      </header>
       <SettingsWeeklyTrackersReport {...settings.data} />
       <SettingsEmail {...settings.data} />
     </main>

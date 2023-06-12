@@ -94,5 +94,7 @@
   "settings.email.change.success": "Email changed",
   "settings.email.change.error": "Error while changing email",
   "settings.email.change.error.the_same": "Email has not changed",
-  "settings.email.error.not_configured": "Settings email not configured"
+  "settings.email.error.not_configured": "Settings email not configured",
+
+  "settings.updated_at": "updated {{when}}"
 }

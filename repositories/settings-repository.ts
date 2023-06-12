@@ -1,3 +1,5 @@
+import * as bg from "@bgord/node";
+
 import * as Aggregates from "../aggregates";
 
 export class SettingsRepository {
@@ -7,6 +9,7 @@ export class SettingsRepository {
     return {
       email: settings.email,
       isWeeklyTrackersReportEnabled: settings.isWeeklyTrackersReportEnabled,
+      updatedAt: bg.ComplexDate.falsy(settings.updatedAt),
     };
   }
 }

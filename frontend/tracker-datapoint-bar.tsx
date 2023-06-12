@@ -56,7 +56,9 @@ export function TrackerDatapointBar(props: types.TrackerDatapointType) {
 
       {isActive && (
         <Fragment>
-          <div data-fs="12">{bg.DateFormatter.monthDay(props.createdAt)}</div>
+          <div data-fs="12" title={bg.DateFormatter.datetime(props.createdAt)}>
+            {bg.DateFormatter.monthDay(props.createdAt)}
+          </div>
           <TrackerRevertDatapoint {...props} />
         </Fragment>
       )}
