@@ -63,6 +63,13 @@ export class Tracker {
     });
   }
 
+  static async changeName(payload: Pick<types.TrackerType, "id" | "name">) {
+    return _api(`/tracker/${payload.id}/name`, {
+      method: "POST",
+      body: JSON.stringify({ name: payload.name }),
+    });
+  }
+
   static async getDatapoints(
     id: types.TrackerType["id"]
   ): Promise<types.TrackerDatapointType[]> {

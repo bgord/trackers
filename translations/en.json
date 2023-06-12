@@ -18,6 +18,10 @@
   "tracker.name.structure.error": "Invalid tracker name",
   "tracker.name.unique.error": "Not unique tracker name",
 
+  "tracker.name.new.label": "New tracker name",
+  "tracker.name.new.change": "Change",
+  "tracker.name.new.change.success": "Change",
+
   "tracker.kind.label": "Tracker kind",
   "tracker.kind.enum.one_value": "One value",
   "tracker.kind.error": "Invalid tracker kind",

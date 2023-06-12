@@ -5,6 +5,7 @@ import { h } from "preact";
 import * as types from "./types";
 
 import { TrackerSync } from "./tracker-sync";
+import { TrackerNameChange } from "./tracker-name-change";
 import { TrackerDelete } from "./tracker-delete";
 import { TrackerExport } from "./tracker-export";
 import { TrackerDatapointList } from "./tracker-datapoint-list";
@@ -51,6 +52,7 @@ export function Tracker(props: types.TrackerType) {
           data-gap="36"
         >
           <TrackerSync key={props.updatedAt} {...props} />
+          <TrackerNameChange {...props} />
           <TrackerDatapointList key={props.updatedAt} {...props} />
         </div>
       )}
