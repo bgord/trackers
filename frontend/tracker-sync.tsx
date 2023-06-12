@@ -53,7 +53,7 @@ export function TrackerSync(props: types.TrackerType) {
         <input
           class="c-input"
           type="number"
-          step="0.01"
+          step={props.kind === types.TrackerKindEnum.counter ? "1" : "0.01"}
           value={trackerValue.value}
           disabled={trackerSyncMutation.isLoading}
           onChange={(event) =>

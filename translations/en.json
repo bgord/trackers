@@ -25,6 +25,7 @@
 
   "tracker.kind.label": "Tracker kind",
   "tracker.kind.enum.one_value": "One value",
+  "tracker.kind.enum.counter": "Counter",
   "tracker.kind.error": "Invalid tracker kind",
 
   "tracker.value.label": "Tracker value",
