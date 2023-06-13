@@ -3,7 +3,7 @@ import * as bg from "@bgord/frontend";
 import { h, Fragment } from "preact";
 
 import * as types from "./types";
-import { TrackerRevertDatapoint } from "./tracker-revert-datapoint";
+import { TrackerDatapointRevert } from "./tracker-datapoint-revert";
 import { TRACKER_DATAPOINT_BOUND_LOWER } from "../value-objects/tracker-datapoint-bound-lower";
 import { TRACKER_DATAPOINT_BOUND_UPPER } from "../value-objects/tracker-datapoint-bound-upper";
 
@@ -59,7 +59,7 @@ export function TrackerDatapointBar(props: types.TrackerDatapointType) {
           <div data-fs="12" title={bg.DateFormatter.datetime(props.createdAt)}>
             {bg.DateFormatter.monthDay(props.createdAt)}
           </div>
-          <TrackerRevertDatapoint {...props} />
+          <TrackerDatapointRevert {...props} />
         </Fragment>
       )}
     </li>

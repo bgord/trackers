@@ -7,7 +7,7 @@ import * as api from "./api";
 import * as types from "./types";
 import * as UI from "./ui";
 
-export function TrackerRevertDatapoint(props: {
+export function TrackerDatapointRevert(props: {
   id: types.TrackerDatapointType["id"];
   trackerId: types.TrackerDatapointType["id"];
 }) {
@@ -25,11 +25,12 @@ export function TrackerRevertDatapoint(props: {
         props.trackerId,
       ]);
     },
-    onError: () => notify({ message: "tracker.datapoint.revert.error" }),
+    onError: (error: bg.ServerError) => notify({ message: error.message }),
   });
 
   return (
     <UI.ClearButton
+      disabled={trackerRevertDatapoint.isLoading}
       title={t("tracker.datapoint.revert")}
       onClick={() => trackerRevertDatapoint.mutate(props)}
     />
