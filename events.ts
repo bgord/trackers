@@ -172,87 +172,128 @@ export const emittery = new Emittery<{
   SETTINGS_EMAIL_DELETED: SettingsEmailDeletedEventType;
 }>();
 
-emittery.on(TRACKER_ADDED_EVENT, async (event) => {
-  await Repos.TrackerRepository.create(event.payload);
-});
+emittery.on(
+  TRACKER_ADDED_EVENT,
+  EventHandler(async (event) => {
+    await Repos.TrackerRepository.create(event.payload);
+  })
+);
 
-emittery.on(TRACKER_SYNCED_EVENT, async (event) => {
-  await Repos.TrackerRepository.sync(event.payload);
-  await Repos.TrackerDatapointRepository.add(event.payload);
-});
+emittery.on(
+  TRACKER_SYNCED_EVENT,
+  EventHandler(async (event) => {
+    await Repos.TrackerRepository.sync(event.payload);
+    await Repos.TrackerDatapointRepository.add(event.payload);
+  })
+);
 
-emittery.on(TRACKER_REVERTED_EVENT, async (event) => {
-  await Repos.TrackerDatapointRepository.remove({
-    datapointId: event.payload.datapointId,
-  });
+emittery.on(
+  TRACKER_REVERTED_EVENT,
+  EventHandler(async (event) => {
+    await Repos.TrackerDatapointRepository.remove({
+      datapointId: event.payload.datapointId,
+    });
 
-  const latestDatapointForTracker =
-    await Repos.TrackerDatapointRepository.getLatestDatapointForTracker(
-      event.payload.id
-    );
+    const latestDatapointForTracker =
+      await Repos.TrackerDatapointRepository.getLatestDatapointForTracker(
+        event.payload.id
+      );
 
-  await Repos.TrackerRepository.sync({
-    id: event.payload.id,
-    value: VO.TrackerValue.parse(
-      latestDatapointForTracker?.value ?? VO.DEFAULT_TRACKER_VALUE
-    ),
-    updatedAt: event.payload.updatedAt,
-  });
-});
+    await Repos.TrackerRepository.sync({
+      id: event.payload.id,
+      value: VO.TrackerValue.parse(
+        latestDatapointForTracker?.value ?? VO.DEFAULT_TRACKER_VALUE
+      ),
+      updatedAt: event.payload.updatedAt,
+    });
+  })
+);
 
-emittery.on(TRACKER_DELETED_EVENT, async (event) => {
-  await Repos.TrackerRepository.delete({ id: event.payload.id });
-});
+emittery.on(
+  TRACKER_DELETED_EVENT,
+  EventHandler(async (event) => {
+    await Repos.TrackerRepository.delete({ id: event.payload.id });
+  })
+);
 
-emittery.on(TRACKER_EXPORTED_EVENT, async (event) => {
-  const { id, scheduledAt, email, name, timeZoneOffsetMs } = event.payload;
+emittery.on(
+  TRACKER_EXPORTED_EVENT,
+  EventHandler(async (event) => {
+    const { id, scheduledAt, email, name, timeZoneOffsetMs } = event.payload;
 
-  const trackerExportFile = new Services.TrackerExportFile({
-    repository: Repos.TrackerDatapointRepository,
-    tracker: { id, scheduledAt },
-  });
+    const trackerExportFile = new Services.TrackerExportFile({
+      repository: Repos.TrackerDatapointRepository,
+      tracker: { id, scheduledAt },
+    });
 
-  try {
-    const attachment = await trackerExportFile.generate();
-    const date = bg.TimeZoneOffset.adjustDate(scheduledAt, timeZoneOffsetMs);
+    try {
+      const attachment = await trackerExportFile.generate();
+      const date = bg.TimeZoneOffset.adjustDate(scheduledAt, timeZoneOffsetMs);
+
+      await infra.Mailer.send({
+        from: infra.Env.EMAIL_FROM,
+        to: email,
+        subject: `"${name}" tracker export file from ${date.toUTCString()}`,
+        text: "See the attachment below.",
+        attachments: [attachment],
+      });
+
+      await trackerExportFile.delete();
+    } catch (error) {
+      infra.logger.error({
+        message: "TRACKER_EXPORTED_EVENT error",
+        operation: "tracker_exported_event_error",
+        metadata: infra.logger.formatError(error as Error),
+      });
+
+      await trackerExportFile.delete();
+    }
+  })
+);
+
+emittery.on(
+  TRACKER_NAME_CHANGED_EVENT,
+  EventHandler(async (event) => {
+    await Repos.TrackerRepository.changeName(event.payload);
+  })
+);
+
+emittery.on(
+  WEEKLY_TRACKERS_REPORT_SCHEDULED,
+  EventHandler(async (event) => {
+    const { scheduledAt, email } = event.payload;
+
+    const config = {
+      repos: {
+        tracker: Repos.TrackerRepository,
+        datapoint: Repos.TrackerDatapointRepository,
+      },
+      scheduledAt,
+    };
+
+    const reportGenerator = new Services.WeeklyTrackersReportGenerator(config);
+    const report = await reportGenerator.generate();
 
     await infra.Mailer.send({
+      ...report,
       from: infra.Env.EMAIL_FROM,
       to: email,
-      subject: `"${name}" tracker export file from ${date.toUTCString()}`,
-      text: "See the attachment below.",
-      attachments: [attachment],
     });
+  })
+);
 
-    await trackerExportFile.delete();
-  } catch (error) {
-    infra.logger.error({
-      message: "TRACKER_EXPORTED_EVENT error",
-      operation: "tracker_exported_event_error",
-      metadata: infra.logger.formatError(error as Error),
-    });
-
-    await trackerExportFile.delete();
-  }
-});
-
-emittery.on(TRACKER_NAME_CHANGED_EVENT, async (event) => {
-  await Repos.TrackerRepository.changeName(event.payload);
-});
-
-emittery.on(WEEKLY_TRACKERS_REPORT_SCHEDULED, async (event) => {
-  const { scheduledAt, email } = event.payload;
-
-  const config = {
-    repos: {
-      tracker: Repos.TrackerRepository,
-      datapoint: Repos.TrackerDatapointRepository,
-    },
-    scheduledAt,
+function EventHandler<T extends Pick<bg.EventType, "name">>(
+  fn: (event: T) => Promise<void>
+) {
+  return async (event: T) => {
+    try {
+      await fn(event);
+    } catch (error) {
+      infra.logger.error({
+        message: `Unknown ${event.name} error handler error`,
+        operation: "unknown_error_handler_error",
+        metadata: infra.logger.formatError(error),
+      });
+    }
   };
-
-  const reportGenerator = new Services.WeeklyTrackersReportGenerator(config);
-  const report = await reportGenerator.generate();
-
-  await infra.Mailer.send({ ...report, from: infra.Env.EMAIL_FROM, to: email });
-});
+}
