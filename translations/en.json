@@ -49,6 +49,7 @@
   "tracker.datapoint.revert": "Revert tracker datapoint",
   "tracker.datapoint.revert.success": "Tracker datapoint reverted",
   "tracker.datapoint.revert.error": "Tracker datapoint revert error",
+  "tracker.datapoint.revert.error.does_not_exist": "Tracker datapoint does not exist",
 
   "tracker.datapoints.error": "Error while loading tracker datapoints",
   "tracker.datapoints.empty": "No tracker datapoints",

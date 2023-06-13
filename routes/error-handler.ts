@@ -80,6 +80,19 @@ export class ErrorHandler {
         .send({ message: VO.TRACKER_NAME_UNIQUE_ERROR_KEY, _known: true });
     }
 
+    if (error instanceof Policies.TrackerDatapointShouldExistError) {
+      infra.logger.error({
+        message: "Tracker datapoint does not exist",
+        operation: "tracker_datapoint_does_not_exist",
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: "tracker.datapoint.revert.error.does_not_exist",
+        _known: true,
+      });
+    }
+
     if (error instanceof Policies.TrackerValueShouldChangeError) {
       infra.logger.error({
         message: "Tracker value has not changed",

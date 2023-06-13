@@ -89,4 +89,8 @@ export class TrackerDatapointRepository {
       where: { trackerId, createdAt: { gte: startOfTodayMs } },
     });
   }
+
+  static async getDatapoint(id: VO.TrackerDatapointIdType) {
+    return infra.db.trackerDatapoint.findFirst({ where: { id } });
+  }
 }

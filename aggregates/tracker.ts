@@ -135,6 +135,7 @@ export class Tracker {
 
   async revert(datapointId: VO.TrackerDatapointIdType) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
+    await Policies.TrackerDatapointShouldExist.perform({ datapointId });
 
     await Repos.EventRepository.save(
       Events.TrackerRevertedEvent.parse({
