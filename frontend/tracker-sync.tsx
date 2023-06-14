@@ -65,27 +65,31 @@ export function TrackerSync(props: types.TrackerType) {
         />
       </div>
 
-      <button
-        class="c-button"
-        type="button"
-        data-variant="with-icon"
-        title={t("tracker.value.increase")}
-        onClick={() => trackerValue.set(trackerValue.value + 1)}
-        disabled={trackerSyncMutation.isLoading}
-      >
-        <Icons.Plus height="20" width="20" />
-      </button>
+      {props.kind === types.TrackerKindEnum.counter && (
+        <button
+          class="c-button"
+          type="button"
+          data-variant="with-icon"
+          title={t("tracker.value.increase")}
+          onClick={() => trackerValue.set(trackerValue.value + 1)}
+          disabled={trackerSyncMutation.isLoading}
+        >
+          <Icons.Plus height="20" width="20" />
+        </button>
+      )}
 
-      <button
-        class="c-button"
-        type="button"
-        data-variant="with-icon"
-        title={t("tracker.value.decrease")}
-        onClick={() => trackerValue.set(trackerValue.value - 1)}
-        disabled={trackerSyncMutation.isLoading}
-      >
-        <Icons.Minus height="20" width="20" />
-      </button>
+      {props.kind === types.TrackerKindEnum.counter && (
+        <button
+          class="c-button"
+          type="button"
+          data-variant="with-icon"
+          title={t("tracker.value.decrease")}
+          onClick={() => trackerValue.set(trackerValue.value - 1)}
+          disabled={trackerSyncMutation.isLoading}
+        >
+          <Icons.Minus height="20" width="20" />
+        </button>
+      )}
 
       <button
         type="submit"
