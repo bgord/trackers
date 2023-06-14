@@ -23,6 +23,8 @@ class TrackerShouldHaveDatapointsFactory extends bg.Policy<TrackerShouldHaveData
     return numberOfDatapoints === 0;
   }
 
+  message = "tracker.sync.error.no_datapoints";
+
   error = TrackerShouldHaveDatapointsError;
 }
 

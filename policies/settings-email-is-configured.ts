@@ -18,6 +18,8 @@ class SettingsEmailIsConfiguredFactory extends bg.Policy<SettingsEmailIsConfigur
     return !config.email;
   }
 
+  message = "settings.email.error.not_configured";
+
   error = SettingsEmailIsConfiguredError;
 }
 

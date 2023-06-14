@@ -29,6 +29,8 @@ class TrackerDatapointsLimitPerDayFactory extends bg.Policy<TrackerDatapointsLim
     return config.limit <= numberOfTrackerDatapointsToday;
   }
 
+  message = "tracker.sync.error.datapoints_per_daylimit_reached";
+
   error = TrackerDatapointsLimitPerDayError;
 }
 

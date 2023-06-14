@@ -20,6 +20,8 @@ class WeeklyTrackersReportIsDisabledFactory extends bg.Policy<WeeklyTrackersRepo
     return config.current === true;
   }
 
+  message = "settings.weekly_trackers_report.disable.error";
+
   error = WeeklyTrackersReportIsDisabledError;
 }
 

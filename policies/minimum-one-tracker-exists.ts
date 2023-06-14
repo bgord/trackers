@@ -18,6 +18,8 @@ class MinimumOneTrackerExistsFactory extends bg.Policy<MinimumOneTrackerExistsCo
     return numberOfTrackers === 0;
   }
 
+  message = "tracker.datapoints.empty";
+
   error = MinimumOneTrackerExistsError;
 }
 

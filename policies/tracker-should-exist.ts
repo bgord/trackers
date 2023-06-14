@@ -17,6 +17,8 @@ class TrackerShouldExistFactory extends bg.Policy<TrackerShouldExistConfigType> 
     return config.tracker.entity === null;
   }
 
+  message = "tracker.exists.error";
+
   error = TrackerShouldExistError;
 }
 

@@ -13,6 +13,8 @@
   "app.settings": "Settings",
   "app.sync": "Sync",
 
+  "tracker.exists.error": "Tracker does not exist",
+
   "tracker.name.label": "Tracker name",
   "tracker.name.placeholder": "Read 5 minutes a day...",
   "tracker.name.structure.error": "Invalid tracker name",

@@ -71,24 +71,24 @@ export class ErrorHandler {
     if (error instanceof Policies.TrackerNameIsUniqueError) {
       infra.logger.error({
         message: "Tracker name is not unique",
-        operation: VO.TRACKER_NAME_UNIQUE_ERROR_KEY,
+        operation: Policies.TrackerNameIsUnique.message,
         correlationId: request.requestId,
       });
 
       return response
         .status(400)
-        .send({ message: VO.TRACKER_NAME_UNIQUE_ERROR_KEY, _known: true });
+        .send({ message: Policies.TrackerNameIsUnique.message, _known: true });
     }
 
     if (error instanceof Policies.TrackerDatapointShouldExistError) {
       infra.logger.error({
         message: "Tracker datapoint does not exist",
-        operation: "tracker_datapoint_does_not_exist",
+        operation: Policies.TrackerDatapointShouldExist.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "tracker.datapoint.revert.error.does_not_exist",
+        message: Policies.TrackerDatapointShouldExist.message,
         _known: true,
       });
     }
@@ -96,12 +96,12 @@ export class ErrorHandler {
     if (error instanceof Policies.TrackerValueShouldChangeError) {
       infra.logger.error({
         message: "Tracker value has not changed",
-        operation: "tracker_sync_error_value_not_changed",
+        operation: Policies.TrackerValueShouldChange.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "tracker.sync.error.value_not_changed",
+        message: Policies.TrackerValueShouldChange.message,
         _known: true,
       });
     }
@@ -109,12 +109,12 @@ export class ErrorHandler {
     if (error instanceof Policies.TrackerDatapointsLimitPerDayError) {
       infra.logger.error({
         message: "Tracker datapoints per day limit reached",
-        operation: "tracker_datapoints_per_day_limit_reached",
+        operation: Policies.TrackerDatapointsLimitPerDay.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "tracker.sync.error.datapoints_per_daylimit_reached",
+        message: Policies.TrackerDatapointsLimitPerDay.message,
         _known: true,
       });
     }
@@ -122,12 +122,12 @@ export class ErrorHandler {
     if (error instanceof Policies.TrackerShouldHaveDatapointsError) {
       infra.logger.error({
         message: "Tracker has no datapoints",
-        operation: "tracker_has_no_datapoints",
+        operation: Policies.TrackerShouldHaveDatapoints.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "tracker.sync.error.no_datapoints",
+        message: Policies.TrackerShouldHaveDatapoints.message,
         _known: true,
       });
     }
@@ -135,12 +135,12 @@ export class ErrorHandler {
     if (error instanceof Policies.SettingsEmailShouldChangeError) {
       infra.logger.error({
         message: "Email has not changed",
-        operation: "settings_email_has_not_changed_error",
+        operation: Policies.SettingsEmailShouldChange.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "settings.email.change.error.the_same",
+        message: Policies.SettingsEmailShouldChange.message,
         _known: true,
       });
     }
@@ -148,12 +148,12 @@ export class ErrorHandler {
     if (error instanceof Policies.WeeklyTrackersReportIsEnabledError) {
       infra.logger.error({
         message: "Weekly trackers report already disabled",
-        operation: "settings.weekly_trackers_report_disable_error",
+        operation: Policies.WeeklyTrackersReportIsEnabled.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "settings.weekly_trackers_report.disable.error",
+        message: Policies.WeeklyTrackersReportIsEnabled.message,
         _known: true,
       });
     }
@@ -161,12 +161,12 @@ export class ErrorHandler {
     if (error instanceof Policies.WeeklyTrackersReportIsDisabledError) {
       infra.logger.error({
         message: "Weekly trackers report already enabled",
-        operation: "settings.weekly_trackers_report_enable_error",
+        operation: Policies.WeeklyTrackersReportIsDisabled.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "settings.weekly_trackers_report.disable.error",
+        message: Policies.WeeklyTrackersReportIsDisabled.message,
         _known: true,
       });
     }
@@ -174,12 +174,12 @@ export class ErrorHandler {
     if (error instanceof Policies.SettingsEmailIsConfiguredError) {
       infra.logger.error({
         message: "Settings email is not configured",
-        operation: "settings_email_error_not_configured",
+        operation: Policies.SettingsEmailIsConfigured.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "settings.email.error.not_configured",
+        message: Policies.SettingsEmailIsConfigured.message,
         _known: true,
       });
     }
@@ -187,12 +187,25 @@ export class ErrorHandler {
     if (error instanceof Policies.TrackerNameHasChangedError) {
       infra.logger.error({
         message: "Tracker name has not changed",
-        operation: "tracker_name_has_not_changed",
+        operation: Policies.TrackerNameHasChanged.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: "tracker.name.new.change.error.not_changed",
+        message: Policies.TrackerNameHasChanged.message,
+        _known: true,
+      });
+    }
+
+    if (error instanceof Policies.TrackerShouldExistError) {
+      infra.logger.error({
+        message: "Tracker does not exist",
+        operation: Policies.TrackerShouldExist.message,
+        correlationId: request.requestId,
+      });
+
+      return response.status(404).send({
+        message: Policies.TrackerShouldExist.message,
         _known: true,
       });
     }

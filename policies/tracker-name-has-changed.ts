@@ -19,6 +19,8 @@ class TrackerNameHasChangedFactory extends bg.Policy<TrackerNameHasChangedConfig
     return config.current === config.next;
   }
 
+  message = "tracker.name.new.change.error.not_changed";
+
   error = TrackerNameHasChangedError;
 }
 

@@ -22,6 +22,8 @@ class TrackerDatapointShouldExistFactory extends bg.Policy<TrackerDatapointShoul
     return datapoint === null;
   }
 
+  message = "tracker.datapoint.revert.error.does_not_exist";
+
   error = TrackerDatapointShouldExistError;
 }
 

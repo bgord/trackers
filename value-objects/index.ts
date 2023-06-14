@@ -8,7 +8,6 @@ export * from "./tracker-name";
 export * from "./tracker-name-max-length";
 export * from "./tracker-name-min-length";
 export * from "./tracker-name-structure-error-key";
-export * from "./tracker-name-unique-error-key";
 export * from "./tracker-datapoint";
 export * from "./tracker-datapoint-bound-lower";
 export * from "./tracker-datapoint-bound-upper";

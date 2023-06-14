@@ -21,6 +21,8 @@ class TrackerNameIsUniqueFactory extends bg.Policy<TrackerNameIsUniqueErrorConfi
     return numberOfTrackersWithName > 0;
   }
 
+  message = "tracker.name.unique.error";
+
   error = TrackerNameIsUniqueError;
 }
 

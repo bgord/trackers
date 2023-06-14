@@ -18,6 +18,8 @@ class TrackerValueShouldChangeFactory extends bg.Policy<TrackerValueShouldChange
     return config.currentValue === config.syncedValue;
   }
 
+  message = "tracker.sync.error.value_not_changed";
+
   error = TrackerValueShouldChangeError;
 }
 

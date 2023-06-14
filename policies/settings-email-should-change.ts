@@ -19,6 +19,8 @@ class SettingsEmailShouldChangeFactory extends bg.Policy<SettingsEmailShouldChan
     return config.current === config.changed;
   }
 
+  message = "settings.email.change.error.the_same";
+
   error = SettingsEmailShouldChangeError;
 }
 
