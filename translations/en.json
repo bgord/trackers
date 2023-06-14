@@ -33,6 +33,7 @@
   "tracker.value.label": "Tracker value",
   "tracker.value.increase": "Increase tracker value by 1",
   "tracker.value.decrease": "Decrease tracker value by 1",
+  "tracker.value.counter.error": "Counter should be an integer",
 
   "tracker.sync.success": "Tracker datapoint synced",
   "tracker.sync.error.value_not_changed": "Tracker value not changed",

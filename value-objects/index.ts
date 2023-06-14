@@ -15,6 +15,7 @@ export * from "./tracker-datapoint-id";
 export * from "./tracker-datapoints-limit-per-day";
 export * from "./tracker-updated-at";
 export * from "./tracker-value";
+export * from "./tracker-counter-value-error-key";
 
 export * from "./settings";
 export * from "./settings-email";

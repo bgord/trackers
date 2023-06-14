@@ -232,6 +232,17 @@ export class ErrorHandler {
           _known: true,
         });
       }
+
+      if (
+        error.issues.find(
+          (issue) => issue.message === VO.TRACKER_COUNTER_VALUE_ERROR_KEY
+        )
+      ) {
+        return response.status(400).send({
+          message: VO.TRACKER_COUNTER_VALUE_ERROR_KEY,
+          _known: true,
+        });
+      }
     }
 
     infra.logger.error({

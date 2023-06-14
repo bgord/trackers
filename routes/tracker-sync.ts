@@ -1,8 +1,15 @@
+import { z } from "zod";
 import express from "express";
 
 import * as VO from "../value-objects";
 import * as Aggregates from "../aggregates";
-import * as infra from "../infra";
+
+type Value = Record<VO.TrackerKindEnum, z.ZodSchema>;
+
+const strategy: Value = {
+  [VO.TrackerKindEnum.counter]: VO.TrackerCounterValue,
+  [VO.TrackerKindEnum.one_value]: VO.TrackerValue,
+};
 
 export async function TrackerSync(
   request: express.Request,
@@ -12,16 +19,9 @@ export async function TrackerSync(
   const context = { timeZoneOffset: request.timeZoneOffset };
 
   const id = VO.TrackerId.parse(request.params.trackerId);
-  const value = VO.TrackerValue.parse(request.body.value);
-
-  infra.logger.info({
-    message: "Tracker sync payload",
-    operation: "tracker_sync_payload",
-    correlationId: request.requestId,
-    metadata: { id, value },
-  });
-
   const tracker = await new Aggregates.Tracker(id).build();
+
+  const value = strategy[tracker.entity!.kind].parse(request.body.value);
   await tracker.sync(value, context);
 
   return response.status(201).send();
