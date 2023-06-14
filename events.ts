@@ -7,6 +7,8 @@ import * as Repos from "./repositories";
 import * as Services from "./services";
 import * as infra from "./infra";
 
+const EventHandler = new bg.EventHandler(infra.logger);
+
 export const TRACKER_ADDED_EVENT = "TRACKER_ADDED_EVENT";
 export const TrackerAddedEvent = bg.EventDraft.merge(
   z.object({
@@ -174,14 +176,14 @@ export const emittery = new Emittery<{
 
 emittery.on(
   TRACKER_ADDED_EVENT,
-  EventHandler(async (event) => {
+  EventHandler.handle(async (event) => {
     await Repos.TrackerRepository.create(event.payload);
   })
 );
 
 emittery.on(
   TRACKER_SYNCED_EVENT,
-  EventHandler(async (event) => {
+  EventHandler.handle(async (event) => {
     await Repos.TrackerRepository.sync(event.payload);
     await Repos.TrackerDatapointRepository.add(event.payload);
   })
@@ -189,7 +191,7 @@ emittery.on(
 
 emittery.on(
   TRACKER_REVERTED_EVENT,
-  EventHandler(async (event) => {
+  EventHandler.handle(async (event) => {
     await Repos.TrackerDatapointRepository.remove({
       datapointId: event.payload.datapointId,
     });
@@ -211,14 +213,14 @@ emittery.on(
 
 emittery.on(
   TRACKER_DELETED_EVENT,
-  EventHandler(async (event) => {
+  EventHandler.handle(async (event) => {
     await Repos.TrackerRepository.delete({ id: event.payload.id });
   })
 );
 
 emittery.on(
   TRACKER_EXPORTED_EVENT,
-  EventHandler(async (event) => {
+  EventHandler.handle(async (event) => {
     const { id, scheduledAt, email, name, timeZoneOffsetMs } = event.payload;
 
     const trackerExportFile = new Services.TrackerExportFile({
@@ -253,14 +255,14 @@ emittery.on(
 
 emittery.on(
   TRACKER_NAME_CHANGED_EVENT,
-  EventHandler(async (event) => {
+  EventHandler.handle(async (event) => {
     await Repos.TrackerRepository.changeName(event.payload);
   })
 );
 
 emittery.on(
   WEEKLY_TRACKERS_REPORT_SCHEDULED,
-  EventHandler(async (event) => {
+  EventHandler.handle(async (event) => {
     const { scheduledAt, email } = event.payload;
 
     const config = {
@@ -281,19 +283,3 @@ emittery.on(
     });
   })
 );
-
-function EventHandler<T extends Pick<bg.EventType, "name">>(
-  fn: (event: T) => Promise<void>
-) {
-  return async (event: T) => {
-    try {
-      await fn(event);
-    } catch (error) {
-      infra.logger.error({
-        message: `Unknown ${event.name} error handler error`,
-        operation: "unknown_error_handler_error",
-        metadata: infra.logger.formatError(error),
-      });
-    }
-  };
-}
