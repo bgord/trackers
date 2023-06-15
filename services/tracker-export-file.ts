@@ -15,6 +15,8 @@ type TrackerDatapointsFileConfigType = {
   tracker: {
     id: VO.TrackerIdType;
     scheduledAt: bg.Schema.TimestampType;
+    name: VO.TrackerNameType;
+    timeZoneOffsetMs: bg.Schema.TimeZoneOffsetValueType;
   };
 };
 
@@ -36,7 +38,9 @@ export class TrackerExportFile {
     this.config = config;
   }
 
-  async generate(): Promise<bg.Schema.EmailAttachmentType> {
+  async generate(): Promise<
+    bg.Schema.EmailAttachmentType & { subject: bg.Schema.EmailSubjectType }
+  > {
     const datapoints = await this.config.repository.list({
       id: this.config.tracker.id,
     });
@@ -51,12 +55,22 @@ export class TrackerExportFile {
 
     await fs.writeFile(file.path, content);
 
-    return file;
+    return { ...file, subject: this.getSubject() };
   }
 
   async delete() {
     const file = this.getPaths();
     await fs.unlink(file.path);
+  }
+
+  private getSubject(): bg.Schema.EmailSubjectType {
+    const { name, scheduledAt, timeZoneOffsetMs } = this.config.tracker;
+
+    const date = bg.TimeZoneOffset.adjustDate(scheduledAt, timeZoneOffsetMs);
+
+    return bg.Schema.EmailSubject.parse(
+      `"${name}" tracker export file from ${bg.DateFormatters.datetime(date)}`
+    );
   }
 
   private getPaths(): bg.Schema.EmailAttachmentType {

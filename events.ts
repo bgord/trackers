@@ -223,21 +223,18 @@ emittery.on(
 emittery.on(
   TRACKER_EXPORTED_EVENT,
   EventHandler.handle(async (event) => {
-    const { id, scheduledAt, email, name, timeZoneOffsetMs } = event.payload;
-
     const trackerExportFile = new Services.TrackerExportFile({
       repository: Repos.TrackerDatapointRepository,
-      tracker: { id, scheduledAt },
+      tracker: event.payload,
     });
 
     try {
       const attachment = await trackerExportFile.generate();
-      const date = bg.TimeZoneOffset.adjustDate(scheduledAt, timeZoneOffsetMs);
 
       await infra.Mailer.send({
         from: infra.Env.EMAIL_FROM,
-        to: email,
-        subject: `"${name}" tracker export file from ${date.toUTCString()}`,
+        to: event.payload.email,
+        subject: attachment.subject,
         text: "See the attachment below.",
         attachments: [attachment],
       });
