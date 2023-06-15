@@ -4,115 +4,104 @@ import * as bg from "@bgord/node";
 import * as Routes from "./routes";
 import * as infra from "./infra";
 
-const AuthShield = new bg.EnvUserAuthShield({
-  ADMIN_USERNAME: infra.Env.ADMIN_USERNAME,
-  ADMIN_PASSWORD: infra.Env.ADMIN_PASSWORD,
-});
-
-const BasicAuthShield = new bg.BasicAuthShield({
-  username: infra.Env.BASIC_AUTH_USERNAME,
-  password: infra.Env.BASIC_AUTH_PASSWORD,
-});
-
-const Session = new bg.Session({
-  secret: infra.Env.COOKIE_SECRET,
-  store: bg.SessionFileStore.build({ ttl: bg.Time.Days(3).toSeconds() }),
-});
-
-const CacheResponse = new bg.CacheResponse(infra.ResponseCache);
-
 const app = express();
 
 bg.addExpressEssentials(app);
 bg.Handlebars.applyTo(app);
 bg.I18n.applyTo(app);
-Session.applyTo(app);
-AuthShield.applyTo(app);
+infra.Session.applyTo(app);
+infra.AuthShield.applyTo(app);
 bg.HttpLogger.applyTo(app, infra.logger);
 
 app.get("/", bg.CsrfShield.attach, bg.Route(Routes.Home));
 app.post(
   "/login",
   bg.CsrfShield.verify,
-  AuthShield.attach,
+  infra.AuthShield.attach,
   (_request, response) => response.redirect("/dashboard")
 );
-app.get("/logout", AuthShield.detach, (_, response) => response.redirect("/"));
+app.get("/logout", infra.AuthShield.detach, (_, response) =>
+  response.redirect("/")
+);
 
 app.get(
   "/dashboard",
-  AuthShield.verify,
+  infra.AuthShield.verify,
   bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
   bg.Route(Routes.Dashboard)
 );
 
-app.post("/tracker", AuthShield.verify, bg.Route(Routes.TrackerCreate));
-app.get("/tracker", AuthShield.verify, bg.Route(Routes.TrackerList));
+app.post("/tracker", infra.AuthShield.verify, bg.Route(Routes.TrackerCreate));
+app.get("/tracker", infra.AuthShield.verify, bg.Route(Routes.TrackerList));
 app.delete(
   "/tracker/:trackerId",
-  AuthShield.verify,
-  CacheResponse.clear,
+  infra.AuthShield.verify,
+  infra.CacheResponse.clear,
   bg.Route(Routes.TrackerDelete)
 );
 app.post(
   "/tracker/:trackerId/sync",
-  AuthShield.verify,
-  CacheResponse.clear,
+  infra.AuthShield.verify,
+  infra.CacheResponse.clear,
   bg.Route(Routes.TrackerSync)
 );
 app.post(
   "/tracker/:trackerId/export",
-  AuthShield.verify,
+  infra.AuthShield.verify,
   bg.RateLimitShield.build({ limitMs: bg.Time.Hours(1).toMs() }),
   bg.Route(Routes.TrackerExport)
 );
 app.post(
   "/tracker/:trackerId/name",
-  AuthShield.verify,
+  infra.AuthShield.verify,
   bg.Route(Routes.TrackerNameChange)
 );
 app.delete(
   "/tracker/:trackerId/revert/:datapointId",
-  AuthShield.verify,
-  CacheResponse.clear,
+  infra.AuthShield.verify,
+  infra.CacheResponse.clear,
   bg.Route(Routes.TrackerRevert)
 );
 
 app.get(
   "/tracker/:trackerId/datapoints",
-  AuthShield.verify,
-  CacheResponse.handle,
+  infra.AuthShield.verify,
+  infra.CacheResponse.handle,
   bg.Route(Routes.TrackerDatapointList)
 );
 
 app.get(
   "/settings",
-  AuthShield.verify,
+  infra.AuthShield.verify,
   bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
   bg.Route(Routes.Settings)
 );
 
-app.get("/settings/data", AuthShield.verify, bg.Route(Routes.SettingsData));
+app.get(
+  "/settings/data",
+  infra.AuthShield.verify,
+  bg.Route(Routes.SettingsData)
+);
 app.post(
   "/settings/weekly-trackers-report/enable",
-  AuthShield.verify,
+  infra.AuthShield.verify,
   bg.Route(Routes.SettingsWeeklyTrackersReportEnable)
 );
 app.post(
   "/settings/weekly-trackers-report/disable",
-  AuthShield.verify,
+  infra.AuthShield.verify,
   bg.Route(Routes.SettingsWeeklyTrackersReportDisable)
 );
 
 app.post(
   "/settings/email/change",
-  AuthShield.verify,
+  infra.AuthShield.verify,
   bg.Route(Routes.SettingsEmailChange)
 );
 
 app.delete(
   "/settings/email",
-  AuthShield.verify,
+  infra.AuthShield.verify,
   bg.Route(Routes.SettingsEmailDelete)
 );
 
@@ -120,7 +109,7 @@ app.get(
   "/healthcheck",
   bg.RateLimitShield.build({ limitMs: bg.Time.Minutes(1).toMs() }),
   bg.Timeout.build({ timeoutMs: bg.Time.Seconds(5).toMs() }),
-  BasicAuthShield.verify,
+  infra.BasicAuthShield.verify,
   bg.Healthcheck.build([
     new bg.Prerequisite({
       label: "self",
