@@ -9,6 +9,8 @@ import * as infra from "./infra";
 
 const EventHandler = new bg.EventHandler(infra.logger);
 
+const EventLogger = new bg.EventLogger(infra.logger);
+
 export const TRACKER_ADDED_EVENT = "TRACKER_ADDED_EVENT";
 export const TrackerAddedEvent = bg.EventDraft.merge(
   z.object({
@@ -155,8 +157,6 @@ export type SettingsEmailDeletedEventType = z.infer<
   typeof SettingsEmailDeletedEvent
 >;
 
-Emittery.isDebugEnabled = true;
-
 export const emittery = new Emittery<{
   TRACKER_ADDED_EVENT: TrackerAddedEventType;
   TRACKER_SYNCED_EVENT: TrackerSyncedEventType;
@@ -172,7 +172,9 @@ export const emittery = new Emittery<{
 
   SETTINGS_EMAIL_CHANGED: SettingsEmailChangedEventType;
   SETTINGS_EMAIL_DELETED: SettingsEmailDeletedEventType;
-}>();
+}>({
+  debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
+});
 
 emittery.on(
   TRACKER_ADDED_EVENT,
