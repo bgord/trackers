@@ -55,7 +55,9 @@ export function Tracker(props: types.TrackerType) {
             <TrackerSync key={props.updatedAt} {...props} />
             <TrackerNameChange {...props} />
           </div>
-          <TrackerDatapointList key={props.updatedAt} {...props} />
+          {props.kind === types.TrackerKindEnum.one_value && (
+            <TrackerDatapointList key={props.updatedAt} {...props} />
+          )}
         </div>
       )}
     </li>
