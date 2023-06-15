@@ -26,3 +26,19 @@ export const Session = new bg.Session({
 });
 
 export const CacheResponse = new bg.CacheResponse(ResponseCache);
+
+export const prerequisites = [
+  new bg.Prerequisite({
+    label: "timezone",
+    strategy: bg.PrerequisiteStrategyEnum.timezoneUTC,
+    timezone: Env.TZ,
+  }),
+];
+
+export const healthcheck = [
+  new bg.Prerequisite({
+    label: "self",
+    strategy: bg.PrerequisiteStrategyEnum.self,
+  }),
+  ...prerequisites,
+];

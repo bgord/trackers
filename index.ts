@@ -110,12 +110,7 @@ app.get(
   bg.RateLimitShield.build({ limitMs: bg.Time.Minutes(1).toMs() }),
   bg.Timeout.build({ timeoutMs: bg.Time.Seconds(5).toMs() }),
   infra.BasicAuthShield.verify,
-  bg.Healthcheck.build([
-    new bg.Prerequisite({
-      label: "self",
-      strategy: bg.PrerequisiteStrategyEnum.self,
-    }),
-  ])
+  bg.Healthcheck.build(infra.healthcheck)
 );
 
 app.get("*", (_, response) => response.redirect("/"));
@@ -134,6 +129,8 @@ app.use(Routes.ErrorHandler.handle);
       process.exit(1);
     },
   });
+
+  await bg.Prerequisites.check(infra.prerequisites);
 
   const server = app.listen(infra.Env.PORT, async () => {
     infra.logger.info({
