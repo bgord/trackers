@@ -14,6 +14,7 @@ const EnvironmentSchema = z.object({
   SMTP_USER: bg.Schema.SmtpUser,
   SMTP_PASS: bg.Schema.SmtpPass,
   EMAIL_FROM: bg.Schema.Email,
+  TZ: bg.Schema.TimezoneUTC,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 
