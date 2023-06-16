@@ -76,54 +76,19 @@ export class TrackerDatapointRepository {
 
   static async countDatapointsFromToday(
     trackerId: VO.TrackerIdType,
-    _context: { timeZoneOffset: bg.TimeZoneOffsetsType }
+    context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ): Promise<number> {
-    const now = Date.now();
+    const getStartOfDayTsInTz = bg.DateCalculator.getStartOfDayTsInTz({
+      now: Date.now(),
+      timeZoneOffsetMs: context.timeZoneOffset.miliseconds,
+    });
 
     return infra.db.trackerDatapoint.count({
-      where: {
-        trackerId,
-        createdAt: {
-          gte: getStartOfDayInTzTimestamp(
-            now,
-            _context.timeZoneOffset.miliseconds
-          ),
-        },
-      },
+      where: { trackerId, createdAt: { gte: getStartOfDayTsInTz } },
     });
   }
 
   static async getDatapoint(id: VO.TrackerDatapointIdType) {
     return infra.db.trackerDatapoint.findFirst({ where: { id } });
   }
-}
-
-function getStartOfDayInTzTimestamp(now: number, timeZoneOffsetMs: number) {
-  const startOfDayUTC = new Date();
-  startOfDayUTC.setUTCHours(0, 0, 0, 0);
-
-  const startOfDayInTimeZone = startOfDayUTC.getTime() + timeZoneOffsetMs;
-
-  const timeSinceNewDayInTimeZoneRelativeToUtcStartOfDay =
-    (now - startOfDayInTimeZone) % bg.Time.Days(1).toMs();
-
-  if (
-    timeSinceNewDayInTimeZoneRelativeToUtcStartOfDay >= bg.Time.Days(1).toMs()
-  ) {
-    return (
-      now -
-      timeSinceNewDayInTimeZoneRelativeToUtcStartOfDay +
-      bg.Time.Days(1).toMs()
-    );
-  }
-
-  if (timeSinceNewDayInTimeZoneRelativeToUtcStartOfDay >= 0) {
-    return now - timeSinceNewDayInTimeZoneRelativeToUtcStartOfDay;
-  }
-
-  return (
-    now -
-    timeSinceNewDayInTimeZoneRelativeToUtcStartOfDay -
-    bg.Time.Days(1).toMs()
-  );
 }
