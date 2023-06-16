@@ -9,6 +9,8 @@ import * as api from "./api";
 import { TrackerDatapointBar } from "./tracker-datapoint-bar";
 import { TrackerDatapointsChartPlaceholder } from "./tracker-datapoints-bar-placeholder";
 
+import { TRACKER_DATAPOINT_BOUND_UPPER } from "../value-objects/tracker-datapoint-bound-upper";
+
 export function TrackerDatapointList(props: types.TrackerType) {
   const t = bg.useTranslations();
 
@@ -36,6 +38,12 @@ export function TrackerDatapointList(props: types.TrackerType) {
       data-max-width="100%"
       data-overflow="scroll"
       data-gap="3"
+      style={{ minHeight: `${TRACKER_DATAPOINT_BOUND_UPPER}px` }}
+      data-bwt="1"
+      data-bct="gray-200"
+      data-bwb="1"
+      data-bcb="gray-200"
+      data-py="3"
     >
       {trackerDatapoints.data.map((datapoint) => (
         <TrackerDatapointBar key={datapoint.id} {...datapoint} />
