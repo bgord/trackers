@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as bg from "@bgord/frontend";
-import { h, Fragment } from "preact";
+import { h } from "preact";
 
 import * as types from "./types";
 import { TrackerDatapointRevert } from "./tracker-datapoint-revert";
@@ -55,13 +55,11 @@ export function TrackerDatapointBar(props: types.TrackerDatapointType) {
       </div>
 
       {isActive && (
-        <Fragment>
-          <div data-fs="12" title={bg.DateFormatter.datetime(props.createdAt)}>
-            {bg.DateFormatter.monthDay(props.createdAt)}
-          </div>
-          <TrackerDatapointRevert {...props} />
-        </Fragment>
+        <div data-fs="12" title={bg.DateFormatter.datetime(props.createdAt)}>
+          {bg.DateFormatter.monthDay(props.createdAt)}
+        </div>
       )}
+      {isActive && <TrackerDatapointRevert {...props} />}
     </li>
   );
 }
