@@ -18,7 +18,7 @@ type AcceptedEvent =
   | typeof Events.SettingsEmailDeletedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
-export class EventRepository {
+export class EventStore {
   static async find<T extends AcceptedEvent[]>(
     acceptedEvents: T,
     stream?: bg.EventType["stream"]

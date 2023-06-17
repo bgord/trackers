@@ -38,7 +38,7 @@ export class WeeklyTrackersReportScheduler {
       email: settings.email,
     });
 
-    await infra.EventRepository.save(
+    await infra.EventStore.save(
       Events.WeeklyTrackersReportScheduledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
         stream: "weekly-trackers-report",

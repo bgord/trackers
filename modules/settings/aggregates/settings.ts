@@ -21,7 +21,7 @@ export class Settings {
   }
 
   async build() {
-    const events = await infra.EventRepository.find(
+    const events = await infra.EventStore.find(
       [
         Events.WeeklyTrackersReportEnabledEvent,
         Events.WeeklyTrackersReportDisabledEvent,
@@ -69,7 +69,7 @@ export class Settings {
 
     await Policies.SettingsEmailIsConfigured.perform({ email: this.email });
 
-    await infra.EventRepository.save(
+    await infra.EventStore.save(
       Events.WeeklyTrackersReportEnabledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_ENABLED,
         stream: this.stream,
@@ -84,7 +84,7 @@ export class Settings {
       current: this.isWeeklyTrackersReportEnabled,
     });
 
-    await infra.EventRepository.save(
+    await infra.EventStore.save(
       Events.WeeklyTrackersReportDisabledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_DISABLED,
         stream: this.stream,
@@ -100,7 +100,7 @@ export class Settings {
       changed: email,
     });
 
-    await infra.EventRepository.save(
+    await infra.EventStore.save(
       Events.SettingsEmailChangedEvent.parse({
         name: Events.SETTINGS_EMAIL_CHANGED,
         stream: this.stream,
@@ -113,7 +113,7 @@ export class Settings {
   async deleteEmail() {
     await Policies.SettingsEmailIsConfigured.perform({ email: this.email });
 
-    await infra.EventRepository.save(
+    await infra.EventStore.save(
       Events.SettingsEmailDeletedEvent.parse({
         name: Events.SETTINGS_EMAIL_DELETED,
         stream: this.stream,
