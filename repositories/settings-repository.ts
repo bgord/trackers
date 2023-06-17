@@ -9,7 +9,7 @@ export class SettingsRepository {
     return {
       email: settings.email,
       isWeeklyTrackersReportEnabled: settings.isWeeklyTrackersReportEnabled,
-      updatedAt: bg.ComplexDate.falsy(settings.updatedAt),
+      updatedAt: bg.RelativeDate.to.now.falsy(settings.updatedAt),
     };
   }
 }
