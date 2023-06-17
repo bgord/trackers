@@ -23,4 +23,8 @@ export class ProjectRepository {
         updatedAt: bg.RelativeDate.to.now.truthy(project.updatedAt),
       }));
   }
+
+  static async countProjectsWithName(name: VO.ProjectType["name"]) {
+    return infra.db.project.count({ where: { name } });
+  }
 }

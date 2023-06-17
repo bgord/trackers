@@ -6,6 +6,7 @@ import * as infra from "../infra";
 
 import * as Trackers from "../modules/trackers";
 import * as Settings from "../modules/settings";
+import * as Projects from "../modules/projects";
 
 export class ErrorHandler {
   /* eslint-disable max-params */
@@ -210,6 +211,19 @@ export class ErrorHandler {
 
       return response.status(404).send({
         message: Trackers.Policies.TrackerShouldExist.message,
+        _known: true,
+      });
+    }
+
+    if (error instanceof Projects.Policies.ProjectNameIsUniqueError) {
+      infra.logger.error({
+        message: "Project name is not unique",
+        operation: Projects.Policies.ProjectNameIsUnique.message,
+        correlationId: request.requestId,
+      });
+
+      return response.status(404).send({
+        message: Projects.Policies.ProjectNameIsUnique.message,
         _known: true,
       });
     }

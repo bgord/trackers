@@ -2,6 +2,8 @@ import * as bg from "@bgord/node";
 
 import * as Events from "../events";
 import * as VO from "../value-objects";
+import * as Policies from "../policies";
+
 import * as infra from "../../../infra";
 
 export class Project {
@@ -39,6 +41,8 @@ export class Project {
 
   static async create(payload: Pick<VO.ProjectType, "name">) {
     const id = VO.ProjectId.parse(bg.NewUUID.generate());
+
+    await Policies.ProjectNameIsUnique.perform(payload);
 
     await infra.EventStore.save(
       Events.ProjectCreatedEvent.parse({

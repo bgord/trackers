@@ -29,8 +29,6 @@ export function Project(props: types.ProjectType) {
         <div data-fs="14" data-color="gray-700">
           {props.name}
         </div>
-
-        {details.on && <div>delete</div>}
       </div>
 
       {details.on && (

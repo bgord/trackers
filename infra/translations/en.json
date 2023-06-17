@@ -106,6 +106,7 @@
 
   "project.name.label": "Project name",
   "project.name.placeholder": "Work",
+  "project.name.unique.error": "Project name not unique",
   "project.create.submit": "Create",
   "project.create.success": "Project created",
   "project.created_at": "Created {{value}}",
