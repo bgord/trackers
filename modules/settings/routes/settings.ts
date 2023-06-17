@@ -3,9 +3,10 @@ import render from "preact-render-to-string";
 import * as bg from "@bgord/node";
 
 import * as Repos from "../repositories";
-import * as infra from "../infra";
+import { BuildRepository } from "../../../repositories";
+import * as infra from "../../../infra";
 
-import { App } from "../frontend/app";
+import { App } from "../../../frontend/app";
 
 export async function Settings(
   request: express.Request,
@@ -18,7 +19,7 @@ export async function Settings(
   );
 
   const state = {
-    ...Repos.BuildRepository.getAll(),
+    ...BuildRepository.getAll(),
     language: request.language,
     translations,
     trackers: [],

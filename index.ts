@@ -4,6 +4,8 @@ import * as bg from "@bgord/node";
 import * as Routes from "./routes";
 import * as infra from "./infra";
 
+import * as Settings from "./modules/settings";
+
 const app = express();
 
 bg.addExpressEssentials(app);
@@ -74,35 +76,35 @@ app.get(
   "/settings",
   infra.AuthShield.verify,
   bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
-  bg.Route(Routes.Settings)
+  bg.Route(Settings.Routes.Settings)
 );
 
 app.get(
   "/settings/data",
   infra.AuthShield.verify,
-  bg.Route(Routes.SettingsData)
+  bg.Route(Settings.Routes.SettingsData)
 );
 app.post(
   "/settings/weekly-trackers-report/enable",
   infra.AuthShield.verify,
-  bg.Route(Routes.SettingsWeeklyTrackersReportEnable)
+  bg.Route(Settings.Routes.SettingsWeeklyTrackersReportEnable)
 );
 app.post(
   "/settings/weekly-trackers-report/disable",
   infra.AuthShield.verify,
-  bg.Route(Routes.SettingsWeeklyTrackersReportDisable)
+  bg.Route(Settings.Routes.SettingsWeeklyTrackersReportDisable)
 );
 
 app.post(
   "/settings/email/change",
   infra.AuthShield.verify,
-  bg.Route(Routes.SettingsEmailChange)
+  bg.Route(Settings.Routes.SettingsEmailChange)
 );
 
 app.delete(
   "/settings/email",
   infra.AuthShield.verify,
-  bg.Route(Routes.SettingsEmailDelete)
+  bg.Route(Settings.Routes.SettingsEmailDelete)
 );
 
 app.get(

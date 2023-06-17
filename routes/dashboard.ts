@@ -2,6 +2,8 @@ import express from "express";
 import render from "preact-render-to-string";
 import * as bg from "@bgord/node";
 
+import * as Settings from "../modules/settings";
+
 import * as Repos from "../repositories";
 import * as infra from "../infra";
 
@@ -22,7 +24,7 @@ export async function Dashboard(
     language: request.language,
     translations,
     trackers: await Repos.TrackerRepository.list(),
-    settings: await Repos.SettingsRepository.get(),
+    settings: await Settings.Repos.SettingsRepository.get(),
   };
 
   const frontend = render(App({ ...state, url: request.url }));

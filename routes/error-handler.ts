@@ -6,6 +6,8 @@ import * as VO from "../value-objects";
 import * as Policies from "../policies";
 import * as infra from "../infra";
 
+import * as Settings from "../modules/settings";
+
 export class ErrorHandler {
   /* eslint-disable max-params */
   static handle: express.ErrorRequestHandler = async (
@@ -132,54 +134,56 @@ export class ErrorHandler {
       });
     }
 
-    if (error instanceof Policies.SettingsEmailShouldChangeError) {
+    if (error instanceof Settings.Policies.SettingsEmailShouldChangeError) {
       infra.logger.error({
         message: "Email has not changed",
-        operation: Policies.SettingsEmailShouldChange.message,
+        operation: Settings.Policies.SettingsEmailShouldChange.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.SettingsEmailShouldChange.message,
+        message: Settings.Policies.SettingsEmailShouldChange.message,
         _known: true,
       });
     }
 
-    if (error instanceof Policies.WeeklyTrackersReportIsEnabledError) {
+    if (error instanceof Settings.Policies.WeeklyTrackersReportIsEnabledError) {
       infra.logger.error({
         message: "Weekly trackers report already disabled",
-        operation: Policies.WeeklyTrackersReportIsEnabled.message,
+        operation: Settings.Policies.WeeklyTrackersReportIsEnabled.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.WeeklyTrackersReportIsEnabled.message,
+        message: Settings.Policies.WeeklyTrackersReportIsEnabled.message,
         _known: true,
       });
     }
 
-    if (error instanceof Policies.WeeklyTrackersReportIsDisabledError) {
+    if (
+      error instanceof Settings.Policies.WeeklyTrackersReportIsDisabledError
+    ) {
       infra.logger.error({
         message: "Weekly trackers report already enabled",
-        operation: Policies.WeeklyTrackersReportIsDisabled.message,
+        operation: Settings.Policies.WeeklyTrackersReportIsDisabled.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.WeeklyTrackersReportIsDisabled.message,
+        message: Settings.Policies.WeeklyTrackersReportIsDisabled.message,
         _known: true,
       });
     }
 
-    if (error instanceof Policies.SettingsEmailIsConfiguredError) {
+    if (error instanceof Settings.Policies.SettingsEmailIsConfiguredError) {
       infra.logger.error({
         message: "Settings email is not configured",
-        operation: Policies.SettingsEmailIsConfigured.message,
+        operation: Settings.Policies.SettingsEmailIsConfigured.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.SettingsEmailIsConfigured.message,
+        message: Settings.Policies.SettingsEmailIsConfigured.message,
         _known: true,
       });
     }

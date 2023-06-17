@@ -4,7 +4,7 @@ import type { AsyncReturnType } from "@bgord/node";
 export type { EmailType } from "@bgord/node/dist/schema";
 
 import type { TrackerDatapointRepository } from "../repositories/tracker-datapoint-repository";
-import type { SettingsRepository } from "../repositories/settings-repository";
+import type { SettingsRepository } from "../modules/settings/repositories";
 
 export type { TrackerNameType } from "../value-objects/tracker-name";
 
@@ -21,4 +21,4 @@ export type TrackerDatapointType = AsyncReturnType<
 
 export type SettingsType = AsyncReturnType<typeof SettingsRepository["get"]>;
 
-export type { SettingsEmailType } from "../value-objects/settings-email";
+export type { SettingsEmailType } from "../modules/settings/value-objects";

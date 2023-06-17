@@ -1,9 +1,10 @@
 import * as bg from "@bgord/node";
 
-import * as Events from "../events";
-import * as Repos from "../repositories";
+import * as Events from "../../../events";
 import * as Policies from "../policies";
 import * as VO from "../value-objects";
+
+import { EventRepository } from "../../../repositories";
 
 export class Settings {
   stream: bg.EventType["stream"];
@@ -20,7 +21,7 @@ export class Settings {
   }
 
   async build() {
-    const events = await Repos.EventRepository.find(
+    const events = await EventRepository.find(
       [
         Events.WeeklyTrackersReportEnabledEvent,
         Events.WeeklyTrackersReportDisabledEvent,
@@ -68,7 +69,7 @@ export class Settings {
 
     await Policies.SettingsEmailIsConfigured.perform({ email: this.email });
 
-    await Repos.EventRepository.save(
+    await EventRepository.save(
       Events.WeeklyTrackersReportEnabledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_ENABLED,
         stream: this.stream,
@@ -83,7 +84,7 @@ export class Settings {
       current: this.isWeeklyTrackersReportEnabled,
     });
 
-    await Repos.EventRepository.save(
+    await EventRepository.save(
       Events.WeeklyTrackersReportDisabledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_DISABLED,
         stream: this.stream,
@@ -99,7 +100,7 @@ export class Settings {
       changed: email,
     });
 
-    await Repos.EventRepository.save(
+    await EventRepository.save(
       Events.SettingsEmailChangedEvent.parse({
         name: Events.SETTINGS_EMAIL_CHANGED,
         stream: this.stream,
@@ -112,7 +113,7 @@ export class Settings {
   async deleteEmail() {
     await Policies.SettingsEmailIsConfigured.perform({ email: this.email });
 
-    await Repos.EventRepository.save(
+    await EventRepository.save(
       Events.SettingsEmailDeletedEvent.parse({
         name: Events.SETTINGS_EMAIL_DELETED,
         stream: this.stream,

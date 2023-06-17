@@ -1,6 +1,6 @@
 import { Cron } from "croner";
 
-import * as Aggregates from "../aggregates";
+import * as Settings from "../modules/settings";
 import * as Services from "../services";
 import { logger } from "./logger";
 
@@ -13,7 +13,7 @@ const WeeklyTrackersReportSchedulerJob = Cron(
         operation: "weekly_trackers_report_scheduler_task_start",
       });
 
-      const settings = await new Aggregates.Settings().build();
+      const settings = await new Settings.Aggregates.Settings().build();
       await Services.WeeklyTrackersReportScheduler.schedule(settings);
 
       logger.info({

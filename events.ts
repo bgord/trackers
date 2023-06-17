@@ -2,6 +2,8 @@ import * as bg from "@bgord/node";
 import z from "zod";
 import Emittery from "emittery";
 
+import { SettingsEmail } from "./modules/settings/value-objects/settings-email";
+
 import * as VO from "./value-objects";
 import * as Repos from "./repositories";
 import * as Services from "./services";
@@ -136,7 +138,7 @@ export const SettingsEmailChangedEvent = bg.EventDraft.merge(
     name: z.literal(SETTINGS_EMAIL_CHANGED),
     version: z.literal(1),
     payload: z.object({
-      email: VO.SettingsEmail,
+      email: SettingsEmail,
       updatedAt: bg.Schema.Timestamp,
     }),
   })

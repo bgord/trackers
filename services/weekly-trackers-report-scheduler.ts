@@ -1,6 +1,7 @@
 import * as bg from "@bgord/node";
 
-import * as Aggregates from "../aggregates";
+import * as Settings from "../modules/settings";
+
 import * as Policies from "../policies";
 import * as Repos from "../repositories";
 import * as Events from "../events";
@@ -26,12 +27,18 @@ export class WeeklyTrackersReportScheduler {
     return `0 ${UTC_HOUR} * * ${DAY_OF_THE_WEEK}`;
   }
 
-  static async schedule(settings: Aggregates.Settings) {
-    await Policies.WeeklyTrackersReportIsEnabled.perform({
+  static async schedule(settings: Settings.Aggregates.Settings) {
+    // TODO: Settings module leaks
+    await Settings.Policies.WeeklyTrackersReportIsEnabled.perform({
       current: settings.isWeeklyTrackersReportEnabled,
     });
+
     await Policies.MinimumOneTrackerExists.perform({});
-    await Policies.SettingsEmailIsConfigured.perform({ email: settings.email });
+
+    // TODO: Settings module leaks
+    await Settings.Policies.SettingsEmailIsConfigured.perform({
+      email: settings.email,
+    });
 
     await Repos.EventRepository.save(
       Events.WeeklyTrackersReportScheduledEvent.parse({
