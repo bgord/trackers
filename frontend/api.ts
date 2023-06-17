@@ -18,7 +18,7 @@ export const _api: typeof fetch = (input, init) =>
 
 export class Tracker {
   static async create(tracker: {
-    name: types.TrackerNameType;
+    name: types.TrackerType["name"];
     kind: types.TrackerKindEnum;
   }) {
     return _api("/tracker", {
@@ -98,7 +98,7 @@ export class Settings {
     });
   }
 
-  static async emailChange(payload: { email: types.SettingsEmailType }) {
+  static async emailChange(payload: { email: types.SettingsType["email"] }) {
     return _api("/settings/email/change", {
       method: "POST",
       body: JSON.stringify({ email: payload.email }),

@@ -12,9 +12,9 @@ export function SettingsEmailChange() {
 
   const notify = bg.useToastTrigger();
 
-  const newEmailField = bg.useField<types.SettingsEmailType>(
+  const newEmailField = bg.useField<NonNullable<types.SettingsType["email"]>>(
     "new-email-field",
-    "" as types.SettingsEmailType
+    "" as NonNullable<types.SettingsType["email"]>
   );
   const changeEmail = useMutation(api.Settings.emailChange, {
     onSuccess: () => {

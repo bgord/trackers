@@ -13,7 +13,10 @@ export function TrackerCreate() {
   const notify = bg.useToastTrigger();
   const queryClient = useQueryClient();
 
-  const trackerName = bg.useField<types.TrackerNameType>("tracker-name", "");
+  const trackerName = bg.useField<types.TrackerType["name"]>(
+    "tracker-name",
+    ""
+  );
   const trackerKind = bg.useField<types.TrackerKindEnum>(
     "tracker-kind",
     types.TrackerKindEnum.one_value
