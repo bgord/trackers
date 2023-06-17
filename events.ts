@@ -8,129 +8,7 @@ import * as Trackers from "./modules/trackers";
 import * as infra from "./infra";
 
 const EventHandler = new bg.EventHandler(infra.logger);
-
 const EventLogger = new bg.EventLogger(infra.logger);
-
-export const TRACKER_ADDED_EVENT = "TRACKER_ADDED_EVENT";
-export const TrackerAddedEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(TRACKER_ADDED_EVENT),
-    version: z.literal(1),
-    payload: Trackers.VO.Tracker,
-  })
-);
-export type TrackerAddedEventType = z.infer<typeof TrackerAddedEvent>;
-
-export const TRACKER_SYNCED_EVENT = "TRACKER_SYNCED_EVENT";
-export const TrackerSyncedEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(TRACKER_SYNCED_EVENT),
-    version: z.literal(1),
-    payload: Trackers.VO.Tracker.pick({
-      id: true,
-      value: true,
-      updatedAt: true,
-    }).merge(z.object({ datapointId: Trackers.VO.TrackerDatapointId })),
-  })
-);
-export type TrackerSyncedEventType = z.infer<typeof TrackerSyncedEvent>;
-
-export const TRACKER_REVERTED_EVENT = "TRACKER_REVERTED_EVENT";
-export const TrackerRevertedEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(TRACKER_REVERTED_EVENT),
-    version: z.literal(1),
-    payload: z.object({
-      id: Trackers.VO.TrackerId,
-      datapointId: Trackers.VO.TrackerDatapointId,
-      updatedAt: Trackers.VO.TrackerUpdatedAt,
-    }),
-  })
-);
-export type TrackerRevertedEventType = z.infer<typeof TrackerRevertedEvent>;
-
-export const TRACKER_DELETED_EVENT = "TRACKER_DELETED_EVENT";
-export const TrackerDeletedEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(TRACKER_DELETED_EVENT),
-    version: z.literal(1),
-    payload: z.object({ id: Trackers.VO.TrackerId }),
-  })
-);
-export type TrackerDeletedEventType = z.infer<typeof TrackerDeletedEvent>;
-
-export const TRACKER_EXPORTED_EVENT = "TRACKER_EXPORTED_EVENT";
-export const TrackerExportedEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(TRACKER_EXPORTED_EVENT),
-    version: z.literal(1),
-    payload: z.object({
-      id: Trackers.VO.TrackerId,
-      scheduledAt: bg.Schema.Timestamp,
-      email: bg.Schema.Email,
-      name: Trackers.VO.TrackerName,
-      timeZoneOffsetMs: bg.Schema.TimeZoneOffsetValue,
-    }),
-  })
-);
-export type TrackerExportedEventType = z.infer<typeof TrackerExportedEvent>;
-
-export const TRACKER_NAME_CHANGED_EVENT = "TRACKER_NAME_CHANGED_EVENT";
-export const TrackerNameChangedEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(TRACKER_NAME_CHANGED_EVENT),
-    version: z.literal(1),
-    payload: z.object({
-      id: Trackers.VO.TrackerId,
-      name: Trackers.VO.TrackerName,
-      updatedAt: Trackers.VO.TrackerUpdatedAt,
-    }),
-  })
-);
-export type TrackerNameChangedEventType = z.infer<
-  typeof TrackerNameChangedEvent
->;
-
-export const WEEKLY_TRACKERS_REPORT_ENABLED = "WEEKLY_TRACKERS_REPORT_ENABLED";
-export const WeeklyTrackersReportEnabledEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(WEEKLY_TRACKERS_REPORT_ENABLED),
-    version: z.literal(1),
-    payload: z.object({ updatedAt: bg.Schema.Timestamp }),
-  })
-);
-export type WeeklyTrackersReportEnabledEventType = z.infer<
-  typeof WeeklyTrackersReportEnabledEvent
->;
-
-export const WEEKLY_TRACKERS_REPORT_DISABLED =
-  "WEEKLY_TRACKERS_REPORT_DISABLED";
-export const WeeklyTrackersReportDisabledEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(WEEKLY_TRACKERS_REPORT_DISABLED),
-    version: z.literal(1),
-    payload: z.object({ updatedAt: bg.Schema.Timestamp }),
-  })
-);
-export type WeeklyTrackersReportDisabledEventType = z.infer<
-  typeof WeeklyTrackersReportDisabledEvent
->;
-
-export const WEEKLY_TRACKERS_REPORT_SCHEDULED =
-  "WEEKLY_TRACKERS_REPORT_SCHEDULED";
-export const WeeklyTrackersReportScheduledEvent = bg.EventDraft.merge(
-  z.object({
-    name: z.literal(WEEKLY_TRACKERS_REPORT_SCHEDULED),
-    version: z.literal(1),
-    payload: z.object({
-      scheduledAt: bg.Schema.Timestamp,
-      email: bg.Schema.EmailTo,
-    }),
-  })
-);
-export type WeeklyTrackersReportScheduledEventype = z.infer<
-  typeof WeeklyTrackersReportScheduledEvent
->;
 
 export const SETTINGS_EMAIL_CHANGED = "SETTINGS_EMAIL_CHANGED";
 export const SettingsEmailChangedEvent = bg.EventDraft.merge(
@@ -159,19 +37,42 @@ export type SettingsEmailDeletedEventType = z.infer<
   typeof SettingsEmailDeletedEvent
 >;
 
+export const WEEKLY_TRACKERS_REPORT_ENABLED = "WEEKLY_TRACKERS_REPORT_ENABLED";
+export const WeeklyTrackersReportEnabledEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(WEEKLY_TRACKERS_REPORT_ENABLED),
+    version: z.literal(1),
+    payload: z.object({ updatedAt: bg.Schema.Timestamp }),
+  })
+);
+export type WeeklyTrackersReportEnabledEventType = z.infer<
+  typeof WeeklyTrackersReportEnabledEvent
+>;
+
+export const WEEKLY_TRACKERS_REPORT_DISABLED =
+  "WEEKLY_TRACKERS_REPORT_DISABLED";
+export const WeeklyTrackersReportDisabledEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(WEEKLY_TRACKERS_REPORT_DISABLED),
+    version: z.literal(1),
+    payload: z.object({ updatedAt: bg.Schema.Timestamp }),
+  })
+);
+export type WeeklyTrackersReportDisabledEventType = z.infer<
+  typeof WeeklyTrackersReportDisabledEvent
+>;
+
 export const emittery = new Emittery<{
-  TRACKER_ADDED_EVENT: TrackerAddedEventType;
-  TRACKER_SYNCED_EVENT: TrackerSyncedEventType;
-  TRACKER_REVERTED_EVENT: TrackerRevertedEventType;
-  TRACKER_DELETED_EVENT: TrackerDeletedEventType;
-  TRACKER_EXPORTED_EVENT: TrackerExportedEventType;
-  TRACKER_NAME_CHANGED_EVENT: TrackerNameChangedEventType;
+  TRACKER_ADDED_EVENT: Trackers.Events.TrackerAddedEventType;
+  TRACKER_SYNCED_EVENT: Trackers.Events.TrackerSyncedEventType;
+  TRACKER_REVERTED_EVENT: Trackers.Events.TrackerRevertedEventType;
+  TRACKER_DELETED_EVENT: Trackers.Events.TrackerDeletedEventType;
+  TRACKER_EXPORTED_EVENT: Trackers.Events.TrackerExportedEventType;
+  TRACKER_NAME_CHANGED_EVENT: Trackers.Events.TrackerNameChangedEventType;
+  WEEKLY_TRACKERS_REPORT_SCHEDULED: Trackers.Events.WeeklyTrackersReportScheduledEventype;
 
   WEEKLY_TRACKERS_REPORT_ENABLED: WeeklyTrackersReportEnabledEventType;
   WEEKLY_TRACKERS_REPORT_DISABLED: WeeklyTrackersReportDisabledEventType;
-
-  WEEKLY_TRACKERS_REPORT_SCHEDULED: WeeklyTrackersReportScheduledEventype;
-
   SETTINGS_EMAIL_CHANGED: SettingsEmailChangedEventType;
   SETTINGS_EMAIL_DELETED: SettingsEmailDeletedEventType;
 }>({
@@ -179,14 +80,14 @@ export const emittery = new Emittery<{
 });
 
 emittery.on(
-  TRACKER_ADDED_EVENT,
+  Trackers.Events.TRACKER_ADDED_EVENT,
   EventHandler.handle(async (event) => {
     await Trackers.Repos.TrackerRepository.create(event.payload);
   })
 );
 
 emittery.on(
-  TRACKER_SYNCED_EVENT,
+  Trackers.Events.TRACKER_SYNCED_EVENT,
   EventHandler.handle(async (event) => {
     await Trackers.Repos.TrackerRepository.sync(event.payload);
     await Trackers.Repos.TrackerDatapointRepository.add(event.payload);
@@ -194,7 +95,7 @@ emittery.on(
 );
 
 emittery.on(
-  TRACKER_REVERTED_EVENT,
+  Trackers.Events.TRACKER_REVERTED_EVENT,
   EventHandler.handle(async (event) => {
     await Trackers.Repos.TrackerDatapointRepository.remove({
       datapointId: event.payload.datapointId,
@@ -216,14 +117,14 @@ emittery.on(
 );
 
 emittery.on(
-  TRACKER_DELETED_EVENT,
+  Trackers.Events.TRACKER_DELETED_EVENT,
   EventHandler.handle(async (event) => {
     await Trackers.Repos.TrackerRepository.delete({ id: event.payload.id });
   })
 );
 
 emittery.on(
-  TRACKER_EXPORTED_EVENT,
+  Trackers.Events.TRACKER_EXPORTED_EVENT,
   EventHandler.handle(async (event) => {
     const trackerExportFile = new Trackers.Services.TrackerExportFile({
       repository: Trackers.Repos.TrackerDatapointRepository,
@@ -255,14 +156,14 @@ emittery.on(
 );
 
 emittery.on(
-  TRACKER_NAME_CHANGED_EVENT,
+  Trackers.Events.TRACKER_NAME_CHANGED_EVENT,
   EventHandler.handle(async (event) => {
     await Trackers.Repos.TrackerRepository.changeName(event.payload);
   })
 );
 
 emittery.on(
-  WEEKLY_TRACKERS_REPORT_SCHEDULED,
+  Trackers.Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
   EventHandler.handle(async (event) => {
     const { scheduledAt, email } = event.payload;
 

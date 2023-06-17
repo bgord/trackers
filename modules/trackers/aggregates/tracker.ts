@@ -3,7 +3,7 @@ import _ from "lodash";
 
 import * as VO from "../value-objects";
 import * as Policies from "../policies";
-import * as Events from "../../../events";
+import * as Events from "../events";
 import * as infra from "../../../infra";
 
 export class Tracker {

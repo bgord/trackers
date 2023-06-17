@@ -1,19 +1,21 @@
 import * as bg from "@bgord/node";
 import { z } from "zod";
 
-import * as infra from "../infra";
+import * as Trackers from "../modules/trackers";
+
 import * as Events from "../events";
+import * as infra from "../infra";
 
 type AcceptedEvent =
-  | typeof Events.TrackerAddedEvent
-  | typeof Events.TrackerSyncedEvent
-  | typeof Events.TrackerRevertedEvent
-  | typeof Events.TrackerDeletedEvent
-  | typeof Events.TrackerExportedEvent
-  | typeof Events.TrackerNameChangedEvent
+  | typeof Trackers.Events.TrackerAddedEvent
+  | typeof Trackers.Events.TrackerSyncedEvent
+  | typeof Trackers.Events.TrackerRevertedEvent
+  | typeof Trackers.Events.TrackerDeletedEvent
+  | typeof Trackers.Events.TrackerExportedEvent
+  | typeof Trackers.Events.TrackerNameChangedEvent
+  | typeof Trackers.Events.WeeklyTrackersReportScheduledEvent
   | typeof Events.WeeklyTrackersReportEnabledEvent
   | typeof Events.WeeklyTrackersReportDisabledEvent
-  | typeof Events.WeeklyTrackersReportScheduledEvent
   | typeof Events.SettingsEmailChangedEvent
   | typeof Events.SettingsEmailDeletedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;

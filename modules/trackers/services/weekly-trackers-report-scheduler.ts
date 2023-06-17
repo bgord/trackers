@@ -4,7 +4,7 @@ import * as Settings from "../../settings";
 
 import * as infra from "../../../infra";
 import * as Policies from "../policies";
-import * as Events from "../../../events";
+import * as Events from "../events";
 
 export enum DayOfTheWeekEnum {
   Monday = 1,
