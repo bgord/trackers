@@ -20,7 +20,7 @@ export async function Dashboard(
   );
 
   const state = {
-    ...Repos.BuildRepository.getAll(),
+    ...infra.BuildRepository.getAll(),
     language: request.language,
     translations,
     trackers: await Repos.TrackerRepository.list(),

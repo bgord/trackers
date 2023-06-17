@@ -3,7 +3,6 @@ import render from "preact-render-to-string";
 import * as bg from "@bgord/node";
 
 import * as Repos from "../repositories";
-import { BuildRepository } from "../../../repositories";
 import * as infra from "../../../infra";
 
 import { App } from "../../../frontend/app";
@@ -19,7 +18,7 @@ export async function Settings(
   );
 
   const state = {
-    ...BuildRepository.getAll(),
+    ...infra.BuildRepository.getAll(),
     language: request.language,
     translations,
     trackers: [],
