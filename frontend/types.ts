@@ -14,6 +14,8 @@ export type TrackerDatapointType = AsyncReturnType<
   typeof TrackerDatapointRepository["list"]
 >[0];
 
+export type { ProjectType } from "../modules/projects/value-objects/project";
+
 // Constants
 
 export { TRACKER_NAME_MIN_LENGTH } from "../modules/trackers/value-objects/tracker-name-min-length";
@@ -21,3 +23,6 @@ export { TRACKER_NAME_MAX_LENGTH } from "../modules/trackers/value-objects/track
 
 export { TRACKER_DATAPOINT_BOUND_LOWER } from "../modules/trackers/value-objects/tracker-datapoint-bound-lower";
 export { TRACKER_DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects/tracker-datapoint-bound-upper";
+
+export { PROJECT_NAME_MIN_LENGTH } from "../modules/projects/value-objects/project-name-min-length";
+export { PROJECT_NAME_MAX_LENGTH } from "../modules/projects/value-objects/project-name-max-length";

@@ -102,6 +102,10 @@
   "settings.email.change.error": "Error while changing email",
   "settings.email.change.error.the_same": "Email has not changed",
   "settings.email.error.not_configured": "Settings email not configured",
+  "settings.updated_at": "updated {{when}}",
 
-  "settings.updated_at": "updated {{when}}"
+  "project.name.label": "Project name",
+  "project.name.placeholder": "Work",
+  "project.create.submit": "Create",
+  "project.create.success": "Project created"
 }

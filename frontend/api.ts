@@ -109,3 +109,12 @@ export class Settings {
     return _api("/settings/email", { method: "DELETE" });
   }
 }
+
+export class Project {
+  static async create(project: { name: types.ProjectType["name"] }) {
+    return _api("/project", {
+      method: "POST",
+      body: JSON.stringify(project),
+    });
+  }
+}

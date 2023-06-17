@@ -7,6 +7,8 @@ import * as types from "./types";
 import { TrackerCreate } from "./tracker-create";
 import { TrackerList } from "./tracker-list";
 
+import { ProjectCreate } from "./project-create";
+
 export type InitialDashboardDataType = {
   trackers: types.TrackerType[];
 };
@@ -16,6 +18,7 @@ export function Dashboard(_: RoutableProps) {
 
   return (
     <main>
+      <ProjectCreate />
       <TrackerCreate />
       <TrackerList />
     </main>
