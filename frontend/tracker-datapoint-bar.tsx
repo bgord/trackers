@@ -3,9 +3,8 @@ import * as bg from "@bgord/frontend";
 import { h } from "preact";
 
 import * as types from "./types";
+
 import { TrackerDatapointRevert } from "./tracker-datapoint-revert";
-import { TRACKER_DATAPOINT_BOUND_LOWER } from "../modules/trackers/value-objects/tracker-datapoint-bound-lower";
-import { TRACKER_DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects/tracker-datapoint-bound-upper";
 
 export function TrackerDatapointBar(props: types.TrackerDatapointType) {
   const details = bg.useToggle(false);
@@ -31,7 +30,7 @@ export function TrackerDatapointBar(props: types.TrackerDatapointType) {
       onClick={details.toggle}
       onKeyDown={toggleDetailsKeyboardHandler}
       tabIndex={0}
-      style={{ maxHeight: `${TRACKER_DATAPOINT_BOUND_UPPER}px` }}
+      style={{ maxHeight: `${types.TRACKER_DATAPOINT_BOUND_UPPER}px` }}
       {...hover.attach}
     >
       <div
@@ -46,7 +45,7 @@ export function TrackerDatapointBar(props: types.TrackerDatapointType) {
         data-bwt={props.value.isMax ? "4" : undefined}
         data-bct={props.value.isMax ? "gray-400" : undefined}
         style={{
-          minHeight: `${TRACKER_DATAPOINT_BOUND_LOWER}px`,
+          minHeight: `${types.TRACKER_DATAPOINT_BOUND_LOWER}px`,
           height: `${props.value.scaled}px`,
           minWidth: "36px",
         }}

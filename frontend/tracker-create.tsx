@@ -5,8 +5,6 @@ import { useMutation, useQueryClient } from "react-query";
 import * as api from "./api";
 import * as types from "./types";
 import * as UI from "./ui";
-import { TRACKER_NAME_MIN_LENGTH } from "../modules/trackers/value-objects/tracker-name-min-length";
-import { TRACKER_NAME_MAX_LENGTH } from "../modules/trackers/value-objects/tracker-name-max-length";
 
 export function TrackerCreate() {
   const t = bg.useTranslations();
@@ -54,7 +52,7 @@ export function TrackerCreate() {
         <input
           class="c-input"
           onChange={(event) => trackerName.set(event.currentTarget.value)}
-          pattern={`.{${TRACKER_NAME_MIN_LENGTH},${TRACKER_NAME_MAX_LENGTH}}`}
+          pattern={`.{${types.TRACKER_NAME_MIN_LENGTH},${types.TRACKER_NAME_MAX_LENGTH}}`}
           placeholder={t("tracker.name.placeholder")}
           required
           style={{ minWidth: "200px" }}
