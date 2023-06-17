@@ -6,7 +6,6 @@ export * from "./logger";
 export * from "./response-cache";
 export * from "./jobs";
 
-export * from "./build-info-repository";
 export * from "./event-store";
 
 import * as bg from "@bgord/node";

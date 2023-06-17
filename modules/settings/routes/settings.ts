@@ -18,7 +18,7 @@ export async function Settings(
   );
 
   const state = {
-    ...infra.BuildInfoRepository.getAll(),
+    ...(await bg.BuildInfoRepository.extract()),
     language: request.language,
     translations,
     trackers: [],
