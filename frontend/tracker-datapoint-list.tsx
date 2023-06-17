@@ -39,10 +39,8 @@ export function TrackerDatapointList(props: types.TrackerType) {
       data-overflow="scroll"
       data-gap="3"
       style={{ minHeight: `${TRACKER_DATAPOINT_BOUND_UPPER}px` }}
-      data-bwt="1"
-      data-bct="gray-200"
-      data-bwb="1"
-      data-bcb="gray-200"
+      data-bwy="1"
+      data-bcy="gray-200"
       data-py="3"
     >
       {trackerDatapoints.data.map((datapoint) => (
