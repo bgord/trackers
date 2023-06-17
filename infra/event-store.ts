@@ -2,6 +2,7 @@ import * as bg from "@bgord/node";
 import { z } from "zod";
 
 import * as Trackers from "../modules/trackers";
+import * as Settings from "../modules/settings";
 
 import * as Events from "../events";
 import * as infra from "../infra";
@@ -14,10 +15,10 @@ type AcceptedEvent =
   | typeof Trackers.Events.TrackerExportedEvent
   | typeof Trackers.Events.TrackerNameChangedEvent
   | typeof Trackers.Events.WeeklyTrackersReportScheduledEvent
-  | typeof Events.WeeklyTrackersReportEnabledEvent
-  | typeof Events.WeeklyTrackersReportDisabledEvent
-  | typeof Events.SettingsEmailChangedEvent
-  | typeof Events.SettingsEmailDeletedEvent;
+  | typeof Settings.Events.WeeklyTrackersReportEnabledEvent
+  | typeof Settings.Events.WeeklyTrackersReportDisabledEvent
+  | typeof Settings.Events.SettingsEmailChangedEvent
+  | typeof Settings.Events.SettingsEmailDeletedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventStore {

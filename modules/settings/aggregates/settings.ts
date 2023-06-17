@@ -1,6 +1,6 @@
 import * as bg from "@bgord/node";
 
-import * as Events from "../../../events";
+import * as Events from "../events";
 import * as Policies from "../policies";
 import * as VO from "../value-objects";
 
