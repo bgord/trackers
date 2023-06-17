@@ -25,7 +25,7 @@ export class Project {
     for (const event of events) {
       /* eslint-disable sonarjs/no-small-switch */
       switch (event.name) {
-        case Events.PROJECT_CREATED:
+        case Events.PROJECT_CREATED_EVENT:
           this.entity = event.payload;
           break;
 
@@ -35,6 +35,19 @@ export class Project {
     }
 
     return this;
+  }
+
+  static async create(payload: Pick<VO.ProjectType, "name">) {
+    const id = VO.ProjectId.parse(bg.NewUUID.generate());
+
+    await infra.EventStore.save(
+      Events.ProjectCreatedEvent.parse({
+        name: Events.PROJECT_CREATED_EVENT,
+        stream: Project.getStream(id),
+        version: 1,
+        payload: { id, ...payload },
+      })
+    );
   }
 
   static getStream(id: VO.ProjectIdType) {

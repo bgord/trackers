@@ -6,6 +6,7 @@ import * as infra from "./infra";
 
 import * as Trackers from "./modules/trackers";
 import * as Settings from "./modules/settings";
+import * as Projects from "./modules/projects";
 
 const app = express();
 
@@ -122,6 +123,12 @@ app.get(
   bg.Timeout.build({ timeoutMs: bg.Time.Seconds(5).toMs() }),
   infra.BasicAuthShield.verify,
   bg.Healthcheck.build(infra.healthcheck)
+);
+
+app.post(
+  "/project",
+  infra.AuthShield.verify,
+  bg.Route(Projects.Routes.ProjectCreate)
 );
 
 app.get("*", (_, response) => response.redirect("/"));
