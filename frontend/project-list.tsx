@@ -24,7 +24,7 @@ export function ProjectList() {
   }
 
   if (projectListQuery.data?.length === 0) {
-    return <UI.Info data-mx="24">{t("tracker.list.empty")}</UI.Info>;
+    return <UI.Info data-mx="24">{t("project.list.empty")}</UI.Info>;
   }
 
   return (

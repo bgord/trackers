@@ -110,5 +110,6 @@
   "project.create.submit": "Create",
   "project.create.success": "Project created",
   "project.created_at": "Created {{value}}",
-  "project.updated_at": "Last update {{value}}"
+  "project.updated_at": "Last update {{value}}",
+  "project.list.empty": "No available projects"
 }
