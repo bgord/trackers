@@ -107,5 +107,7 @@
   "project.name.label": "Project name",
   "project.name.placeholder": "Work",
   "project.create.submit": "Create",
-  "project.create.success": "Project created"
+  "project.create.success": "Project created",
+  "project.created_at": "Created {{value}}",
+  "project.updated_at": "Last update {{value}}"
 }

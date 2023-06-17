@@ -14,7 +14,7 @@ export type TrackerDatapointType = AsyncReturnType<
   typeof TrackerDatapointRepository["list"]
 >[0];
 
-export type { ProjectType } from "../modules/projects/value-objects/project";
+export type { ProjectViewType as ProjectType } from "../modules/projects/value-objects/project";
 
 // Constants
 

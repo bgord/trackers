@@ -24,6 +24,7 @@ const queryClient = new QueryClient({
 export function App(props: InitialDataType) {
   queryClient.setQueryData("trackers", props.trackers);
   queryClient.setQueryData("settings", props.settings);
+  queryClient.setQueryData("projects", props.projects);
 
   return (
     <QueryClientProvider client={queryClient}>

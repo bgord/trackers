@@ -32,7 +32,7 @@ app.get(
   "/dashboard",
   infra.AuthShield.verify,
   bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
-  bg.Route(Trackers.Routes.Dashboard)
+  bg.Route(Routes.Dashboard)
 );
 
 app.post(
@@ -129,6 +129,12 @@ app.post(
   "/project",
   infra.AuthShield.verify,
   bg.Route(Projects.Routes.ProjectCreate)
+);
+
+app.get(
+  "/projects",
+  infra.AuthShield.verify,
+  bg.Route(Projects.Routes.ProjectList)
 );
 
 app.get("*", (_, response) => response.redirect("/"));

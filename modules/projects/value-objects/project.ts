@@ -1,3 +1,4 @@
+import * as bg from "@bgord/node";
 import z from "zod";
 
 import { ProjectId } from "./project-id";
@@ -12,3 +13,8 @@ export const Project = z.object({
   updatedAt: ProjectUpdatedAt,
 });
 export type ProjectType = z.infer<typeof Project>;
+
+export type ProjectViewType = ProjectType & {
+  createdAt: bg.RelativeDateType;
+  updatedAt: bg.RelativeDateType;
+};

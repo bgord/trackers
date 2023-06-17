@@ -141,6 +141,6 @@ emittery.on(
 emittery.on(
   Projects.Events.PROJECT_CREATED_EVENT,
   EventHandler.handle(async (event) => {
-    await Projects.Repos.TrackerRepository.create(event.payload);
+    await Projects.Repos.ProjectRepository.create(event.payload);
   })
 );

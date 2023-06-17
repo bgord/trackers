@@ -117,4 +117,10 @@ export class Project {
       body: JSON.stringify(project),
     });
   }
+
+  static async list(): Promise<types.ProjectType[]> {
+    return _api("/projects", { method: "GET" }).then((response) =>
+      response.ok ? response.json() : []
+    );
+  }
 }

@@ -23,6 +23,7 @@ export async function Settings(
     translations,
     trackers: [],
     settings: await Repos.SettingsRepository.get(),
+    projects: [],
   };
 
   const frontend = render(App({ ...state, url: request.url }));
