@@ -1,6 +1,7 @@
 import * as bg from "@bgord/node";
+
 import * as VO from "../value-objects";
-import * as infra from "../infra";
+import * as infra from "../../../infra";
 
 export class TrackerDatapointRepository {
   static async add(

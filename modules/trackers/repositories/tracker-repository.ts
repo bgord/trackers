@@ -2,7 +2,7 @@ import * as bg from "@bgord/node";
 import _ from "lodash";
 import { z } from "zod";
 
-import * as infra from "../infra";
+import * as infra from "../../../infra";
 import * as VO from "../value-objects";
 
 export class TrackerRepository {

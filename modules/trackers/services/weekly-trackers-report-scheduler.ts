@@ -1,10 +1,10 @@
 import * as bg from "@bgord/node";
 
-import * as Settings from "../modules/settings";
+import * as Settings from "../../settings";
 
+import * as infra from "../../../infra";
 import * as Policies from "../policies";
-import * as Repos from "../repositories";
-import * as Events from "../events";
+import * as Events from "../../../events";
 
 export enum DayOfTheWeekEnum {
   Monday = 1,
@@ -28,19 +28,17 @@ export class WeeklyTrackersReportScheduler {
   }
 
   static async schedule(settings: Settings.Aggregates.Settings) {
-    // TODO: Settings module leaks
     await Settings.Policies.WeeklyTrackersReportIsEnabled.perform({
       current: settings.isWeeklyTrackersReportEnabled,
     });
 
     await Policies.MinimumOneTrackerExists.perform({});
 
-    // TODO: Settings module leaks
     await Settings.Policies.SettingsEmailIsConfigured.perform({
       email: settings.email,
     });
 
-    await Repos.EventRepository.save(
+    await infra.EventRepository.save(
       Events.WeeklyTrackersReportScheduledEvent.parse({
         name: Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
         stream: "weekly-trackers-report",

@@ -1,11 +1,12 @@
 import { Cron } from "croner";
 
 import * as Settings from "../modules/settings";
-import * as Services from "../services";
+import * as Trackers from "../modules/trackers";
+
 import { logger } from "./logger";
 
 const WeeklyTrackersReportSchedulerJob = Cron(
-  Services.WeeklyTrackersReportScheduler.getCronExpression(),
+  Trackers.Services.WeeklyTrackersReportScheduler.getCronExpression(),
   async () => {
     try {
       logger.info({
@@ -14,7 +15,7 @@ const WeeklyTrackersReportSchedulerJob = Cron(
       });
 
       const settings = await new Settings.Aggregates.Settings().build();
-      await Services.WeeklyTrackersReportScheduler.schedule(settings);
+      await Trackers.Services.WeeklyTrackersReportScheduler.schedule(settings);
 
       logger.info({
         message: "WeeklyTrackersReportSchedulerTask success",

@@ -4,8 +4,8 @@ import { h } from "preact";
 
 import * as types from "./types";
 import { TrackerDatapointRevert } from "./tracker-datapoint-revert";
-import { TRACKER_DATAPOINT_BOUND_LOWER } from "../value-objects/tracker-datapoint-bound-lower";
-import { TRACKER_DATAPOINT_BOUND_UPPER } from "../value-objects/tracker-datapoint-bound-upper";
+import { TRACKER_DATAPOINT_BOUND_LOWER } from "../modules/trackers/value-objects/tracker-datapoint-bound-lower";
+import { TRACKER_DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects/tracker-datapoint-bound-upper";
 
 export function TrackerDatapointBar(props: types.TrackerDatapointType) {
   const details = bg.useToggle(false);

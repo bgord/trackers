@@ -1,10 +1,10 @@
 import * as bg from "@bgord/node";
 import _ from "lodash";
 
-import * as Events from "../events";
 import * as VO from "../value-objects";
-import * as Repos from "../repositories";
 import * as Policies from "../policies";
+import * as Events from "../../../events";
+import * as infra from "../../../infra";
 
 export class Tracker {
   id: VO.TrackerType["id"];
@@ -23,7 +23,7 @@ export class Tracker {
   }
 
   async build() {
-    const events = await Repos.EventRepository.find(
+    const events = await infra.EventRepository.find(
       [
         Events.TrackerAddedEvent,
         Events.TrackerSyncedEvent,
@@ -93,7 +93,7 @@ export class Tracker {
 
     await Policies.TrackerNameIsUnique.perform({ trackerName: payload.name });
 
-    await Repos.EventRepository.save(
+    await infra.EventRepository.save(
       Events.TrackerAddedEvent.parse({
         name: Events.TRACKER_ADDED_EVENT,
         stream: Tracker.getStream(id),
@@ -118,7 +118,7 @@ export class Tracker {
       ...context,
     });
 
-    await Repos.EventRepository.save(
+    await infra.EventRepository.save(
       Events.TrackerSyncedEvent.parse({
         name: Events.TRACKER_SYNCED_EVENT,
         stream: this.stream,
@@ -137,7 +137,7 @@ export class Tracker {
     await Policies.TrackerShouldExist.perform({ tracker: this });
     await Policies.TrackerDatapointShouldExist.perform({ datapointId });
 
-    await Repos.EventRepository.save(
+    await infra.EventRepository.save(
       Events.TrackerRevertedEvent.parse({
         name: Events.TRACKER_REVERTED_EVENT,
         stream: this.stream,
@@ -150,7 +150,7 @@ export class Tracker {
   async delete() {
     await Policies.TrackerShouldExist.perform({ tracker: this });
 
-    await Repos.EventRepository.save(
+    await infra.EventRepository.save(
       Events.TrackerDeletedEvent.parse({
         name: Events.TRACKER_DELETED_EVENT,
         stream: this.stream,
@@ -167,7 +167,7 @@ export class Tracker {
     await Policies.TrackerShouldExist.perform({ tracker: this });
     await Policies.TrackerShouldHaveDatapoints.perform({ trackerId: this.id });
 
-    await Repos.EventRepository.save(
+    await infra.EventRepository.save(
       Events.TrackerExportedEvent.parse({
         name: Events.TRACKER_EXPORTED_EVENT,
         stream: this.stream,
@@ -191,7 +191,7 @@ export class Tracker {
     });
     await Policies.TrackerNameIsUnique.perform({ trackerName: name });
 
-    await Repos.EventRepository.save(
+    await infra.EventRepository.save(
       Events.TrackerNameChangedEvent.parse({
         name: Events.TRACKER_NAME_CHANGED_EVENT,
         stream: this.stream,

@@ -3,10 +3,8 @@ import z from "zod";
 import Emittery from "emittery";
 
 import { SettingsEmail } from "./modules/settings/value-objects/settings-email";
+import * as Trackers from "./modules/trackers";
 
-import * as VO from "./value-objects";
-import * as Repos from "./repositories";
-import * as Services from "./services";
 import * as infra from "./infra";
 
 const EventHandler = new bg.EventHandler(infra.logger);
@@ -18,7 +16,7 @@ export const TrackerAddedEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(TRACKER_ADDED_EVENT),
     version: z.literal(1),
-    payload: VO.Tracker,
+    payload: Trackers.VO.Tracker,
   })
 );
 export type TrackerAddedEventType = z.infer<typeof TrackerAddedEvent>;
@@ -28,9 +26,11 @@ export const TrackerSyncedEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(TRACKER_SYNCED_EVENT),
     version: z.literal(1),
-    payload: VO.Tracker.pick({ id: true, value: true, updatedAt: true }).merge(
-      z.object({ datapointId: VO.TrackerDatapointId })
-    ),
+    payload: Trackers.VO.Tracker.pick({
+      id: true,
+      value: true,
+      updatedAt: true,
+    }).merge(z.object({ datapointId: Trackers.VO.TrackerDatapointId })),
   })
 );
 export type TrackerSyncedEventType = z.infer<typeof TrackerSyncedEvent>;
@@ -41,9 +41,9 @@ export const TrackerRevertedEvent = bg.EventDraft.merge(
     name: z.literal(TRACKER_REVERTED_EVENT),
     version: z.literal(1),
     payload: z.object({
-      id: VO.TrackerId,
-      datapointId: VO.TrackerDatapointId,
-      updatedAt: VO.TrackerUpdatedAt,
+      id: Trackers.VO.TrackerId,
+      datapointId: Trackers.VO.TrackerDatapointId,
+      updatedAt: Trackers.VO.TrackerUpdatedAt,
     }),
   })
 );
@@ -54,7 +54,7 @@ export const TrackerDeletedEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(TRACKER_DELETED_EVENT),
     version: z.literal(1),
-    payload: z.object({ id: VO.TrackerId }),
+    payload: z.object({ id: Trackers.VO.TrackerId }),
   })
 );
 export type TrackerDeletedEventType = z.infer<typeof TrackerDeletedEvent>;
@@ -65,10 +65,10 @@ export const TrackerExportedEvent = bg.EventDraft.merge(
     name: z.literal(TRACKER_EXPORTED_EVENT),
     version: z.literal(1),
     payload: z.object({
-      id: VO.TrackerId,
+      id: Trackers.VO.TrackerId,
       scheduledAt: bg.Schema.Timestamp,
       email: bg.Schema.Email,
-      name: VO.TrackerName,
+      name: Trackers.VO.TrackerName,
       timeZoneOffsetMs: bg.Schema.TimeZoneOffsetValue,
     }),
   })
@@ -81,9 +81,9 @@ export const TrackerNameChangedEvent = bg.EventDraft.merge(
     name: z.literal(TRACKER_NAME_CHANGED_EVENT),
     version: z.literal(1),
     payload: z.object({
-      id: VO.TrackerId,
-      name: VO.TrackerName,
-      updatedAt: VO.TrackerUpdatedAt,
+      id: Trackers.VO.TrackerId,
+      name: Trackers.VO.TrackerName,
+      updatedAt: Trackers.VO.TrackerUpdatedAt,
     }),
   })
 );
@@ -181,34 +181,34 @@ export const emittery = new Emittery<{
 emittery.on(
   TRACKER_ADDED_EVENT,
   EventHandler.handle(async (event) => {
-    await Repos.TrackerRepository.create(event.payload);
+    await Trackers.Repos.TrackerRepository.create(event.payload);
   })
 );
 
 emittery.on(
   TRACKER_SYNCED_EVENT,
   EventHandler.handle(async (event) => {
-    await Repos.TrackerRepository.sync(event.payload);
-    await Repos.TrackerDatapointRepository.add(event.payload);
+    await Trackers.Repos.TrackerRepository.sync(event.payload);
+    await Trackers.Repos.TrackerDatapointRepository.add(event.payload);
   })
 );
 
 emittery.on(
   TRACKER_REVERTED_EVENT,
   EventHandler.handle(async (event) => {
-    await Repos.TrackerDatapointRepository.remove({
+    await Trackers.Repos.TrackerDatapointRepository.remove({
       datapointId: event.payload.datapointId,
     });
 
     const latestDatapointForTracker =
-      await Repos.TrackerDatapointRepository.getLatestDatapointForTracker(
+      await Trackers.Repos.TrackerDatapointRepository.getLatestDatapointForTracker(
         event.payload.id
       );
 
-    await Repos.TrackerRepository.sync({
+    await Trackers.Repos.TrackerRepository.sync({
       id: event.payload.id,
-      value: VO.TrackerValue.parse(
-        latestDatapointForTracker?.value ?? VO.DEFAULT_TRACKER_VALUE
+      value: Trackers.VO.TrackerValue.parse(
+        latestDatapointForTracker?.value ?? Trackers.VO.DEFAULT_TRACKER_VALUE
       ),
       updatedAt: event.payload.updatedAt,
     });
@@ -218,15 +218,15 @@ emittery.on(
 emittery.on(
   TRACKER_DELETED_EVENT,
   EventHandler.handle(async (event) => {
-    await Repos.TrackerRepository.delete({ id: event.payload.id });
+    await Trackers.Repos.TrackerRepository.delete({ id: event.payload.id });
   })
 );
 
 emittery.on(
   TRACKER_EXPORTED_EVENT,
   EventHandler.handle(async (event) => {
-    const trackerExportFile = new Services.TrackerExportFile({
-      repository: Repos.TrackerDatapointRepository,
+    const trackerExportFile = new Trackers.Services.TrackerExportFile({
+      repository: Trackers.Repos.TrackerDatapointRepository,
       tracker: event.payload,
     });
 
@@ -257,7 +257,7 @@ emittery.on(
 emittery.on(
   TRACKER_NAME_CHANGED_EVENT,
   EventHandler.handle(async (event) => {
-    await Repos.TrackerRepository.changeName(event.payload);
+    await Trackers.Repos.TrackerRepository.changeName(event.payload);
   })
 );
 
@@ -268,13 +268,15 @@ emittery.on(
 
     const config = {
       repos: {
-        tracker: Repos.TrackerRepository,
-        datapoint: Repos.TrackerDatapointRepository,
+        tracker: Trackers.Repos.TrackerRepository,
+        datapoint: Trackers.Repos.TrackerDatapointRepository,
       },
       scheduledAt,
     };
 
-    const reportGenerator = new Services.WeeklyTrackersReportGenerator(config);
+    const reportGenerator = new Trackers.Services.WeeklyTrackersReportGenerator(
+      config
+    );
     const report = await reportGenerator.generate();
 
     await infra.Mailer.send({

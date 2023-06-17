@@ -3,7 +3,7 @@ import express from "express";
 
 import * as VO from "../value-objects";
 import * as Repos from "../repositories";
-import * as infra from "../infra";
+import * as infra from "../../../infra";
 
 export async function TrackerDatapointList(
   request: express.Request,

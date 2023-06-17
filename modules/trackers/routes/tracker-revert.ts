@@ -2,7 +2,7 @@ import express from "express";
 
 import * as VO from "../value-objects";
 import * as Aggregates from "../aggregates";
-import * as infra from "../infra";
+import * as infra from "../../../infra";
 
 export async function TrackerRevert(
   request: express.Request,

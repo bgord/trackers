@@ -5,8 +5,8 @@ import { useMutation, useQueryClient } from "react-query";
 import * as api from "./api";
 import * as types from "./types";
 import * as UI from "./ui";
-import { TRACKER_NAME_MIN_LENGTH } from "../value-objects/tracker-name-min-length";
-import { TRACKER_NAME_MAX_LENGTH } from "../value-objects/tracker-name-max-length";
+import { TRACKER_NAME_MIN_LENGTH } from "../modules/trackers/value-objects/tracker-name-min-length";
+import { TRACKER_NAME_MAX_LENGTH } from "../modules/trackers/value-objects/tracker-name-max-length";
 
 export function TrackerCreate() {
   const t = bg.useTranslations();

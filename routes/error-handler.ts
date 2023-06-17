@@ -2,10 +2,9 @@ import express from "express";
 import * as bg from "@bgord/node";
 import z from "zod";
 
-import * as VO from "../value-objects";
-import * as Policies from "../policies";
 import * as infra from "../infra";
 
+import * as Trackers from "../modules/trackers";
 import * as Settings from "../modules/settings";
 
 export class ErrorHandler {
@@ -70,66 +69,67 @@ export class ErrorHandler {
         .send({ message: "request_timeout_error", _known: true });
     }
 
-    if (error instanceof Policies.TrackerNameIsUniqueError) {
+    if (error instanceof Trackers.Policies.TrackerNameIsUniqueError) {
       infra.logger.error({
         message: "Tracker name is not unique",
-        operation: Policies.TrackerNameIsUnique.message,
+        operation: Trackers.Policies.TrackerNameIsUnique.message,
         correlationId: request.requestId,
       });
 
-      return response
-        .status(400)
-        .send({ message: Policies.TrackerNameIsUnique.message, _known: true });
+      return response.status(400).send({
+        message: Trackers.Policies.TrackerNameIsUnique.message,
+        _known: true,
+      });
     }
 
-    if (error instanceof Policies.TrackerDatapointShouldExistError) {
+    if (error instanceof Trackers.Policies.TrackerDatapointShouldExistError) {
       infra.logger.error({
         message: "Tracker datapoint does not exist",
-        operation: Policies.TrackerDatapointShouldExist.message,
+        operation: Trackers.Policies.TrackerDatapointShouldExist.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.TrackerDatapointShouldExist.message,
+        message: Trackers.Policies.TrackerDatapointShouldExist.message,
         _known: true,
       });
     }
 
-    if (error instanceof Policies.TrackerValueShouldChangeError) {
+    if (error instanceof Trackers.Policies.TrackerValueShouldChangeError) {
       infra.logger.error({
         message: "Tracker value has not changed",
-        operation: Policies.TrackerValueShouldChange.message,
+        operation: Trackers.Policies.TrackerValueShouldChange.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.TrackerValueShouldChange.message,
+        message: Trackers.Policies.TrackerValueShouldChange.message,
         _known: true,
       });
     }
 
-    if (error instanceof Policies.TrackerDatapointsLimitPerDayError) {
+    if (error instanceof Trackers.Policies.TrackerDatapointsLimitPerDayError) {
       infra.logger.error({
         message: "Tracker datapoints per day limit reached",
-        operation: Policies.TrackerDatapointsLimitPerDay.message,
+        operation: Trackers.Policies.TrackerDatapointsLimitPerDay.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.TrackerDatapointsLimitPerDay.message,
+        message: Trackers.Policies.TrackerDatapointsLimitPerDay.message,
         _known: true,
       });
     }
 
-    if (error instanceof Policies.TrackerShouldHaveDatapointsError) {
+    if (error instanceof Trackers.Policies.TrackerShouldHaveDatapointsError) {
       infra.logger.error({
         message: "Tracker has no datapoints",
-        operation: Policies.TrackerShouldHaveDatapoints.message,
+        operation: Trackers.Policies.TrackerShouldHaveDatapoints.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.TrackerShouldHaveDatapoints.message,
+        message: Trackers.Policies.TrackerShouldHaveDatapoints.message,
         _known: true,
       });
     }
@@ -188,28 +188,28 @@ export class ErrorHandler {
       });
     }
 
-    if (error instanceof Policies.TrackerNameHasChangedError) {
+    if (error instanceof Trackers.Policies.TrackerNameHasChangedError) {
       infra.logger.error({
         message: "Tracker name has not changed",
-        operation: Policies.TrackerNameHasChanged.message,
+        operation: Trackers.Policies.TrackerNameHasChanged.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Policies.TrackerNameHasChanged.message,
+        message: Trackers.Policies.TrackerNameHasChanged.message,
         _known: true,
       });
     }
 
-    if (error instanceof Policies.TrackerShouldExistError) {
+    if (error instanceof Trackers.Policies.TrackerShouldExistError) {
       infra.logger.error({
         message: "Tracker does not exist",
-        operation: Policies.TrackerShouldExist.message,
+        operation: Trackers.Policies.TrackerShouldExist.message,
         correlationId: request.requestId,
       });
 
       return response.status(404).send({
-        message: Policies.TrackerShouldExist.message,
+        message: Trackers.Policies.TrackerShouldExist.message,
         _known: true,
       });
     }
@@ -217,33 +217,35 @@ export class ErrorHandler {
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(
-          (issue) => issue.message === VO.TRACKER_NAME_STRUCTURE_ERROR_KEY
+          (issue) =>
+            issue.message === Trackers.VO.TRACKER_NAME_STRUCTURE_ERROR_KEY
         )
       ) {
         return response.status(400).send({
-          message: VO.TRACKER_NAME_STRUCTURE_ERROR_KEY,
+          message: Trackers.VO.TRACKER_NAME_STRUCTURE_ERROR_KEY,
           _known: true,
         });
       }
 
       if (
         error.issues.find(
-          (issue) => issue.message === VO.TRACKER_KIND_ERROR_KEY
+          (issue) => issue.message === Trackers.VO.TRACKER_KIND_ERROR_KEY
         )
       ) {
         return response.status(400).send({
-          message: VO.TRACKER_KIND_ERROR_KEY,
+          message: Trackers.VO.TRACKER_KIND_ERROR_KEY,
           _known: true,
         });
       }
 
       if (
         error.issues.find(
-          (issue) => issue.message === VO.TRACKER_COUNTER_VALUE_ERROR_KEY
+          (issue) =>
+            issue.message === Trackers.VO.TRACKER_COUNTER_VALUE_ERROR_KEY
         )
       ) {
         return response.status(400).send({
-          message: VO.TRACKER_COUNTER_VALUE_ERROR_KEY,
+          message: Trackers.VO.TRACKER_COUNTER_VALUE_ERROR_KEY,
           _known: true,
         });
       }

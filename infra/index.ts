@@ -7,6 +7,7 @@ export * from "./response-cache";
 export * from "./jobs";
 
 export * from "./build-repository";
+export * from "./event-repository";
 
 import * as bg from "@bgord/node";
 import { Env } from "./env";

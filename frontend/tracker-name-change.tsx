@@ -2,8 +2,8 @@ import * as bg from "@bgord/frontend";
 import { useMutation, useQueryClient } from "react-query";
 import { h } from "preact";
 
-import { TRACKER_NAME_MIN_LENGTH } from "../value-objects/tracker-name-min-length";
-import { TRACKER_NAME_MAX_LENGTH } from "../value-objects/tracker-name-max-length";
+import { TRACKER_NAME_MIN_LENGTH } from "../modules/trackers/value-objects/tracker-name-min-length";
+import { TRACKER_NAME_MAX_LENGTH } from "../modules/trackers/value-objects/tracker-name-max-length";
 
 import * as UI from "./ui";
 import * as types from "./types";

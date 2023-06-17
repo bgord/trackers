@@ -2,12 +2,12 @@ import express from "express";
 import render from "preact-render-to-string";
 import * as bg from "@bgord/node";
 
-import * as Settings from "../modules/settings";
+import * as Settings from "../..//settings";
 
 import * as Repos from "../repositories";
-import * as infra from "../infra";
+import * as infra from "../../../infra";
 
-import { App } from "../frontend/app";
+import { App } from "../../../frontend/app";
 
 export async function Dashboard(
   request: express.Request,

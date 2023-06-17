@@ -4,6 +4,7 @@ import * as bg from "@bgord/node";
 import * as Routes from "./routes";
 import * as infra from "./infra";
 
+import * as Trackers from "./modules/trackers";
 import * as Settings from "./modules/settings";
 
 const app = express();
@@ -30,46 +31,54 @@ app.get(
   "/dashboard",
   infra.AuthShield.verify,
   bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
-  bg.Route(Routes.Dashboard)
+  bg.Route(Trackers.Routes.Dashboard)
 );
 
-app.post("/tracker", infra.AuthShield.verify, bg.Route(Routes.TrackerCreate));
-app.get("/tracker", infra.AuthShield.verify, bg.Route(Routes.TrackerList));
+app.post(
+  "/tracker",
+  infra.AuthShield.verify,
+  bg.Route(Trackers.Routes.TrackerCreate)
+);
+app.get(
+  "/tracker",
+  infra.AuthShield.verify,
+  bg.Route(Trackers.Routes.TrackerList)
+);
 app.delete(
   "/tracker/:trackerId",
   infra.AuthShield.verify,
   infra.CacheResponse.clear,
-  bg.Route(Routes.TrackerDelete)
+  bg.Route(Trackers.Routes.TrackerDelete)
 );
 app.post(
   "/tracker/:trackerId/sync",
   infra.AuthShield.verify,
   infra.CacheResponse.clear,
-  bg.Route(Routes.TrackerSync)
+  bg.Route(Trackers.Routes.TrackerSync)
 );
 app.post(
   "/tracker/:trackerId/export",
   infra.AuthShield.verify,
   bg.RateLimitShield.build({ limitMs: bg.Time.Hours(1).toMs() }),
-  bg.Route(Routes.TrackerExport)
+  bg.Route(Trackers.Routes.TrackerExport)
 );
 app.post(
   "/tracker/:trackerId/name",
   infra.AuthShield.verify,
-  bg.Route(Routes.TrackerNameChange)
+  bg.Route(Trackers.Routes.TrackerNameChange)
 );
 app.delete(
   "/tracker/:trackerId/revert/:datapointId",
   infra.AuthShield.verify,
   infra.CacheResponse.clear,
-  bg.Route(Routes.TrackerRevert)
+  bg.Route(Trackers.Routes.TrackerRevert)
 );
 
 app.get(
   "/tracker/:trackerId/datapoints",
   infra.AuthShield.verify,
   infra.CacheResponse.handle,
-  bg.Route(Routes.TrackerDatapointList)
+  bg.Route(Trackers.Routes.TrackerDatapointList)
 );
 
 app.get(
