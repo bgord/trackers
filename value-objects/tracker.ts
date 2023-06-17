@@ -1,3 +1,4 @@
+import * as bg from "@bgord/node";
 import z from "zod";
 
 import { TrackerCreatedAt } from "./tracker-created-at";
@@ -16,3 +17,8 @@ export const Tracker = z.object({
   value: TrackerValue,
 });
 export type TrackerType = z.infer<typeof Tracker>;
+
+export type TrackerViewType = TrackerType & {
+  createdAt: bg.RelativeDateType;
+  updatedAt: bg.RelativeDateType;
+};

@@ -19,7 +19,6 @@
   "tracker.name.placeholder": "Read 5 minutes a day...",
   "tracker.name.structure.error": "Invalid tracker name",
   "tracker.name.unique.error": "Not unique tracker name",
-
   "tracker.name.new.label": "New tracker name",
   "tracker.name.new.change": "Change",
   "tracker.name.new.change.success": "Tracker name changed",
@@ -34,6 +33,9 @@
   "tracker.value.increase": "Increase tracker value by 1",
   "tracker.value.decrease": "Decrease tracker value by 1",
   "tracker.value.counter.error": "Counter should be an integer",
+
+  "tracker.created_at": "Created {{value}}",
+  "tracker.updated_at": "Last update {{value}}",
 
   "tracker.sync.success": "Tracker datapoint synced",
   "tracker.sync.error.value_not_changed": "Tracker value not changed",

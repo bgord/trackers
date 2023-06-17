@@ -3,6 +3,7 @@ import * as Icons from "iconoir-react";
 import { h } from "preact";
 
 import * as types from "./types";
+import * as UI from "./ui";
 
 import { TrackerSync } from "./tracker-sync";
 import { TrackerNameChange } from "./tracker-name-change";
@@ -56,8 +57,16 @@ export function Tracker(props: types.TrackerType) {
             <TrackerNameChange {...props} />
           </div>
           {props.kind === types.TrackerKindEnum.one_value && (
-            <TrackerDatapointList key={props.updatedAt} {...props} />
+            <TrackerDatapointList key={props.updatedAt.raw} {...props} />
           )}
+          <div data-display="flex" data-gap="24">
+            <UI.Info>
+              {t("tracker.created_at", { value: props.createdAt.relative })}
+            </UI.Info>
+            <UI.Info>
+              {t("tracker.updated_at", { value: props.updatedAt.relative })}
+            </UI.Info>
+          </div>
         </div>
       )}
     </li>

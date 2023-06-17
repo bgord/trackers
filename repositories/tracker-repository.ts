@@ -1,3 +1,4 @@
+import * as bg from "@bgord/node";
 import _ from "lodash";
 import { z } from "zod";
 
@@ -11,10 +12,17 @@ export class TrackerRepository {
     });
   }
 
-  static async list(): Promise<VO.TrackerType[]> {
+  static async list(): Promise<VO.TrackerViewType[]> {
     const trackers = await infra.db.tracker.findMany();
 
-    return z.array(VO.Tracker).parse(trackers);
+    return z
+      .array(VO.Tracker)
+      .parse(trackers)
+      .map((tracker) => ({
+        ...tracker,
+        createdAt: bg.RelativeDate.to.now.truthy(tracker.createdAt),
+        updatedAt: bg.RelativeDate.to.now.truthy(tracker.updatedAt),
+      }));
   }
 
   static async sync(
