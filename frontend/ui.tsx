@@ -32,3 +32,11 @@ export function ClearButton(props: h.JSX.IntrinsicElements["button"]) {
     </button>
   );
 }
+
+export function Select(props: h.JSX.IntrinsicElements["select"]) {
+  return (
+    <div class="c-select-wrapper">
+      <select class="c-select" data-width="100%" {...props} />
+    </div>
+  );
+}

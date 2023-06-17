@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 import * as api from "./api";
 import * as types from "./types";
+import * as UI from "./ui";
 import { TRACKER_NAME_MIN_LENGTH } from "../value-objects/tracker-name-min-length";
 import { TRACKER_NAME_MAX_LENGTH } from "../value-objects/tracker-name-max-length";
 
@@ -64,8 +65,7 @@ export function TrackerCreate() {
           {t("tracker.kind.label")}
         </label>
 
-        <select
-          class="c-select"
+        <UI.Select
           onBlur={(event) =>
             trackerKind.set(event.currentTarget.value as types.TrackerKindEnum)
           }
@@ -76,7 +76,7 @@ export function TrackerCreate() {
           {Object.keys(types.TrackerKindEnum).map((option) => (
             <option value={option}>{t(`tracker.kind.enum.${option}`)}</option>
           ))}
-        </select>
+        </UI.Select>
       </div>
 
       <button
