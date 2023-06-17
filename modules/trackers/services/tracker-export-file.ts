@@ -23,7 +23,7 @@ type TrackerDatapointsFileConfigType = {
 export class TrackerExportFile {
   private readonly config: TrackerDatapointsFileConfigType;
 
-  private readonly TRACKER_EXPORTS_DIRECTORY = "tracker-exports";
+  private readonly TRACKER_EXPORTS_DIRECTORY = "infra/tracker-exports";
 
   private readonly columns = [
     "id",

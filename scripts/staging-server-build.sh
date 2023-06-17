@@ -106,8 +106,8 @@ fi
 
 # ==========================================================
 
-mkdir $OUT_DIR/tracker-exports
-info "Created tracker-exports directory"
+mkdir $OUT_DIR/infra/tracker-exports
+info "Created infra/tracker-exports directory"
 
 # ==========================================================
 
