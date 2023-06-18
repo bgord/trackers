@@ -11,6 +11,10 @@ export class ProjectRepository {
     });
   }
 
+  static async delete(payload: Pick<VO.ProjectType, "id">) {
+    return infra.db.project.delete({ where: { id: payload.id } });
+  }
+
   static async list() {
     const projects = await infra.db.project.findMany();
 

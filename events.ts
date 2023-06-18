@@ -25,6 +25,7 @@ export const emittery = new Emittery<{
   SETTINGS_EMAIL_DELETED: Settings.Events.SettingsEmailDeletedEventType;
 
   PROJECT_CREATED_EVENT: Projects.Events.ProjectCreatedEventType;
+  PROJECT_DELETED_EVENT: Projects.Events.ProjectDeletedEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
@@ -142,5 +143,12 @@ emittery.on(
   Projects.Events.PROJECT_CREATED_EVENT,
   EventHandler.handle(async (event) => {
     await Projects.Repos.ProjectRepository.create(event.payload);
+  })
+);
+
+emittery.on(
+  Projects.Events.PROJECT_DELETED_EVENT,
+  EventHandler.handle(async (event) => {
+    await Projects.Repos.ProjectRepository.delete(event.payload);
   })
 );

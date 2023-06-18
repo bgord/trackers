@@ -12,3 +12,13 @@ export const ProjectCreatedEvent = bg.EventDraft.merge(
   })
 );
 export type ProjectCreatedEventType = z.infer<typeof ProjectCreatedEvent>;
+
+export const PROJECT_DELETED_EVENT = "PROJECT_DELETED_EVENT";
+export const ProjectDeletedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(PROJECT_DELETED_EVENT),
+    version: z.literal(1),
+    payload: VO.Project,
+  })
+);
+export type ProjectDeletedEventType = z.infer<typeof ProjectDeletedEvent>;
