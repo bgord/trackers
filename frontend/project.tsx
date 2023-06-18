@@ -5,6 +5,8 @@ import { h } from "preact";
 import * as types from "./types";
 import * as UI from "./ui";
 
+import { ProjectDelete } from "./project-delete";
+
 export function Project(props: types.ProjectType) {
   const t = bg.useTranslations();
 
@@ -12,7 +14,7 @@ export function Project(props: types.ProjectType) {
 
   return (
     <li data-display="flex" data-direction="column" data-max-width="100%">
-      <div data-display="flex" data-cross="center" data-gap="12">
+      <div data-display="flex" data-cross="center" data-gap="24">
         <button
           class="c-button"
           type="button"
@@ -29,6 +31,8 @@ export function Project(props: types.ProjectType) {
         <div data-fs="14" data-color="gray-700">
           {props.name}
         </div>
+
+        {details.on && <ProjectDelete {...props} />}
       </div>
 
       {details.on && (

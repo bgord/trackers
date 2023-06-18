@@ -111,5 +111,10 @@
   "project.create.success": "Project created",
   "project.created_at": "Created {{value}}",
   "project.updated_at": "Last update {{value}}",
-  "project.list.empty": "No available projects"
+  "project.list.empty": "No available projects",
+
+  "project.delete": "Delete",
+  "project.delete.success": "Project deleted",
+  "project.delete.error": "Couldn't delete project",
+  "project.delete.confirmation": "Are you sure to delete this project?"
 }

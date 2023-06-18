@@ -123,4 +123,8 @@ export class Project {
       response.ok ? response.json() : []
     );
   }
+
+  static async delete(payload: Pick<types.ProjectType, "id">) {
+    return _api(`/project/${payload.id}`, { method: "DELETE" });
+  }
 }
