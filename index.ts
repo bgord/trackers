@@ -137,6 +137,12 @@ app.get(
   bg.Route(Projects.Routes.ProjectList)
 );
 
+app.delete(
+  "/project/:projectId",
+  infra.AuthShield.verify,
+  bg.Route(Projects.Routes.ProjectDelete)
+);
+
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
 
