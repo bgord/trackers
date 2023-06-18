@@ -20,7 +20,7 @@ export class Project {
 
   async build() {
     const events = await infra.EventStore.find(
-      [Events.ProjectCreatedEvent],
+      [Events.ProjectCreatedEvent, Events.ProjectDeletedEvent],
       this.stream
     );
 
@@ -29,6 +29,10 @@ export class Project {
       switch (event.name) {
         case Events.PROJECT_CREATED_EVENT:
           this.entity = event.payload;
+          break;
+
+        case Events.PROJECT_DELETED_EVENT:
+          this.entity = null;
           break;
 
         default:
@@ -50,6 +54,19 @@ export class Project {
         stream: Project.getStream(id),
         version: 1,
         payload: { id, ...payload },
+      })
+    );
+  }
+
+  async delete() {
+    await Policies.ProjectShouldExist.perform({ project: this });
+
+    await infra.EventStore.save(
+      Events.ProjectDeletedEvent.parse({
+        name: Events.PROJECT_DELETED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id },
       })
     );
   }
