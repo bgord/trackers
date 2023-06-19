@@ -43,10 +43,11 @@ export function Project(props: types.ProjectType) {
           data-gap="36"
         >
           <div data-display="flex" data-gap="24">
-            <UI.Info>
+            <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
               {t("project.created_at", { value: props.createdAt.relative })}
             </UI.Info>
-            <UI.Info>
+
+            <UI.Info title={bg.DateFormatter.datetime(props.updatedAt.raw)}>
               {t("project.updated_at", { value: props.updatedAt.relative })}
             </UI.Info>
           </div>

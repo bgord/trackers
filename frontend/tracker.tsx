@@ -60,10 +60,11 @@ export function Tracker(props: types.TrackerType) {
             <TrackerDatapointList key={props.updatedAt.raw} {...props} />
           )}
           <div data-display="flex" data-gap="24">
-            <UI.Info>
+            <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
               {t("tracker.created_at", { value: props.createdAt.relative })}
             </UI.Info>
-            <UI.Info>
+
+            <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
               {t("tracker.updated_at", { value: props.updatedAt.relative })}
             </UI.Info>
           </div>

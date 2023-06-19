@@ -43,9 +43,11 @@ export function Settings(_: RoutableProps) {
         <div>{t("app.settings")}</div>
 
         {settings.data.updatedAt && (
-          <UI.Info>
+          <UI.Info
+            title={bg.DateFormatter.datetime(settings.data.updatedAt.raw)}
+          >
             {t("settings.updated_at", {
-              when: String(settings.data.updatedAt?.relative),
+              when: String(settings.data.updatedAt.relative),
             })}
           </UI.Info>
         )}
