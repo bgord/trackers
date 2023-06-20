@@ -22,3 +22,13 @@ export const ProjectDeletedEvent = bg.EventDraft.merge(
   })
 );
 export type ProjectDeletedEventType = z.infer<typeof ProjectDeletedEvent>;
+
+export const PROJECT_ARCHIVED_EVENT = "PROJECT_ARCHIVED_EVENT";
+export const ProjectArchivedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(PROJECT_ARCHIVED_EVENT),
+    version: z.literal(1),
+    payload: z.object({ id: VO.ProjectId, archivedAt: bg.Schema.Timestamp }),
+  })
+);
+export type ProjectArchivedEventType = z.infer<typeof ProjectArchivedEvent>;

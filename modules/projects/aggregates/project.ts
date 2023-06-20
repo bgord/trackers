@@ -20,7 +20,11 @@ export class Project {
 
   async build() {
     const events = await infra.EventStore.find(
-      [Events.ProjectCreatedEvent, Events.ProjectDeletedEvent],
+      [
+        Events.ProjectCreatedEvent,
+        Events.ProjectDeletedEvent,
+        Events.ProjectArchivedEvent,
+      ],
       this.stream
     );
 
