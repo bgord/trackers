@@ -28,6 +28,16 @@ export class ProjectRepository {
       }));
   }
 
+  static async archive(config: {
+    id: VO.ProjectType["id"];
+    updatedAt: bg.Schema.TimestampType;
+  }) {
+    return infra.db.project.update({
+      where: { id: config.id },
+      data: { status: VO.ProjectStatusEnum.archived },
+    });
+  }
+
   static async countProjectsWithName(name: VO.ProjectType["name"]) {
     return infra.db.project.count({ where: { name } });
   }

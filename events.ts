@@ -153,3 +153,13 @@ emittery.on(
     await Projects.Repos.ProjectRepository.delete(event.payload);
   })
 );
+
+emittery.on(
+  Projects.Events.PROJECT_ARCHIVED_EVENT,
+  EventHandler.handle(async (event) => {
+    await Projects.Repos.ProjectRepository.archive({
+      id: event.payload.id,
+      updatedAt: event.payload.archivedAt,
+    });
+  })
+);
