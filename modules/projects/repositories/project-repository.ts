@@ -34,7 +34,23 @@ export class ProjectRepository {
   }) {
     return infra.db.project.update({
       where: { id: config.id },
-      data: { status: VO.ProjectStatusEnum.archived },
+      data: {
+        status: VO.ProjectStatusEnum.archived,
+        updatedAt: config.updatedAt,
+      },
+    });
+  }
+
+  static async restore(config: {
+    id: VO.ProjectType["id"];
+    updatedAt: bg.Schema.TimestampType;
+  }) {
+    return infra.db.project.update({
+      where: { id: config.id },
+      data: {
+        status: VO.ProjectStatusEnum.active,
+        updatedAt: config.updatedAt,
+      },
     });
   }
 

@@ -27,6 +27,7 @@ export const emittery = new Emittery<{
   PROJECT_CREATED_EVENT: Projects.Events.ProjectCreatedEventType;
   PROJECT_DELETED_EVENT: Projects.Events.ProjectDeletedEventType;
   PROJECT_ARCHIVED_EVENT: Projects.Events.ProjectArchivedEventType;
+  PROJECT_RESTORED_EVENT: Projects.Events.ProjectRestoredEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
@@ -160,6 +161,16 @@ emittery.on(
     await Projects.Repos.ProjectRepository.archive({
       id: event.payload.id,
       updatedAt: event.payload.archivedAt,
+    });
+  })
+);
+
+emittery.on(
+  Projects.Events.PROJECT_RESTORED_EVENT,
+  EventHandler.handle(async (event) => {
+    await Projects.Repos.ProjectRepository.restore({
+      id: event.payload.id,
+      updatedAt: event.payload.restoredAt,
     });
   })
 );
