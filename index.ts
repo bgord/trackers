@@ -155,6 +155,12 @@ app.post(
   bg.Route(Projects.Routes.ProjectRestore)
 );
 
+app.post(
+  "/project/:projectId/task/create",
+  infra.AuthShield.verify,
+  bg.Route(Projects.Routes.TaskCreate)
+);
+
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
 
