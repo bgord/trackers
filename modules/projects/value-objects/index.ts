@@ -5,6 +5,15 @@ export * from "./project-name";
 export * from "./project-name-max-length";
 export * from "./project-name-min-length";
 export * from "./project-name-structure-error-key";
-export * from "./project-updated-at";
 export * from "./project-status";
 export * from "./project-status-enum";
+export * from "./project-updated-at";
+
+export * from "./task";
+export * from "./task-created-at";
+export * from "./task-id";
+export * from "./task-name";
+export * from "./task-name-max-length";
+export * from "./task-name-min-length";
+export * from "./task-name-structure-error-key";
+export * from "./task-updated-at";
