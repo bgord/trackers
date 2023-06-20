@@ -6,6 +6,7 @@ import * as types from "./types";
 import * as UI from "./ui";
 
 import { ProjectDelete } from "./project-delete";
+import { ProjectArchive } from "./project-archive";
 
 export function Project(props: types.ProjectType) {
   const t = bg.useTranslations();
@@ -28,11 +29,15 @@ export function Project(props: types.ProjectType) {
           {details.on && <Icons.NavArrowDown height="24" width="24" />}
         </button>
 
+        <div class="c-badge">{props.status}</div>
+
         <div data-fs="14" data-color="gray-700">
           {props.name}
         </div>
 
         {details.on && <ProjectDelete {...props} />}
+
+        {details.on && <ProjectArchive {...props} />}
       </div>
 
       {details.on && (

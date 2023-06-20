@@ -1,4 +1,5 @@
 {
+  "app.archive": "Archive",
   "app.cancel": "Cancel",
   "app.export": "Export",
   "app.clear": "Clear",
@@ -116,5 +117,10 @@
   "project.delete": "Delete",
   "project.delete.success": "Project deleted",
   "project.delete.error": "Couldn't delete project",
-  "project.delete.confirmation": "Are you sure to delete this project?"
+  "project.delete.confirmation": "Are you sure to delete this project?",
+
+  "project.archive": "Archive",
+  "project.archive.success": "Project archived",
+  "project.archive.error": "Couldn't archive project",
+  "project.archive.confirmation": "Are you sure to archive this project?"
 }

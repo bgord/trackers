@@ -127,4 +127,8 @@ export class Project {
   static async delete(payload: Pick<types.ProjectType, "id">) {
     return _api(`/project/${payload.id}`, { method: "DELETE" });
   }
+
+  static async archive(payload: Pick<types.ProjectType, "id">) {
+    return _api(`/project/${payload.id}/archive`, { method: "POST" });
+  }
 }
