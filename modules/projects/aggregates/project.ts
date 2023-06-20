@@ -46,6 +46,8 @@ export class Project {
           break;
 
         case Events.PROJECT_RESTORED_EVENT:
+          if (!this.entity) continue;
+          this.entity.status = VO.ProjectStatusEnum.active;
           break;
 
         default:
@@ -91,6 +93,20 @@ export class Project {
     await infra.EventStore.save(
       Events.ProjectArchivedEvent.parse({
         name: Events.PROJECT_ARCHIVED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id },
+      })
+    );
+  }
+
+  async restore() {
+    await Policies.ProjectShouldExist.perform({ project: this });
+    await Policies.ProjectShouldBeArchived.perform({ project: this });
+
+    await infra.EventStore.save(
+      Events.ProjectRestoredEvent.parse({
+        name: Events.PROJECT_RESTORED_EVENT,
         stream: this.stream,
         version: 1,
         payload: { id: this.id },
