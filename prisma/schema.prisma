@@ -41,3 +41,11 @@ model Project {
   updatedAt Int
   status    String @default("active")
 }
+
+model Task {
+  id        String @id @default(uuid())
+  name      String
+  createdAt Int
+  updatedAt Int
+  status    String @default("active")
+}
