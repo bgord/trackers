@@ -143,6 +143,12 @@ app.delete(
   bg.Route(Projects.Routes.ProjectDelete)
 );
 
+app.post(
+  "/project/:projectId/archive",
+  infra.AuthShield.verify,
+  bg.Route(Projects.Routes.ProjectArchive)
+);
+
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
 
