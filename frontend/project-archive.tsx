@@ -23,9 +23,9 @@ export function ProjectArchive(
       notify({ message: "project.archive.success" });
       queryClient.invalidateQueries("projects");
     },
-    onError() {
+    onError(error: bg.ServerError) {
       setTimeout(archiveProject.reset, 5000);
-      notify({ message: "project.archive.error" });
+      notify({ message: error.message });
       dialog.disable();
     },
   });

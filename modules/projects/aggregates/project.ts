@@ -39,6 +39,12 @@ export class Project {
           this.entity = null;
           break;
 
+        case Events.PROJECT_ARCHIVED_EVENT:
+          if (!this.entity) continue;
+          this.entity.status = VO.ProjectStatusEnum.archived;
+
+          break;
+
         default:
           continue;
       }
@@ -77,6 +83,7 @@ export class Project {
 
   async archive() {
     await Policies.ProjectShouldExist.perform({ project: this });
+    await Policies.ProjectShouldBeActive.perform({ project: this });
 
     await infra.EventStore.save(
       Events.ProjectArchivedEvent.parse({

@@ -114,6 +114,8 @@
   "project.updated_at": "Last update {{value}}",
   "project.list.empty": "No available projects",
 
+  "project.exists.error": "Project does not exist",
+
   "project.delete": "Delete",
   "project.delete.success": "Project deleted",
   "project.delete.error": "Couldn't delete project",
@@ -122,5 +124,7 @@
   "project.archive": "Archive",
   "project.archive.success": "Project archived",
   "project.archive.error": "Couldn't archive project",
-  "project.archive.confirmation": "Are you sure to archive this project?"
+  "project.archive.confirmation": "Are you sure to archive this project?",
+
+  "project.active.error": "Project is not active"
 }

@@ -17,7 +17,7 @@ class ProjectShouldExistFactory extends bg.Policy<ProjectShouldExistConfigType> 
     return config.project.entity === null;
   }
 
-  message = "tracker.exists.error";
+  message = "project.exists.error";
 
   error = ProjectShouldExistError;
 }

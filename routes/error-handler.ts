@@ -228,6 +228,19 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Projects.Policies.ProjectShouldBeActiveError) {
+      infra.logger.error({
+        message: "Project should be active",
+        operation: Projects.Policies.ProjectShouldBeActive.message,
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: Projects.Policies.ProjectShouldBeActive.message,
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(
