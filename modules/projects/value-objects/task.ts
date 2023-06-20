@@ -7,10 +7,13 @@ import { TaskName } from "./task-name";
 import { TaskStatus } from "./task-status";
 import { TaskUpdatedAt } from "./task-updated-at";
 
+import { ProjectId } from "./project-id";
+
 export const Task = z.object({
   createdAt: TaskCreatedAt,
   id: TaskId,
   name: TaskName,
+  projectId: ProjectId,
   status: TaskStatus,
   updatedAt: TaskUpdatedAt,
 });
