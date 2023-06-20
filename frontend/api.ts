@@ -131,4 +131,8 @@ export class Project {
   static async archive(payload: Pick<types.ProjectType, "id">) {
     return _api(`/project/${payload.id}/archive`, { method: "POST" });
   }
+
+  static async restore(payload: Pick<types.ProjectType, "id">) {
+    return _api(`/project/${payload.id}/restore`, { method: "POST" });
+  }
 }

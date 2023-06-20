@@ -149,6 +149,12 @@ app.post(
   bg.Route(Projects.Routes.ProjectArchive)
 );
 
+app.post(
+  "/project/:projectId/restore",
+  infra.AuthShield.verify,
+  bg.Route(Projects.Routes.ProjectRestore)
+);
+
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
 
