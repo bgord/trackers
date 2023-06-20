@@ -136,3 +136,12 @@ export class Project {
     return _api(`/project/${payload.id}/restore`, { method: "POST" });
   }
 }
+
+export class Task {
+  static async create(task: Pick<types.TaskType, "projectId" | "name">) {
+    return _api(`/project/${task.projectId}/task/create`, {
+      method: "POST",
+      body: JSON.stringify({ name: task.name }),
+    });
+  }
+}

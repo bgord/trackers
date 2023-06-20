@@ -32,8 +32,6 @@ model TrackerDatapoint {
   tracker   Tracker  @relation(fields: [trackerId], references: [id], onDelete: Cascade)
   trackerId String
   createdAt Int
-  Project   Project? @relation(fields: [projectId], references: [id])
-  projectId String?
 }
 
 model Project {
@@ -42,7 +40,6 @@ model Project {
   createdAt Int
   updatedAt Int
   status    String             @default("active")
-  tasks     TrackerDatapoint[]
   Task      Task[]
 }
 

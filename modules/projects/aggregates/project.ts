@@ -5,6 +5,7 @@ import * as VO from "../value-objects";
 import * as Policies from "../policies";
 
 import * as infra from "../../../infra";
+import { Task } from "./task";
 
 export class Project {
   id: VO.ProjectIdType;
@@ -118,11 +119,15 @@ export class Project {
   async addTask(task: Pick<VO.TaskType, "name">) {
     await Policies.ProjectShouldExist.perform({ project: this });
     await Policies.ProjectShouldBeActive.perform({ project: this });
+    await Policies.ProjectTaskNameIsUnique.perform({
+      id: this.id,
+      name: task.name,
+    });
 
     await infra.EventStore.save(
       Events.TaskCreatedEvent.parse({
         name: Events.TASK_CREATED_EVENT,
-        stream: this.stream,
+        stream: Task.getStream(VO.TaskId.parse(bg.NewUUID.generate())),
         version: 1,
         payload: { projectId: this.id, name: task.name },
       })

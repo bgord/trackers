@@ -11,8 +11,10 @@ export class TaskRepository {
     });
   }
 
-  static async list() {
-    const tasks = await infra.db.task.findMany();
+  static async list(payload: { projectId: VO.ProjectIdType }) {
+    const tasks = await infra.db.task.findMany({
+      where: { projectId: { equals: payload.projectId } },
+    });
 
     return z
       .array(VO.Task)
@@ -22,5 +24,14 @@ export class TaskRepository {
         createdAt: bg.RelativeDate.to.now.truthy(task.createdAt),
         updatedAt: bg.RelativeDate.to.now.truthy(task.updatedAt),
       }));
+  }
+
+  static async countProjectTasksWithName(payload: {
+    id: VO.ProjectIdType;
+    name: VO.TaskNameType;
+  }) {
+    return infra.db.task.count({
+      where: { projectId: payload.id, name: payload.name },
+    });
   }
 }

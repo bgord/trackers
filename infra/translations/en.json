@@ -131,5 +131,7 @@
 
   "project.restore": "Restore project",
   "project.restore.success": "Project restored",
-  "project.restore.confirmation": "Are you sure to restore this project?"
+  "project.restore.confirmation": "Are you sure to restore this project?",
+
+  "task.name.unique.error": "Project tracker name is not unique"
 }
