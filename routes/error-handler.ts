@@ -241,6 +241,19 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Projects.Policies.ProjectShouldBeArchivedError) {
+      infra.logger.error({
+        message: "Project should be archived",
+        operation: Projects.Policies.ProjectShouldBeArchived.message,
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: Projects.Policies.ProjectShouldBeArchived.message,
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(
