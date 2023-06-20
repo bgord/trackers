@@ -42,3 +42,13 @@ export const ProjectRestoredEvent = bg.EventDraft.merge(
   })
 );
 export type ProjectRestoredEventType = z.infer<typeof ProjectRestoredEvent>;
+
+export const TASK_CREATED_EVENT = "TASK_CREATED_EVENT";
+export const TaskCreatedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(TASK_CREATED_EVENT),
+    version: z.literal(1),
+    payload: VO.Task,
+  })
+);
+export type TaskCreatedEventType = z.infer<typeof TaskCreatedEvent>;

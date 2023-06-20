@@ -25,6 +25,7 @@ export class Project {
         Events.ProjectDeletedEvent,
         Events.ProjectArchivedEvent,
         Events.ProjectRestoredEvent,
+        Events.TaskCreatedEvent,
       ],
       this.stream
     );

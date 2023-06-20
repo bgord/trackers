@@ -28,6 +28,8 @@ export const emittery = new Emittery<{
   PROJECT_DELETED_EVENT: Projects.Events.ProjectDeletedEventType;
   PROJECT_ARCHIVED_EVENT: Projects.Events.ProjectArchivedEventType;
   PROJECT_RESTORED_EVENT: Projects.Events.ProjectRestoredEventType;
+
+  TASK_CREATED_EVENT: Projects.Events.TaskCreatedEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });

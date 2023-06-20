@@ -23,7 +23,8 @@ type AcceptedEvent =
   | typeof Projects.Events.ProjectCreatedEvent
   | typeof Projects.Events.ProjectDeletedEvent
   | typeof Projects.Events.ProjectArchivedEvent
-  | typeof Projects.Events.ProjectRestoredEvent;
+  | typeof Projects.Events.ProjectRestoredEvent
+  | typeof Projects.Events.TaskCreatedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventStore {
