@@ -75,6 +75,19 @@ export class Project {
     );
   }
 
+  async archive() {
+    await Policies.ProjectShouldExist.perform({ project: this });
+
+    await infra.EventStore.save(
+      Events.ProjectArchivedEvent.parse({
+        name: Events.PROJECT_ARCHIVED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id },
+      })
+    );
+  }
+
   static getStream(id: VO.ProjectIdType) {
     return `project_${id}`;
   }
