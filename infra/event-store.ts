@@ -22,7 +22,8 @@ type AcceptedEvent =
   | typeof Settings.Events.SettingsEmailDeletedEvent
   | typeof Projects.Events.ProjectCreatedEvent
   | typeof Projects.Events.ProjectDeletedEvent
-  | typeof Projects.Events.ProjectArchivedEvent;
+  | typeof Projects.Events.ProjectArchivedEvent
+  | typeof Projects.Events.ProjectRestoredEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventStore {

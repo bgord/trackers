@@ -24,6 +24,7 @@ export class Project {
         Events.ProjectCreatedEvent,
         Events.ProjectDeletedEvent,
         Events.ProjectArchivedEvent,
+        Events.ProjectRestoredEvent,
       ],
       this.stream
     );
@@ -42,7 +43,9 @@ export class Project {
         case Events.PROJECT_ARCHIVED_EVENT:
           if (!this.entity) continue;
           this.entity.status = VO.ProjectStatusEnum.archived;
+          break;
 
+        case Events.PROJECT_RESTORED_EVENT:
           break;
 
         default:
