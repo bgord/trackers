@@ -1,10 +1,7 @@
 /* eslint-ignore */
 import { z } from "zod";
 
-export enum ProjectStatusEnum {
-  "active" = "active",
-  "archived" = "archived",
-}
+import { ProjectStatusEnum } from "./project-status-enum";
 
 export const ProjectStatus = z
   .nativeEnum(ProjectStatusEnum)

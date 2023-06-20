@@ -37,7 +37,9 @@ export function Project(props: types.ProjectType) {
 
         {details.on && <ProjectDelete {...props} />}
 
-        {details.on && <ProjectArchive {...props} />}
+        {props.status === types.ProjectStatusEnum.active && details.on && (
+          <ProjectArchive {...props} />
+        )}
       </div>
 
       {details.on && (

@@ -15,6 +15,7 @@ export type TrackerDatapointType = AsyncReturnType<
 >[0];
 
 export type { ProjectViewType as ProjectType } from "../modules/projects/value-objects/project";
+export { ProjectStatusEnum } from "../modules/projects/value-objects/project-status-enum";
 
 // Constants
 

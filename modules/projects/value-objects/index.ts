@@ -7,3 +7,4 @@ export * from "./project-name-min-length";
 export * from "./project-name-structure-error-key";
 export * from "./project-updated-at";
 export * from "./project-status";
+export * from "./project-status-enum";
