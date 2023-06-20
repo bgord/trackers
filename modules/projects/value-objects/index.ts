@@ -16,4 +16,6 @@ export * from "./task-name";
 export * from "./task-name-max-length";
 export * from "./task-name-min-length";
 export * from "./task-name-structure-error-key";
+export * from "./task-status";
+export * from "./task-status-enum";
 export * from "./task-updated-at";
