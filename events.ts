@@ -176,3 +176,10 @@ emittery.on(
     });
   })
 );
+
+emittery.on(
+  Projects.Events.TASK_CREATED_EVENT,
+  EventHandler.handle(async (event) => {
+    await Projects.Repos.TaskRepository.create(event.payload);
+  })
+);

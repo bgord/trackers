@@ -115,6 +115,20 @@ export class Project {
     );
   }
 
+  async addTask(task: Pick<VO.TaskType, "name">) {
+    await Policies.ProjectShouldExist.perform({ project: this });
+    await Policies.ProjectShouldBeActive.perform({ project: this });
+
+    await infra.EventStore.save(
+      Events.TaskCreatedEvent.parse({
+        name: Events.TASK_CREATED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { projectId: this.id, name: task.name },
+      })
+    );
+  }
+
   static getStream(id: VO.ProjectIdType) {
     return `project_${id}`;
   }
