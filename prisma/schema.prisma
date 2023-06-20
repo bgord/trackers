@@ -35,8 +35,9 @@ model TrackerDatapoint {
 }
 
 model Project {
-  id               String             @id @default(uuid())
-  name             String
-  createdAt        Int
-  updatedAt        Int
+  id        String @id @default(uuid())
+  name      String
+  createdAt Int
+  updatedAt Int
+  status    String @default("active")
 }
