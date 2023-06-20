@@ -7,6 +7,7 @@ import * as UI from "./ui";
 
 import { ProjectDelete } from "./project-delete";
 import { ProjectArchive } from "./project-archive";
+import { ProjectRestore } from "./project-restore";
 
 export function Project(props: types.ProjectType) {
   const t = bg.useTranslations();
@@ -39,6 +40,10 @@ export function Project(props: types.ProjectType) {
 
         {props.status === types.ProjectStatusEnum.active && details.on && (
           <ProjectArchive {...props} />
+        )}
+
+        {props.status === types.ProjectStatusEnum.archived && details.on && (
+          <ProjectRestore {...props} />
         )}
       </div>
 

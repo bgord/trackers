@@ -126,5 +126,10 @@
   "project.archive.error": "Couldn't archive project",
   "project.archive.confirmation": "Are you sure to archive this project?",
 
-  "project.active.error": "Project is not active"
+  "project.active.error": "Project is not active",
+  "project.archived.error": "Project is not archived",
+
+  "project.restore": "Restore project",
+  "project.restore.success": "Project restored",
+  "project.restore.confirmation": "Are you sure to restore this project?"
 }
