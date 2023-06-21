@@ -4,7 +4,6 @@ import * as bg from "@bgord/node";
 
 import * as Settings from "../modules/settings";
 import * as Trackers from "../modules/trackers";
-import * as Projects from "../modules/projects";
 
 import * as infra from "../infra";
 
@@ -26,7 +25,6 @@ export async function Dashboard(
     translations,
     trackers: await Trackers.Repos.TrackerRepository.list(),
     settings: await Settings.Repos.SettingsRepository.get(),
-    projects: await Projects.Repos.ProjectRepository.list(),
   };
 
   const frontend = render(App({ ...state, url: request.url }));

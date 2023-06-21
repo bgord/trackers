@@ -6,7 +6,6 @@ import * as infra from "./infra";
 
 import * as Trackers from "./modules/trackers";
 import * as Settings from "./modules/settings";
-import * as Projects from "./modules/projects";
 
 const app = express();
 
@@ -123,50 +122,6 @@ app.get(
   bg.Timeout.build({ timeoutMs: bg.Time.Seconds(5).toMs() }),
   infra.BasicAuthShield.verify,
   bg.Healthcheck.build(infra.healthcheck)
-);
-
-app.post(
-  "/project",
-  infra.AuthShield.verify,
-  bg.Route(Projects.Routes.ProjectCreate)
-);
-
-app.get(
-  "/projects",
-  infra.AuthShield.verify,
-  bg.Route(Projects.Routes.ProjectList)
-);
-
-app.delete(
-  "/project/:projectId",
-  infra.AuthShield.verify,
-  bg.Route(Projects.Routes.ProjectDelete)
-);
-
-app.post(
-  "/project/:projectId/archive",
-  infra.AuthShield.verify,
-  bg.Route(Projects.Routes.ProjectArchive)
-);
-
-app.post(
-  "/project/:projectId/restore",
-  infra.AuthShield.verify,
-  bg.Route(Projects.Routes.ProjectRestore)
-);
-
-app.post(
-  "/project/:projectId/task/create",
-  infra.AuthShield.verify,
-  infra.CacheResponse.clear,
-  bg.Route(Projects.Routes.TaskCreate)
-);
-
-app.get(
-  "/project/:projectId/tasks",
-  infra.AuthShield.verify,
-  infra.CacheResponse.handle,
-  bg.Route(Projects.Routes.TaskList)
 );
 
 app.get("*", (_, response) => response.redirect("/"));

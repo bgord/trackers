@@ -14,12 +14,6 @@ export type TrackerDatapointType = AsyncReturnType<
   typeof TrackerDatapointRepository["list"]
 >[0];
 
-export type { ProjectViewType as ProjectType } from "../modules/projects/value-objects/project";
-export { ProjectStatusEnum } from "../modules/projects/value-objects/project-status-enum";
-
-export type { TaskViewType as TaskType } from "../modules/projects/value-objects/task";
-export { TaskStatusEnum } from "../modules/projects/value-objects/task-status-enum";
-
 // Constants
 
 export { TRACKER_NAME_MIN_LENGTH } from "../modules/trackers/value-objects/tracker-name-min-length";
@@ -27,9 +21,3 @@ export { TRACKER_NAME_MAX_LENGTH } from "../modules/trackers/value-objects/track
 
 export { TRACKER_DATAPOINT_BOUND_LOWER } from "../modules/trackers/value-objects/tracker-datapoint-bound-lower";
 export { TRACKER_DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects/tracker-datapoint-bound-upper";
-
-export { PROJECT_NAME_MIN_LENGTH } from "../modules/projects/value-objects/project-name-min-length";
-export { PROJECT_NAME_MAX_LENGTH } from "../modules/projects/value-objects/project-name-max-length";
-
-export { TASK_NAME_MIN_LENGTH } from "../modules/projects/value-objects/task-name-min-length";
-export { TASK_NAME_MAX_LENGTH } from "../modules/projects/value-objects/task-name-max-length";

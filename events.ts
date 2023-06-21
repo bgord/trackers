@@ -3,7 +3,6 @@ import Emittery from "emittery";
 
 import * as Trackers from "./modules/trackers";
 import * as Settings from "./modules/settings";
-import * as Projects from "./modules/projects";
 
 import * as infra from "./infra";
 
@@ -23,13 +22,6 @@ export const emittery = new Emittery<{
   WEEKLY_TRACKERS_REPORT_DISABLED: Settings.Events.WeeklyTrackersReportDisabledEventType;
   SETTINGS_EMAIL_CHANGED: Settings.Events.SettingsEmailChangedEventType;
   SETTINGS_EMAIL_DELETED: Settings.Events.SettingsEmailDeletedEventType;
-
-  PROJECT_CREATED_EVENT: Projects.Events.ProjectCreatedEventType;
-  PROJECT_DELETED_EVENT: Projects.Events.ProjectDeletedEventType;
-  PROJECT_ARCHIVED_EVENT: Projects.Events.ProjectArchivedEventType;
-  PROJECT_RESTORED_EVENT: Projects.Events.ProjectRestoredEventType;
-
-  TASK_CREATED_EVENT: Projects.Events.TaskCreatedEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
@@ -140,46 +132,5 @@ emittery.on(
       from: infra.Env.EMAIL_FROM,
       to: email,
     });
-  })
-);
-
-emittery.on(
-  Projects.Events.PROJECT_CREATED_EVENT,
-  EventHandler.handle(async (event) => {
-    await Projects.Repos.ProjectRepository.create(event.payload);
-  })
-);
-
-emittery.on(
-  Projects.Events.PROJECT_DELETED_EVENT,
-  EventHandler.handle(async (event) => {
-    await Projects.Repos.ProjectRepository.delete(event.payload);
-  })
-);
-
-emittery.on(
-  Projects.Events.PROJECT_ARCHIVED_EVENT,
-  EventHandler.handle(async (event) => {
-    await Projects.Repos.ProjectRepository.archive({
-      id: event.payload.id,
-      updatedAt: event.payload.archivedAt,
-    });
-  })
-);
-
-emittery.on(
-  Projects.Events.PROJECT_RESTORED_EVENT,
-  EventHandler.handle(async (event) => {
-    await Projects.Repos.ProjectRepository.restore({
-      id: event.payload.id,
-      updatedAt: event.payload.restoredAt,
-    });
-  })
-);
-
-emittery.on(
-  Projects.Events.TASK_CREATED_EVENT,
-  EventHandler.handle(async (event) => {
-    await Projects.Repos.TaskRepository.create(event.payload);
   })
 );
