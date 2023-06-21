@@ -30,3 +30,6 @@ export { TRACKER_DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects
 
 export { PROJECT_NAME_MIN_LENGTH } from "../modules/projects/value-objects/project-name-min-length";
 export { PROJECT_NAME_MAX_LENGTH } from "../modules/projects/value-objects/project-name-max-length";
+
+export { TASK_NAME_MIN_LENGTH } from "../modules/projects/value-objects/task-name-min-length";
+export { TASK_NAME_MAX_LENGTH } from "../modules/projects/value-objects/task-name-max-length";

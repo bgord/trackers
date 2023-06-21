@@ -9,13 +9,20 @@ import { ProjectDelete } from "./project-delete";
 import { ProjectArchive } from "./project-archive";
 import { ProjectRestore } from "./project-restore";
 
+import { TaskCreate } from "./task-create";
+
 export function Project(props: types.ProjectType) {
   const t = bg.useTranslations();
 
   const details = bg.usePersistentToggle(`project-details-${props.id}`);
 
   return (
-    <li data-display="flex" data-direction="column" data-max-width="100%">
+    <li
+      data-display="flex"
+      data-direction="column"
+      data-max-width="100%"
+      data-gap="24"
+    >
       <div data-display="flex" data-cross="center" data-gap="24">
         <button
           class="c-button"
@@ -46,6 +53,8 @@ export function Project(props: types.ProjectType) {
           <ProjectRestore {...props} />
         )}
       </div>
+
+      {details.on && <TaskCreate {...props} />}
 
       {details.on && (
         <div
