@@ -144,4 +144,12 @@ export class Task {
       body: JSON.stringify({ name: task.name }),
     });
   }
+
+  static async list(
+    config: Pick<types.TaskType, "projectId">
+  ): Promise<types.TaskType[]> {
+    return _api(`/project/${config.projectId}/tasks`, { method: "GET" }).then(
+      (response) => (response.ok ? response.json() : [])
+    );
+  }
 }

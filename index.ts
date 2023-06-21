@@ -158,7 +158,15 @@ app.post(
 app.post(
   "/project/:projectId/task/create",
   infra.AuthShield.verify,
+  infra.CacheResponse.clear,
   bg.Route(Projects.Routes.TaskCreate)
+);
+
+app.get(
+  "/project/:projectId/tasks",
+  infra.AuthShield.verify,
+  infra.CacheResponse.handle,
+  bg.Route(Projects.Routes.TaskList)
 );
 
 app.get("*", (_, response) => response.redirect("/"));
