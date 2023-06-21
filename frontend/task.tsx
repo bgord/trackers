@@ -5,17 +5,10 @@ import { h } from "preact";
 import * as types from "./types";
 import * as UI from "./ui";
 
-import { ProjectDelete } from "./project-delete";
-import { ProjectArchive } from "./project-archive";
-import { ProjectRestore } from "./project-restore";
-
-import { TaskCreate } from "./task-create";
-import { TaskList } from "./task-list";
-
-export function Project(props: types.ProjectType) {
+export function Task(props: types.TaskType) {
   const t = bg.useTranslations();
 
-  const details = bg.usePersistentToggle(`project-details-${props.id}`);
+  const details = bg.usePersistentToggle(`task-details-${props.id}`);
 
   return (
     <li
@@ -38,26 +31,10 @@ export function Project(props: types.ProjectType) {
           {details.on && <Icons.NavArrowDown height="24" width="24" />}
         </button>
 
-        <div class="c-badge">{props.status}</div>
-
         <div data-fs="14" data-color="gray-700">
           {props.name}
         </div>
-
-        {details.on && <ProjectDelete {...props} />}
-
-        {props.status === types.ProjectStatusEnum.active && details.on && (
-          <ProjectArchive {...props} />
-        )}
-
-        {props.status === types.ProjectStatusEnum.archived && details.on && (
-          <ProjectRestore {...props} />
-        )}
       </div>
-
-      {details.on && <TaskCreate {...props} />}
-
-      {details.on && <TaskList {...props} />}
 
       {details.on && (
         <div

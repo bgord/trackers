@@ -88,6 +88,8 @@ export function TrackerCreate() {
       >
         {t("tracker.create.submit")}
       </button>
+
+      <UI.ClearButton data-self="end" onClick={trackerName.clear} />
     </form>
   );
 }

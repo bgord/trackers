@@ -133,8 +133,9 @@
   "project.restore.success": "Project restored",
   "project.restore.confirmation": "Are you sure to restore this project?",
 
-  "task.name.unique.error": "Project tracker name is not unique",
+  "task.name.unique.error": "Task name is not unique",
   "task.name.label": "Task name",
   "task.name.placeholder": "Research sales speech",
-  "task.create.submit": "Create"
+  "task.create.submit": "Create",
+  "task.list.empty": "This project has no tasks yet"
 }

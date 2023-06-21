@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 import * as api from "./api";
 import * as types from "./types";
+import * as UI from "./ui";
 
 export function TaskCreate(props: Pick<types.ProjectType, "id">) {
   const t = bg.useTranslations();
@@ -54,6 +55,8 @@ export function TaskCreate(props: Pick<types.ProjectType, "id">) {
       >
         {t("task.create.submit")}
       </button>
+
+      <UI.ClearButton data-self="end" onClick={taskName.clear} />
     </form>
   );
 }

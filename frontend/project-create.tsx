@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 import * as api from "./api";
 import * as types from "./types";
+import * as UI from "./ui";
 
 export function ProjectCreate() {
   const t = bg.useTranslations();
@@ -60,6 +61,8 @@ export function ProjectCreate() {
       >
         {t("project.create.submit")}
       </button>
+
+      <UI.ClearButton data-self="end" onClick={projectName.clear} />
     </form>
   );
 }
