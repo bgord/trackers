@@ -13,7 +13,9 @@ export class TrackerRepository {
   }
 
   static async list(): Promise<VO.TrackerViewType[]> {
-    const trackers = await infra.db.tracker.findMany();
+    const trackers = await infra.db.tracker.findMany({
+      orderBy: [{ createdAt: "desc" }],
+    });
 
     return z
       .array(VO.Tracker)
@@ -44,7 +46,7 @@ export class TrackerRepository {
     return infra.db.tracker.update({
       where: { id: payload.id },
       data: {
-        status: VO.TrackerStatusEnum.archive,
+        status: VO.TrackerStatusEnum.archived,
         updatedAt: payload.updatedAt,
       },
     });

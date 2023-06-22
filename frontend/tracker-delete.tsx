@@ -51,6 +51,10 @@ export function TrackerDelete(
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">
         <div>{t("tracker.delete.confirmation")}</div>
 
+        <div data-transform="center" data-fs="14" data-fw="700" data-ls="0.5">
+          {t("tracker.delete.warning")}
+        </div>
+
         <div data-display="flex" data-gap="48" data-mx="auto">
           <button
             type="button"

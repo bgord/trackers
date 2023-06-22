@@ -30,10 +30,22 @@ export function Tracker(props: types.TrackerType) {
           onClick={details.toggle}
         >
           {details.off && <Icons.NavArrowRight height="24" width="24" />}
+
           {details.on && <Icons.NavArrowDown height="24" width="24" />}
         </button>
 
+        {props.status === types.TrackerStatusEnum.active && (
+          <div class="c-badge" data-color="green-600" data-bg="green-100">
+            {t(`tracker.status.${props.status}`)}
+          </div>
+        )}
+
+        {props.status === types.TrackerStatusEnum.archived && (
+          <div class="c-badge">{t(`tracker.status.${props.status}`)}</div>
+        )}
+
         <div class="c-badge">{t(`tracker.kind.enum.${props.kind}`)}</div>
+
         <div data-fs="14" data-color="gray-700">
           {props.name}
         </div>
@@ -43,7 +55,11 @@ export function Tracker(props: types.TrackerType) {
         </div>
 
         {details.on && <TrackerDelete data-ml="24" {...props} />}
-        {details.on && <TrackerArchive {...props} />}
+
+        {details.on && props.status === types.TrackerStatusEnum.active && (
+          <TrackerArchive {...props} />
+        )}
+
         {details.on && <TrackerExport {...props} />}
       </div>
 
@@ -52,15 +68,19 @@ export function Tracker(props: types.TrackerType) {
           data-display="flex"
           data-direction="column"
           data-max-width="100%"
-          data-gap="36"
+          data-gap="24"
         >
-          <div data-display="flex" data-cross="end" data-gap="48">
-            <TrackerSync key={props.updatedAt} {...props} />
-            <TrackerNameChange {...props} />
-          </div>
+          {props.status === types.TrackerStatusEnum.active && (
+            <div data-display="flex" data-cross="end" data-gap="48">
+              <TrackerSync key={props.updatedAt} {...props} />
+              <TrackerNameChange {...props} />
+            </div>
+          )}
+
           {props.kind === types.TrackerKindEnum.one_value && (
             <TrackerDatapointList key={props.updatedAt.raw} {...props} />
           )}
+
           <div data-display="flex" data-gap="24">
             <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
               {t("tracker.created_at", { value: props.createdAt.relative })}

@@ -84,7 +84,7 @@ export class Tracker {
         case Events.TRACKER_ARCHIVED_EVENT:
           if (!this.entity) continue;
 
-          this.entity.status = VO.TrackerStatusEnum.archive;
+          this.entity.status = VO.TrackerStatusEnum.archived;
           this.entity.updatedAt = event.payload.archivedAt;
           break;
 

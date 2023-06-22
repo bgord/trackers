@@ -21,11 +21,11 @@ export function TrackerDatapointList(props: types.TrackerType) {
   }
 
   if (trackerDatapoints.isError) {
-    return <UI.Info>{t("tracker.datapoints.error")}</UI.Info>;
+    return <UI.Info data-mt="12">{t("tracker.datapoints.error")}</UI.Info>;
   }
 
   if (!trackerDatapoints.data || trackerDatapoints.data?.length === 0) {
-    return <UI.Info>{t("tracker.datapoints.empty")}</UI.Info>;
+    return <UI.Info data-mt="12">{t("tracker.datapoints.empty")}</UI.Info>;
   }
 
   return (
@@ -33,16 +33,21 @@ export function TrackerDatapointList(props: types.TrackerType) {
       data-display="flex"
       data-cross="end"
       data-wrap="nowrap"
-      data-max-width="100%"
-      data-overflow="scroll"
       data-gap="3"
-      style={{ minHeight: `${types.TRACKER_DATAPOINT_BOUND_UPPER}px` }}
+      data-py="3"
+      data-mt="12"
+      data-max-width="100%"
       data-bwy="1"
       data-bcy="gray-200"
-      data-py="3"
+      data-overflow="scroll"
+      style={{ minHeight: `${types.TRACKER_DATAPOINT_BOUND_UPPER}px` }}
     >
       {trackerDatapoints.data.map((datapoint) => (
-        <TrackerDatapointBar key={datapoint.id} {...datapoint} />
+        <TrackerDatapointBar
+          key={datapoint.id}
+          status={props.status}
+          {...datapoint}
+        />
       ))}
     </ul>
   );

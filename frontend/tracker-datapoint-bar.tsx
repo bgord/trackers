@@ -6,7 +6,9 @@ import * as types from "./types";
 
 import { TrackerDatapointRevert } from "./tracker-datapoint-revert";
 
-export function TrackerDatapointBar(props: types.TrackerDatapointType) {
+export function TrackerDatapointBar(
+  props: types.TrackerDatapointType & { status: types.TrackerType["status"] }
+) {
   const details = bg.useToggle(false);
   const toggleDetailsKeyboardHandler = bg.useKeyHandler({
     [bg.KeyNameEnum.Enter]: details.toggle,
@@ -58,7 +60,10 @@ export function TrackerDatapointBar(props: types.TrackerDatapointType) {
           {bg.DateFormatter.monthDay(props.createdAt)}
         </div>
       )}
-      {isActive && <TrackerDatapointRevert {...props} />}
+
+      {isActive && props.status === types.TrackerStatusEnum.active && (
+        <TrackerDatapointRevert {...props} />
+      )}
     </li>
   );
 }
