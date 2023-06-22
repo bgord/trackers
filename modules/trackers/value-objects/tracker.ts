@@ -5,6 +5,7 @@ import { TrackerCreatedAt } from "./tracker-created-at";
 import { TrackerId } from "./tracker-id";
 import { TrackerKind } from "./tracker-kind";
 import { TrackerName } from "./tracker-name";
+import { TrackerStatus } from "./tracker-status";
 import { TrackerUpdatedAt } from "./tracker-updated-at";
 import { TrackerValue } from "./tracker-value";
 
@@ -13,6 +14,7 @@ export const Tracker = z.object({
   id: TrackerId,
   kind: TrackerKind,
   name: TrackerName,
+  status: TrackerStatus,
   updatedAt: TrackerUpdatedAt,
   value: TrackerValue,
 });

@@ -21,6 +21,7 @@ model Tracker {
   kind             String
   name             String
   value            Float
+  status           String @default("active")
   createdAt        Int
   updatedAt        Int
   TrackerDatapoint TrackerDatapoint[]

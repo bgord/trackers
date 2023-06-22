@@ -6,6 +6,7 @@ import type { SettingsRepository } from "../modules/settings/repositories";
 
 // Types
 export { TrackerKindEnum } from "../modules/trackers/value-objects/tracker-kind-enum";
+export { TrackerStatusEnum } from "../modules/trackers/value-objects/tracker-status-enum";
 export type { TrackerViewType as TrackerType } from "../modules/trackers/value-objects/tracker";
 export type { EmailType } from "@bgord/node/dist/schema";
 export type SettingsType = AsyncReturnType<typeof SettingsRepository["get"]>;
