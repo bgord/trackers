@@ -112,7 +112,12 @@ emittery.on(
 
 emittery.on(
   Trackers.Events.TRACKER_ARCHIVED_EVENT,
-  EventHandler.handle(async () => {})
+  EventHandler.handle(async (event) => {
+    await Trackers.Repos.TrackerRepository.archive({
+      ...event.payload,
+      updatedAt: event.payload.archivedAt,
+    });
+  })
 );
 
 emittery.on(
