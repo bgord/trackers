@@ -73,12 +73,18 @@ app.delete(
   infra.CacheResponse.clear,
   bg.Route(Trackers.Routes.TrackerRevert)
 );
-
 app.get(
   "/tracker/:trackerId/datapoints",
   infra.AuthShield.verify,
   infra.CacheResponse.handle,
   bg.Route(Trackers.Routes.TrackerDatapointList)
+);
+
+app.post(
+  "/tracker/:trackerId/archive",
+  infra.AuthShield.verify,
+  infra.CacheResponse.clear,
+  bg.Route(Trackers.Routes.TrackerArchive)
 );
 
 app.get(

@@ -48,6 +48,10 @@ export class Tracker {
     });
   }
 
+  static async archive(payload: Pick<types.TrackerType, "id">) {
+    return _api(`/tracker/${payload.id}/archive`, { method: "POST" });
+  }
+
   static async delete(payload: Pick<types.TrackerType, "id">) {
     return _api(`/tracker/${payload.id}`, {
       method: "DELETE",
