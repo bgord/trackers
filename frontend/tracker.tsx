@@ -8,6 +8,7 @@ import * as UI from "./ui";
 import { TrackerSync } from "./tracker-sync";
 import { TrackerNameChange } from "./tracker-name-change";
 import { TrackerDelete } from "./tracker-delete";
+import { TrackerArchive } from "./tracker-archive";
 import { TrackerExport } from "./tracker-export";
 import { TrackerDatapointList } from "./tracker-datapoint-list";
 
@@ -42,6 +43,7 @@ export function Tracker(props: types.TrackerType) {
         </div>
 
         {details.on && <TrackerDelete data-ml="24" {...props} />}
+        {details.on && <TrackerArchive {...props} />}
         {details.on && <TrackerExport {...props} />}
       </div>
 

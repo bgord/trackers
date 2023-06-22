@@ -14,6 +14,11 @@
   "app.settings": "Settings",
   "app.sync": "Sync",
 
+  "tracker.archive": "Archive",
+  "tracker.archive.confirmation": "Are you sure you want to archive this tracker?",
+  "tracker.archive.error": "Cannot archive tracker",
+  "tracker.archive.in_progress": "Archiving...",
+  "tracker.archive.success": "Tracker archieved",
   "tracker.create.submit": "Create",
   "tracker.create.success": "Tracker created",
   "tracker.created_at": "Created {{value}}",
