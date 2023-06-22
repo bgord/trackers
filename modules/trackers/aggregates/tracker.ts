@@ -31,6 +31,7 @@ export class Tracker {
         Events.TrackerDeletedEvent,
         Events.TrackerExportedEvent,
         Events.TrackerNameChangedEvent,
+        Events.TrackerArchivedEvent,
       ],
       Tracker.getStream(this.id)
     );
@@ -78,6 +79,13 @@ export class Tracker {
 
           this.entity.name = event.payload.name;
           this.entity.updatedAt = event.payload.updatedAt;
+          break;
+
+        case Events.TRACKER_ARCHIVED_EVENT:
+          if (!this.entity) continue;
+
+          this.entity.status = VO.TrackerStatusEnum.archive;
+          this.entity.updatedAt = event.payload.archivedAt;
           break;
 
         default:
@@ -179,6 +187,19 @@ export class Tracker {
           name: this.entity!.name,
           timeZoneOffsetMs: context.timeZoneOffset.miliseconds,
         },
+      })
+    );
+  }
+
+  async archive() {
+    await Policies.TrackerShouldExist.perform({ tracker: this });
+
+    await infra.EventStore.save(
+      Events.TrackerArchivedEvent.parse({
+        name: Events.TRACKER_ARCHIVED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id, archivedAt: Date.now() },
       })
     );
   }
