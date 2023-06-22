@@ -214,6 +214,19 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Trackers.Policies.TrackerIsActiveError) {
+      infra.logger.error({
+        message: "Tracker is not active",
+        operation: Trackers.Policies.TrackerIsActive.message,
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: Trackers.Policies.TrackerIsActive.message,
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(

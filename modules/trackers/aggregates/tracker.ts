@@ -116,6 +116,7 @@ export class Tracker {
     context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
+    await Policies.TrackerIsActive.perform({ tracker: this });
     await Policies.TrackerValueShouldChange.perform({
       currentValue: this.entity!.value,
       syncedValue: value,
@@ -143,6 +144,7 @@ export class Tracker {
 
   async revert(datapointId: VO.TrackerDatapointIdType) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
+    await Policies.TrackerIsActive.perform({ tracker: this });
     await Policies.TrackerDatapointShouldExist.perform({ datapointId });
 
     await infra.EventStore.save(
@@ -193,6 +195,7 @@ export class Tracker {
 
   async archive() {
     await Policies.TrackerShouldExist.perform({ tracker: this });
+    await Policies.TrackerIsActive.perform({ tracker: this });
 
     await infra.EventStore.save(
       Events.TrackerArchivedEvent.parse({
@@ -206,6 +209,7 @@ export class Tracker {
 
   async changeName(name: VO.TrackerNameType) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
+    await Policies.TrackerIsActive.perform({ tracker: this });
     await Policies.TrackerNameHasChanged.perform({
       current: this.entity!.name,
       next: name,
