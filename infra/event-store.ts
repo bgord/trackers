@@ -14,6 +14,7 @@ type AcceptedEvent =
   | typeof Trackers.Events.TrackerDeletedEvent
   | typeof Trackers.Events.TrackerExportedEvent
   | typeof Trackers.Events.TrackerNameChangedEvent
+  | typeof Trackers.Events.TrackerArchivedEvent
   | typeof Trackers.Events.WeeklyTrackersReportScheduledEvent
   | typeof Settings.Events.WeeklyTrackersReportEnabledEvent
   | typeof Settings.Events.WeeklyTrackersReportDisabledEvent

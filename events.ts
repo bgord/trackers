@@ -16,6 +16,7 @@ export const emittery = new Emittery<{
   TRACKER_DELETED_EVENT: Trackers.Events.TrackerDeletedEventType;
   TRACKER_EXPORTED_EVENT: Trackers.Events.TrackerExportedEventType;
   TRACKER_NAME_CHANGED_EVENT: Trackers.Events.TrackerNameChangedEventType;
+  TRACKER_ARCHIVED_EVENT: Trackers.Events.TrackerArchivedEventType;
   WEEKLY_TRACKERS_REPORT_SCHEDULED: Trackers.Events.WeeklyTrackersReportScheduledEventype;
 
   WEEKLY_TRACKERS_REPORT_ENABLED: Settings.Events.WeeklyTrackersReportEnabledEventType;
@@ -107,6 +108,11 @@ emittery.on(
   EventHandler.handle(async (event) => {
     await Trackers.Repos.TrackerRepository.changeName(event.payload);
   })
+);
+
+emittery.on(
+  Trackers.Events.TRACKER_ARCHIVED_EVENT,
+  EventHandler.handle(async () => {})
 );
 
 emittery.on(

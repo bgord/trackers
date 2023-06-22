@@ -81,6 +81,16 @@ export type TrackerNameChangedEventType = z.infer<
   typeof TrackerNameChangedEvent
 >;
 
+export const TRACKER_ARCHIVED_EVENT = "TRACKER_ARCHIVED_EVENT";
+export const TrackerArchivedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(TRACKER_ARCHIVED_EVENT),
+    version: z.literal(1),
+    payload: z.object({ id: VO.TrackerId, archivedAt: VO.TrackerUpdatedAt }),
+  })
+);
+export type TrackerArchivedEventType = z.infer<typeof TrackerArchivedEvent>;
+
 export const WEEKLY_TRACKERS_REPORT_SCHEDULED =
   "WEEKLY_TRACKERS_REPORT_SCHEDULED";
 export const WeeklyTrackersReportScheduledEvent = bg.EventDraft.merge(
