@@ -32,6 +32,7 @@ export class Tracker {
         Events.TrackerExportedEvent,
         Events.TrackerNameChangedEvent,
         Events.TrackerArchivedEvent,
+        Events.TrackerRestoredEvent,
       ],
       Tracker.getStream(this.id)
     );
@@ -86,6 +87,13 @@ export class Tracker {
 
           this.entity.status = VO.TrackerStatusEnum.archived;
           this.entity.updatedAt = event.payload.archivedAt;
+          break;
+
+        case Events.TRACKER_RESTORED_EVENT:
+          if (!this.entity) continue;
+
+          this.entity.status = VO.TrackerStatusEnum.active;
+          this.entity.updatedAt = event.payload.restoredAt;
           break;
 
         default:
@@ -203,6 +211,20 @@ export class Tracker {
         stream: this.stream,
         version: 1,
         payload: { id: this.id, archivedAt: Date.now() },
+      })
+    );
+  }
+
+  async restore() {
+    await Policies.TrackerShouldExist.perform({ tracker: this });
+    await Policies.TrackerIsArchived.perform({ tracker: this });
+
+    await infra.EventStore.save(
+      Events.TrackerRestoredEvent.parse({
+        name: Events.TRACKER_RESTORED_EVENT,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id, restoredAt: Date.now() },
       })
     );
   }
