@@ -79,12 +79,17 @@ app.get(
   infra.CacheResponse.handle,
   bg.Route(Trackers.Routes.TrackerDatapointList)
 );
-
 app.post(
   "/tracker/:trackerId/archive",
   infra.AuthShield.verify,
   infra.CacheResponse.clear,
   bg.Route(Trackers.Routes.TrackerArchive)
+);
+app.post(
+  "/tracker/:trackerId/restore",
+  infra.AuthShield.verify,
+  infra.CacheResponse.clear,
+  bg.Route(Trackers.Routes.TrackerRestore)
 );
 
 app.get(
