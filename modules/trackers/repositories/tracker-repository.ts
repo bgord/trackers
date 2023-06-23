@@ -68,6 +68,16 @@ export class TrackerRepository {
     });
   }
 
+  static async restore(payload: Pick<VO.TrackerType, "id" | "updatedAt">) {
+    return infra.db.tracker.update({
+      where: { id: payload.id },
+      data: {
+        status: VO.TrackerStatusEnum.active,
+        updatedAt: payload.updatedAt,
+      },
+    });
+  }
+
   static async changeName(
     payload: Pick<VO.TrackerType, "id" | "name" | "updatedAt">
   ) {
