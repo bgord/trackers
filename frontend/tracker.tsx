@@ -10,6 +10,7 @@ import { TrackerNameChange } from "./tracker-name-change";
 import { TrackerDelete } from "./tracker-delete";
 import { TrackerArchive } from "./tracker-archive";
 import { TrackerExport } from "./tracker-export";
+import { TrackerRestore } from "./tracker-restore";
 import { TrackerDatapointList } from "./tracker-datapoint-list";
 
 export function Tracker(props: types.TrackerType) {
@@ -58,6 +59,10 @@ export function Tracker(props: types.TrackerType) {
 
         {details.on && props.status === types.TrackerStatusEnum.active && (
           <TrackerArchive {...props} />
+        )}
+
+        {details.on && props.status === types.TrackerStatusEnum.archived && (
+          <TrackerRestore {...props} />
         )}
 
         {details.on && <TrackerExport {...props} />}

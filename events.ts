@@ -124,7 +124,7 @@ emittery.on(
 emittery.on(
   Trackers.Events.TRACKER_RESTORED_EVENT,
   EventHandler.handle(async (event) => {
-    await Trackers.Repos.TrackerRepository.archive({
+    await Trackers.Repos.TrackerRepository.restore({
       ...event.payload,
       updatedAt: event.payload.restoredAt,
     });
