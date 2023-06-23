@@ -2,6 +2,7 @@ export * from "./minimum-one-tracker-exists";
 export * from "./tracker-datapoint-should-exist";
 export * from "./tracker-datapoints-limit-per-day";
 export * from "./tracker-is-active";
+export * from "./tracker-is-archived";
 export * from "./tracker-name-has-changed";
 export * from "./tracker-name-is-unique";
 export * from "./tracker-should-exist";

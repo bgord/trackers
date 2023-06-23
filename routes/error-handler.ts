@@ -227,6 +227,19 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Trackers.Policies.TrackerIsArchivedError) {
+      infra.logger.error({
+        message: "Tracker is not archived",
+        operation: Trackers.Policies.TrackerIsArchived.message,
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: Trackers.Policies.TrackerIsArchived.message,
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(
