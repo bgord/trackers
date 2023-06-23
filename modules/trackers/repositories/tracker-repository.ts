@@ -27,6 +27,22 @@ export class TrackerRepository {
       }));
   }
 
+  static async listActive(): Promise<VO.TrackerViewType[]> {
+    const trackers = await infra.db.tracker.findMany({
+      where: { status: VO.TrackerStatusEnum.active },
+      orderBy: [{ createdAt: "desc" }],
+    });
+
+    return z
+      .array(VO.Tracker)
+      .parse(trackers)
+      .map((tracker) => ({
+        ...tracker,
+        createdAt: bg.RelativeDate.to.now.truthy(tracker.createdAt),
+        updatedAt: bg.RelativeDate.to.now.truthy(tracker.updatedAt),
+      }));
+  }
+
   static async sync(
     payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt">
   ) {

@@ -66,7 +66,7 @@ export class WeeklyTrackersReportGenerator {
     report.append(this.createHeader());
     report.addNewLine(2);
 
-    const trackers = await this.config.repos.tracker.list();
+    const trackers = await this.config.repos.tracker.listActive();
 
     for (const tracker of trackers) {
       report.append(this.createTrackerRow(tracker));
