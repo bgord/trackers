@@ -1,4 +1,5 @@
 import * as bg from "@bgord/frontend";
+import * as Icons from "iconoir-react";
 import { RoutableProps } from "preact-router";
 import { h } from "preact";
 import { useQuery } from "react-query";
@@ -46,6 +47,7 @@ export function Settings(_: RoutableProps) {
           <UI.Info
             title={bg.DateFormatter.datetime(settings.data.updatedAt.raw)}
           >
+            <Icons.ClockOutline height="14" width="14" data-mr="6" />
             {t("settings.updated_at", {
               when: String(settings.data.updatedAt.relative),
             })}

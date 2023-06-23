@@ -51,11 +51,9 @@ export function Tracker(props: types.TrackerType) {
           {props.name}
         </div>
 
-        <div data-fs="14" data-fw="700">
+        <div data-fs="14" data-fw="700" data-mr="48">
           {props.value}
         </div>
-
-        {details.on && <TrackerDelete data-ml="24" {...props} />}
 
         {details.on && props.status === types.TrackerStatusEnum.active && (
           <TrackerArchive {...props} />
@@ -66,6 +64,8 @@ export function Tracker(props: types.TrackerType) {
         )}
 
         {details.on && <TrackerExport {...props} />}
+
+        {details.on && <TrackerDelete {...props} />}
       </div>
 
       {details.on && (
@@ -86,12 +86,14 @@ export function Tracker(props: types.TrackerType) {
             <TrackerDatapointList key={props.updatedAt.raw} {...props} />
           )}
 
-          <div data-display="flex" data-gap="24">
+          <div data-display="flex" data-gap="24" data-ml="12" data-mt="12">
             <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
+              <Icons.ClockOutline height="14" width="14" data-mr="6" />
               {t("tracker.created_at", { value: props.createdAt.relative })}
             </UI.Info>
 
             <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
+              <Icons.ClockOutline height="14" width="14" data-mr="6" />
               {t("tracker.updated_at", { value: props.updatedAt.relative })}
             </UI.Info>
           </div>

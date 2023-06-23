@@ -1,4 +1,5 @@
 import * as bg from "@bgord/frontend";
+import * as Icons from "iconoir-react";
 import { h } from "preact";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -80,7 +81,10 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
       </div>
 
       {!props.isWeeklyTrackersReportEnabled && (
-        <UI.Info>{t("settings.weekly_trackers_report.info")}</UI.Info>
+        <UI.Info data-display="flex" data-gap="6">
+          <Icons.InfoEmpty />
+          {t("settings.weekly_trackers_report.info")}
+        </UI.Info>
       )}
     </div>
   );
