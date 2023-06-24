@@ -3,6 +3,7 @@ import Emittery from "emittery";
 
 import * as Trackers from "./modules/trackers";
 import * as Settings from "./modules/settings";
+import * as Goals from "./modules/goals";
 
 import * as infra from "./infra";
 
@@ -23,6 +24,8 @@ export const emittery = new Emittery<{
   WEEKLY_TRACKERS_REPORT_DISABLED: Settings.Events.WeeklyTrackersReportDisabledEventType;
   SETTINGS_EMAIL_CHANGED: Settings.Events.SettingsEmailChangedEventType;
   SETTINGS_EMAIL_DELETED: Settings.Events.SettingsEmailDeletedEventType;
+
+  GOAL_CREATED_EVENT: Goals.Events.GoalCreatedEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });

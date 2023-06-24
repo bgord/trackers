@@ -1,4 +1,3 @@
-/* eslint-disable */
 import * as bg from "@bgord/frontend";
 import { h } from "preact";
 import { useMutation, useQueryClient } from "react-query";
