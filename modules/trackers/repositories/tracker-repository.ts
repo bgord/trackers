@@ -24,7 +24,21 @@ export class TrackerRepository {
         ...tracker,
         createdAt: bg.RelativeDate.to.now.truthy(tracker.createdAt),
         updatedAt: bg.RelativeDate.to.now.truthy(tracker.updatedAt),
-      }));
+      }))
+      .sort((a, b) => {
+        if (
+          a.status === VO.TrackerStatusEnum.active &&
+          b.status === VO.TrackerStatusEnum.archived
+        ) {
+          return -1;
+        } else if (
+          a.status === VO.TrackerStatusEnum.archived &&
+          b.status === VO.TrackerStatusEnum.active
+        ) {
+          return 1;
+        }
+        return 0;
+      });
   }
 
   static async listActive(): Promise<VO.TrackerViewType[]> {

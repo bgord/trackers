@@ -74,6 +74,7 @@ export function Tracker(props: types.TrackerType) {
           data-direction="column"
           data-max-width="100%"
           data-gap="24"
+          data-mx="12"
         >
           {props.status === types.TrackerStatusEnum.active && (
             <div data-display="flex" data-cross="end" data-gap="48">
