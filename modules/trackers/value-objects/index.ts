@@ -1,13 +1,3 @@
-export * from "./goal";
-export * from "./goal-created-at";
-export * from "./goal-id";
-export * from "./goal-kind";
-export * from "./goal-kind-enum";
-export * from "./goal-kind-error-key";
-export * from "./goal-related-tracker-id";
-export * from "./goal-target";
-export * from "./goal-updated-at";
-
 export * from "./tracker";
 export * from "./tracker-counter-value-error-key";
 export * from "./tracker-created-at";

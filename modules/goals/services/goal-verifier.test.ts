@@ -1,6 +1,7 @@
 import { it, expect, describe } from "vitest";
 
 import * as VO from "../value-objects";
+import { TrackerValue } from "../../trackers/value-objects/tracker-value";
 import { GoalVerifier, GoalConfigType } from "./goal-verifier";
 
 describe("GoalVerifier", () => {
@@ -12,7 +13,7 @@ describe("GoalVerifier", () => {
       };
       const verifier = new GoalVerifier(config);
 
-      const result = verifier.verify(VO.TrackerValue.parse(10));
+      const result = verifier.verify(TrackerValue.parse(10));
 
       expect(result).toBe(true);
     });
@@ -24,7 +25,7 @@ describe("GoalVerifier", () => {
       };
       const verifier = new GoalVerifier(config);
 
-      const result = verifier.verify(VO.TrackerValue.parse(15));
+      const result = verifier.verify(TrackerValue.parse(15));
 
       expect(result).toBe(true);
     });
@@ -36,7 +37,7 @@ describe("GoalVerifier", () => {
       };
       const verifier = new GoalVerifier(config);
 
-      const result = verifier.verify(VO.TrackerValue.parse(5));
+      const result = verifier.verify(TrackerValue.parse(5));
 
       expect(result).toBe(false);
     });
@@ -48,7 +49,7 @@ describe("GoalVerifier", () => {
       };
       const verifier = new GoalVerifier(config);
 
-      const result = verifier.verify(VO.TrackerValue.parse(100));
+      const result = verifier.verify(TrackerValue.parse(100));
 
       expect(result).toBe(true);
     });
@@ -60,7 +61,7 @@ describe("GoalVerifier", () => {
       };
       const verifier = new GoalVerifier(config);
 
-      const result = verifier.verify(VO.TrackerValue.parse(90));
+      const result = verifier.verify(TrackerValue.parse(90));
 
       expect(result).toBe(true);
     });
@@ -72,7 +73,7 @@ describe("GoalVerifier", () => {
       };
       const verifier = new GoalVerifier(config);
 
-      const result = verifier.verify(VO.TrackerValue.parse(110));
+      const result = verifier.verify(TrackerValue.parse(110));
 
       expect(result).toBe(false);
     });
