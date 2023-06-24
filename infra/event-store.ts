@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import * as Trackers from "../modules/trackers";
 import * as Settings from "../modules/settings";
+import * as Goals from "../modules/goals";
 
 import * as Events from "../events";
 import * as infra from "../infra";
@@ -20,7 +21,8 @@ type AcceptedEvent =
   | typeof Settings.Events.WeeklyTrackersReportEnabledEvent
   | typeof Settings.Events.WeeklyTrackersReportDisabledEvent
   | typeof Settings.Events.SettingsEmailChangedEvent
-  | typeof Settings.Events.SettingsEmailDeletedEvent;
+  | typeof Settings.Events.SettingsEmailDeletedEvent
+  | typeof Goals.Events.GoalCreatedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventStore {
