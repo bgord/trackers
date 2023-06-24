@@ -4,6 +4,7 @@ import _ from "lodash";
 import * as VO from "../value-objects";
 import * as Events from "../events";
 import * as infra from "../../../infra";
+import * as Policies from "../policies";
 
 export class Goal {
   id: VO.GoalType["id"];
@@ -41,6 +42,10 @@ export class Goal {
     payload: Pick<VO.GoalType, "kind" | "relatedTrackerId" | "target">
   ) {
     const id = VO.GoalId.parse(bg.NewUUID.generate());
+
+    await Policies.NoCurrentGoalForTracker.perform({
+      relatedTrackerId: payload.relatedTrackerId,
+    });
 
     await infra.EventStore.save(
       Events.GoalCreatedEvent.parse({
