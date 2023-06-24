@@ -13,6 +13,8 @@ export function TrackerArchive(
 
   const t = bg.useTranslations();
 
+  const details = bg.usePersistentToggle(`tracker-details-${props.id}`);
+
   const queryClient = useQueryClient();
   const notify = bg.useToastTrigger();
   const dialog = bg.useToggle();
@@ -23,6 +25,7 @@ export function TrackerArchive(
       dialog.disable();
       notify({ message: "tracker.archive.success" });
       queryClient.invalidateQueries("trackers");
+      details.disable();
     },
     onError() {
       setTimeout(archiveTracker.reset, 5000);
