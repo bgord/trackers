@@ -1,7 +1,7 @@
 import { Tracker } from "../../trackers/aggregates/tracker";
 import { TrackerShouldExist, TrackerIsActive } from "../../trackers/policies";
 
-import { Goal } from "./goal";
+import { Goal } from "../aggregates/goal";
 import * as VO from "../value-objects";
 
 export class GoalFactory {
@@ -13,6 +13,6 @@ export class GoalFactory {
     await TrackerShouldExist.perform({ tracker });
     await TrackerIsActive.perform({ tracker });
 
-    return await Goal.create(payload);
+    return Goal.create(payload);
   }
 }

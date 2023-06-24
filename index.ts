@@ -6,6 +6,7 @@ import * as infra from "./infra";
 
 import * as Trackers from "./modules/trackers";
 import * as Settings from "./modules/settings";
+import * as Goals from "./modules/goals";
 
 const app = express();
 
@@ -16,6 +17,7 @@ infra.Session.applyTo(app);
 infra.AuthShield.applyTo(app);
 bg.HttpLogger.applyTo(app, infra.logger);
 
+// Auth ========================
 app.get("/", bg.CsrfShield.attach, bg.Route(Routes.Home));
 app.post(
   "/login",
@@ -26,14 +28,15 @@ app.post(
 app.get("/logout", infra.AuthShield.detach, (_, response) =>
   response.redirect("/")
 );
+// =============================
 
+// Trackers ====================
 app.get(
   "/dashboard",
   infra.AuthShield.verify,
   bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
   bg.Route(Routes.Dashboard)
 );
-
 app.post(
   "/tracker",
   infra.AuthShield.verify,
@@ -91,14 +94,15 @@ app.post(
   infra.CacheResponse.clear,
   bg.Route(Trackers.Routes.TrackerRestore)
 );
+// =============================
 
+// Settings ====================
 app.get(
   "/settings",
   infra.AuthShield.verify,
   bg.CacheStaticFiles.handle(bg.CacheStaticFilesStrategy.never),
   bg.Route(Settings.Routes.Settings)
 );
-
 app.get(
   "/settings/data",
   infra.AuthShield.verify,
@@ -114,19 +118,23 @@ app.post(
   infra.AuthShield.verify,
   bg.Route(Settings.Routes.SettingsWeeklyTrackersReportDisable)
 );
-
 app.post(
   "/settings/email/change",
   infra.AuthShield.verify,
   bg.Route(Settings.Routes.SettingsEmailChange)
 );
-
 app.delete(
   "/settings/email",
   infra.AuthShield.verify,
   bg.Route(Settings.Routes.SettingsEmailDelete)
 );
+// =============================
 
+// Goals =======================
+app.post("/goal/create", bg.Route(Goals.Routes.GoalCreate));
+// =============================
+
+// healthcheck =================
 app.get(
   "/healthcheck",
   bg.RateLimitShield.build({ limitMs: bg.Time.Minutes(1).toMs() }),
@@ -134,6 +142,7 @@ app.get(
   infra.BasicAuthShield.verify,
   bg.Healthcheck.build(infra.healthcheck)
 );
+// =============================
 
 app.get("*", (_, response) => response.redirect("/"));
 app.use(Routes.ErrorHandler.handle);
