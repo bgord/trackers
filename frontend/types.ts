@@ -14,6 +14,8 @@ export type ToastType = bg.BaseToastType;
 export type TrackerDatapointType = AsyncReturnType<
   typeof TrackerDatapointRepository["list"]
 >[0];
+export { GoalKindEnum } from "../modules/goals/value-objects/goal-kind-enum";
+export type { GoalType } from "../modules/goals/value-objects/goal";
 
 // Constants
 

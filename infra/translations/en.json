@@ -14,6 +14,12 @@
   "app.settings": "Settings",
   "app.sync": "Sync",
 
+  "goal.create": "Create",
+  "goal.create.success": "Goal created",
+  "goal.kind.enum.maximum": "maximum",
+  "goal.kind.enum.minimum": "minimum",
+  "goal.kind.label": "Goal kind",
+  "goal.target.label": "Goal target",
   "goal.tracker.current.error": "Tracker already has a goal",
 
   "tracker.active.error": "Tracker is not active",

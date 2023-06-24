@@ -117,3 +117,14 @@ export class Settings {
     return _api("/settings/email", { method: "DELETE" });
   }
 }
+
+export class Goal {
+  static async create(
+    goal: Pick<types.GoalType, "kind" | "target" | "relatedTrackerId">
+  ) {
+    return _api("/goal", {
+      method: "POST",
+      body: JSON.stringify(goal),
+    });
+  }
+}

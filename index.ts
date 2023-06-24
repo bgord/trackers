@@ -131,7 +131,7 @@ app.delete(
 // =============================
 
 // Goals =======================
-app.post("/goal/create", bg.Route(Goals.Routes.GoalCreate));
+app.post("/goal", bg.Route(Goals.Routes.GoalCreate));
 // =============================
 
 // healthcheck =================

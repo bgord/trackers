@@ -25,6 +25,7 @@ export class Goal {
     );
 
     for (const event of events) {
+      /* eslint-disable sonarjs/no-small-switch */
       switch (event.name) {
         case Events.GOAL_CREATED_EVENT:
           this.entity = event.payload;
