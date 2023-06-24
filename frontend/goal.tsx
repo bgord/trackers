@@ -23,25 +23,28 @@ export function Goal(props: types.TrackerType) {
     return <UI.Info>{t("goal.loading.error")}</UI.Info>;
   }
 
-  if (goal.data === null && props.status === types.TrackerStatusEnum.active) {
+  if (
+    goal.data?.result === null &&
+    props.status === types.TrackerStatusEnum.active
+  ) {
     return <GoalCreate {...props} />;
   }
 
   return (
     <div data-display="flex" data-gap="12" data-fs="14" data-main="baseline">
-      {goal.data?.status === types.GoalStatusEnum.awaiting && (
-        <div class="c-badge">{goal.data?.status}</div>
+      {goal.data?.result?.status === types.GoalStatusEnum.awaiting && (
+        <div class="c-badge">{goal.data.result.status}</div>
       )}
 
-      {goal.data?.status === types.GoalStatusEnum.accomlished && (
+      {goal.data?.result?.status === types.GoalStatusEnum.accomlished && (
         <div class="c-badge" data-color="green-600" data-bg="green-100">
-          {goal.data?.status}
+          {goal.data.result.status}
         </div>
       )}
 
       <strong data-fs="12">{t("goal")}</strong>
-      <div>{t(`goal.kind.enum.${goal.data?.kind}`)}</div>
-      <div>{goal.data?.target}</div>
+      <div>{t(`goal.kind.enum.${goal.data?.result?.kind}`)}</div>
+      <div>{goal.data?.result?.target}</div>
     </div>
   );
 }

@@ -14,5 +14,5 @@ export async function GoalForTracker(
 
   const result = await Repos.GoalRepository.getForTracker({ relatedTrackerId });
 
-  return response.status(200).send(result);
+  return response.status(200).send({ result });
 }

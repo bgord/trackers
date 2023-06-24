@@ -1,5 +1,5 @@
 import * as bg from "@bgord/frontend";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { h } from "preact";
 
 import * as UI from "./ui";
@@ -9,6 +9,7 @@ import * as api from "./api";
 export function GoalCreate(props: types.TrackerType) {
   const t = bg.useTranslations();
   const notify = bg.useToastTrigger();
+  const queryClient = useQueryClient();
 
   const target = bg.useField<types.GoalType["target"]>(
     "goal-target",
@@ -23,6 +24,7 @@ export function GoalCreate(props: types.TrackerType) {
   const createGoal = useMutation(api.Goal.create, {
     onSuccess: () => {
       notify({ message: "goal.create.success" });
+      queryClient.invalidateQueries(["goal", props.id]);
     },
     onError: (error: bg.ServerError) => notify({ message: error.message }),
   });
