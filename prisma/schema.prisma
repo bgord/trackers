@@ -21,16 +21,28 @@ model Tracker {
   kind             String
   name             String
   value            Float
-  status           String @default("active")
+  status           String             @default("active")
   createdAt        Int
   updatedAt        Int
   TrackerDatapoint TrackerDatapoint[]
+  Goal             Goal[]
 }
 
 model TrackerDatapoint {
-  id        String   @id @default(uuid())
+  id        String  @id @default(uuid())
   value     Float
-  tracker   Tracker  @relation(fields: [trackerId], references: [id], onDelete: Cascade)
+  tracker   Tracker @relation(fields: [trackerId], references: [id], onDelete: Cascade)
   trackerId String
   createdAt Int
+}
+
+model Goal {
+  createdAt        Int
+  id               String  @id @default(uuid())
+  kind             String
+  tracker          Tracker @relation(fields: [relatedTrackerId], references: [id])
+  relatedTrackerId String
+  status           String
+  target           Float
+  updatedAt        Int
 }
