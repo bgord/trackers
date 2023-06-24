@@ -8,4 +8,8 @@ export class GoalRepository {
   ) {
     return infra.db.goal.count({ where: payload });
   }
+
+  static async create(data: VO.GoalType) {
+    return infra.db.goal.create({ data });
+  }
 }

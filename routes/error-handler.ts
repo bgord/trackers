@@ -6,6 +6,7 @@ import * as infra from "../infra";
 
 import * as Trackers from "../modules/trackers";
 import * as Settings from "../modules/settings";
+import * as Goals from "../modules/goals";
 
 export class ErrorHandler {
   /* eslint-disable max-params */
@@ -236,6 +237,19 @@ export class ErrorHandler {
 
       return response.status(400).send({
         message: Trackers.Policies.TrackerIsArchived.message,
+        _known: true,
+      });
+    }
+
+    if (error instanceof Goals.Policies.NoCurrentGoalForTrackerError) {
+      infra.logger.error({
+        message: "Tracker already has a goal",
+        operation: Goals.Policies.NoCurrentGoalForTracker.message,
+        correlationId: request.requestId,
+      });
+
+      return response.status(400).send({
+        message: Goals.Policies.NoCurrentGoalForTracker.message,
         _known: true,
       });
     }

@@ -30,47 +30,48 @@ export const emittery = new Emittery<{
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
 
+// Trackers ====================
 emittery.on(
   Trackers.Events.TRACKER_ADDED_EVENT,
   Trackers.Handlers.onTrackerAddedEventHandler
 );
-
 emittery.on(
   Trackers.Events.TRACKER_SYNCED_EVENT,
   Trackers.Handlers.onTrackerSyncedEventHandler
 );
-
 emittery.on(
   Trackers.Events.TRACKER_REVERTED_EVENT,
   Trackers.Handlers.onTrackerRevertedEventHandler
 );
-
 emittery.on(
   Trackers.Events.TRACKER_DELETED_EVENT,
   Trackers.Handlers.onTrackerDeletedEventHandler
 );
-
 emittery.on(
   Trackers.Events.TRACKER_EXPORTED_EVENT,
   Trackers.Handlers.onTrackerExportedEventHandler
 );
-
 emittery.on(
   Trackers.Events.TRACKER_NAME_CHANGED_EVENT,
   Trackers.Handlers.onTrackerNameChangedEventHandler
 );
-
 emittery.on(
   Trackers.Events.TRACKER_ARCHIVED_EVENT,
   Trackers.Handlers.onTrackerArchivedEventHandler
 );
-
 emittery.on(
   Trackers.Events.TRACKER_RESTORED_EVENT,
   Trackers.Handlers.onTrackerRestoredEventHandler
 );
-
 emittery.on(
   Trackers.Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
   Trackers.Handlers.onWeeklyTrackersReportScheduledEventHandler
 );
+// =============================
+
+// Goals =======================
+emittery.on(
+  Goals.Events.GOAL_CREATED_EVENT,
+  Goals.Handlers.onGoalCreatedEventHandler
+);
+// =============================
