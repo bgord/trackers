@@ -113,6 +113,6 @@ export const WeeklyTrackersReportScheduledEvent = bg.EventDraft.merge(
     }),
   })
 );
-export type WeeklyTrackersReportScheduledEventype = z.infer<
+export type WeeklyTrackersReportScheduledEventType = z.infer<
   typeof WeeklyTrackersReportScheduledEvent
 >;
