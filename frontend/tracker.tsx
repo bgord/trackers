@@ -13,7 +13,7 @@ import { TrackerRestore } from "./tracker-restore";
 import { TrackerDatapointList } from "./tracker-datapoint-list";
 import { TrackerMetadata } from "./tracker-metadata";
 
-import { GoalCreate } from "./goal-create";
+import { Goal } from "./goal";
 
 export function Tracker(props: types.TrackerType) {
   const t = bg.useTranslations();
@@ -89,9 +89,7 @@ export function Tracker(props: types.TrackerType) {
             <TrackerDatapointList key={props.updatedAt.raw} {...props} />
           )}
 
-          {props.status === types.TrackerStatusEnum.active && (
-            <GoalCreate {...props} />
-          )}
+          <Goal {...props} />
 
           <TrackerMetadata {...props} />
         </div>

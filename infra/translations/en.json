@@ -14,6 +14,9 @@
   "app.settings": "Settings",
   "app.sync": "Sync",
 
+  "goal": "GOAL",
+  "goal.loading.in_progress": "Loading goal...",
+  "goal.loading.error": "Error while loading goal",
   "goal.create": "Create",
   "goal.create.success": "Goal created",
   "goal.kind.enum.maximum": "maximum",
@@ -21,6 +24,8 @@
   "goal.kind.label": "Goal kind",
   "goal.target.label": "Goal target",
   "goal.tracker.current.error": "Tracker already has a goal",
+  "goal.status.enum.awaiting": "awaiting",
+  "goal.status.enum.accomplished": "accomplished",
 
   "tracker.active.error": "Tracker is not active",
   "tracker.archived.error": "Tracker is not archived",

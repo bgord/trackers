@@ -15,6 +15,7 @@ export type TrackerDatapointType = AsyncReturnType<
   typeof TrackerDatapointRepository["list"]
 >[0];
 export { GoalKindEnum } from "../modules/goals/value-objects/goal-kind-enum";
+export { GoalStatusEnum } from "../modules/goals/value-objects/goal-status-enum";
 export type { GoalType } from "../modules/goals/value-objects/goal";
 
 // Constants

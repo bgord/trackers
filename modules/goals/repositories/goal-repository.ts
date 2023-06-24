@@ -12,4 +12,8 @@ export class GoalRepository {
   static async create(data: VO.GoalType) {
     return infra.db.goal.create({ data });
   }
+
+  static async getForTracker(payload: Pick<VO.GoalType, "relatedTrackerId">) {
+    return infra.db.goal.findFirst({ where: payload });
+  }
 }
