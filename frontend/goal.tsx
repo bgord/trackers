@@ -1,5 +1,5 @@
 import * as bg from "@bgord/frontend";
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useQuery } from "react-query";
 
 import * as types from "./types";
@@ -42,9 +42,13 @@ export function Goal(props: types.TrackerType) {
         </div>
       )}
 
-      <strong data-fs="12">{t("goal")}</strong>
-      <div>{t(`goal.kind.enum.${goal.data?.result?.kind}`)}</div>
-      <div>{goal.data?.result?.target}</div>
+      {goal.data?.result && (
+        <Fragment>
+          <strong data-fs="12">{t("goal")}</strong>
+          <div>{t(`goal.kind.enum.${goal.data?.result?.kind}`)}</div>
+          <div>{goal.data?.result?.target}</div>
+        </Fragment>
+      )}
     </div>
   );
 }
