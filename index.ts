@@ -132,11 +132,15 @@ app.delete(
 
 // Goals =======================
 app.post("/goal", infra.AuthShield.verify, bg.Route(Goals.Routes.GoalCreate));
-
 app.get(
   "/tracker/:trackerId/goal",
   infra.AuthShield.verify,
   bg.Route(Goals.Routes.GoalForTracker)
+);
+app.delete(
+  "/goal/:goalId",
+  infra.AuthShield.verify,
+  bg.Route(Goals.Routes.GoalDelete)
 );
 // =============================
 

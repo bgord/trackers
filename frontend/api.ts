@@ -135,4 +135,10 @@ export class Goal {
       method: "GET",
     }).then((response) => (response.ok ? response.json() : undefined));
   }
+
+  static async delete(payload: Pick<types.GoalType, "id">) {
+    return _api(`/goal/${payload.id}`, {
+      method: "DELETE",
+    });
+  }
 }

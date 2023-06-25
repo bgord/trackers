@@ -9,12 +9,12 @@ export class GoalShouldExistError extends Error {
 }
 
 type GoalShouldExistConfigType = {
-  Goal: Aggregates.Goal;
+  goal: Aggregates.Goal;
 };
 
 class GoalShouldExistFactory extends bg.Policy<GoalShouldExistConfigType> {
   async fails(config: GoalShouldExistConfigType): Promise<boolean> {
-    return config.Goal.entity === null;
+    return config.goal.entity === null;
   }
 
   message = "goal.exists.error";

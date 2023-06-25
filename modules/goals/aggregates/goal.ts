@@ -62,6 +62,8 @@ export class Goal {
   }
 
   async delete() {
+    await Policies.GoalShouldExist.perform({ goal: this });
+
     await infra.EventStore.save(
       Events.GoalDeletedEvent.parse({
         name: Events.GoalDeletedEvent,
