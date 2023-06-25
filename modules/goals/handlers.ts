@@ -14,3 +14,8 @@ export const onGoalDeletedEventHandler =
   EventHandler.handle<Goals.Events.GoalDeletedEventType>(async (event) => {
     await Goals.Repos.GoalRepository.delete({ id: event.payload.id });
   });
+
+export const onGoalAccomplishedEventHandler =
+  EventHandler.handle<Goals.Events.GoalAccomplishedEventType>(async (event) => {
+    await Goals.Repos.GoalRepository.accomplish(event.payload);
+  });

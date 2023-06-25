@@ -17,6 +17,19 @@ export class GoalRepository {
     return infra.db.goal.delete({ where: config });
   }
 
+  static async accomplish(config: {
+    id: VO.GoalIdType;
+    accomplishedAt: VO.GoalUpdatedAtType;
+  }) {
+    return infra.db.goal.update({
+      where: { id: config.id },
+      data: {
+        status: VO.GoalStatusEnum.accomlished,
+        updatedAt: config.accomplishedAt,
+      },
+    });
+  }
+
   static async getForTracker(payload: Pick<VO.GoalType, "relatedTrackerId">) {
     return infra.db.goal.findFirst({ where: payload });
   }

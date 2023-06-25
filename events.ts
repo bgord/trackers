@@ -76,9 +76,12 @@ emittery.on(
   Goals.Events.GOAL_CREATED_EVENT,
   Goals.Handlers.onGoalCreatedEventHandler
 );
-
 emittery.on(
   Goals.Events.GOAL_DELETED_EVENT,
   Goals.Handlers.onGoalDeletedEventHandler
+);
+emittery.on(
+  Goals.Events.GOAL_ACCOMPLISHED_EVENT,
+  Goals.Handlers.onGoalAccomplishedEventHandler
 );
 // =============================
