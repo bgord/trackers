@@ -44,7 +44,7 @@ export class Goal {
 
         case Events.GOAL_ACCOMPLISHED_EVENT:
           if (!this.entity) continue;
-          this.entity.status = VO.GoalStatusEnum.accomlished;
+          this.entity.status = VO.GoalStatusEnum.accomplished;
           this.entity.updatedAt = event.payload.accomplishedAt;
           break;
 

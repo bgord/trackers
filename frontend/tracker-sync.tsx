@@ -17,6 +17,7 @@ export function TrackerSync(props: types.TrackerType) {
       notify({ message: "tracker.sync.success" });
 
       queryClient.invalidateQueries("trackers");
+      queryClient.invalidateQueries(["goal", props.id]);
       queryClient.invalidateQueries("tracker-datapoint-list");
     },
     onError: (error: bg.ServerError) => notify({ message: error.message }),

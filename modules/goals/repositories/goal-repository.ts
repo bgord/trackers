@@ -24,7 +24,7 @@ export class GoalRepository {
     return infra.db.goal.update({
       where: { id: config.id },
       data: {
-        status: VO.GoalStatusEnum.accomlished,
+        status: VO.GoalStatusEnum.accomplished,
         updatedAt: config.accomplishedAt,
       },
     });

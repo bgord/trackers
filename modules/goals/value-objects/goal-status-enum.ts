@@ -1,4 +1,4 @@
 export enum GoalStatusEnum {
-  accomlished = "accomlished",
+  accomplished = "accomplished",
   awaiting = "awaiting",
 }
