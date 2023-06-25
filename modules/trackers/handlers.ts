@@ -23,7 +23,7 @@ export const onTrackerSyncedEventHandler =
         name: Events.TRACKER_VALUE_RECALCULATED_EVENT,
         stream: Trackers.Aggregates.Tracker.getStream(event.payload.id),
         version: 1,
-        payload: { targetid: event.payload.id, value: event.payload.value },
+        payload: { trackerId: event.payload.id, value: event.payload.value },
       })
     );
   });
@@ -54,7 +54,7 @@ export const onTrackerRevertedEventHandler =
         name: Events.TRACKER_VALUE_RECALCULATED_EVENT,
         stream: Trackers.Aggregates.Tracker.getStream(event.payload.id),
         version: 1,
-        payload: { targetid: event.payload.id, value },
+        payload: { trackerId: event.payload.id, value },
       })
     );
   });

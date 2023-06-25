@@ -24,6 +24,15 @@ export const onGoalAccomplishedEventHandler =
 export const onTrackerValueRecalculatedEventHandler =
   EventHandler.handle<Trackers.Events.TrackerValueRecalculatedEventType>(
     async (event) => {
-      console.log("here", event);
+      const result = await Goals.Repos.GoalRepository.getForTracker({
+        relatedTrackerId: event.payload.trackerId,
+      });
+
+      if (!result) return;
+
+      const id = Goals.VO.GoalId.parse(result.id);
+
+      const goal = await new Goals.Aggregates.Goal(id).build();
+      await goal.evaluate(event.payload.value);
     }
   );

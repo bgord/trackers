@@ -16,7 +16,7 @@ type GoalIsAwaitingConfigType = {
 
 class GoalIsAwaitingFactory extends bg.Policy<GoalIsAwaitingConfigType> {
   async fails(config: GoalIsAwaitingConfigType): Promise<boolean> {
-    return config.goal.entity?.status !== VO.GoalStatusEnum.accomlished;
+    return config.goal.entity?.status !== VO.GoalStatusEnum.awaiting;
   }
 
   message = "goal.awaiting.error";
