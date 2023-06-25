@@ -114,7 +114,7 @@
   "settings.email.show": "show",
   "settings.error": "Error wihle loading settings",
   "settings.loading": "Loading settings...",
-  "settings.updated_at": "updated {{when}}",
+  "settings.updated_at": "Updated {{when}}",
   "settings.weekly_trackers_report": "Weekly trackers report",
   "settings.weekly_trackers_report.disable": "Disable",
   "settings.weekly_trackers_report.disable.error": "Weekly trackers report already disabled",

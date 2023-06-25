@@ -10,12 +10,18 @@ export function TrackerMetadata(props: types.TrackerType) {
 
   return (
     <div data-display="flex" data-gap="24">
-      <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
+      <UI.Info
+        title={bg.DateFormatter.datetime(props.createdAt.raw)}
+        data-color="gray-400"
+      >
         <Icons.ClockOutline height="14" width="14" data-mr="6" />
         {t("tracker.created_at", { value: props.createdAt.relative })}
       </UI.Info>
 
-      <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
+      <UI.Info
+        title={bg.DateFormatter.datetime(props.createdAt.raw)}
+        data-color="gray-400"
+      >
         <Icons.ClockOutline height="14" width="14" data-mr="6" />
         {t("tracker.updated_at", { value: props.updatedAt.relative })}
       </UI.Info>

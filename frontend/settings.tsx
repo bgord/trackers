@@ -45,6 +45,7 @@ export function Settings(_: RoutableProps) {
 
         {settings.data.updatedAt && (
           <UI.Info
+            data-color="gray-400"
             title={bg.DateFormatter.datetime(settings.data.updatedAt.raw)}
           >
             <Icons.ClockOutline height="14" width="14" data-mr="6" />
