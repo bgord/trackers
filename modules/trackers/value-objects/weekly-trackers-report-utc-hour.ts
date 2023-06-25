@@ -1,0 +1,1 @@
+export const WEEKLY_TRACKERS_REPORT_UTC_HOUR = 5;

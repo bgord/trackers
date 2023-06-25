@@ -23,3 +23,4 @@ export * from "./tracker-value";
 export * from "./weekly-trackers-report";
 export * from "./weekly-trackers-report-html";
 export * from "./weekly-trackers-report-subject";
+export * from "./weekly-trackers-report-utc-hour";

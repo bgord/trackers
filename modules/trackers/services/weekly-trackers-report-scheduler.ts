@@ -5,6 +5,7 @@ import * as Settings from "../../settings";
 import * as infra from "../../../infra";
 import * as Policies from "../policies";
 import * as Events from "../events";
+import * as VO from "../value-objects";
 
 export enum DayOfTheWeekEnum {
   Monday = 1,
@@ -19,7 +20,7 @@ export enum DayOfTheWeekEnum {
 export class WeeklyTrackersReportScheduler {
   static DAY_OF_THE_WEEK: DayOfTheWeekEnum = DayOfTheWeekEnum.Monday;
 
-  static UTC_HOUR: bg.Schema.HourType = 5;
+  static UTC_HOUR: bg.Schema.HourType = VO.WEEKLY_TRACKERS_REPORT_UTC_HOUR;
 
   static getCronExpression() {
     const { UTC_HOUR, DAY_OF_THE_WEEK } = WeeklyTrackersReportScheduler;

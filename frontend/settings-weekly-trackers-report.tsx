@@ -86,6 +86,15 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
           {t("settings.weekly_trackers_report.info")}
         </UI.Info>
       )}
+
+      {props.isWeeklyTrackersReportEnabled && (
+        <UI.Info data-display="flex" data-gap="6">
+          <Icons.InfoEmpty />
+          {t("settings.weekly_trackers_report.schedule", {
+            utc: types.WEEKLY_TRACKERS_REPORT_UTC_HOUR,
+          })}
+        </UI.Info>
+      )}
     </div>
   );
 }
