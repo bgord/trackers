@@ -3,6 +3,7 @@ import { TrackerShouldExist, TrackerIsActive } from "../../trackers/policies";
 
 import { Goal } from "../aggregates/goal";
 import * as VO from "../value-objects";
+import * as Policies from "../policies";
 
 export class GoalFactory {
   static async create(
@@ -12,6 +13,10 @@ export class GoalFactory {
 
     await TrackerShouldExist.perform({ tracker });
     await TrackerIsActive.perform({ tracker });
+    await Policies.GoalShouldNotAlreadyBeAccomplished.perform({
+      tracker,
+      goal: payload,
+    });
 
     return Goal.create(payload);
   }

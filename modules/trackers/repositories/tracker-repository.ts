@@ -20,11 +20,7 @@ export class TrackerRepository {
     return z
       .array(VO.Tracker)
       .parse(trackers)
-      .map((tracker) => ({
-        ...tracker,
-        createdAt: bg.RelativeDate.to.now.truthy(tracker.createdAt),
-        updatedAt: bg.RelativeDate.to.now.truthy(tracker.updatedAt),
-      }))
+      .map(TrackerRepository._map)
       .sort((a, b) => {
         if (
           a.status === VO.TrackerStatusEnum.active &&
@@ -47,14 +43,7 @@ export class TrackerRepository {
       orderBy: [{ createdAt: "desc" }],
     });
 
-    return z
-      .array(VO.Tracker)
-      .parse(trackers)
-      .map((tracker) => ({
-        ...tracker,
-        createdAt: bg.RelativeDate.to.now.truthy(tracker.createdAt),
-        updatedAt: bg.RelativeDate.to.now.truthy(tracker.updatedAt),
-      }));
+    return z.array(VO.Tracker).parse(trackers).map(TrackerRepository._map);
   }
 
   static async sync(
@@ -111,5 +100,13 @@ export class TrackerRepository {
 
   static async getGoalForTracker(config: Pick<VO.TrackerType, "id">) {
     return infra.db.goal.findFirst({ where: { relatedTrackerId: config.id } });
+  }
+
+  private static _map(tracker: VO.TrackerType) {
+    return {
+      ...tracker,
+      createdAt: bg.RelativeDate.to.now.truthy(tracker.createdAt),
+      updatedAt: bg.RelativeDate.to.now.truthy(tracker.updatedAt),
+    };
   }
 }

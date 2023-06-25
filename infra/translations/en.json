@@ -15,6 +15,7 @@
   "app.sync": "Sync",
 
   "goal": "GOAL",
+  "goal.already.accomplished.error": "Goal already accomplished",
   "goal.create": "Create",
   "goal.create.success": "Goal created",
   "goal.delete": "Delete goal",
