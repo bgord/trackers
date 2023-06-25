@@ -98,6 +98,12 @@ export class TrackerRepository {
     return infra.db.tracker.count();
   }
 
+  static async countActive() {
+    return infra.db.tracker.count({
+      where: { status: VO.TrackerStatusEnum.active },
+    });
+  }
+
   static async getGoalForTracker(config: Pick<VO.TrackerType, "id">) {
     return infra.db.goal.findFirst({ where: { relatedTrackerId: config.id } });
   }

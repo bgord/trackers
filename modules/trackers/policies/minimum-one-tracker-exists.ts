@@ -2,25 +2,28 @@ import * as bg from "@bgord/node";
 
 import * as Repos from "../repositories";
 
-export class MinimumOneTrackerExistsError extends Error {
+export class MinimumOneActiveTrackerExistsError extends Error {
   constructor() {
     super();
-    Object.setPrototypeOf(this, MinimumOneTrackerExistsError.prototype);
+    Object.setPrototypeOf(this, MinimumOneActiveTrackerExistsError.prototype);
   }
 }
 
-type MinimumOneTrackerExistsConfigType = Record<string, never>;
+type MinimumOneActiveTrackerExistsConfigType = Record<string, never>;
 
-class MinimumOneTrackerExistsFactory extends bg.Policy<MinimumOneTrackerExistsConfigType> {
-  async fails(_config: MinimumOneTrackerExistsConfigType): Promise<boolean> {
-    const numberOfTrackers = await Repos.TrackerRepository.count();
+class MinimumOneActiveTrackerExistsFactory extends bg.Policy<MinimumOneActiveTrackerExistsConfigType> {
+  async fails(
+    _config: MinimumOneActiveTrackerExistsConfigType
+  ): Promise<boolean> {
+    const numberOfActiveTrackers = await Repos.TrackerRepository.countActive();
 
-    return numberOfTrackers === 0;
+    return numberOfActiveTrackers === 0;
   }
 
-  message = "tracker.datapoints.empty";
+  message = "tracker.active.empty";
 
-  error = MinimumOneTrackerExistsError;
+  error = MinimumOneActiveTrackerExistsError;
 }
 
-export const MinimumOneTrackerExists = new MinimumOneTrackerExistsFactory();
+export const MinimumOneActiveTrackerExists =
+  new MinimumOneActiveTrackerExistsFactory();

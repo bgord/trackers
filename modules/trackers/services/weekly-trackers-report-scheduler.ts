@@ -33,7 +33,7 @@ export class WeeklyTrackersReportScheduler {
       current: settings.isWeeklyTrackersReportEnabled,
     });
 
-    await Policies.MinimumOneTrackerExists.perform({});
+    await Policies.MinimumOneActiveTrackerExists.perform({});
 
     await Settings.Policies.SettingsEmailIsConfigured.perform({
       email: settings.email,
