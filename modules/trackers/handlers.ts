@@ -17,6 +17,15 @@ export const onTrackerSyncedEventHandler =
   EventHandler.handle<Events.TrackerSyncedEventType>(async (event) => {
     await Trackers.Repos.TrackerRepository.sync(event.payload);
     await Trackers.Repos.TrackerDatapointRepository.add(event.payload);
+
+    await infra.EventStore.save(
+      Events.TrackerValueRecalculatedEvent.parse({
+        name: Events.TRACKER_VALUE_RECALCULATED_EVENT,
+        stream: Trackers.Aggregates.Tracker.getStream(event.payload.id),
+        version: 1,
+        payload: { targetid: event.payload.id, value: event.payload.value },
+      })
+    );
   });
 
 export const onTrackerRevertedEventHandler =
@@ -30,13 +39,24 @@ export const onTrackerRevertedEventHandler =
         event.payload.id
       );
 
+    const value = Trackers.VO.TrackerValue.parse(
+      latestDatapointForTracker?.value ?? Trackers.VO.DEFAULT_TRACKER_VALUE
+    );
+
     await Trackers.Repos.TrackerRepository.sync({
       id: event.payload.id,
-      value: Trackers.VO.TrackerValue.parse(
-        latestDatapointForTracker?.value ?? Trackers.VO.DEFAULT_TRACKER_VALUE
-      ),
+      value,
       updatedAt: event.payload.updatedAt,
     });
+
+    await infra.EventStore.save(
+      Events.TrackerValueRecalculatedEvent.parse({
+        name: Events.TRACKER_VALUE_RECALCULATED_EVENT,
+        stream: Trackers.Aggregates.Tracker.getStream(event.payload.id),
+        version: 1,
+        payload: { targetid: event.payload.id, value },
+      })
+    );
   });
 
 export const onTrackerDeletedEventHandler =
