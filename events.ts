@@ -26,6 +26,7 @@ export const emittery = new Emittery<{
   SETTINGS_EMAIL_DELETED: Settings.Events.SettingsEmailDeletedEventType;
 
   GOAL_CREATED_EVENT: Goals.Events.GoalCreatedEventType;
+  GOAL_DELETED_EVENT: Goals.Events.GoalDeletedEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
@@ -73,5 +74,10 @@ emittery.on(
 emittery.on(
   Goals.Events.GOAL_CREATED_EVENT,
   Goals.Handlers.onGoalCreatedEventHandler
+);
+
+emittery.on(
+  Goals.Events.GOAL_DELETED_EVENT,
+  Goals.Handlers.onGoalDeletedEventHandler
 );
 // =============================

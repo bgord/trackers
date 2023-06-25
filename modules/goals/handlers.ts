@@ -9,3 +9,8 @@ export const onGoalCreatedEventHandler =
   EventHandler.handle<Goals.Events.GoalCreatedEventType>(async (event) => {
     await Goals.Repos.GoalRepository.create(event.payload);
   });
+
+export const onGoalDeletedEventHandler =
+  EventHandler.handle<Goals.Events.GoalDeletedEventType>(async (event) => {
+    await Goals.Repos.GoalRepository.delete({ id: event.payload.id });
+  });

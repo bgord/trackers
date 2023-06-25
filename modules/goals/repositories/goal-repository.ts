@@ -13,6 +13,10 @@ export class GoalRepository {
     return infra.db.goal.create({ data });
   }
 
+  static async delete(config: { id: VO.GoalIdType }) {
+    return infra.db.goal.delete({ where: config });
+  }
+
   static async getForTracker(payload: Pick<VO.GoalType, "relatedTrackerId">) {
     return infra.db.goal.findFirst({ where: payload });
   }
