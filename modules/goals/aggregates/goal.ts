@@ -25,10 +25,13 @@ export class Goal {
     );
 
     for (const event of events) {
-      /* eslint-disable sonarjs/no-small-switch */
       switch (event.name) {
         case Events.GOAL_CREATED_EVENT:
           this.entity = event.payload;
+          break;
+
+        case Events.GOAL_DELETED_EVENT:
+          this.entity = null;
           break;
 
         default:
@@ -54,6 +57,17 @@ export class Goal {
         stream: Goal.getStream(id),
         version: 1,
         payload: { id, ...payload },
+      })
+    );
+  }
+
+  async delete() {
+    await infra.EventStore.save(
+      Events.GoalDeletedEvent.parse({
+        name: Events.GoalDeletedEvent,
+        stream: this.stream,
+        version: 1,
+        payload: { id: this.id },
       })
     );
   }
