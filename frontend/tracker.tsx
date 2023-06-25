@@ -21,7 +21,12 @@ export function Tracker(props: types.TrackerType) {
   const details = bg.usePersistentToggle(`tracker-details-${props.id}`);
 
   return (
-    <li data-display="flex" data-direction="column" data-max-width="100%">
+    <li
+      data-display="flex"
+      data-gap="12"
+      data-direction="column"
+      data-max-width="100%"
+    >
       <div data-display="flex" data-cross="center" data-gap="12">
         <button
           class="c-button"
@@ -76,7 +81,6 @@ export function Tracker(props: types.TrackerType) {
           data-direction="column"
           data-max-width="100%"
           data-gap="24"
-          data-mx="12"
         >
           {props.status === types.TrackerStatusEnum.active && (
             <div data-display="flex" data-cross="end" data-gap="48">
@@ -85,11 +89,11 @@ export function Tracker(props: types.TrackerType) {
             </div>
           )}
 
+          <Goal {...props} />
+
           {props.kind === types.TrackerKindEnum.one_value && (
             <TrackerDatapointList key={props.updatedAt.raw} {...props} />
           )}
-
-          <Goal {...props} />
 
           <TrackerMetadata {...props} />
         </div>

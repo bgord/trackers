@@ -9,7 +9,7 @@ export function TrackerMetadata(props: types.TrackerType) {
   const t = bg.useTranslations();
 
   return (
-    <div data-display="flex" data-gap="24" data-mt="6">
+    <div data-display="flex" data-gap="24">
       <UI.Info title={bg.DateFormatter.datetime(props.createdAt.raw)}>
         <Icons.ClockOutline height="14" width="14" data-mr="6" />
         {t("tracker.created_at", { value: props.createdAt.relative })}

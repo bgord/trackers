@@ -30,13 +30,7 @@ export function Goal(props: types.TrackerType) {
   }
 
   return (
-    <div
-      data-display="flex"
-      data-gap="12"
-      data-fs="14"
-      data-main="baseline"
-      data-mt="12"
-    >
+    <div data-display="flex" data-gap="12" data-fs="14" data-main="baseline">
       {goal.data?.status === types.GoalStatusEnum.awaiting && (
         <div class="c-badge">{goal.data.status}</div>
       )}
