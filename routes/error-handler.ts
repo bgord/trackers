@@ -254,6 +254,19 @@ export class ErrorHandler {
       });
     }
 
+    if (error instanceof Goals.Policies.GoalShouldExistError) {
+      infra.logger.error({
+        message: "Goal does not exist",
+        operation: Goals.Policies.GoalShouldExist.message,
+        correlationId: request.requestId,
+      });
+
+      return response.status(404).send({
+        message: Goals.Policies.GoalShouldExist.message,
+        _known: true,
+      });
+    }
+
     if (error instanceof z.ZodError) {
       if (
         error.issues.find(
