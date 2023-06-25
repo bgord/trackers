@@ -101,6 +101,22 @@ export const TrackerRestoredEvent = bg.EventDraft.merge(
 );
 export type TrackerRestoredEventType = z.infer<typeof TrackerRestoredEvent>;
 
+export const TRACKER_VALUE_RECALCULATED_EVENT =
+  "TRACKER_VALUE_RECALCULATED_EVENT";
+export const TrackerValueRecalculatedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(TRACKER_VALUE_RECALCULATED_EVENT),
+    version: z.literal(1),
+    payload: z.object({
+      trackerId: VO.TrackerId,
+      value: VO.TrackerValue,
+    }),
+  })
+);
+export type TrackerValueRecalculatedEventType = z.infer<
+  typeof TrackerValueRecalculatedEvent
+>;
+
 export const WEEKLY_TRACKERS_REPORT_SCHEDULED =
   "WEEKLY_TRACKERS_REPORT_SCHEDULED";
 export const WeeklyTrackersReportScheduledEvent = bg.EventDraft.merge(

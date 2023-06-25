@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as bg from "@bgord/node";
 import _ from "lodash";
 
