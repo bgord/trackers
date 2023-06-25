@@ -34,7 +34,7 @@
 
   "tracker.active.error": "Tracker is not active",
   "tracker.archived.error": "Tracker is not archived",
-  "tracker.archive": "Archive",
+  "tracker.archive": "Archive tracker",
   "tracker.archive.confirmation": "Are you sure you want to archive this tracker?",
   "tracker.archive.error": "Cannot archive tracker",
   "tracker.archive.in_progress": "Archiving...",
