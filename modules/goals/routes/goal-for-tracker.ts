@@ -14,5 +14,10 @@ export async function GoalForTracker(
 
   const result = await Repos.GoalRepository.getForTracker({ relatedTrackerId });
 
-  return response.status(200).send({ result });
+  if (!result) {
+    // TODO: refactor when the Goal should exist Policy is implemented
+    return response.status(404).send("Not found");
+  }
+
+  return response.status(200).send(result);
 }

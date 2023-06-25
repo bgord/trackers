@@ -11,42 +11,47 @@ import { GoalCreate } from "./goal-create";
 export function Goal(props: types.TrackerType) {
   const t = bg.useTranslations();
 
-  const goal = useQuery(["goal", props.id], () =>
-    api.Goal.getForTracker({ relatedTrackerId: props.id })
+  const goal = useQuery(
+    ["goal", props.id],
+    () => api.Goal.getForTracker({ relatedTrackerId: props.id }),
+    { retry: false }
   );
 
   if (goal.isLoading) {
     return <UI.Info>{t("goal.loading.in_progress")}</UI.Info>;
   }
 
-  if (goal.isError) {
-    return <UI.Info>{t("goal.loading.error")}</UI.Info>;
-  }
-
-  if (
-    goal.data?.result === null &&
-    props.status === types.TrackerStatusEnum.active
-  ) {
+  if (goal.isError && props.status === types.TrackerStatusEnum.active) {
     return <GoalCreate {...props} />;
   }
 
+  if (goal.isError && props.status === types.TrackerStatusEnum.archived) {
+    return null;
+  }
+
   return (
-    <div data-display="flex" data-gap="12" data-fs="14" data-main="baseline">
-      {goal.data?.result?.status === types.GoalStatusEnum.awaiting && (
-        <div class="c-badge">{goal.data.result.status}</div>
+    <div
+      data-display="flex"
+      data-gap="12"
+      data-fs="14"
+      data-main="baseline"
+      data-mt="12"
+    >
+      {goal.data?.status === types.GoalStatusEnum.awaiting && (
+        <div class="c-badge">{goal.data.status}</div>
       )}
 
-      {goal.data?.result?.status === types.GoalStatusEnum.accomlished && (
+      {goal.data?.status === types.GoalStatusEnum.accomlished && (
         <div class="c-badge" data-color="green-600" data-bg="green-100">
-          {goal.data.result.status}
+          {goal.data.status}
         </div>
       )}
 
-      {goal.data?.result && (
+      {goal.data && (
         <Fragment>
           <strong data-fs="12">{t("goal")}</strong>
-          <div>{t(`goal.kind.enum.${goal.data?.result?.kind}`)}</div>
-          <div>{goal.data?.result?.target}</div>
+          <div>{t(`goal.kind.enum.${goal.data?.kind}`)}</div>
+          <div>{goal.data?.target}</div>
         </Fragment>
       )}
     </div>

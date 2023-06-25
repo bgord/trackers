@@ -130,9 +130,9 @@ export class Goal {
 
   static async getForTracker(
     payload: Pick<types.GoalType, "relatedTrackerId">
-  ): Promise<{ result: types.GoalType | null }> {
+  ): Promise<types.GoalType> {
     return _api(`/tracker/${payload.relatedTrackerId}/goal`, {
       method: "GET",
-    }).then((response) => (response.ok ? response.json() : null));
+    }).then((response) => (response.ok ? response.json() : undefined));
   }
 }
