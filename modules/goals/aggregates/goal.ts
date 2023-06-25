@@ -66,7 +66,7 @@ export class Goal {
 
     await infra.EventStore.save(
       Events.GoalDeletedEvent.parse({
-        name: Events.GoalDeletedEvent,
+        name: Events.GOAL_DELETED_EVENT,
         stream: this.stream,
         version: 1,
         payload: { id: this.id },

@@ -1,5 +1,5 @@
 import * as bg from "@bgord/frontend";
-import { h, Fragment } from "preact";
+import { h } from "preact";
 import { useQuery } from "react-query";
 
 import * as types from "./types";
@@ -7,6 +7,7 @@ import * as api from "./api";
 import * as UI from "./ui";
 
 import { GoalCreate } from "./goal-create";
+import { GoalDelete } from "./goal-delete";
 
 export function Goal(props: types.TrackerType) {
   const t = bg.useTranslations();
@@ -30,7 +31,7 @@ export function Goal(props: types.TrackerType) {
   }
 
   return (
-    <div data-display="flex" data-gap="12" data-fs="14" data-main="baseline">
+    <div data-display="flex" data-gap="12" data-fs="14" data-cross="center">
       {goal.data?.status === types.GoalStatusEnum.awaiting && (
         <div class="c-badge">{goal.data.status}</div>
       )}
@@ -42,11 +43,13 @@ export function Goal(props: types.TrackerType) {
       )}
 
       {goal.data && (
-        <Fragment>
+        <div data-display="flex" data-gap="12" data-cross="center">
           <strong data-fs="12">{t("goal")}</strong>
           <div>{t(`goal.kind.enum.${goal.data?.kind}`)}</div>
           <div>{goal.data?.target}</div>
-        </Fragment>
+
+          <GoalDelete {...goal.data} />
+        </div>
       )}
     </div>
   );
