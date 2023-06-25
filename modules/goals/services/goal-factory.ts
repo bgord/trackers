@@ -13,7 +13,7 @@ export class GoalFactory {
 
     await TrackerShouldExist.perform({ tracker });
     await TrackerIsActive.perform({ tracker });
-    await Policies.GoalShouldNotAlreadyBeAccomplished.perform({
+    await Policies.GoalShouldNotBeAutomaticallyAccomplished.perform({
       tracker,
       goal: payload,
     });

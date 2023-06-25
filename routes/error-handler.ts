@@ -268,16 +268,19 @@ export class ErrorHandler {
     }
 
     if (
-      error instanceof Goals.Policies.GoalShouldNotAlreadyBeAccomplishedError
+      error instanceof
+      Goals.Policies.GoalShouldNotBeAutomaticallyAccomplishedError
     ) {
       infra.logger.error({
         message: "Goal already accomplished",
-        operation: Goals.Policies.GoalShouldNotAlreadyBeAccomplished.message,
+        operation:
+          Goals.Policies.GoalShouldNotBeAutomaticallyAccomplished.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Goals.Policies.GoalShouldNotAlreadyBeAccomplished.message,
+        message:
+          Goals.Policies.GoalShouldNotBeAutomaticallyAccomplished.message,
         _known: true,
       });
     }
