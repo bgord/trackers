@@ -1,10 +1,13 @@
 import * as bg from "@bgord/node";
 import _ from "lodash";
 
+import { TrackerValueType } from "../../trackers/value-objects/tracker-value";
+
 import * as VO from "../value-objects";
 import * as Events from "../events";
 import * as infra from "../../../infra";
 import * as Policies from "../policies";
+import * as Services from "../services";
 
 export class Goal {
   id: VO.GoalType["id"];
@@ -20,7 +23,11 @@ export class Goal {
 
   async build() {
     const events = await infra.EventStore.find(
-      [Events.GoalCreatedEvent, Events.GoalDeletedEvent],
+      [
+        Events.GoalCreatedEvent,
+        Events.GoalDeletedEvent,
+        Events.GoalAccomplishedEvent,
+      ],
       Goal.getStream(this.id)
     );
 
@@ -32,6 +39,12 @@ export class Goal {
 
         case Events.GOAL_DELETED_EVENT:
           this.entity = null;
+          break;
+
+        case Events.GOAL_ACCOMPLISHED_EVENT:
+          if (!this.entity) continue;
+          this.entity.status = VO.GoalStatusEnum.accomlished;
+          this.entity.updatedAt = event.payload.accomplishedAt;
           break;
 
         default:
@@ -72,6 +85,27 @@ export class Goal {
         payload: { id: this.id },
       })
     );
+  }
+
+  async evaluate(value: TrackerValueType) {
+    await Policies.GoalShouldExist.perform({ goal: this });
+    await Policies.GoalIsAwaiting.perform({ goal: this });
+
+    const verificator = new Services.GoalVerifier({
+      kind: this.entity!.kind,
+      target: this.entity!.target,
+    });
+
+    if (verificator.verify(value)) {
+      await infra.EventStore.save(
+        Events.GoalAccomplishedEvent.parse({
+          name: Events.GOAL_ACCOMPLISHED_EVENT,
+          stream: this.stream,
+          version: 1,
+          payload: { id: this.id },
+        })
+      );
+    }
   }
 
   static getStream(id: VO.GoalIdType) {
