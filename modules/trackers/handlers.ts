@@ -2,7 +2,9 @@ import * as bg from "@bgord/node";
 
 import * as infra from "../../infra";
 import * as Events from "./events";
+
 import * as Trackers from "./";
+import * as Goals from "../goals";
 
 const EventHandler = new bg.EventHandler(infra.logger);
 
@@ -39,6 +41,23 @@ export const onTrackerRevertedEventHandler =
 
 export const onTrackerDeletedEventHandler =
   EventHandler.handle<Events.TrackerDeletedEventType>(async (event) => {
+    const result = await Trackers.Repos.TrackerRepository.getGoalForTracker({
+      id: event.payload.id,
+    });
+
+    if (result) {
+      const id = Goals.VO.GoalId.parse(result.id);
+
+      await infra.EventStore.save(
+        Goals.Events.GoalDeletedEvent.parse({
+          name: Goals.Events.GOAL_DELETED_EVENT,
+          stream: Goals.Aggregates.Goal.getStream(id),
+          version: 1,
+          payload: { id },
+        })
+      );
+    }
+
     await Trackers.Repos.TrackerRepository.delete({ id: event.payload.id });
   });
 

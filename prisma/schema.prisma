@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./sqlite.db"
+  url      = "file:./sqlite.db?connection_limit=1"
 }
 
 model Event {
@@ -25,7 +25,6 @@ model Tracker {
   createdAt        Int
   updatedAt        Int
   TrackerDatapoint TrackerDatapoint[]
-  Goal             Goal[]
 }
 
 model TrackerDatapoint {
@@ -40,7 +39,6 @@ model Goal {
   createdAt        Int
   id               String  @id @default(uuid())
   kind             String
-  tracker          Tracker @relation(fields: [relatedTrackerId], references: [id])
   relatedTrackerId String
   status           String
   target           Float

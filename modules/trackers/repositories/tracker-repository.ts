@@ -108,4 +108,8 @@ export class TrackerRepository {
   static async count() {
     return infra.db.tracker.count();
   }
+
+  static async getGoalForTracker(config: Pick<VO.TrackerType, "id">) {
+    return infra.db.goal.findFirst({ where: { relatedTrackerId: config.id } });
+  }
 }
