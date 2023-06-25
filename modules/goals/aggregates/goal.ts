@@ -20,7 +20,7 @@ export class Goal {
 
   async build() {
     const events = await infra.EventStore.find(
-      [Events.GoalCreatedEvent],
+      [Events.GoalCreatedEvent, Events.GoalDeletedEvent],
       Goal.getStream(this.id)
     );
 

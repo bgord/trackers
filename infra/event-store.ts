@@ -22,7 +22,8 @@ type AcceptedEvent =
   | typeof Settings.Events.WeeklyTrackersReportDisabledEvent
   | typeof Settings.Events.SettingsEmailChangedEvent
   | typeof Settings.Events.SettingsEmailDeletedEvent
-  | typeof Goals.Events.GoalCreatedEvent;
+  | typeof Goals.Events.GoalCreatedEvent
+  | typeof Goals.Events.GoalDeletedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventStore {
