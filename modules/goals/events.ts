@@ -22,3 +22,13 @@ export const GoalDeletedEvent = bg.EventDraft.merge(
   })
 );
 export type GoalDeletedEventType = z.infer<typeof GoalDeletedEvent>;
+
+export const GOAL_ACCOMPLISHED_EVENT = "GOAL_ACCOMPLISHED_EVENT";
+export const GoalAccomplishedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(GOAL_ACCOMPLISHED_EVENT),
+    version: z.literal(1),
+    payload: z.object({ id: VO.GoalId, accomplishedAt: VO.GoalUpdatedAt }),
+  })
+);
+export type GoalAccomplishedEventType = z.infer<typeof GoalAccomplishedEvent>;
