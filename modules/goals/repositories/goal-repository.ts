@@ -30,6 +30,19 @@ export class GoalRepository {
     });
   }
 
+  static async regress(config: {
+    id: VO.GoalIdType;
+    regressedAt: VO.GoalUpdatedAtType;
+  }) {
+    return infra.db.goal.update({
+      where: { id: config.id },
+      data: {
+        status: VO.GoalStatusEnum.regressed,
+        updatedAt: config.regressedAt,
+      },
+    });
+  }
+
   static async getForTracker(payload: Pick<VO.GoalType, "relatedTrackerId">) {
     return infra.db.goal.findFirst({ where: payload });
   }

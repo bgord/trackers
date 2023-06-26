@@ -87,6 +87,10 @@ emittery.on(
   Goals.Handlers.onGoalAccomplishedEventHandler
 );
 emittery.on(
+  Goals.Events.GOAL_REGRESSED_EVENT,
+  Goals.Handlers.onGoalRegressedEventHandler
+);
+emittery.on(
   Trackers.Events.TRACKER_VALUE_RECALCULATED_EVENT,
   Goals.Handlers.onTrackerValueRecalculatedEventHandler
 );

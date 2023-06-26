@@ -21,6 +21,11 @@ export const onGoalAccomplishedEventHandler =
     await Goals.Repos.GoalRepository.accomplish(event.payload);
   });
 
+export const onGoalRegressedEventHandler =
+  EventHandler.handle<Goals.Events.GoalRegressedEventType>(async (event) => {
+    await Goals.Repos.GoalRepository.regress(event.payload);
+  });
+
 export const onTrackerValueRecalculatedEventHandler =
   EventHandler.handle<Trackers.Events.TrackerValueRecalculatedEventType>(
     async (event) => {
