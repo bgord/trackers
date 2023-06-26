@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as bg from "@bgord/node";
 import _ from "lodash";
 
@@ -90,14 +89,19 @@ export class Goal {
 
   async evaluate(value: TrackerValueType) {
     await Policies.GoalShouldExist.perform({ goal: this });
-    await Policies.GoalIsAwaiting.perform({ goal: this });
+    if (!this.entity) return;
 
-    const verificator = new Services.GoalVerifier({
-      kind: this.entity!.kind,
-      target: this.entity!.target,
+    const verifier = new Services.GoalVerifier({
+      kind: this.entity.kind,
+      target: this.entity.target,
     });
 
-    if (verificator.verify(value)) {
+    const goalWouldBeAccomplished = verifier.verify(value);
+
+    if (
+      goalWouldBeAccomplished &&
+      this.entity.status !== VO.GoalStatusEnum.accomplished
+    ) {
       await infra.EventStore.save(
         Events.GoalAccomplishedEvent.parse({
           name: Events.GOAL_ACCOMPLISHED_EVENT,
