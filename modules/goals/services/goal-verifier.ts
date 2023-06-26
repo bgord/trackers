@@ -1,9 +1,10 @@
-import * as VO from "../value-objects";
-import { TrackerValueType } from "../../trackers/value-objects/tracker-value";
+import { GoalKindEnum } from "../value-objects/goal-kind-enum";
+import type { GoalTargetType } from "../value-objects/goal-target";
+import type { TrackerValueType } from "../../trackers/value-objects/tracker-value";
 
 export type GoalConfigType = {
-  kind: VO.GoalKindEnum;
-  target: VO.GoalTargetType;
+  kind: GoalKindEnum;
+  target: GoalTargetType;
 };
 
 export class GoalVerifier {
@@ -18,10 +19,10 @@ export class GoalVerifier {
   }
 
   private mapGoalKindToVerifier: Record<
-    VO.GoalKindEnum,
+    GoalKindEnum,
     (config: GoalConfigType, value: TrackerValueType) => boolean
   > = {
-    [VO.GoalKindEnum.minimum]: (config, value) => value >= config.target,
-    [VO.GoalKindEnum.maximum]: (config, value) => value <= config.target,
+    [GoalKindEnum.minimum]: (config, value) => value >= config.target,
+    [GoalKindEnum.maximum]: (config, value) => value <= config.target,
   };
 }

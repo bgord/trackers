@@ -1,14 +1,18 @@
 /* eslint-disable */
 import * as bg from "@bgord/frontend";
 import { h } from "preact";
+import { useQueryClient } from "react-query";
 
 import * as types from "./types";
+import { GoalVerifier } from "../modules/goals/services/goal-verifier";
 
 import { TrackerDatapointRevert } from "./tracker-datapoint-revert";
 
-export function TrackerDatapointBar(
-  props: types.TrackerDatapointType & { status: types.TrackerType["status"] }
-) {
+type TrackerDatapointBarPropsType = types.TrackerDatapointType & {
+  status: types.TrackerType["status"];
+};
+
+export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
   const details = bg.useToggle(false);
   const toggleDetailsKeyboardHandler = bg.useKeyHandler({
     [bg.KeyNameEnum.Enter]: details.toggle,
@@ -20,6 +24,8 @@ export function TrackerDatapointBar(
     value: hover.isHovering,
     delayMs: 25,
   });
+
+  const color = useTrackerDatapointBarColor(props);
 
   const isActive = details.on || debouncedIsHovering;
 
@@ -39,7 +45,7 @@ export function TrackerDatapointBar(
         data-display="flex"
         data-main="center"
         data-cross="center"
-        data-bg={isActive ? "gray-300" : "gray-200"}
+        data-bg={isActive ? `${color}-300` : `${color}-200`}
         data-px="3"
         data-fs="12"
         data-bwb={props.value.isMin ? "4" : undefined}
@@ -66,4 +72,24 @@ export function TrackerDatapointBar(
       )}
     </li>
   );
+}
+
+function useTrackerDatapointBarColor(
+  props: TrackerDatapointBarPropsType
+): string {
+  const queryClient = useQueryClient();
+
+  const goal = queryClient.getQueryData(["goal", props.trackerId]) as
+    | types.GoalType
+    | undefined;
+
+  if (!goal) return "gray";
+
+  const goalVerifier = new GoalVerifier(goal);
+
+  const accomplishedGoal = goalVerifier.verify(
+    props.value.actual as types.TrackerType["value"]
+  );
+
+  return accomplishedGoal ? "green" : "gray";
 }
