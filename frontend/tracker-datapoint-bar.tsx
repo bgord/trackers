@@ -25,7 +25,7 @@ export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
     delayMs: 25,
   });
 
-  const color = useTrackerDatapointBarColor(props);
+  const hasAccomplishedGoal = useTrackerDatapointAccomplishedGoal(props);
 
   const isActive = details.on || debouncedIsHovering;
 
@@ -45,7 +45,9 @@ export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
         data-display="flex"
         data-main="center"
         data-cross="center"
-        data-bg={isActive ? `${color}-300` : `${color}-200`}
+        data-bg={
+          isActive ? "gray-300" : hasAccomplishedGoal ? "green-200" : "gray-200"
+        }
         data-px="3"
         data-fs="12"
         data-bwb={props.value.isMin ? "4" : undefined}
@@ -74,7 +76,7 @@ export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
   );
 }
 
-function useTrackerDatapointBarColor(
+function useTrackerDatapointAccomplishedGoal(
   props: TrackerDatapointBarPropsType
 ): string {
   const queryClient = useQueryClient();
