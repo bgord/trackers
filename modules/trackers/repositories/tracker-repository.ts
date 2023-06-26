@@ -17,24 +17,7 @@ export class TrackerRepository {
       orderBy: [{ createdAt: "desc" }],
     });
 
-    return z
-      .array(VO.Tracker)
-      .parse(trackers)
-      .map(TrackerRepository._map)
-      .sort((a, b) => {
-        if (
-          a.status === VO.TrackerStatusEnum.active &&
-          b.status === VO.TrackerStatusEnum.archived
-        ) {
-          return -1;
-        } else if (
-          a.status === VO.TrackerStatusEnum.archived &&
-          b.status === VO.TrackerStatusEnum.active
-        ) {
-          return 1;
-        }
-        return 0;
-      });
+    return z.array(VO.Tracker).parse(trackers).map(TrackerRepository._map);
   }
 
   static async listActive(): Promise<VO.TrackerViewType[]> {
