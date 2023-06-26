@@ -30,7 +30,6 @@
   "goal.loading.in_progress": "Loading goal...",
   "goal.status.enum.accomplished": "accomplished",
   "goal.status.enum.awaiting": "awaiting",
-  "goal.status.enum.regressed": "regressed",
   "goal.target.label": "Goal target",
   "goal.tracker.current.error": "Tracker already has a goal",
 

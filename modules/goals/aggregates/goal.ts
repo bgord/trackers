@@ -1,7 +1,10 @@
 import * as bg from "@bgord/node";
 import _ from "lodash";
 
-import { TrackerValueType } from "../../trackers/value-objects/tracker-value";
+import {
+  TrackerValueType,
+  DEFAULT_TRACKER_VALUE,
+} from "../../trackers/value-objects/tracker-value";
 
 import * as VO from "../value-objects";
 import * as Events from "../events";
@@ -11,6 +14,8 @@ import * as Services from "../services";
 
 export class Goal {
   id: VO.GoalType["id"];
+
+  DEFAULT_TRACKER_VALUE = DEFAULT_TRACKER_VALUE;
 
   stream: bg.EventType["stream"];
 
@@ -50,7 +55,7 @@ export class Goal {
 
         case Events.GOAL_REGRESSED_EVENT:
           if (!this.entity) continue;
-          this.entity.status = VO.GoalStatusEnum.regressed;
+          this.entity.status = VO.GoalStatusEnum.awaiting;
           this.entity.updatedAt = event.payload.regressedAt;
           break;
 
@@ -106,7 +111,8 @@ export class Goal {
 
     if (
       goalWouldBeAccomplished &&
-      this.entity.status !== VO.GoalStatusEnum.accomplished
+      this.entity.status !== VO.GoalStatusEnum.accomplished &&
+      value !== this.DEFAULT_TRACKER_VALUE
     ) {
       await infra.EventStore.save(
         Events.GoalAccomplishedEvent.parse({

@@ -37,7 +37,7 @@ export class GoalRepository {
     return infra.db.goal.update({
       where: { id: config.id },
       data: {
-        status: VO.GoalStatusEnum.regressed,
+        status: VO.GoalStatusEnum.awaiting,
         updatedAt: config.regressedAt,
       },
     });
