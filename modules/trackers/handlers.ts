@@ -88,27 +88,17 @@ export const onTrackerExportedEventHandler =
       tracker: event.payload,
     });
 
-    try {
-      const attachment = await trackerExportFile.generate();
+    const attachment = await trackerExportFile.generate();
 
-      await infra.Mailer.send({
-        from: infra.Env.EMAIL_FROM,
-        to: event.payload.email,
-        subject: attachment.subject,
-        text: "See the attachment below.",
-        attachments: [attachment],
-      });
+    await infra.Mailer.send({
+      from: infra.Env.EMAIL_FROM,
+      to: event.payload.email,
+      subject: attachment.subject,
+      text: "See the attachment below.",
+      attachments: [attachment],
+    });
 
-      await trackerExportFile.delete();
-    } catch (error) {
-      infra.logger.error({
-        message: "TRACKER_EXPORTED_EVENT error",
-        operation: "tracker_exported_event_error",
-        metadata: infra.logger.formatError(error as Error),
-      });
-
-      await trackerExportFile.delete();
-    }
+    await trackerExportFile.delete();
   });
 
 export const onTrackerNameChangedEventHandler =

@@ -78,20 +78,16 @@ export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
 
 function useTrackerDatapointAccomplishedGoal(
   props: TrackerDatapointBarPropsType
-): string {
+): boolean {
   const queryClient = useQueryClient();
 
   const goal = queryClient.getQueryData(["goal", props.trackerId]) as
     | types.GoalType
     | undefined;
 
-  if (!goal) return "gray";
+  if (!goal) return false;
 
   const goalVerifier = new GoalVerifier(goal);
 
-  const accomplishedGoal = goalVerifier.verify(
-    props.value.actual as types.TrackerType["value"]
-  );
-
-  return accomplishedGoal ? "green" : "gray";
+  return goalVerifier.verify(props.value.actual as types.TrackerType["value"]);
 }
