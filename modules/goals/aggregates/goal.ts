@@ -27,6 +27,7 @@ export class Goal {
         Events.GoalCreatedEvent,
         Events.GoalDeletedEvent,
         Events.GoalAccomplishedEvent,
+        Events.GoalRegressedEvent,
       ],
       Goal.getStream(this.id)
     );
@@ -45,6 +46,12 @@ export class Goal {
           if (!this.entity) continue;
           this.entity.status = VO.GoalStatusEnum.accomplished;
           this.entity.updatedAt = event.payload.accomplishedAt;
+          break;
+
+        case Events.GOAL_REGRESSED_EVENT:
+          if (!this.entity) continue;
+          this.entity.status = VO.GoalStatusEnum.regressed;
+          this.entity.updatedAt = event.payload.regressedAt;
           break;
 
         default:
@@ -95,7 +102,6 @@ export class Goal {
       kind: this.entity.kind,
       target: this.entity.target,
     });
-
     const goalWouldBeAccomplished = verifier.verify(value);
 
     if (
@@ -105,6 +111,20 @@ export class Goal {
       await infra.EventStore.save(
         Events.GoalAccomplishedEvent.parse({
           name: Events.GOAL_ACCOMPLISHED_EVENT,
+          stream: this.stream,
+          version: 1,
+          payload: { id: this.id },
+        })
+      );
+    }
+
+    if (
+      !goalWouldBeAccomplished &&
+      this.entity.status === VO.GoalStatusEnum.accomplished
+    ) {
+      await infra.EventStore.save(
+        Events.GoalRegressedEvent.parse({
+          name: Events.GOAL_REGRESSED_EVENT,
           stream: this.stream,
           version: 1,
           payload: { id: this.id },
