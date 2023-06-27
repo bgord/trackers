@@ -2,6 +2,7 @@ import * as bg from "@bgord/node";
 import z from "zod";
 
 import * as VO from "./value-objects";
+import { TrackerId } from "../trackers/value-objects/tracker-id";
 
 export const GOAL_CREATED_EVENT = "GOAL_CREATED_EVENT";
 export const GoalCreatedEvent = bg.EventDraft.merge(
@@ -28,7 +29,11 @@ export const GoalAccomplishedEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(GOAL_ACCOMPLISHED_EVENT),
     version: z.literal(1),
-    payload: z.object({ id: VO.GoalId, accomplishedAt: VO.GoalUpdatedAt }),
+    payload: z.object({
+      id: VO.GoalId,
+      trackerId: TrackerId,
+      accomplishedAt: VO.GoalUpdatedAt,
+    }),
   })
 );
 export type GoalAccomplishedEventType = z.infer<typeof GoalAccomplishedEvent>;

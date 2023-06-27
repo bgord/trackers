@@ -1,10 +1,8 @@
 import * as bg from "@bgord/node";
 import _ from "lodash";
 
-import {
-  TrackerValueType,
-  DEFAULT_TRACKER_VALUE,
-} from "../../trackers/value-objects/tracker-value";
+import { DEFAULT_TRACKER_VALUE } from "../../trackers/value-objects/tracker-value";
+import type { TrackerType } from "../../trackers/value-objects/tracker";
 
 import * as VO from "../value-objects";
 import * as Events from "../events";
@@ -99,7 +97,7 @@ export class Goal {
     );
   }
 
-  async evaluate(value: TrackerValueType) {
+  async evaluate(tracker: Pick<TrackerType, "id" | "value">) {
     await Policies.GoalShouldExist.perform({ goal: this });
     if (!this.entity) return;
 
@@ -107,19 +105,19 @@ export class Goal {
       kind: this.entity.kind,
       target: this.entity.target,
     });
-    const goalWouldBeAccomplished = verifier.verify(value);
+    const goalWouldBeAccomplished = verifier.verify(tracker.value);
 
     if (
       goalWouldBeAccomplished &&
       this.entity.status !== VO.GoalStatusEnum.accomplished &&
-      value !== this.DEFAULT_TRACKER_VALUE
+      tracker.value !== this.DEFAULT_TRACKER_VALUE
     ) {
       await infra.EventStore.save(
         Events.GoalAccomplishedEvent.parse({
           name: Events.GOAL_ACCOMPLISHED_EVENT,
           stream: this.stream,
           version: 1,
-          payload: { id: this.id },
+          payload: { id: this.id, trackerId: tracker.id },
         })
       );
     }

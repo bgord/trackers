@@ -37,7 +37,12 @@ export const onTrackerValueRecalculatedEventHandler =
 
       const id = Goals.VO.GoalId.parse(result.id);
 
+      const tracker = {
+        id: event.payload.trackerId,
+        value: event.payload.value,
+      };
+
       const goal = await new Goals.Aggregates.Goal(id).build();
-      await goal.evaluate(event.payload.value);
+      await goal.evaluate(tracker);
     }
   );
