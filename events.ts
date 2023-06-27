@@ -95,4 +95,8 @@ emittery.on(
   Trackers.Events.TRACKER_VALUE_RECALCULATED_EVENT,
   Goals.Handlers.onTrackerValueRecalculatedEventHandler
 );
+emittery.on(
+  Goals.Events.GOAL_ACCOMPLISHED_NOTIFICATION_SCHEDULED_EVENT,
+  Goals.Handlers.onGoalAccomplishedNotificationScheduledEventHandler
+);
 // =============================

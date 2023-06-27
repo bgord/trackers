@@ -54,3 +54,21 @@ export const onTrackerValueRecalculatedEventHandler =
       await goal.evaluate(tracker);
     }
   );
+
+export const onGoalAccomplishedNotificationScheduledEventHandler =
+  EventHandler.handle<Goals.Events.GoalAccomplishedNotificationScheduledEventType>(
+    async (event) => {
+      const { goalTarget, goalKind, trackerValue, trackerName } = event.payload;
+
+      const goal = { target: goalTarget, kind: goalKind };
+      const tracker = { value: trackerValue, name: trackerName };
+
+      const composer = new Goals.Services.GoalAccomplishedNotificationComposer(
+        goal,
+        tracker
+      );
+
+      const notification = composer.compose();
+      await composer.send(notification, event.payload.emailTo);
+    }
+  );

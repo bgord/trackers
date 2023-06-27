@@ -5,7 +5,6 @@ import * as VO from "./value-objects";
 import { TrackerId } from "../trackers/value-objects/tracker-id";
 import { TrackerValue } from "../trackers/value-objects/tracker-value";
 import { TrackerName } from "../trackers/value-objects/tracker-name";
-import { SettingsEmail } from "../settings/value-objects/settings-email";
 
 export const GOAL_CREATED_EVENT = "GOAL_CREATED_EVENT";
 export const GoalCreatedEvent = bg.EventDraft.merge(
@@ -52,7 +51,7 @@ export const GoalAccomplishedNotificationScheduledEvent = bg.EventDraft.merge(
       goalKind: VO.GoalKind,
       trackerName: TrackerName,
       trackerValue: TrackerValue,
-      emailTo: SettingsEmail,
+      emailTo: bg.Schema.EmailTo,
     }),
   })
 );

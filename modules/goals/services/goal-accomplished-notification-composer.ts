@@ -24,7 +24,7 @@ export class GoalAccomplishedNotificationComposer {
     );
 
     const text = bg.Schema.EmailContentHtml.parse(
-      `The ${this.goal?.kind} ${this.goal?.target} goal was achieved with ${this.tracker?.value}.`
+      `The ${this.goal?.kind} ${this.goal?.target} goal was achieved with ${this.tracker?.value} value.`
     );
 
     return { subject, text };
