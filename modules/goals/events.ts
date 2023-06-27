@@ -3,6 +3,9 @@ import z from "zod";
 
 import * as VO from "./value-objects";
 import { TrackerId } from "../trackers/value-objects/tracker-id";
+import { TrackerValue } from "../trackers/value-objects/tracker-value";
+import { TrackerName } from "../trackers/value-objects/tracker-name";
+import { SettingsEmail } from "../settings/value-objects/settings-email";
 
 export const GOAL_CREATED_EVENT = "GOAL_CREATED_EVENT";
 export const GoalCreatedEvent = bg.EventDraft.merge(
@@ -37,6 +40,25 @@ export const GoalAccomplishedEvent = bg.EventDraft.merge(
   })
 );
 export type GoalAccomplishedEventType = z.infer<typeof GoalAccomplishedEvent>;
+
+export const GOAL_ACCOMPLISHED_NOTIFICATION_SCHEDULED_EVENT =
+  "GOAL_ACCOMPLISHED_NOTIFICATION_SCHEDULED_EVENT";
+export const GoalAccomplishedNotificationScheduledEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(GOAL_ACCOMPLISHED_NOTIFICATION_SCHEDULED_EVENT),
+    version: z.literal(1),
+    payload: z.object({
+      goalTarget: VO.GoalTarget,
+      goalKind: VO.GoalKind,
+      trackerName: TrackerName,
+      trackerValue: TrackerValue,
+      emailTo: SettingsEmail,
+    }),
+  })
+);
+export type GoalAccomplishedNotificationScheduledEventType = z.infer<
+  typeof GoalAccomplishedNotificationScheduledEvent
+>;
 
 export const GOAL_REGRESSED_EVENT = "GOAL_REGRESSED_EVENT";
 export const GoalRegressedEvent = bg.EventDraft.merge(

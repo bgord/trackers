@@ -30,6 +30,7 @@ export const emittery = new Emittery<{
   GOAL_DELETED_EVENT: Goals.Events.GoalDeletedEventType;
   GOAL_ACCOMPLISHED_EVENT: Goals.Events.GoalAccomplishedEventType;
   GOAL_REGRESSED_EVENT: Goals.Events.GoalRegressedEventType;
+  GOAL_ACCOMPLISHED_NOTIFICATION_SCHEDULED_EVENT: Goals.Events.GoalAccomplishedNotificationScheduledEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
