@@ -3,6 +3,7 @@ import * as bg from "@bgord/node";
 import * as infra from "../../infra";
 import * as Goals from "./";
 import * as Trackers from "../trackers";
+import * as Settings from "../settings";
 
 const EventHandler = new bg.EventHandler(infra.logger);
 
@@ -19,6 +20,13 @@ export const onGoalDeletedEventHandler =
 export const onGoalAccomplishedEventHandler =
   EventHandler.handle<Goals.Events.GoalAccomplishedEventType>(async (event) => {
     await Goals.Repos.GoalRepository.accomplish(event.payload);
+
+    const settings = await new Settings.Aggregates.Settings().build();
+
+    await Goals.Services.GoalAccomplishedNotificationScheduler.schedule(
+      event,
+      settings
+    );
   });
 
 export const onGoalRegressedEventHandler =
