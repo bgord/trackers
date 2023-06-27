@@ -43,6 +43,10 @@ export class GoalRepository {
     });
   }
 
+  static async getById(payload: Pick<VO.GoalType, "id">) {
+    return infra.db.goal.findFirst({ where: payload });
+  }
+
   static async getForTracker(payload: Pick<VO.GoalType, "relatedTrackerId">) {
     return infra.db.goal.findFirst({ where: payload });
   }

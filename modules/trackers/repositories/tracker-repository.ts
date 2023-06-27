@@ -87,6 +87,10 @@ export class TrackerRepository {
     });
   }
 
+  static async getById(config: Pick<VO.TrackerType, "id">) {
+    return infra.db.tracker.findFirst({ where: config });
+  }
+
   static async getGoalForTracker(config: Pick<VO.TrackerType, "id">) {
     return infra.db.goal.findFirst({ where: { relatedTrackerId: config.id } });
   }
