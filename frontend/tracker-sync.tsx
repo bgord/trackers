@@ -131,7 +131,10 @@ export function TrackerSync(props: types.TrackerType) {
           trackerValue.clear();
           trackerComment.clear();
         }}
-        disabled={isTrackerValueTheSame || trackerSyncMutation.isLoading}
+        disabled={
+          (isTrackerValueTheSame && !trackerComment.hasChanged) ||
+          trackerSyncMutation.isLoading
+        }
       />
     </form>
   );
