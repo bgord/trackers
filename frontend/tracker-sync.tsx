@@ -127,7 +127,7 @@ export function TrackerSync(props: types.TrackerType) {
 
       <UI.ClearButton
         data-mt="24"
-        onClick={exec([trackerValue.clear, trackerComment.clear])}
+        onClick={bg.exec([trackerValue.clear, trackerComment.clear])}
         disabled={
           (isTrackerValueTheSame && !trackerComment.hasChanged) ||
           trackerSyncMutation.isLoading

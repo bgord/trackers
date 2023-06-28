@@ -87,10 +87,7 @@ export function TrackerExport(
               type="button"
               class="c-button"
               data-variant="bare"
-              onClick={() => {
-                dialog.disable();
-                email.clear();
-              }}
+              onClick={bg.exec([dialog.disable, email.clear])}
             >
               {t("app.cancel")}
             </button>

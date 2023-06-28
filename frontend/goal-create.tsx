@@ -11,12 +11,12 @@ export function GoalCreate(props: types.TrackerType) {
   const notify = bg.useToastTrigger();
   const queryClient = useQueryClient();
 
-  const target = bg.useField<types.GoalType["target"]>(
+  const goalTarget = bg.useField<types.GoalType["target"]>(
     "goal-target",
     0 as types.GoalType["target"]
   );
 
-  const kind = bg.useField<types.GoalKindEnum>(
+  const goalKind = bg.useField<types.GoalKindEnum>(
     "goal-kind",
     types.GoalKindEnum.minimum
   );
@@ -36,21 +36,21 @@ export function GoalCreate(props: types.TrackerType) {
       onSubmit={(event) => {
         event.preventDefault();
         createGoal.mutate({
-          target: target.value as types.GoalType["target"],
+          target: goalTarget.value as types.GoalType["target"],
           relatedTrackerId: props.id,
-          kind: kind.value,
+          kind: goalKind.value,
         });
       }}
     >
       <div data-display="flex" data-direction="column">
-        <label class="c-label" {...kind.label.props}>
+        <label class="c-label" {...goalKind.label.props}>
           {t("goal.kind.label")}
         </label>
         <UI.Select
-          onBlur={(event) => kind.set(event.currentTarget.value)}
+          onBlur={(event) => goalKind.set(event.currentTarget.value)}
           required
-          value={kind.value}
-          {...kind.input.props}
+          value={goalKind.value}
+          {...goalKind.input.props}
         >
           {Object.keys(types.GoalKindEnum).map((option) => (
             <option value={option}>{t(`goal.kind.enum.${option}`)}</option>
@@ -59,7 +59,7 @@ export function GoalCreate(props: types.TrackerType) {
       </div>
 
       <div data-display="flex" data-direction="column">
-        <label class="c-label" {...target.label.props}>
+        <label class="c-label" {...goalTarget.label.props}>
           {t("goal.target.label")}
         </label>
 
@@ -67,13 +67,13 @@ export function GoalCreate(props: types.TrackerType) {
           class="c-input"
           type="number"
           step={props.kind === types.TrackerKindEnum.counter ? "1" : "0.01"}
-          value={target.value}
+          value={goalTarget.value}
           onChange={(event) =>
-            target.set(
+            goalTarget.set(
               event.currentTarget.valueAsNumber as types.GoalType["target"]
             )
           }
-          {...target.input.props}
+          {...goalTarget.input.props}
         />
       </div>
 
@@ -82,15 +82,17 @@ export function GoalCreate(props: types.TrackerType) {
         class="c-button"
         data-variant="secondary"
         data-self="end"
+        disabled={!goalTarget.hasChanged || createGoal.isLoading}
       >
         {t("goal.create")}
       </button>
 
       <UI.ClearButton
-        onClick={() => {
-          target.clear();
-          kind.clear();
-        }}
+        onClick={bg.exec([goalTarget.clear, goalKind.clear])}
+        disabled={
+          (!goalTarget.hasChanged && !goalKind.hasChanged) ||
+          createGoal.isLoading
+        }
         data-self="end"
       />
     </form>

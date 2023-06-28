@@ -33,7 +33,7 @@ export function TrackerDatapointRevert(props: {
       disabled={trackerRevertDatapoint.isLoading}
       title={t("tracker.datapoint.revert")}
       onClick={() => trackerRevertDatapoint.mutate(props)}
-      style={{ height: "24px" }}
+      style={bg.Rhythm.base().times(2).height}
     />
   );
 }

@@ -22,8 +22,6 @@ export function TrackerNameChange(props: types.TrackerType) {
     onError: (error: bg.ServerError) => notify({ message: error.message }),
   });
 
-  const isTrackerNameChanged = props.name === newTrackerName.value;
-
   return (
     <form
       data-display="flex"
@@ -54,7 +52,7 @@ export function TrackerNameChange(props: types.TrackerType) {
         class="c-button"
         data-variant="secondary"
         data-self="end"
-        disabled={isTrackerNameChanged}
+        disabled={!newTrackerName.hasChanged}
       >
         {t("tracker.name.new.change")}
       </button>
@@ -62,7 +60,7 @@ export function TrackerNameChange(props: types.TrackerType) {
       <UI.ClearButton
         onClick={newTrackerName.clear}
         data-self="end"
-        disabled={isTrackerNameChanged}
+        disabled={!newTrackerName.hasChanged || changeName.isLoading}
       />
     </form>
   );
