@@ -20,7 +20,7 @@ export function TrackerCreate() {
     types.TrackerKindEnum.one_value
   );
 
-  const trackerCreate = useMutation(api.Tracker.create, {
+  const createTracker = useMutation(api.Tracker.create, {
     onSuccess: () => {
       trackerName.clear();
       trackerKind.clear();
@@ -39,7 +39,7 @@ export function TrackerCreate() {
       data-p="24"
       onSubmit={(event) => {
         event.preventDefault();
-        trackerCreate.mutate({
+        createTracker.mutate({
           name: trackerName.value,
           kind: trackerKind.value,
         });
@@ -85,11 +85,16 @@ export function TrackerCreate() {
         class="c-button"
         data-variant="secondary"
         data-self="end"
+        disabled={trackerName.unchanged || createTracker.isLoading}
       >
         {t("tracker.create.submit")}
       </button>
 
-      <UI.ClearButton data-self="end" onClick={trackerName.clear} />
+      <UI.ClearButton
+        disabled={trackerName.unchanged || createTracker.isLoading}
+        data-self="end"
+        onClick={trackerName.clear}
+      />
     </form>
   );
 }
