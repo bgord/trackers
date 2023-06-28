@@ -43,6 +43,8 @@
   "tracker.create.submit": "Create",
   "tracker.create.success": "Tracker created",
   "tracker.created_at": "Created {{value}}",
+  "tracker.datapoint.comment.label": "Comment",
+  "tracker.datapoint.comment.placeholder": "Comment about the new value",
   "tracker.datapoint.revert": "Revert tracker datapoint",
   "tracker.datapoint.revert.error": "Tracker datapoint revert error",
   "tracker.datapoint.revert.error.does_not_exist": "Tracker datapoint does not exist",

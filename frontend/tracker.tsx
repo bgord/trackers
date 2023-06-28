@@ -83,7 +83,7 @@ export function Tracker(props: types.TrackerType) {
           data-gap="24"
         >
           {props.status === types.TrackerStatusEnum.active && (
-            <div data-display="flex" data-cross="end" data-gap="48">
+            <div data-display="flex" data-cross="start" data-gap="48">
               <TrackerSync key={props.updatedAt} {...props} />
               <TrackerNameChange {...props} />
             </div>

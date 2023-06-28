@@ -28,6 +28,8 @@ export function TrackerSync(props: types.TrackerType) {
     props.value
   );
 
+  const trackerComment = bg.useField<string>("tracker-comment", "");
+
   const trackerSync = bg.useRateLimiter({
     limitMs: bg.Time.Seconds(10).toMs(),
     action: () =>
@@ -39,7 +41,8 @@ export function TrackerSync(props: types.TrackerType) {
   return (
     <form
       data-display="flex"
-      data-cross="end"
+      data-gap="12"
+      data-cross="start"
       onSubmit={(event) => {
         event.preventDefault();
         trackerSync();
@@ -65,11 +68,31 @@ export function TrackerSync(props: types.TrackerType) {
         />
       </div>
 
+      <div data-display="flex" data-direction="column">
+        <label class="c-label" {...trackerComment.label.props}>
+          {t("tracker.datapoint.comment.label")}
+        </label>
+
+        <textarea
+          class="c-textarea"
+          rows={3}
+          placeholder={t("tracker.datapoint.comment.placeholder")}
+          value={trackerComment.value}
+          disabled={trackerSyncMutation.isLoading}
+          onChange={(event) =>
+            trackerComment.set(event.currentTarget.value as string)
+          }
+          style={bg.Rhythm.base().times(20).minWidth}
+          {...trackerComment.input.props}
+        />
+      </div>
+
       {props.kind === types.TrackerKindEnum.counter && (
         <button
           class="c-button"
           type="button"
           data-variant="with-icon"
+          data-mt="24"
           title={t("tracker.value.increase")}
           onClick={() => trackerValue.set(trackerValue.value + 1)}
           disabled={trackerSyncMutation.isLoading}
@@ -83,6 +106,7 @@ export function TrackerSync(props: types.TrackerType) {
           class="c-button"
           type="button"
           data-variant="with-icon"
+          data-mt="24"
           title={t("tracker.value.decrease")}
           onClick={() => trackerValue.set(trackerValue.value - 1)}
           disabled={trackerSyncMutation.isLoading}
@@ -95,14 +119,18 @@ export function TrackerSync(props: types.TrackerType) {
         type="submit"
         class="c-button"
         data-variant="primary"
-        data-mx="12"
+        data-mt="24"
         disabled={isTrackerValueTheSame || trackerSyncMutation.isLoading}
       >
         {t("app.sync")}
       </button>
 
       <UI.ClearButton
-        onClick={trackerValue.clear}
+        data-mt="24"
+        onClick={() => {
+          trackerValue.clear();
+          trackerComment.clear();
+        }}
         disabled={isTrackerValueTheSame || trackerSyncMutation.isLoading}
       />
     </form>
