@@ -12,6 +12,7 @@
   "app.name": "trackers",
   "app.no_internet_connection": "No internet connection",
   "app.settings": "Settings",
+  "app.too_many_requests": "Too many requests",
   "app.sync": "Sync",
 
   "goal": "GOAL",

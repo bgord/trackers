@@ -52,7 +52,7 @@ export function TrackerNameChange(props: types.TrackerType) {
         class="c-button"
         data-variant="secondary"
         data-self="end"
-        disabled={!newTrackerName.hasChanged}
+        disabled={newTrackerName.unchanged || changeName.isLoading}
       >
         {t("tracker.name.new.change")}
       </button>
@@ -60,7 +60,7 @@ export function TrackerNameChange(props: types.TrackerType) {
       <UI.ClearButton
         onClick={newTrackerName.clear}
         data-self="end"
-        disabled={!newTrackerName.hasChanged || changeName.isLoading}
+        disabled={newTrackerName.unchanged || changeName.isLoading}
       />
     </form>
   );

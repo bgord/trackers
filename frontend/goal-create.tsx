@@ -35,6 +35,7 @@ export function GoalCreate(props: types.TrackerType) {
       data-gap="12"
       onSubmit={(event) => {
         event.preventDefault();
+
         createGoal.mutate({
           target: goalTarget.value as types.GoalType["target"],
           relatedTrackerId: props.id,
@@ -46,6 +47,7 @@ export function GoalCreate(props: types.TrackerType) {
         <label class="c-label" {...goalKind.label.props}>
           {t("goal.kind.label")}
         </label>
+
         <UI.Select
           onBlur={(event) => goalKind.set(event.currentTarget.value)}
           required
@@ -82,7 +84,7 @@ export function GoalCreate(props: types.TrackerType) {
         class="c-button"
         data-variant="secondary"
         data-self="end"
-        disabled={!goalTarget.hasChanged || createGoal.isLoading}
+        disabled={goalTarget.unchanged || createGoal.isLoading}
       >
         {t("goal.create")}
       </button>
@@ -90,8 +92,7 @@ export function GoalCreate(props: types.TrackerType) {
       <UI.ClearButton
         onClick={bg.exec([goalTarget.clear, goalKind.clear])}
         disabled={
-          (!goalTarget.hasChanged && !goalKind.hasChanged) ||
-          createGoal.isLoading
+          (goalTarget.unchanged && goalKind.unchanged) || createGoal.isLoading
         }
         data-self="end"
       />

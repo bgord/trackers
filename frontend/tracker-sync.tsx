@@ -36,8 +36,6 @@ export function TrackerSync(props: types.TrackerType) {
       trackerSyncMutation.mutate({ id: props.id, value: trackerValue.value }),
   });
 
-  const isTrackerValueTheSame = props.value === trackerValue.value;
-
   return (
     <form
       data-display="flex"
@@ -120,7 +118,7 @@ export function TrackerSync(props: types.TrackerType) {
         class="c-button"
         data-variant="primary"
         data-mt="24"
-        disabled={isTrackerValueTheSame || trackerSyncMutation.isLoading}
+        disabled={trackerValue.unchanged || trackerSyncMutation.isLoading}
       >
         {t("app.sync")}
       </button>
@@ -129,7 +127,7 @@ export function TrackerSync(props: types.TrackerType) {
         data-mt="24"
         onClick={bg.exec([trackerValue.clear, trackerComment.clear])}
         disabled={
-          (isTrackerValueTheSame && !trackerComment.hasChanged) ||
+          (trackerValue.unchanged && trackerComment.unchanged) ||
           trackerSyncMutation.isLoading
         }
       />

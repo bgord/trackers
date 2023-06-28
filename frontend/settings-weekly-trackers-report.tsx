@@ -8,6 +8,10 @@ import * as hooks from "./hooks";
 import * as types from "./types";
 import * as UI from "./ui";
 
+const localWeeklyTrackersReportUtcHour = bg.HourFormatter.convertUtcToLocal(
+  types.WEEKLY_TRACKERS_REPORT_UTC_HOUR
+).label;
+
 export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
   hooks.useLeavingPrompt();
 
@@ -83,6 +87,7 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
       {!props.isWeeklyTrackersReportEnabled && (
         <UI.Info data-display="flex" data-gap="6">
           <Icons.InfoEmpty />
+
           {t("settings.weekly_trackers_report.info")}
         </UI.Info>
       )}
@@ -90,10 +95,9 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
       {props.isWeeklyTrackersReportEnabled && (
         <UI.Info data-display="flex" data-gap="6">
           <Icons.InfoEmpty />
+
           {t("settings.weekly_trackers_report.schedule", {
-            local: bg.HourFormatter.convertUtcToLocal(
-              types.WEEKLY_TRACKERS_REPORT_UTC_HOUR
-            ).label,
+            local: localWeeklyTrackersReportUtcHour,
           })}
         </UI.Info>
       )}

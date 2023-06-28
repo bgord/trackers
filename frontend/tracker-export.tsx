@@ -5,6 +5,7 @@ import { useMutation } from "react-query";
 
 import * as api from "./api";
 import * as types from "./types";
+import * as UI from "./ui";
 
 export function TrackerExport(
   props: types.TrackerType & h.JSX.IntrinsicElements["button"]
@@ -16,14 +17,17 @@ export function TrackerExport(
   const notify = bg.useToastTrigger();
   const dialog = bg.useToggle();
 
-  const email = bg.useField<types.EmailType>("tracker-export-email", "");
+  const trackerExportEmail = bg.useField<types.EmailType>(
+    "tracker-export-email",
+    ""
+  );
 
   const exportTracker = useMutation(api.Tracker.export, {
     onSuccess() {
       setTimeout(exportTracker.reset, 5000);
       dialog.disable();
       notify({ message: "tracker.export.success" });
-      email.clear();
+      trackerExportEmail.clear();
     },
     onError(error: bg.ServerError) {
       setTimeout(exportTracker.reset, 5000);
@@ -58,28 +62,47 @@ export function TrackerExport(
           data-gap="24"
           onSubmit={(event) => {
             event.preventDefault();
-            exportTracker.mutate({ id, email: email.value });
+            exportTracker.mutate({ id, email: trackerExportEmail.value });
           }}
         >
-          <div data-display="flex" data-direction="column">
-            <label class="c-label" {...email.label.props}>
-              {t("tracker.export.email.label")}
-            </label>
-            <input
-              class="c-input"
-              onChange={(event) => email.set(event.currentTarget.value)}
-              type="email"
-              inputMode="email"
-              placeholder={t("tracker.export.email.placeholder")}
-              required
-              style={{ minWidth: "200px" }}
-              value={email.value}
-              {...email.input.props}
+          <div
+            data-display="flex"
+            data-wrap="nowrap"
+            data-cross="end"
+            data-gap="6"
+          >
+            <div data-display="flex" data-direction="column" data-width="100%">
+              <label class="c-label" {...trackerExportEmail.label.props}>
+                {t("tracker.export.email.label")}
+              </label>
+              <input
+                class="c-input"
+                onChange={(event) =>
+                  trackerExportEmail.set(event.currentTarget.value)
+                }
+                type="email"
+                inputMode="email"
+                placeholder={t("tracker.export.email.placeholder")}
+                required
+                style={{ minWidth: "200px" }}
+                value={trackerExportEmail.value}
+                {...trackerExportEmail.input.props}
+              />
+            </div>
+
+            <UI.ClearButton
+              disabled={trackerExportEmail.unchanged}
+              onClick={trackerExportEmail.clear}
             />
           </div>
 
           <div data-display="flex" data-gap="48" data-mx="auto">
-            <button type="submit" class="c-button" data-variant="primary">
+            <button
+              type="submit"
+              class="c-button"
+              data-variant="primary"
+              disabled={trackerExportEmail.unchanged}
+            >
               {t("app.export")}
             </button>
 
@@ -87,7 +110,7 @@ export function TrackerExport(
               type="button"
               class="c-button"
               data-variant="bare"
-              onClick={bg.exec([dialog.disable, email.clear])}
+              onClick={bg.exec([dialog.disable, trackerExportEmail.clear])}
             >
               {t("app.cancel")}
             </button>
