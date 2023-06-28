@@ -45,7 +45,7 @@
     "vitest": "^0.32.0"
   },
   "dependencies": {
-    "@bgord/design": "^0.27.54",
+    "@bgord/design": "^0.27.55",
     "@bgord/frontend": "github:bgord/bgord-frontend",
     "@bgord/node": "^0.58.148",
     "@prisma/client": "^3.7.0",
