@@ -16,12 +16,14 @@ export function TrackerDelete(
   const queryClient = useQueryClient();
   const notify = bg.useToastTrigger();
   const dialog = bg.useToggle();
+  const details = bg.usePersistentToggle(`tracker-details-${props.id}`);
 
   const deleteTracker = useMutation(api.Tracker.delete, {
     onSuccess() {
       dialog.disable();
       notify({ message: "tracker.delete.success" });
       queryClient.invalidateQueries("trackers");
+      details.clear();
     },
     onError() {
       setTimeout(deleteTracker.reset, 5000);
