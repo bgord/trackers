@@ -31,13 +31,14 @@ model TrackerDatapoint {
   id        String  @id @default(uuid())
   value     Float
   tracker   Tracker @relation(fields: [trackerId], references: [id], onDelete: Cascade)
+  comment   String?
   trackerId String
   createdAt Int
 }
 
 model Goal {
   createdAt        Int
-  id               String  @id @default(uuid())
+  id               String @id @default(uuid())
   kind             String
   relatedTrackerId String
   status           String
