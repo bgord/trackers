@@ -91,9 +91,7 @@ export function Tracker(props: types.TrackerType) {
 
           <Goal key={props.updatedAt} {...props} />
 
-          {props.kind === types.TrackerKindEnum.one_value && (
-            <DatapointList key={props.updatedAt.raw} {...props} />
-          )}
+          <DatapointList key={props.updatedAt.raw} {...props} />
 
           <TrackerMetadata {...props} />
         </div>
