@@ -24,10 +24,10 @@ model Tracker {
   status           String             @default("active")
   createdAt        Int
   updatedAt        Int
-  TrackerDatapoint TrackerDatapoint[]
+  Datapoint Datapoint[]
 }
 
-model TrackerDatapoint {
+model Datapoint {
   id        String  @id @default(uuid())
   value     Float
   tracker   Tracker @relation(fields: [trackerId], references: [id], onDelete: Cascade)

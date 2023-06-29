@@ -10,7 +10,7 @@ export class DatapointRepository {
       comment?: VO.DatapointCommentType;
     }
   ) {
-    return infra.db.trackerDatapoint.create({
+    return infra.db.datapoint.create({
       data: {
         id: payload.datapointId,
         trackerId: payload.id,
@@ -22,13 +22,13 @@ export class DatapointRepository {
   }
 
   static async remove(payload: { datapointId: VO.DatapointType["id"] }) {
-    return infra.db.trackerDatapoint.delete({
+    return infra.db.datapoint.delete({
       where: { id: payload.datapointId },
     });
   }
 
   static async list(payload: Pick<VO.TrackerType, "id">) {
-    const datapoints = await infra.db.trackerDatapoint.findMany({
+    const datapoints = await infra.db.datapoint.findMany({
       where: { trackerId: payload.id },
       orderBy: { createdAt: "desc" },
     });
@@ -55,7 +55,7 @@ export class DatapointRepository {
       to: bg.Schema.TimestampType;
     }
   ) {
-    return infra.db.trackerDatapoint.findMany({
+    return infra.db.datapoint.findMany({
       where: {
         trackerId: payload.id,
         createdAt: { gte: payload.from, lte: payload.to },
@@ -67,11 +67,11 @@ export class DatapointRepository {
   static async countDatapointsForTracker(
     payload: Pick<VO.DatapointType, "trackerId">
   ) {
-    return infra.db.trackerDatapoint.count({ where: payload });
+    return infra.db.datapoint.count({ where: payload });
   }
 
   static async getLatestDatapointForTracker(trackerId: VO.TrackerIdType) {
-    return infra.db.trackerDatapoint.findFirst({
+    return infra.db.datapoint.findFirst({
       where: { trackerId },
       orderBy: { createdAt: "desc" },
     });
@@ -86,12 +86,12 @@ export class DatapointRepository {
       timeZoneOffsetMs: context.timeZoneOffset.miliseconds,
     });
 
-    return infra.db.trackerDatapoint.count({
+    return infra.db.datapoint.count({
       where: { trackerId, createdAt: { gte: getStartOfDayTsInTz } },
     });
   }
 
   static async getDatapoint(id: VO.DatapointIdType) {
-    return infra.db.trackerDatapoint.findFirst({ where: { id } });
+    return infra.db.datapoint.findFirst({ where: { id } });
   }
 }
