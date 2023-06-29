@@ -83,15 +83,15 @@ export class ErrorHandler {
       });
     }
 
-    if (error instanceof Trackers.Policies.TrackerDatapointShouldExistError) {
+    if (error instanceof Trackers.Policies.DatapointShouldExistError) {
       infra.logger.error({
         message: "Tracker datapoint does not exist",
-        operation: Trackers.Policies.TrackerDatapointShouldExist.message,
+        operation: Trackers.Policies.DatapointShouldExist.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Trackers.Policies.TrackerDatapointShouldExist.message,
+        message: Trackers.Policies.DatapointShouldExist.message,
         _known: true,
       });
     }
@@ -109,15 +109,15 @@ export class ErrorHandler {
       });
     }
 
-    if (error instanceof Trackers.Policies.TrackerDatapointsLimitPerDayError) {
+    if (error instanceof Trackers.Policies.DatapointsLimitPerDayError) {
       infra.logger.error({
         message: "Tracker datapoints per day limit reached",
-        operation: Trackers.Policies.TrackerDatapointsLimitPerDay.message,
+        operation: Trackers.Policies.DatapointsLimitPerDay.message,
         correlationId: request.requestId,
       });
 
       return response.status(400).send({
-        message: Trackers.Policies.TrackerDatapointsLimitPerDay.message,
+        message: Trackers.Policies.DatapointsLimitPerDay.message,
         _known: true,
       });
     }

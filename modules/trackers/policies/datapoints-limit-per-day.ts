@@ -3,23 +3,21 @@ import * as bg from "@bgord/node";
 import * as VO from "../value-objects";
 import * as Repos from "../repositories";
 
-export class TrackerDatapointsLimitPerDayError extends Error {
+export class DatapointsLimitPerDayError extends Error {
   constructor() {
     super();
-    Object.setPrototypeOf(this, TrackerDatapointsLimitPerDayError.prototype);
+    Object.setPrototypeOf(this, DatapointsLimitPerDayError.prototype);
   }
 }
 
-type TrackerDatapointsLimitPerDayConfigType = {
+type DatapointsLimitPerDayConfigType = {
   trackerId: VO.TrackerIdType;
   limit: number;
   timeZoneOffset: bg.TimeZoneOffsetsType;
 };
 
-class TrackerDatapointsLimitPerDayFactory extends bg.Policy<TrackerDatapointsLimitPerDayConfigType> {
-  async fails(
-    config: TrackerDatapointsLimitPerDayConfigType
-  ): Promise<boolean> {
+class DatapointsLimitPerDayFactory extends bg.Policy<DatapointsLimitPerDayConfigType> {
+  async fails(config: DatapointsLimitPerDayConfigType): Promise<boolean> {
     const numberOfTrackerDatapointsToday =
       await Repos.TrackerDatapointRepository.countDatapointsFromToday(
         config.trackerId,
@@ -31,8 +29,7 @@ class TrackerDatapointsLimitPerDayFactory extends bg.Policy<TrackerDatapointsLim
 
   message = "tracker.sync.error.datapoints_per_daylimit_reached";
 
-  error = TrackerDatapointsLimitPerDayError;
+  error = DatapointsLimitPerDayError;
 }
 
-export const TrackerDatapointsLimitPerDay =
-  new TrackerDatapointsLimitPerDayFactory();
+export const DatapointsLimitPerDay = new DatapointsLimitPerDayFactory();

@@ -133,7 +133,7 @@ export class Tracker {
       currentValue: this.entity!.value,
       syncedValue: datapoint.value,
     });
-    await Policies.TrackerDatapointsLimitPerDay.perform({
+    await Policies.DatapointsLimitPerDay.perform({
       trackerId: this.id,
       limit: this.DATAPOINTS_LIMIT_PER_DAY,
       ...context,
@@ -158,7 +158,7 @@ export class Tracker {
   async revert(datapointId: VO.DatapointIdType) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
     await Policies.TrackerIsActive.perform({ tracker: this });
-    await Policies.TrackerDatapointShouldExist.perform({ datapointId });
+    await Policies.DatapointShouldExist.perform({ datapointId });
 
     await infra.EventStore.save(
       Events.TrackerRevertedEvent.parse({
