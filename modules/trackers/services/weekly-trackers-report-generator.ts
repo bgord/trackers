@@ -6,7 +6,7 @@ import * as Repos from "../repositories";
 type WeeklyTrackersReportGeneratorConfigType = {
   repos: {
     tracker: typeof Repos.TrackerRepository;
-    datapoint: typeof Repos.TrackerDatapointRepository;
+    datapoint: typeof Repos.DatapointRepository;
   };
   scheduledAt: bg.Schema.TimestampType;
 };

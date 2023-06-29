@@ -19,7 +19,7 @@ type DatapointsLimitPerDayConfigType = {
 class DatapointsLimitPerDayFactory extends bg.Policy<DatapointsLimitPerDayConfigType> {
   async fails(config: DatapointsLimitPerDayConfigType): Promise<boolean> {
     const numberOfTrackerDatapointsToday =
-      await Repos.TrackerDatapointRepository.countDatapointsFromToday(
+      await Repos.DatapointRepository.countDatapointsFromToday(
         config.trackerId,
         { timeZoneOffset: config.timeZoneOffset }
       );

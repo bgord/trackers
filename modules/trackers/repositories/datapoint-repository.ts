@@ -3,7 +3,7 @@ import * as bg from "@bgord/node";
 import * as VO from "../value-objects";
 import * as infra from "../../../infra";
 
-export class TrackerDatapointRepository {
+export class DatapointRepository {
   static async add(
     payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt"> & {
       datapointId: VO.DatapointType["id"];

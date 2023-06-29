@@ -16,7 +16,7 @@ type DatapointShouldExistConfigType = {
 
 class DatapointShouldExistFactory extends bg.Policy<DatapointShouldExistConfigType> {
   async fails(config: DatapointShouldExistConfigType): Promise<boolean> {
-    const datapoint = await Repos.TrackerDatapointRepository.getDatapoint(
+    const datapoint = await Repos.DatapointRepository.getDatapoint(
       config.datapointId
     );
     return datapoint === null;

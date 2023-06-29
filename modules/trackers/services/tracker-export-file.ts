@@ -7,11 +7,11 @@ import * as VO from "../value-objects";
 import * as Repos from "../repositories";
 
 type DatapointType = bg.AsyncReturnType<
-  typeof Repos.TrackerDatapointRepository["list"]
+  typeof Repos.DatapointRepository["list"]
 >[0];
 
-type TrackerDatapointsFileConfigType = {
-  repository: typeof Repos.TrackerDatapointRepository;
+type DatapointsFileConfigType = {
+  repository: typeof Repos.DatapointRepository;
   tracker: {
     id: VO.TrackerIdType;
     scheduledAt: bg.Schema.TimestampType;
@@ -21,7 +21,7 @@ type TrackerDatapointsFileConfigType = {
 };
 
 export class TrackerExportFile {
-  private readonly config: TrackerDatapointsFileConfigType;
+  private readonly config: DatapointsFileConfigType;
 
   private readonly TRACKER_EXPORTS_DIRECTORY = "infra/tracker-exports";
 
@@ -34,7 +34,7 @@ export class TrackerExportFile {
     "isMax",
   ];
 
-  constructor(config: TrackerDatapointsFileConfigType) {
+  constructor(config: DatapointsFileConfigType) {
     this.config = config;
   }
 

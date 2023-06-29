@@ -16,7 +16,7 @@ export const onTrackerAddedEventHandler =
 export const onTrackerSyncedEventHandler =
   EventHandler.handle<Events.TrackerSyncedEventType>(async (event) => {
     await Trackers.Repos.TrackerRepository.sync(event.payload);
-    await Trackers.Repos.TrackerDatapointRepository.add(event.payload);
+    await Trackers.Repos.DatapointRepository.add(event.payload);
 
     await infra.EventStore.save(
       Events.TrackerValueRecalculatedEvent.parse({
@@ -30,12 +30,12 @@ export const onTrackerSyncedEventHandler =
 
 export const onTrackerRevertedEventHandler =
   EventHandler.handle<Events.TrackerRevertedEventType>(async (event) => {
-    await Trackers.Repos.TrackerDatapointRepository.remove({
+    await Trackers.Repos.DatapointRepository.remove({
       datapointId: event.payload.datapointId,
     });
 
     const latestDatapointForTracker =
-      await Trackers.Repos.TrackerDatapointRepository.getLatestDatapointForTracker(
+      await Trackers.Repos.DatapointRepository.getLatestDatapointForTracker(
         event.payload.id
       );
 
@@ -84,7 +84,7 @@ export const onTrackerDeletedEventHandler =
 export const onTrackerExportedEventHandler =
   EventHandler.handle<Events.TrackerExportedEventType>(async (event) => {
     const trackerExportFile = new Trackers.Services.TrackerExportFile({
-      repository: Trackers.Repos.TrackerDatapointRepository,
+      repository: Trackers.Repos.DatapointRepository,
       tracker: event.payload,
     });
 
@@ -130,7 +130,7 @@ export const onWeeklyTrackersReportScheduledEventHandler =
       const config = {
         repos: {
           tracker: Trackers.Repos.TrackerRepository,
-          datapoint: Trackers.Repos.TrackerDatapointRepository,
+          datapoint: Trackers.Repos.DatapointRepository,
         },
         scheduledAt,
       };

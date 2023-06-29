@@ -12,9 +12,7 @@ export async function DatapointList(
 ) {
   const id = VO.TrackerId.parse(request.params.trackerId);
 
-  const datapoints = await Repos.TrackerDatapointRepository.list({
-    id,
-  });
+  const datapoints = await Repos.DatapointRepository.list({ id });
 
   infra.ResponseCache.set(
     request.url,

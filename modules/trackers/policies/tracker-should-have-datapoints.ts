@@ -18,7 +18,7 @@ type TrackerShouldHaveDatapointsConfigType = Pick<
 class TrackerShouldHaveDatapointsFactory extends bg.Policy<TrackerShouldHaveDatapointsConfigType> {
   async fails(config: TrackerShouldHaveDatapointsConfigType): Promise<boolean> {
     const numberOfDatapoints =
-      await Repos.TrackerDatapointRepository.countDatapointsForTracker(config);
+      await Repos.DatapointRepository.countDatapointsForTracker(config);
 
     return numberOfDatapoints === 0;
   }
