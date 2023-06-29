@@ -45,6 +45,7 @@
   "tracker.create.success": "Tracker created",
   "tracker.created_at": "Created {{value}}",
   "tracker.datapoint.comment.label": "Comment",
+  "tracker.datapoint.comment.name.structure.error": "Comment can be up to 128 chars",
   "tracker.datapoint.comment.placeholder": "Comment about the new value",
   "tracker.datapoint.revert": "Revert tracker datapoint",
   "tracker.datapoint.revert.error": "Tracker datapoint revert error",

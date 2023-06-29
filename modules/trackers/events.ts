@@ -19,7 +19,10 @@ export const TrackerSyncedEvent = bg.EventDraft.merge(
     name: z.literal(TRACKER_SYNCED_EVENT),
     version: z.literal(1),
     payload: VO.Tracker.pick({ id: true, value: true, updatedAt: true }).merge(
-      z.object({ datapointId: VO.TrackerDatapointId })
+      z.object({
+        datapointId: VO.TrackerDatapointId,
+        comment: VO.TrackerDatapointComment,
+      })
     ),
   })
 );

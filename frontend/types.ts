@@ -27,3 +27,5 @@ export { TRACKER_DATAPOINT_BOUND_LOWER } from "../modules/trackers/value-objects
 export { TRACKER_DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects/tracker-datapoint-bound-upper";
 
 export { WEEKLY_TRACKERS_REPORT_UTC_HOUR } from "../modules/trackers/value-objects/weekly-trackers-report-utc-hour";
+
+export { TRACKER_DATAPOINT_COMMENT_MAX_LENGTH } from "../modules/trackers/value-objects/tracker-datapoint-comment-max-length";

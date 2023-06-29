@@ -121,14 +121,17 @@ export class Tracker {
   }
 
   async sync(
-    value: VO.TrackerValueType,
+    datapoint: {
+      value: VO.TrackerValueType;
+      comment: VO.TrackerDatapointCommentType;
+    },
     context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
     await Policies.TrackerIsActive.perform({ tracker: this });
     await Policies.TrackerValueShouldChange.perform({
       currentValue: this.entity!.value,
-      syncedValue: value,
+      syncedValue: datapoint.value,
     });
     await Policies.TrackerDatapointsLimitPerDay.perform({
       trackerId: this.id,
@@ -143,7 +146,8 @@ export class Tracker {
         version: 1,
         payload: {
           id: this.id,
-          value,
+          value: datapoint.value,
+          comment: datapoint.comment,
           updatedAt: Date.now(),
           datapointId: VO.TrackerDatapointId.parse(bg.NewUUID.generate()),
         },

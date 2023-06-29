@@ -7,6 +7,7 @@ export class TrackerDatapointRepository {
   static async add(
     payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt"> & {
       datapointId: VO.TrackerDatapointType["id"];
+      comment?: VO.TrackerDatapointCommentType;
     }
   ) {
     return infra.db.trackerDatapoint.create({
@@ -15,6 +16,7 @@ export class TrackerDatapointRepository {
         trackerId: payload.id,
         value: payload.value,
         createdAt: payload.updatedAt,
+        comment: payload.comment,
       },
     });
   }

@@ -33,7 +33,11 @@ export function TrackerSync(props: types.TrackerType) {
   const trackerSync = bg.useRateLimiter({
     limitMs: bg.Time.Seconds(10).toMs(),
     action: () =>
-      trackerSyncMutation.mutate({ id: props.id, value: trackerValue.value }),
+      trackerSyncMutation.mutate({
+        id: props.id,
+        value: trackerValue.value,
+        comment: trackerComment.value,
+      }),
   });
 
   return (
@@ -74,6 +78,7 @@ export function TrackerSync(props: types.TrackerType) {
         <textarea
           class="c-textarea"
           rows={3}
+          maxLength={types.TRACKER_DATAPOINT_COMMENT_MAX_LENGTH}
           placeholder={t("tracker.datapoint.comment.placeholder")}
           value={trackerComment.value}
           disabled={trackerSyncMutation.isLoading}

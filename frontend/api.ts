@@ -33,10 +33,14 @@ export class Tracker {
     );
   }
 
-  static async sync(payload: Pick<types.TrackerType, "id" | "value">) {
+  static async sync(
+    payload: Pick<types.TrackerType, "id" | "value"> & {
+      comment?: types.TrackerDatapointType["comment"];
+    }
+  ) {
     return _api(`/tracker/${payload.id}/sync`, {
       method: "POST",
-      body: JSON.stringify({ value: payload.value }),
+      body: JSON.stringify({ value: payload.value, comment: payload.comment }),
     });
   }
 
