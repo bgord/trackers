@@ -6,7 +6,6 @@ import { DATAPOINT_COMMENT_STRUCTURE_ERROR_KEY } from "./datapoint-comment-struc
 export const DatapointComment = z.optional(
   z
     .string()
-    .min(1, { message: DATAPOINT_COMMENT_STRUCTURE_ERROR_KEY })
     .max(DATAPOINT_COMMENT_MAX_LENGTH, {
       message: DATAPOINT_COMMENT_STRUCTURE_ERROR_KEY,
     })
