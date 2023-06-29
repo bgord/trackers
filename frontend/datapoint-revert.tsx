@@ -6,15 +6,15 @@ import * as api from "./api";
 import * as types from "./types";
 import * as UI from "./ui";
 
-export function TrackerDatapointRevert(props: {
-  id: types.TrackerDatapointType["id"];
-  trackerId: types.TrackerDatapointType["id"];
+export function DatapointRevert(props: {
+  id: types.DatapointType["id"];
+  trackerId: types.DatapointType["id"];
 }) {
   const t = bg.useTranslations();
   const notify = bg.useToastTrigger();
   const queryClient = useQueryClient();
 
-  const trackerRevertDatapoint = useMutation(api.Tracker.revert, {
+  const revertDatapoint = useMutation(api.Tracker.revert, {
     onSuccess: () => {
       notify({ message: "tracker.datapoint.revert.success" });
 
@@ -30,9 +30,9 @@ export function TrackerDatapointRevert(props: {
 
   return (
     <UI.ClearButton
-      disabled={trackerRevertDatapoint.isLoading}
+      disabled={revertDatapoint.isLoading}
       title={t("tracker.datapoint.revert")}
-      onClick={() => trackerRevertDatapoint.mutate(props)}
+      onClick={() => revertDatapoint.mutate(props)}
       style={bg.Rhythm.base().times(2).height}
     />
   );

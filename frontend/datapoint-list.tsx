@@ -6,25 +6,25 @@ import * as UI from "./ui";
 import * as types from "./types";
 import * as api from "./api";
 
-import { TrackerDatapointBar } from "./tracker-datapoint-bar";
-import { TrackerDatapointsChartPlaceholder } from "./tracker-datapoints-bar-placeholder";
+import { DatapointBar } from "./datapoint-bar";
+import { DatapointsChartPlaceholder } from "./datapoints-bar-placeholder";
 
-export function TrackerDatapointList(props: types.TrackerType) {
+export function DatapointList(props: types.TrackerType) {
   const t = bg.useTranslations();
 
-  const trackerDatapoints = useQuery(["tracker-datapoint-list", props.id], () =>
+  const datapoints = useQuery(["tracker-datapoint-list", props.id], () =>
     api.Tracker.getDatapoints(props.id)
   );
 
-  if (trackerDatapoints.isLoading) {
-    return <TrackerDatapointsChartPlaceholder bars={15} />;
+  if (datapoints.isLoading) {
+    return <DatapointsChartPlaceholder bars={15} />;
   }
 
-  if (trackerDatapoints.isError) {
+  if (datapoints.isError) {
     return <UI.Info>{t("tracker.datapoints.error")}</UI.Info>;
   }
 
-  if (!trackerDatapoints.data || trackerDatapoints.data?.length === 0) {
+  if (!datapoints.data || datapoints.data?.length === 0) {
     return <UI.Info>{t("tracker.datapoints.empty")}</UI.Info>;
   }
 
@@ -41,12 +41,8 @@ export function TrackerDatapointList(props: types.TrackerType) {
       data-overflow="scroll"
       style={{ minHeight: `${types.DATAPOINT_BOUND_UPPER}px` }}
     >
-      {trackerDatapoints.data.map((datapoint) => (
-        <TrackerDatapointBar
-          key={datapoint.id}
-          status={props.status}
-          {...datapoint}
-        />
+      {datapoints.data.map((datapoint) => (
+        <DatapointBar key={datapoint.id} status={props.status} {...datapoint} />
       ))}
     </ul>
   );

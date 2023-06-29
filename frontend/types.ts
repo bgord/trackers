@@ -11,7 +11,7 @@ export type { TrackerViewType as TrackerType } from "../modules/trackers/value-o
 export type { EmailType } from "@bgord/node/dist/schema";
 export type SettingsType = AsyncReturnType<typeof SettingsRepository["get"]>;
 export type ToastType = bg.BaseToastType;
-export type TrackerDatapointType = AsyncReturnType<
+export type DatapointType = AsyncReturnType<
   typeof TrackerDatapointRepository["list"]
 >[0];
 export { GoalKindEnum } from "../modules/goals/value-objects/goal-kind-enum";

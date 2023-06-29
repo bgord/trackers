@@ -35,7 +35,7 @@ export class Tracker {
 
   static async sync(
     payload: Pick<types.TrackerType, "id" | "value"> & {
-      comment?: types.TrackerDatapointType["comment"];
+      comment?: types.DatapointType["comment"];
     }
   ) {
     return _api(`/tracker/${payload.id}/sync`, {
@@ -44,9 +44,7 @@ export class Tracker {
     });
   }
 
-  static async revert(
-    payload: Pick<types.TrackerDatapointType, "id" | "trackerId">
-  ) {
+  static async revert(payload: Pick<types.DatapointType, "id" | "trackerId">) {
     return _api(`/tracker/${payload.trackerId}/revert/${payload.id}`, {
       method: "DELETE",
     });
@@ -84,7 +82,7 @@ export class Tracker {
 
   static async getDatapoints(
     id: types.TrackerType["id"]
-  ): Promise<types.TrackerDatapointType[]> {
+  ): Promise<types.DatapointType[]> {
     return _api(`/tracker/${id}/datapoints`, { method: "GET" }).then(
       (response) => (response.ok ? response.json() : [])
     );

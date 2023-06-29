@@ -6,13 +6,13 @@ import { useQueryClient } from "react-query";
 import * as types from "./types";
 import { GoalVerifier } from "../modules/goals/services/goal-verifier";
 
-import { TrackerDatapointRevert } from "./tracker-datapoint-revert";
+import { DatapointRevert } from "./datapoint-revert";
 
-type TrackerDatapointBarPropsType = types.TrackerDatapointType & {
+type DatapointBarPropsType = types.DatapointType & {
   status: types.TrackerType["status"];
 };
 
-export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
+export function DatapointBar(props: DatapointBarPropsType) {
   const details = bg.useToggle(false);
   const toggleDetailsKeyboardHandler = bg.useKeyHandler({
     [bg.KeyNameEnum.Enter]: details.toggle,
@@ -25,7 +25,7 @@ export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
     delayMs: 25,
   });
 
-  const hasAccomplishedGoal = useTrackerDatapointAccomplishedGoal(props);
+  const hasAccomplishedGoal = useDatapointAccomplishedGoal(props);
 
   const isActive = details.on || debouncedIsHovering;
 
@@ -70,15 +70,13 @@ export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
       )}
 
       {isActive && props.status === types.TrackerStatusEnum.active && (
-        <TrackerDatapointRevert {...props} />
+        <DatapointRevert {...props} />
       )}
     </li>
   );
 }
 
-function useTrackerDatapointAccomplishedGoal(
-  props: TrackerDatapointBarPropsType
-): boolean {
+function useDatapointAccomplishedGoal(props: DatapointBarPropsType): boolean {
   const queryClient = useQueryClient();
 
   const goal = queryClient.getQueryData(["goal", props.trackerId]) as

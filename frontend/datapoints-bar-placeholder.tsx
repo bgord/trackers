@@ -2,7 +2,7 @@ import { h } from "preact";
 
 import * as types from "./types";
 
-export function TrackerDatapointsChartPlaceholder(props: { bars: number }) {
+export function DatapointsChartPlaceholder(props: { bars: number }) {
   const min = types.DATAPOINT_BOUND_LOWER;
   const max = types.DATAPOINT_BOUND_UPPER;
 
@@ -25,13 +25,13 @@ export function TrackerDatapointsChartPlaceholder(props: { bars: number }) {
     >
       {bars.map((value, index) => (
         /* eslint-disable react/no-array-index-key */
-        <TrackerDatapointBarPlaceholder key={index} height={value} />
+        <DatapointBarPlaceholder key={index} height={value} />
       ))}
     </ul>
   );
 }
 
-function TrackerDatapointBarPlaceholder(props: { height: number }) {
+function DatapointBarPlaceholder(props: { height: number }) {
   return (
     <li
       data-bg="gray-100"

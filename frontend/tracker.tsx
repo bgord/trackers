@@ -10,7 +10,7 @@ import { TrackerDelete } from "./tracker-delete";
 import { TrackerArchive } from "./tracker-archive";
 import { TrackerExport } from "./tracker-export";
 import { TrackerRestore } from "./tracker-restore";
-import { TrackerDatapointList } from "./tracker-datapoint-list";
+import { DatapointList } from "./datapoint-list";
 import { TrackerMetadata } from "./tracker-metadata";
 
 import { Goal } from "./goal";
@@ -92,7 +92,7 @@ export function Tracker(props: types.TrackerType) {
           <Goal key={props.updatedAt} {...props} />
 
           {props.kind === types.TrackerKindEnum.one_value && (
-            <TrackerDatapointList key={props.updatedAt.raw} {...props} />
+            <DatapointList key={props.updatedAt.raw} {...props} />
           )}
 
           <TrackerMetadata {...props} />
