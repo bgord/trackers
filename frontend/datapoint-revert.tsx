@@ -19,10 +19,7 @@ export function DatapointRevert(props: {
       notify({ message: "datapoint.revert.success" });
 
       queryClient.invalidateQueries("trackers");
-      queryClient.invalidateQueries([
-        "tracker-datapoint-list",
-        props.trackerId,
-      ]);
+      queryClient.invalidateQueries(["datapoint-list", props.trackerId]);
       queryClient.invalidateQueries(["goal", props.trackerId]);
     },
     onError: (error: bg.ServerError) => notify({ message: error.message }),

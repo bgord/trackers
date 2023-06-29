@@ -12,7 +12,7 @@ import { DatapointsChartPlaceholder } from "./datapoints-bar-placeholder";
 export function DatapointList(props: types.TrackerType) {
   const t = bg.useTranslations();
 
-  const datapoints = useQuery(["tracker-datapoint-list", props.id], () =>
+  const datapoints = useQuery(["datapoint-list", props.id], () =>
     api.Tracker.getDatapoints(props.id)
   );
 
