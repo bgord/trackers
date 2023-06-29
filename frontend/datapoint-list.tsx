@@ -21,11 +21,11 @@ export function DatapointList(props: types.TrackerType) {
   }
 
   if (datapoints.isError) {
-    return <UI.Info>{t("tracker.datapoints.error")}</UI.Info>;
+    return <UI.Info>{t("datapoints.error")}</UI.Info>;
   }
 
   if (!datapoints.data || datapoints.data?.length === 0) {
-    return <UI.Info>{t("tracker.datapoints.empty")}</UI.Info>;
+    return <UI.Info>{t("datapoints.empty")}</UI.Info>;
   }
 
   return (

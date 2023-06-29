@@ -13,7 +13,7 @@ export function GoalCreate(props: types.TrackerType) {
 
   const goalTarget = bg.useField<types.GoalType["target"]>(
     "goal-target",
-    0 as types.GoalType["target"]
+    types.GOAL_TARGET_DEFAULT_VALUE as types.GoalType["target"]
   );
 
   const goalKind = bg.useField<types.GoalKindEnum>(

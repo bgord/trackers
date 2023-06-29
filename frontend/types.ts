@@ -29,3 +29,5 @@ export { DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects/datapoi
 export { WEEKLY_TRACKERS_REPORT_UTC_HOUR } from "../modules/trackers/value-objects/weekly-trackers-report-utc-hour";
 
 export { DATAPOINT_COMMENT_MAX_LENGTH } from "../modules/trackers/value-objects/datapoint-comment-max-length";
+
+export { GOAL_TARGET_DEFAULT_VALUE } from "../modules/goals/value-objects/goal-target-default-value";

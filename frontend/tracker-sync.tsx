@@ -72,14 +72,14 @@ export function TrackerSync(props: types.TrackerType) {
 
       <div data-display="flex" data-direction="column">
         <label class="c-label" {...trackerComment.label.props}>
-          {t("tracker.datapoint.comment.label")}
+          {t("datapoint.comment.label")}
         </label>
 
         <textarea
           class="c-textarea"
           rows={3}
           maxLength={types.DATAPOINT_COMMENT_MAX_LENGTH}
-          placeholder={t("tracker.datapoint.comment.placeholder")}
+          placeholder={t("datapoint.comment.placeholder")}
           value={trackerComment.value}
           disabled={trackerSyncMutation.isLoading}
           onChange={(event) =>

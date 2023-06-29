@@ -16,7 +16,7 @@ export function DatapointRevert(props: {
 
   const revertDatapoint = useMutation(api.Tracker.revert, {
     onSuccess: () => {
-      notify({ message: "tracker.datapoint.revert.success" });
+      notify({ message: "datapoint.revert.success" });
 
       queryClient.invalidateQueries("trackers");
       queryClient.invalidateQueries([
@@ -31,7 +31,7 @@ export function DatapointRevert(props: {
   return (
     <UI.ClearButton
       disabled={revertDatapoint.isLoading}
-      title={t("tracker.datapoint.revert")}
+      title={t("datapoint.revert")}
       onClick={() => revertDatapoint.mutate(props)}
       style={bg.Rhythm.base().times(2).height}
     />
