@@ -4,6 +4,8 @@ export * from "./tracker-created-at";
 export * from "./tracker-datapoint";
 export * from "./tracker-datapoint-bound-lower";
 export * from "./tracker-datapoint-bound-upper";
+export * from "./tracker-datapoint-comment";
+export * from "./tracker-datapoint-comment-max-length";
 export * from "./tracker-datapoint-id";
 export * from "./tracker-datapoints-limit-per-day";
 export * from "./tracker-id";
