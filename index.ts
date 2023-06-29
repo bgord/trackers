@@ -80,7 +80,7 @@ app.get(
   "/tracker/:trackerId/datapoints",
   infra.AuthShield.verify,
   infra.CacheResponse.handle,
-  bg.Route(Trackers.Routes.TrackerDatapointList)
+  bg.Route(Trackers.Routes.DatapointList)
 );
 app.post(
   "/tracker/:trackerId/archive",

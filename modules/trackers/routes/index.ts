@@ -1,6 +1,6 @@
 export * from "./tracker-archive";
 export * from "./tracker-create";
-export * from "./tracker-datapoint-list";
+export * from "./datapoint-list";
 export * from "./tracker-delete";
 export * from "./tracker-export";
 export * from "./tracker-list";
