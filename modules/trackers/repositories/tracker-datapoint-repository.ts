@@ -6,8 +6,8 @@ import * as infra from "../../../infra";
 export class TrackerDatapointRepository {
   static async add(
     payload: Pick<VO.TrackerType, "id" | "value" | "updatedAt"> & {
-      datapointId: VO.TrackerDatapointType["id"];
-      comment?: VO.TrackerDatapointCommentType;
+      datapointId: VO.DatapointType["id"];
+      comment?: VO.DatapointCommentType;
     }
   ) {
     return infra.db.trackerDatapoint.create({
@@ -21,7 +21,7 @@ export class TrackerDatapointRepository {
     });
   }
 
-  static async remove(payload: { datapointId: VO.TrackerDatapointType["id"] }) {
+  static async remove(payload: { datapointId: VO.DatapointType["id"] }) {
     return infra.db.trackerDatapoint.delete({
       where: { id: payload.datapointId },
     });
@@ -37,8 +37,8 @@ export class TrackerDatapointRepository {
 
     const minMaxScaler = new bg.MinMaxScaler({
       bound: {
-        lower: VO.TRACKER_DATAPOINT_BOUND_LOWER,
-        upper: VO.TRACKER_DATAPOINT_BOUND_UPPER,
+        lower: VO.DATAPOINT_BOUND_LOWER,
+        upper: VO.DATAPOINT_BOUND_UPPER,
       },
       ...bg.MinMaxScaler.getMinMax(datapoints.map((point) => point.value)),
     });
@@ -65,7 +65,7 @@ export class TrackerDatapointRepository {
   }
 
   static async countDatapointsForTracker(
-    payload: Pick<VO.TrackerDatapointType, "trackerId">
+    payload: Pick<VO.DatapointType, "trackerId">
   ) {
     return infra.db.trackerDatapoint.count({ where: payload });
   }
@@ -91,7 +91,7 @@ export class TrackerDatapointRepository {
     });
   }
 
-  static async getDatapoint(id: VO.TrackerDatapointIdType) {
+  static async getDatapoint(id: VO.DatapointIdType) {
     return infra.db.trackerDatapoint.findFirst({ where: { id } });
   }
 }

@@ -23,9 +23,9 @@ export type { GoalType } from "../modules/goals/value-objects/goal";
 export { TRACKER_NAME_MIN_LENGTH } from "../modules/trackers/value-objects/tracker-name-min-length";
 export { TRACKER_NAME_MAX_LENGTH } from "../modules/trackers/value-objects/tracker-name-max-length";
 
-export { TRACKER_DATAPOINT_BOUND_LOWER } from "../modules/trackers/value-objects/tracker-datapoint-bound-lower";
-export { TRACKER_DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects/tracker-datapoint-bound-upper";
+export { DATAPOINT_BOUND_LOWER } from "../modules/trackers/value-objects/datapoint-bound-lower";
+export { DATAPOINT_BOUND_UPPER } from "../modules/trackers/value-objects/datapoint-bound-upper";
 
 export { WEEKLY_TRACKERS_REPORT_UTC_HOUR } from "../modules/trackers/value-objects/weekly-trackers-report-utc-hour";
 
-export { TRACKER_DATAPOINT_COMMENT_MAX_LENGTH } from "../modules/trackers/value-objects/tracker-datapoint-comment-max-length";
+export { DATAPOINT_COMMENT_MAX_LENGTH } from "../modules/trackers/value-objects/datapoint-comment-max-length";

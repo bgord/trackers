@@ -11,7 +11,7 @@ export class TrackerDatapointShouldExistError extends Error {
 }
 
 type TrackerDatapointShouldExistConfigType = {
-  datapointId: VO.TrackerDatapointIdType;
+  datapointId: VO.DatapointIdType;
 };
 
 class TrackerDatapointShouldExistFactory extends bg.Policy<TrackerDatapointShouldExistConfigType> {

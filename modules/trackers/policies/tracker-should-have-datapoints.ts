@@ -11,7 +11,7 @@ export class TrackerShouldHaveDatapointsError extends Error {
 }
 
 type TrackerShouldHaveDatapointsConfigType = Pick<
-  VO.TrackerDatapointType,
+  VO.DatapointType,
   "trackerId"
 >;
 

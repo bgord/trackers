@@ -11,7 +11,7 @@ export async function TrackerRevert(
 ) {
   const id = VO.TrackerId.parse(request.params.trackerId);
 
-  const datapointId = VO.TrackerDatapointId.parse(request.params.datapointId);
+  const datapointId = VO.DatapointId.parse(request.params.datapointId);
 
   infra.logger.info({
     message: "Tracker revert payload",

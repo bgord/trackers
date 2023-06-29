@@ -3,8 +3,8 @@ import { h } from "preact";
 import * as types from "./types";
 
 export function TrackerDatapointsChartPlaceholder(props: { bars: number }) {
-  const min = types.TRACKER_DATAPOINT_BOUND_LOWER;
-  const max = types.TRACKER_DATAPOINT_BOUND_UPPER;
+  const min = types.DATAPOINT_BOUND_LOWER;
+  const max = types.DATAPOINT_BOUND_UPPER;
 
   const bars = Array.from({ length: props.bars - 1 }).map(
     () => Math.floor(Math.random() * (max - min + 1)) + min

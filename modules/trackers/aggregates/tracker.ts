@@ -16,7 +16,7 @@ export class Tracker {
 
   DEFAULT_TRACKER_VALUE = VO.DEFAULT_TRACKER_VALUE;
 
-  DATAPOINTS_LIMIT_PER_DAY = VO.TRACKER_DATAPOINTS_LIMIT_PER_DAY;
+  DATAPOINTS_LIMIT_PER_DAY = VO.DATAPOINTS_LIMIT_PER_DAY;
 
   constructor(id: VO.TrackerType["id"]) {
     this.id = id;
@@ -123,7 +123,7 @@ export class Tracker {
   async sync(
     datapoint: {
       value: VO.TrackerValueType;
-      comment: VO.TrackerDatapointCommentType;
+      comment: VO.DatapointCommentType;
     },
     context: { timeZoneOffset: bg.TimeZoneOffsetsType }
   ) {
@@ -149,13 +149,13 @@ export class Tracker {
           value: datapoint.value,
           comment: datapoint.comment,
           updatedAt: Date.now(),
-          datapointId: VO.TrackerDatapointId.parse(bg.NewUUID.generate()),
+          datapointId: VO.DatapointId.parse(bg.NewUUID.generate()),
         },
       })
     );
   }
 
-  async revert(datapointId: VO.TrackerDatapointIdType) {
+  async revert(datapointId: VO.DatapointIdType) {
     await Policies.TrackerShouldExist.perform({ tracker: this });
     await Policies.TrackerIsActive.perform({ tracker: this });
     await Policies.TrackerDatapointShouldExist.perform({ datapointId });

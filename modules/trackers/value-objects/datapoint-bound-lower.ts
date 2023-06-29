@@ -1,0 +1,1 @@
+export const DATAPOINT_BOUND_LOWER = 24;

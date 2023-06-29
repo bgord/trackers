@@ -22,7 +22,7 @@ export async function TrackerSync(
   const tracker = await new Aggregates.Tracker(id).build();
 
   const value = strategy[tracker.entity!.kind].parse(request.body.value);
-  const comment = VO.TrackerDatapointComment.parse(request.body.comment);
+  const comment = VO.DatapointComment.parse(request.body.comment);
 
   const datapoint = { value, comment };
   await tracker.sync(datapoint, context);

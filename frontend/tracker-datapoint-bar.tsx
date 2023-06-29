@@ -38,7 +38,7 @@ export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
       onClick={details.toggle}
       onKeyDown={toggleDetailsKeyboardHandler}
       tabIndex={0}
-      style={{ maxHeight: `${types.TRACKER_DATAPOINT_BOUND_UPPER}px` }}
+      style={{ maxHeight: `${types.DATAPOINT_BOUND_UPPER}px` }}
       {...hover.attach}
     >
       <div
@@ -55,7 +55,7 @@ export function TrackerDatapointBar(props: TrackerDatapointBarPropsType) {
         data-bwt={props.value.isMax ? "4" : undefined}
         data-bct={props.value.isMax ? "gray-400" : undefined}
         style={{
-          minHeight: `${types.TRACKER_DATAPOINT_BOUND_LOWER}px`,
+          minHeight: `${types.DATAPOINT_BOUND_LOWER}px`,
           height: `${props.value.scaled}px`,
           minWidth: "36px",
         }}

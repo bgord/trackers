@@ -75,7 +75,7 @@ export class WeeklyTrackersReportGenerator {
       const datapoints = (await this.config.repos.datapoint.listFromRange({
         id: tracker.id,
         ...this.range,
-      })) as VO.TrackerDatapointType[];
+      })) as VO.DatapointType[];
 
       report.append(this.createTrackerDatapointCountRow(datapoints));
       report.addNewLine(2);
@@ -106,13 +106,11 @@ export class WeeklyTrackersReportGenerator {
     return `<strong>${name}</strong> tracker (${kind}), current value: <strong>${value}</strong>`;
   }
 
-  private createTrackerDatapointCountRow(
-    datapoints: VO.TrackerDatapointType[]
-  ) {
+  private createTrackerDatapointCountRow(datapoints: VO.DatapointType[]) {
     return `<strong>${datapoints.length}</strong> new datapoints`;
   }
 
-  private createTrackerDatapointRow(datapoint: VO.TrackerDatapointType) {
+  private createTrackerDatapointRow(datapoint: VO.DatapointType) {
     const value = datapoint.value;
     const createdAt = bg.DateFormatters.datetime(datapoint.createdAt);
 

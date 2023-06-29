@@ -301,12 +301,11 @@ export class ErrorHandler {
       if (
         error.issues.find(
           (issue) =>
-            issue.message ===
-            Trackers.VO.TRACKER_DATAPOINT_COMMENT_STRUCTURE_ERROR_KEY
+            issue.message === Trackers.VO.DATAPOINT_COMMENT_STRUCTURE_ERROR_KEY
         )
       ) {
         return response.status(400).send({
-          message: Trackers.VO.TRACKER_DATAPOINT_COMMENT_STRUCTURE_ERROR_KEY,
+          message: Trackers.VO.DATAPOINT_COMMENT_STRUCTURE_ERROR_KEY,
           _known: true,
         });
       }

@@ -20,8 +20,8 @@ export const TrackerSyncedEvent = bg.EventDraft.merge(
     version: z.literal(1),
     payload: VO.Tracker.pick({ id: true, value: true, updatedAt: true }).merge(
       z.object({
-        datapointId: VO.TrackerDatapointId,
-        comment: VO.TrackerDatapointComment,
+        datapointId: VO.DatapointId,
+        comment: VO.DatapointComment,
       })
     ),
   })
@@ -35,7 +35,7 @@ export const TrackerRevertedEvent = bg.EventDraft.merge(
     version: z.literal(1),
     payload: z.object({
       id: VO.TrackerId,
-      datapointId: VO.TrackerDatapointId,
+      datapointId: VO.DatapointId,
       updatedAt: VO.TrackerUpdatedAt,
     }),
   })

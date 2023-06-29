@@ -39,7 +39,7 @@ export function TrackerDatapointList(props: types.TrackerType) {
       data-bwy="1"
       data-bcy="gray-200"
       data-overflow="scroll"
-      style={{ minHeight: `${types.TRACKER_DATAPOINT_BOUND_UPPER}px` }}
+      style={{ minHeight: `${types.DATAPOINT_BOUND_UPPER}px` }}
     >
       {trackerDatapoints.data.map((datapoint) => (
         <TrackerDatapointBar
