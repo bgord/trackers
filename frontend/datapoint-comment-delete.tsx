@@ -1,6 +1,5 @@
 import * as bg from "@bgord/frontend";
 import { h } from "preact";
-import * as Icons from "iconoir-react";
 import { useQueryClient, useMutation } from "react-query";
 
 import * as types from "./types";
@@ -33,7 +32,7 @@ export function DatapointCommentDelete(props: types.DatapointType) {
       disabled={datapointCommentDelete.isLoading}
       onClick={() => datapointCommentDelete.mutate({ id: props.id })}
     >
-      <Icons.RemoveSquare height="24" width="24" />
+      {t("datapoint.comment.delete")}
     </button>
   );
 }

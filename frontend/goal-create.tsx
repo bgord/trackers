@@ -89,7 +89,7 @@ export function GoalCreate(props: types.TrackerType) {
         {t("goal.create")}
       </button>
 
-      <UI.ClearButton
+      <UI.Clear
         onClick={bg.exec([goalTarget.clear, goalKind.clear])}
         disabled={
           (goalTarget.unchanged && goalKind.unchanged) || createGoal.isLoading

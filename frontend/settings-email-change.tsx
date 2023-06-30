@@ -69,7 +69,7 @@ export function SettingsEmailChange() {
         {t("settings.email.change")}
       </button>
 
-      <UI.ClearButton
+      <UI.Clear
         onClick={newEmailField.clear}
         disabled={changeEmail.isLoading}
       />

@@ -19,7 +19,11 @@ export function Goal(props: types.TrackerType) {
   );
 
   if (goal.isLoading) {
-    return <UI.Info>{t("goal.loading.in_progress")}</UI.Info>;
+    return (
+      <UI.Info style={bg.Rhythm.base().times(3).height}>
+        {t("goal.loading.in_progress")}
+      </UI.Info>
+    );
   }
 
   if (goal.isError && props.status === types.TrackerStatusEnum.active) {

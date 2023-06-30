@@ -57,7 +57,7 @@ export function TrackerNameChange(props: types.TrackerType) {
         {t("tracker.name.new.change")}
       </button>
 
-      <UI.ClearButton
+      <UI.Clear
         onClick={newTrackerName.clear}
         data-self="end"
         disabled={newTrackerName.unchanged || changeName.isLoading}

@@ -90,7 +90,7 @@ export function TrackerExport(
               />
             </div>
 
-            <UI.ClearButton
+            <UI.Clear
               disabled={trackerExportEmail.unchanged}
               onClick={trackerExportEmail.clear}
             />
