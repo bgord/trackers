@@ -13,5 +13,5 @@ export async function DatapointCommentDelete(
   const comment = await new Services.DatapointComment(id).build();
   await comment.delete();
 
-  return response.status(200);
+  return response.status(200).send();
 }

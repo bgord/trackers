@@ -122,6 +122,15 @@ export const onTrackerRestoredEventHandler =
     });
   });
 
+export const onDatapointCommentDeletedEventHandler =
+  EventHandler.handle<Events.DatapointCommentDeletedEventType>(
+    async (event) => {
+      await Trackers.Repos.DatapointRepository.deleteComment({
+        id: event.payload.datapointId,
+      });
+    }
+  );
+
 export const onWeeklyTrackersReportScheduledEventHandler =
   EventHandler.handle<Events.WeeklyTrackersReportScheduledEventType>(
     async (event) => {

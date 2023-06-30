@@ -19,7 +19,7 @@ export class DatapointComment {
 
     if (!datapoint) throw new Policies.DatapointShouldExistError();
 
-    this.comment = VO.DatapointComment.parse(datapoint.comment);
+    this.comment = VO.DatapointComment.parse(datapoint.comment ?? undefined);
 
     return this;
   }

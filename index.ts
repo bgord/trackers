@@ -85,6 +85,7 @@ app.get(
 app.delete(
   "/datapoint/:datapointId/comment",
   infra.AuthShield.verify,
+  infra.CacheResponse.clear,
   bg.Route(Trackers.Routes.DatapointCommentDelete)
 );
 app.post(

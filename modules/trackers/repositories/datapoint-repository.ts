@@ -27,6 +27,13 @@ export class DatapointRepository {
     });
   }
 
+  static async deleteComment(payload: Pick<VO.DatapointType, "id">) {
+    return infra.db.datapoint.update({
+      where: { id: payload.id },
+      data: { comment: null },
+    });
+  }
+
   static async list(payload: Pick<VO.TrackerType, "id">) {
     const datapoints = await infra.db.datapoint.findMany({
       where: { trackerId: payload.id },

@@ -70,6 +70,10 @@ emittery.on(
   Trackers.Handlers.onTrackerRestoredEventHandler
 );
 emittery.on(
+  Trackers.Events.DATAPOINT_COMMENT_DELETED_EVENT,
+  Trackers.Handlers.onDatapointCommentDeletedEventHandler
+);
+emittery.on(
   Trackers.Events.WEEKLY_TRACKERS_REPORT_SCHEDULED,
   Trackers.Handlers.onWeeklyTrackersReportScheduledEventHandler
 );

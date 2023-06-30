@@ -75,9 +75,7 @@ export class Tracker {
   }
 
   static async deleteComment(payload: Pick<types.DatapointType, "id">) {
-    return bg.API(`/datapoint/${payload.id}/comment`, {
-      method: "DELETE",
-    });
+    return bg.API(`/datapoint/${payload.id}/comment`, { method: "DELETE" });
   }
 }
 

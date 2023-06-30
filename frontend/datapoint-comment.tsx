@@ -3,6 +3,7 @@ import { h } from "preact";
 import * as Icons from "iconoir-react";
 
 import * as types from "./types";
+import { DatapointCommentDelete } from "./datapoint-comment-delete";
 
 export function DatapointComment(props: types.DatapointType) {
   const t = bg.useTranslations();
@@ -58,16 +59,9 @@ export function DatapointComment(props: types.DatapointType) {
           {t("app.cancel")}
         </button>
 
-        <button
-          type="button"
-          class="c-button"
-          data-variant="with-icon"
-          data-color="red-600"
-          title={t("datapoint.comment.delete")}
-          data-ml="auto"
-        >
-          <Icons.RemoveSquare height="24" width="24" />
-        </button>
+        {trackerComment.value && props.comment && (
+          <DatapointCommentDelete {...props} />
+        )}
       </div>
     </div>
   );

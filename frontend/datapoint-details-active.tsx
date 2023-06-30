@@ -22,7 +22,7 @@ export function DatapointActiveDetails(props: {
 
   return (
     <div data-display="flex">
-      <DatapointComment {...datapoint} />
+      <DatapointComment key={datapoint.comment} {...datapoint} />
     </div>
   );
 }

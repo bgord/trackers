@@ -49,6 +49,8 @@
   "datapoint.comment.placeholder": "Comment about the new value",
   "datapoint.comment.delete": "Delete",
   "datapoint.comment.update": "Update",
+  "datapoint.comment.delete.error": "Comment not deleted",
+  "datapoint.comment.delete.success": "Comment deleted",
   "datapoint.revert": "Revert datapoint",
   "datapoint.revert.error": "Datapoint revert error",
   "datapoint.revert.error.does_not_exist": "Datapoint does not exist",
