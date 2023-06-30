@@ -19,6 +19,7 @@ export const emittery = new Emittery<{
   TRACKER_ARCHIVED_EVENT: Trackers.Events.TrackerArchivedEventType;
   TRACKER_RESTORED_EVENT: Trackers.Events.TrackerRestoredEventType;
   TRACKER_VALUE_RECALCULATED_EVENT: Trackers.Events.TrackerValueRecalculatedEventType;
+  DATAPOINT_COMMENT_DELETED_EVENT: Trackers.Events.DatapointCommentDeletedEventType;
   WEEKLY_TRACKERS_REPORT_SCHEDULED: Trackers.Events.WeeklyTrackersReportScheduledEventType;
 
   WEEKLY_TRACKERS_REPORT_ENABLED: Settings.Events.WeeklyTrackersReportEnabledEventType;
