@@ -48,6 +48,8 @@
   "datapoint.comment.name.structure.error": "Comment can be up to 128 chars",
   "datapoint.comment.placeholder": "Comment about the new value",
   "datapoint.comment.delete": "Delete",
+  "datapoint.comment.update.success": "Comment updated",
+  "datapoint.comment.update.error": "Comment not updated",
   "datapoint.comment.update": "Update",
   "datapoint.comment.delete.error": "Comment not deleted",
   "datapoint.comment.delete.success": "Comment deleted",

@@ -1,17 +1,32 @@
 import * as bg from "@bgord/frontend";
 import { h } from "preact";
-import * as Icons from "iconoir-react";
+import { useQueryClient, useMutation } from "react-query";
 
 import * as types from "./types";
+import * as api from "./api";
+
 import { DatapointCommentDelete } from "./datapoint-comment-delete";
 
 export function DatapointComment(props: types.DatapointType) {
   const t = bg.useTranslations();
+  const notify = bg.useToastTrigger();
+  const queryClient = useQueryClient();
 
   const trackerComment = bg.useField<types.DatapointType["comment"] | null>(
     "datapoint-comment",
     props.comment
   );
+
+  const updateDatapointComment = useMutation(api.Tracker.updateComment, {
+    onSuccess: () => {
+      notify({ message: "datapoint.comment.update.success" });
+      queryClient.invalidateQueries(["datapoint-list", props.trackerId]);
+    },
+    onError() {
+      setTimeout(updateDatapointComment.reset, 5000);
+      notify({ message: "datapoint.comment.update.error" });
+    },
+  });
 
   return (
     <div
@@ -44,7 +59,15 @@ export function DatapointComment(props: types.DatapointType) {
           type="button"
           class="c-button"
           data-variant="primary"
-          disabled={trackerComment.unchanged}
+          disabled={
+            trackerComment.unchanged || updateDatapointComment.isLoading
+          }
+          onClick={() =>
+            updateDatapointComment.mutate({
+              id: props.id,
+              comment: trackerComment.value,
+            })
+          }
         >
           {t("datapoint.comment.update")}
         </button>
@@ -53,7 +76,9 @@ export function DatapointComment(props: types.DatapointType) {
           type="button"
           class="c-button"
           data-variant="bare"
-          disabled={trackerComment.unchanged}
+          disabled={
+            trackerComment.unchanged || updateDatapointComment.isLoading
+          }
           onClick={trackerComment.clear}
         >
           {t("app.cancel")}
