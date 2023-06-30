@@ -34,4 +34,15 @@ export class DatapointComment {
       })
     );
   }
+
+  async update(comment: VO.DatapointCommentType) {
+    await infra.EventStore.save(
+      Events.DatapointCommentUpdatedEvent.parse({
+        name: Events.DATAPOINT_COMMENT_UPDATED_EVENT,
+        stream: `datapoint_${this.id}`,
+        version: 1,
+        payload: { datapointId: this.id, comment },
+      })
+    );
+  }
 }

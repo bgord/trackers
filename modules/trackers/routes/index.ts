@@ -2,6 +2,7 @@ export * from "./tracker-archive";
 export * from "./tracker-create";
 export * from "./datapoint-list";
 export * from "./datapoint-comment-delete";
+export * from "./datapoint-comment-update";
 export * from "./tracker-delete";
 export * from "./tracker-export";
 export * from "./tracker-list";
