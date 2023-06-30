@@ -73,6 +73,12 @@ export class Tracker {
       .API(`/tracker/${id}/datapoints`, { method: "GET" })
       .then((response) => (response.ok ? response.json() : []));
   }
+
+  static async deleteComment(payload: Pick<types.DatapointType, "id">) {
+    return bg.API(`/datapoint/${payload.id}/comment`, {
+      method: "DELETE",
+    });
+  }
 }
 
 export class Settings {

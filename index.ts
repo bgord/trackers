@@ -82,6 +82,11 @@ app.get(
   infra.CacheResponse.handle,
   bg.Route(Trackers.Routes.DatapointList)
 );
+app.delete(
+  "/datapoint/:datapointId/comment",
+  infra.AuthShield.verify,
+  bg.Route(Trackers.Routes.DatapointCommentDelete)
+);
 app.post(
   "/tracker/:trackerId/archive",
   infra.AuthShield.verify,
