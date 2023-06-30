@@ -19,6 +19,7 @@ type AcceptedEvent =
   | typeof Trackers.Events.TrackerRestoredEvent
   | typeof Trackers.Events.TrackerValueRecalculatedEvent
   | typeof Trackers.Events.DatapointCommentDeletedEvent
+  | typeof Trackers.Events.DatapointCommentUpdatedEvent
   | typeof Trackers.Events.WeeklyTrackersReportScheduledEvent
   | typeof Settings.Events.WeeklyTrackersReportEnabledEvent
   | typeof Settings.Events.WeeklyTrackersReportDisabledEvent

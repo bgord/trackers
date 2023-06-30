@@ -133,6 +133,22 @@ export type DatapointCommentDeletedEventType = z.infer<
   typeof DatapointCommentDeletedEvent
 >;
 
+export const DATAPOINT_COMMENT_UPDATED_EVENT =
+  "DATAPOINT_COMMENT_UPDATED_EVENT";
+export const DatapointCommentUpdatedEvent = bg.EventDraft.merge(
+  z.object({
+    name: z.literal(DATAPOINT_COMMENT_UPDATED_EVENT),
+    version: z.literal(1),
+    payload: z.object({
+      datapointId: VO.DatapointId,
+      comment: VO.DatapointComment,
+    }),
+  })
+);
+export type DatapointCommentUpdatedEventType = z.infer<
+  typeof DatapointCommentUpdatedEvent
+>;
+
 export const WEEKLY_TRACKERS_REPORT_SCHEDULED =
   "WEEKLY_TRACKERS_REPORT_SCHEDULED";
 export const WeeklyTrackersReportScheduledEvent = bg.EventDraft.merge(
