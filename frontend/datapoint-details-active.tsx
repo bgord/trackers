@@ -3,6 +3,7 @@ import { useQueryClient } from "react-query";
 import { h } from "preact";
 
 import * as types from "./types";
+import { DatapointComment } from "./datapoint-comment";
 
 export function DatapointActiveDetails(props: {
   id: types.DatapointType["id"] | null;
@@ -21,7 +22,7 @@ export function DatapointActiveDetails(props: {
 
   return (
     <div data-display="flex">
-      <div>{datapoint.comment}</div>
+      <DatapointComment {...datapoint} />
     </div>
   );
 }
