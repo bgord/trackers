@@ -55,7 +55,7 @@ export function DatapointComment(props: types.DatapointType) {
           disabled={trackerComment.unchanged}
           onClick={trackerComment.clear}
         >
-          {t("app.clear")}
+          {t("app.cancel")}
         </button>
 
         <button

@@ -127,8 +127,8 @@ export const DatapointCommentDeletedEvent = bg.EventDraft.merge(
     name: z.literal(DATAPOINT_COMMENT_DELETED_EVENT),
     version: z.literal(1),
     payload: z.object({
-      trackerId: VO.TrackerId,
-      value: VO.TrackerValue,
+      datapointId: VO.DatapointId,
+      deletedAt: VO.TrackerUpdatedAt,
     }),
   })
 );
