@@ -1,5 +1,4 @@
 import * as bg from "@bgord/frontend";
-import * as Icons from "iconoir-react";
 import { h } from "preact";
 
 export function Info(props: h.JSX.IntrinsicElements["div"]) {
@@ -28,7 +27,7 @@ export function ClearButton(props: h.JSX.IntrinsicElements["button"]) {
       data-cross="center"
       {...props}
     >
-      <Icons.Cancel width="24" height="24" />
+      {t("app.clear")}
     </button>
   );
 }
