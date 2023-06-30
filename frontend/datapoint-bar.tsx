@@ -10,34 +10,42 @@ import { DatapointRevert } from "./datapoint-revert";
 
 type DatapointBarPropsType = types.DatapointType & {
   status: types.TrackerType["status"];
+} & {
+  activeDatapointId: bg.UseFieldReturnType<types.DatapointType["id"] | null>;
 };
 
 export function DatapointBar(props: DatapointBarPropsType) {
-  const details = bg.useToggle(false);
-  const toggleDetailsKeyboardHandler = bg.useKeyHandler({
-    [bg.KeyNameEnum.Enter]: details.toggle,
-    [bg.KeyNameEnum.Space]: details.toggle,
-  });
-
   const hover = bg.useHover();
   const debouncedIsHovering = bg.useDebounce<boolean>({
     value: hover.isHovering,
     delayMs: 25,
   });
 
+  function toggleActiveDatapoint() {
+    isActive
+      ? props.activeDatapointId.clear()
+      : props.activeDatapointId.set(props.id);
+  }
+
+  const toggleActiveDatapointKeyboardHandler = bg.useKeyHandler({
+    [bg.KeyNameEnum.Enter]: toggleActiveDatapoint,
+    [bg.KeyNameEnum.Space]: toggleActiveDatapoint,
+  });
+
   const hasAccomplishedGoal = useDatapointAccomplishedGoal(props);
 
-  const isActive = details.on || debouncedIsHovering;
+  const isActive = props.activeDatapointId.value === props.id;
+  const isInteractive = isActive || debouncedIsHovering;
 
   return (
     <li
       data-display="flex"
       data-direction="column"
-      data-cursor={isActive ? "pointer" : "auto"}
+      data-cursor={isInteractive ? "pointer" : "auto"}
       data-wrap="nowrap"
-      onClick={details.toggle}
-      onKeyDown={toggleDetailsKeyboardHandler}
       tabIndex={0}
+      onClick={toggleActiveDatapoint}
+      onKeyDown={toggleActiveDatapointKeyboardHandler}
       style={{ maxHeight: `${types.DATAPOINT_BOUND_UPPER}px` }}
       {...hover.attach}
     >
@@ -46,7 +54,11 @@ export function DatapointBar(props: DatapointBarPropsType) {
         data-main="center"
         data-cross="center"
         data-bg={
-          isActive ? "gray-300" : hasAccomplishedGoal ? "green-200" : "gray-200"
+          isInteractive
+            ? "gray-300"
+            : hasAccomplishedGoal
+            ? "green-200"
+            : "gray-200"
         }
         data-px="3"
         data-fs="12"
@@ -63,13 +75,13 @@ export function DatapointBar(props: DatapointBarPropsType) {
         {props.value.actual}
       </div>
 
-      {isActive && (
+      {isInteractive && (
         <div data-fs="12" title={bg.DateFormatter.datetime(props.createdAt)}>
           {bg.DateFormatter.monthDay(props.createdAt)}
         </div>
       )}
 
-      {isActive && props.status === types.TrackerStatusEnum.active && (
+      {isInteractive && props.status === types.TrackerStatusEnum.active && (
         <DatapointRevert {...props} />
       )}
     </li>
