@@ -8,8 +8,6 @@ import * as infra from "../../../infra";
 export class DatapointComment {
   private id: VO.DatapointIdType;
 
-  private comment: VO.DatapointCommentType;
-
   constructor(id: VO.DatapointIdType) {
     this.id = id;
   }
@@ -18,8 +16,6 @@ export class DatapointComment {
     const datapoint = await Repos.DatapointRepository.getDatapoint(this.id);
 
     if (!datapoint) throw new Policies.DatapointShouldExistError();
-
-    this.comment = VO.DatapointComment.parse(datapoint.comment ?? undefined);
 
     return this;
   }

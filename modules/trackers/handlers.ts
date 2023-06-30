@@ -131,6 +131,16 @@ export const onDatapointCommentDeletedEventHandler =
     }
   );
 
+export const onDatapointCommentUpdatedEventHandler =
+  EventHandler.handle<Events.DatapointCommentUpdatedEventType>(
+    async (event) => {
+      await Trackers.Repos.DatapointRepository.updateComment({
+        id: event.payload.datapointId,
+        comment: event.payload.comment,
+      });
+    }
+  );
+
 export const onWeeklyTrackersReportScheduledEventHandler =
   EventHandler.handle<Events.WeeklyTrackersReportScheduledEventType>(
     async (event) => {

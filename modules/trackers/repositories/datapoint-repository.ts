@@ -34,6 +34,15 @@ export class DatapointRepository {
     });
   }
 
+  static async updateComment(
+    payload: Pick<VO.DatapointType, "id" | "comment">
+  ) {
+    return infra.db.datapoint.update({
+      where: { id: payload.id },
+      data: { comment: payload.comment },
+    });
+  }
+
   static async list(payload: Pick<VO.TrackerType, "id">) {
     const datapoints = await infra.db.datapoint.findMany({
       where: { trackerId: payload.id },
