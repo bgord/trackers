@@ -16,11 +16,10 @@ import {
 export function DatapointList(props: types.TrackerType) {
   const t = bg.useTranslations();
 
-  const activeDatapointId = bg.useItem<ActiveDatapointIdType>();
-
   const datapoints = useQuery(["datapoint-list", props.id], () =>
     api.Tracker.getDatapoints(props.id)
   );
+  const activeDatapointId = bg.useItem<ActiveDatapointIdType>();
 
   if (datapoints.isLoading) {
     return <DatapointsChartPlaceholder bars={15} />;

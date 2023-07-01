@@ -27,8 +27,8 @@ export function DatapointBar(props: DatapointBarPropsType) {
 
   const hasAccomplishedGoal = useDatapointAccomplishedGoal(props);
 
-  const isActive = props.activeDatapointId.value === props.id;
-  const isInteractive = isActive || debouncedIsHovering;
+  const isInteractive =
+    props.activeDatapointId.compare(props.id) || debouncedIsHovering;
 
   return (
     <li
