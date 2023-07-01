@@ -7,6 +7,7 @@ export * from "./response-cache";
 export * from "./jobs";
 
 export * from "./event-store";
+import { TrackerExportFile } from "../modules/trackers/services/tracker-export-file";
 
 import * as bg from "@bgord/node";
 import { Env } from "./env";
@@ -41,6 +42,13 @@ export const prerequisites = [
     label: "nodemailer",
     strategy: bg.PrerequisiteStrategyEnum.mailer,
     mailer: Mailer,
+  }),
+
+  new bg.Prerequisite({
+    label: "tracker-exports directory",
+    strategy: bg.PrerequisiteStrategyEnum.path,
+    path: TrackerExportFile.TRACKER_EXPORTS_DIRECTORY,
+    access: { write: true },
   }),
 ];
 
