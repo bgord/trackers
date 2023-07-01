@@ -23,7 +23,7 @@ type DatapointsFileConfigType = {
 export class TrackerExportFile {
   private readonly config: DatapointsFileConfigType;
 
-  private readonly TRACKER_EXPORTS_DIRECTORY = "infra/tracker-exports";
+  static readonly TRACKER_EXPORTS_DIRECTORY = "infra/tracker-exports";
 
   private readonly columns = [
     "id",
@@ -76,7 +76,10 @@ export class TrackerExportFile {
   private getPaths(): bg.Schema.EmailAttachmentType {
     const filename = `${this.config.tracker.id}-${this.config.tracker.scheduledAt}.csv`;
 
-    const path = _path.resolve(this.TRACKER_EXPORTS_DIRECTORY, filename);
+    const path = _path.resolve(
+      TrackerExportFile.TRACKER_EXPORTS_DIRECTORY,
+      filename
+    );
 
     return bg.Schema.EmailAttachment.parse({ filename, path });
   }
