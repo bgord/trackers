@@ -13,6 +13,7 @@ import * as bg from "@bgord/node";
 import { Env } from "./env";
 import { ResponseCache } from "./response-cache";
 import { Mailer } from "./mailer";
+import { db } from "./db";
 
 export const AuthShield = new bg.EnvUserAuthShield({
   ADMIN_USERNAME: Env.ADMIN_USERNAME,
@@ -49,6 +50,12 @@ export const prerequisites = [
     strategy: bg.PrerequisiteStrategyEnum.path,
     path: TrackerExportFile.TRACKER_EXPORTS_DIRECTORY,
     access: { write: true },
+  }),
+
+  new bg.Prerequisite({
+    label: "prisma-sqlite",
+    strategy: bg.PrerequisiteStrategyEnum.prisma,
+    client: db,
   }),
 ];
 
