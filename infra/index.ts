@@ -11,6 +11,7 @@ export * from "./event-store";
 import * as bg from "@bgord/node";
 import { Env } from "./env";
 import { ResponseCache } from "./response-cache";
+import { Mailer } from "./mailer";
 
 export const AuthShield = new bg.EnvUserAuthShield({
   ADMIN_USERNAME: Env.ADMIN_USERNAME,
@@ -34,6 +35,12 @@ export const prerequisites = [
     label: "timezone",
     strategy: bg.PrerequisiteStrategyEnum.timezoneUTC,
     timezone: Env.TZ,
+  }),
+
+  new bg.Prerequisite({
+    label: "nodemailer",
+    strategy: bg.PrerequisiteStrategyEnum.mailer,
+    mailer: Mailer,
   }),
 ];
 
