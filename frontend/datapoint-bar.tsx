@@ -7,12 +7,11 @@ import * as types from "./types";
 import { GoalVerifier } from "../modules/goals/services/goal-verifier";
 
 import { DatapointRevert } from "./datapoint-revert";
+import { ActiveDatapointIdType } from "./active-datapoint-details";
 
 type DatapointBarPropsType = types.DatapointType & {
   status: types.TrackerType["status"];
-} & {
-  activeDatapointId: bg.UseItemReturnType<types.DatapointType["id"] | null>;
-};
+} & { activeDatapointId: bg.UseItemReturnType<ActiveDatapointIdType> };
 
 export function DatapointBar(props: DatapointBarPropsType) {
   const hover = bg.useHover();

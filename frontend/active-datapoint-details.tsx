@@ -26,3 +26,5 @@ export function ActiveDatapointDetails(props: {
     </div>
   );
 }
+
+export type ActiveDatapointIdType = types.DatapointType["id"] | null;
