@@ -11,7 +11,7 @@ import { DatapointRevert } from "./datapoint-revert";
 type DatapointBarPropsType = types.DatapointType & {
   status: types.TrackerType["status"];
 } & {
-  activeDatapointId: bg.UseFieldReturnType<types.DatapointType["id"] | null>;
+  activeDatapointId: bg.UseItemReturnType<types.DatapointType["id"] | null>;
 };
 
 export function DatapointBar(props: DatapointBarPropsType) {
@@ -21,15 +21,9 @@ export function DatapointBar(props: DatapointBarPropsType) {
     delayMs: 25,
   });
 
-  function toggleActiveDatapoint() {
-    isActive
-      ? props.activeDatapointId.clear()
-      : props.activeDatapointId.set(props.id);
-  }
-
   const toggleActiveDatapointKeyboardHandler = bg.useKeyHandler({
-    [bg.KeyNameEnum.Enter]: toggleActiveDatapoint,
-    [bg.KeyNameEnum.Space]: toggleActiveDatapoint,
+    [bg.KeyNameEnum.Enter]: props.activeDatapointId.toggle,
+    [bg.KeyNameEnum.Space]: props.activeDatapointId.toggle,
   });
 
   const hasAccomplishedGoal = useDatapointAccomplishedGoal(props);
@@ -44,7 +38,7 @@ export function DatapointBar(props: DatapointBarPropsType) {
       data-cursor={isInteractive ? "pointer" : "auto"}
       data-wrap="nowrap"
       tabIndex={0}
-      onClick={toggleActiveDatapoint}
+      onClick={() => props.activeDatapointId.toggle(props.id)}
       onKeyDown={toggleActiveDatapointKeyboardHandler}
       style={{ maxHeight: `${types.DATAPOINT_BOUND_UPPER}px` }}
       {...hover.attach}

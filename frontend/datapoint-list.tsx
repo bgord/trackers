@@ -8,15 +8,12 @@ import * as api from "./api";
 
 import { DatapointBar } from "./datapoint-bar";
 import { DatapointsChartPlaceholder } from "./datapoints-bar-placeholder";
-import { DatapointActiveDetails } from "./datapoint-details-active";
+import { ActiveDatapointDetails } from "./active-datapoint-details";
 
 export function DatapointList(props: types.TrackerType) {
   const t = bg.useTranslations();
 
-  const activeDatapointId = bg.useField<types.DatapointType["id"] | null>(
-    "comment",
-    null
-  );
+  const activeDatapointId = bg.useItem<types.DatapointType["id"] | null>(null);
 
   const datapoints = useQuery(["datapoint-list", props.id], () =>
     api.Tracker.getDatapoints(props.id)
@@ -52,13 +49,13 @@ export function DatapointList(props: types.TrackerType) {
           <DatapointBar
             key={datapoint.id}
             status={props.status}
-            {...datapoint}
             activeDatapointId={activeDatapointId}
+            {...datapoint}
           />
         ))}
       </ul>
 
-      <DatapointActiveDetails
+      <ActiveDatapointDetails
         id={activeDatapointId.value}
         trackerId={props.id}
       />

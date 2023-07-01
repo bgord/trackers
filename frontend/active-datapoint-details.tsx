@@ -5,7 +5,7 @@ import { h } from "preact";
 import * as types from "./types";
 import { DatapointComment } from "./datapoint-comment";
 
-export function DatapointActiveDetails(props: {
+export function ActiveDatapointDetails(props: {
   id: types.DatapointType["id"] | null;
   trackerId: types.TrackerType["id"];
 }) {
