@@ -18,7 +18,9 @@ export type InitialDataType = {
   InitialSettingsDataType;
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnMount: false } },
+  defaultOptions: {
+    queries: { refetchOnMount: false, refetchOnWindowFocus: false },
+  },
 });
 
 export function App(props: InitialDataType) {
