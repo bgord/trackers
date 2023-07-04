@@ -39,16 +39,13 @@ export function TrackerArchive(
       <button
         type="button"
         onClick={dialog.enable}
-        disabled={archiveTracker.isLoading || archiveTracker.isSuccess}
+        disabled={!archiveTracker.isIdle}
         class="c-button"
         data-variant="bare"
         title={t("tracker.archive")}
         {...rest}
       >
-        {archiveTracker.isIdle && <Icons.Archive height="20" width="20" />}
-        {archiveTracker.isLoading && t("tracker.archive.in_progress")}
-        {archiveTracker.isSuccess && t("tracker.archive.success")}
-        {archiveTracker.isError && t("tracker.archive.error")}
+        <Icons.Archive height="20" width="20" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">

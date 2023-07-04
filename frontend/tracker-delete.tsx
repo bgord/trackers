@@ -36,18 +36,13 @@ export function TrackerDelete(
       <button
         type="button"
         onClick={dialog.enable}
-        disabled={deleteTracker.isLoading || deleteTracker.isSuccess}
+        disabled={!deleteTracker.isIdle}
         class="c-button"
         data-variant="bare"
         title={t("tracker.delete")}
         {...rest}
       >
-        {deleteTracker.isIdle && (
-          <Icons.DeleteCircledOutline height="24" width="24" />
-        )}
-        {deleteTracker.isLoading && t("tracker.delete.in_progress")}
-        {deleteTracker.isSuccess && t("tracker.delete.success")}
-        {deleteTracker.isError && t("tracker.delete.error")}
+        <Icons.DeleteCircledOutline height="24" width="24" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">

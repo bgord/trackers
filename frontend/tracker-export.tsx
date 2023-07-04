@@ -47,10 +47,7 @@ export function TrackerExport(
         title={t("tracker.export")}
         {...rest}
       >
-        {exportTracker.isIdle && <Icons.Download height="24" width="24" />}
-        {exportTracker.isLoading && t("tracker.export.in_progress")}
-        {exportTracker.isSuccess && t("tracker.export.success")}
-        {exportTracker.isError && t("tracker.export.error")}
+        <Icons.Download height="24" width="24" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">

@@ -31,17 +31,12 @@ export function GoalDelete(props: types.GoalType) {
       <button
         type="button"
         onClick={dialog.enable}
-        disabled={deleteGoal.isLoading || deleteGoal.isSuccess}
+        disabled={!deleteGoal.isIdle}
         class="c-button"
         data-variant="bare"
         title={t("goal.delete")}
       >
-        {deleteGoal.isIdle && (
-          <Icons.DeleteCircledOutline height="24" width="24" />
-        )}
-        {deleteGoal.isLoading && t("goal.delete.in_progress")}
-        {deleteGoal.isSuccess && t("goal.delete.success")}
-        {deleteGoal.isError && t("goal.delete.error")}
+        <Icons.DeleteCircledOutline height="24" width="24" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">

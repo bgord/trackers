@@ -34,10 +34,7 @@ export function TrackerRestore(props: types.TrackerType) {
         data-variant="bare"
         title={t("tracker.restore")}
       >
-        {restoreTracker.isIdle && <Icons.Restart height="20" width="20" />}
-        {restoreTracker.isLoading && t("tracker.restore.in_progress")}
-        {restoreTracker.isSuccess && t("tracker.restore.success")}
-        {restoreTracker.isError && t("tracker.restore.error")}
+        <Icons.Restart height="20" width="20" />
       </button>
     </>
   );
