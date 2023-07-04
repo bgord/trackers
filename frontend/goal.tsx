@@ -20,7 +20,7 @@ export function Goal(props: types.TrackerType) {
 
   if (goal.isLoading) {
     return (
-      <UI.Info style={bg.Rhythm.base().times(3).height}>
+      <UI.Info style={bg.Rhythm.base().times(5).height}>
         {t("goal.loading.in_progress")}
       </UI.Info>
     );
@@ -35,7 +35,13 @@ export function Goal(props: types.TrackerType) {
   }
 
   return (
-    <div data-display="flex" data-gap="12" data-fs="14" data-cross="center">
+    <div
+      data-display="flex"
+      data-gap="12"
+      data-fs="14"
+      data-cross="center"
+      style={bg.Rhythm.base().times(5).height}
+    >
       {goal.data?.status === types.GoalStatusEnum.awaiting && (
         <div class="c-badge">{goal.data.status}</div>
       )}
