@@ -71,7 +71,7 @@ export function SettingsEmailChange() {
 
       <UI.Clear
         onClick={newEmailField.clear}
-        disabled={changeEmail.isLoading}
+        disabled={changeEmail.isLoading || newEmailField.unchanged}
       />
     </form>
   );
