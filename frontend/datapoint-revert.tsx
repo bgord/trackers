@@ -29,7 +29,10 @@ export function DatapointRevert(props: {
     <UI.ClearButton
       disabled={revertDatapoint.isLoading}
       title={t("datapoint.revert")}
-      onClick={() => revertDatapoint.mutate(props)}
+      onClick={(event) => {
+        event.stopPropagation();
+        revertDatapoint.mutate(props);
+      }}
       style={bg.Rhythm.base().times(2).height}
     />
   );
