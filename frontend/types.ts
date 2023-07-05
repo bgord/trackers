@@ -3,6 +3,7 @@ import type { AsyncReturnType } from "@bgord/node";
 
 import type { DatapointRepository } from "../modules/trackers/repositories/datapoint-repository";
 import type { SettingsRepository } from "../modules/settings/repositories";
+import type { HistoryRepository } from "../modules/history/repositories";
 
 // Types
 export { TrackerKindEnum } from "../modules/trackers/value-objects/tracker-kind-enum";
@@ -17,6 +18,10 @@ export type DatapointType = AsyncReturnType<
 export { GoalKindEnum } from "../modules/goals/value-objects/goal-kind-enum";
 export { GoalStatusEnum } from "../modules/goals/value-objects/goal-status-enum";
 export type { GoalType } from "../modules/goals/value-objects/goal";
+
+export type HistoryType = AsyncReturnType<typeof HistoryRepository["list"]>[0];
+
+export type HistoryViewType = HistoryType & { payload: Record<string, any> };
 
 // Constants
 

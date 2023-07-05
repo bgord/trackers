@@ -145,3 +145,13 @@ export class Goal {
     });
   }
 }
+
+export class History {
+  static async list(
+    relatedTrackerId: types.HistoryType["relatedTrackerId"]
+  ): Promise<types.HistoryViewType[]> {
+    return bg
+      .API(`/history/${relatedTrackerId}/list`, { method: "GET" })
+      .then((response) => (response.ok ? response.json() : []));
+  }
+}

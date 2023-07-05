@@ -5,6 +5,8 @@ import * as Icons from "iconoir-react";
 import * as types from "./types";
 import * as UI from "./ui";
 
+import { TrackerHistory } from "./tracker-history";
+
 export function TrackerMetadata(props: types.TrackerType) {
   const t = bg.useTranslations();
 
@@ -25,6 +27,8 @@ export function TrackerMetadata(props: types.TrackerType) {
         <Icons.ClockOutline height="14" width="14" data-mr="6" />
         {t("tracker.updated_at", { value: props.updatedAt.relative })}
       </UI.Info>
+
+      <TrackerHistory {...props} />
     </div>
   );
 }

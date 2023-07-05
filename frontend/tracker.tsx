@@ -4,16 +4,15 @@ import { h } from "preact";
 
 import * as types from "./types";
 
-import { TrackerSync } from "./tracker-sync";
-import { TrackerNameChange } from "./tracker-name-change";
-import { TrackerDelete } from "./tracker-delete";
-import { TrackerArchive } from "./tracker-archive";
-import { TrackerExport } from "./tracker-export";
-import { TrackerRestore } from "./tracker-restore";
 import { DatapointList } from "./datapoint-list";
-import { TrackerMetadata } from "./tracker-metadata";
-
 import { Goal } from "./goal";
+import { TrackerArchive } from "./tracker-archive";
+import { TrackerDelete } from "./tracker-delete";
+import { TrackerExport } from "./tracker-export";
+import { TrackerMetadata } from "./tracker-metadata";
+import { TrackerNameChange } from "./tracker-name-change";
+import { TrackerRestore } from "./tracker-restore";
+import { TrackerSync } from "./tracker-sync";
 
 export function Tracker(props: types.TrackerType) {
   const t = bg.useTranslations();
@@ -85,6 +84,7 @@ export function Tracker(props: types.TrackerType) {
           {props.status === types.TrackerStatusEnum.active && (
             <div data-display="flex" data-cross="start" data-gap="48">
               <TrackerSync key={props.updatedAt} {...props} />
+
               <TrackerNameChange {...props} />
             </div>
           )}
