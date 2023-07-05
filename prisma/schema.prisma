@@ -17,13 +17,13 @@ model Event {
 }
 
 model Tracker {
-  id               String             @id @default(uuid())
-  kind             String
-  name             String
-  value            Float
-  status           String             @default("active")
-  createdAt        Int
-  updatedAt        Int
+  id        String      @id @default(uuid())
+  kind      String
+  name      String
+  value     Float
+  status    String      @default("active")
+  createdAt Int
+  updatedAt Int
   Datapoint Datapoint[]
 }
 
@@ -44,4 +44,12 @@ model Goal {
   status           String
   target           Float
   updatedAt        Int
+}
+
+model History {
+  createdAt        Int
+  id               String  @id @default(uuid())
+  relatedTrackerId String
+  operation        String
+  payload          String?
 }
