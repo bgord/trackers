@@ -8,7 +8,7 @@ import { HistoryRelatedTrackerId } from "./history-related-tracker-id";
 
 export const History = z.object({
   id: HistoryId,
-  createdeAt: HistoryCreatedAt,
+  createdAt: HistoryCreatedAt,
   operation: HistoryOperation,
   payload: HistoryPayload,
   relatedTrackerId: HistoryRelatedTrackerId,
