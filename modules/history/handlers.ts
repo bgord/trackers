@@ -55,3 +55,15 @@ export const onTrackerExportedEventHandler =
       });
     }
   );
+
+export const onTrackerNameChangedEventHandler =
+  EventHandler.handle<Trackers.Events.TrackerNameChangedEventType>(
+    async (event) => {
+      await History.Repos.HistoryRepository.append({
+        createdAt: event.payload.updatedAt,
+        operation: "history.tracker.name.changed",
+        relatedTrackerId: event.payload.id,
+        payload: { name: event.payload.name },
+      });
+    }
+  );
