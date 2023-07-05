@@ -19,3 +19,15 @@ export const onTrackerAddedEventHandler =
       relatedTrackerId: event.payload.id,
     });
   });
+
+export const onTrackerArchivedEventHandler =
+  EventHandler.handle<Trackers.Events.TrackerArchivedEventType>(
+    async (event) => {
+      await History.Repos.HistoryRepository.append({
+        createdAt: event.payload.archivedAt,
+        operation: "history.tracker.archived",
+        relatedTrackerId: event.payload.id,
+        payload: {},
+      });
+    }
+  );

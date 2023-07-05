@@ -35,6 +35,7 @@
   "goal.tracker.current.error": "Tracker already has a goal",
 
   "history.tracker.created": "{{name}} tracker created",
+  "history.tracker.archived": "Tracker was archived",
 
   "datapoint.comment.delete": "Delete",
   "datapoint.comment.delete.error": "Comment not deleted",
