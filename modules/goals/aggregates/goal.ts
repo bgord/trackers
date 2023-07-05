@@ -136,7 +136,10 @@ export class Goal {
           name: Events.GOAL_REGRESSED_EVENT,
           stream: this.stream,
           version: 1,
-          payload: { id: this.id },
+          payload: {
+            id: this.id,
+            relatedTrackerId: this.entity.relatedTrackerId,
+          },
         })
       );
     }

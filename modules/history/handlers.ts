@@ -110,3 +110,13 @@ export const onGoalAccomplishedEventHandler =
       payload: {},
     });
   });
+
+export const onGoalRegressedEventHandler =
+  EventHandler.handle<Goals.Events.GoalRegressedEventType>(async (event) => {
+    await History.Repos.HistoryRepository.append({
+      createdAt: event.payload.regressedAt,
+      operation: "history.goal.regressed",
+      relatedTrackerId: event.payload.relatedTrackerId,
+      payload: {},
+    });
+  });

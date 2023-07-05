@@ -70,7 +70,11 @@ export const GoalRegressedEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(GOAL_REGRESSED_EVENT),
     version: z.literal(1),
-    payload: z.object({ id: VO.GoalId, regressedAt: VO.GoalUpdatedAt }),
+    payload: z.object({
+      id: VO.GoalId,
+      regressedAt: VO.GoalUpdatedAt,
+      relatedTrackerId: TrackerId,
+    }),
   })
 );
 export type GoalRegressedEventType = z.infer<typeof GoalRegressedEvent>;

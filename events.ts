@@ -151,4 +151,8 @@ emittery.on(
   Goals.Events.GOAL_ACCOMPLISHED_EVENT,
   History.Handlers.onGoalAccomplishedEventHandler
 );
+emittery.on(
+  Goals.Events.GOAL_REGRESSED_EVENT,
+  History.Handlers.onGoalRegressedEventHandler
+);
 // =============================
