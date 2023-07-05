@@ -100,3 +100,13 @@ export const onGoalDeletedEventHandler =
       payload: { target: event.payload.target, kind: event.payload.kind },
     });
   });
+
+export const onGoalAccomplishedEventHandler =
+  EventHandler.handle<Goals.Events.GoalAccomplishedEventType>(async (event) => {
+    await History.Repos.HistoryRepository.append({
+      createdAt: event.payload.accomplishedAt,
+      operation: "history.goal.accomplished",
+      relatedTrackerId: event.payload.trackerId,
+      payload: {},
+    });
+  });

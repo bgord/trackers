@@ -147,4 +147,8 @@ emittery.on(
   Goals.Events.GOAL_DELETED_EVENT,
   History.Handlers.onGoalDeletedEventHandler
 );
+emittery.on(
+  Goals.Events.GOAL_ACCOMPLISHED_EVENT,
+  History.Handlers.onGoalAccomplishedEventHandler
+);
 // =============================
