@@ -127,4 +127,8 @@ emittery.on(
   Trackers.Events.TRACKER_RESTORED_EVENT,
   History.Handlers.onTrackerRestoredEventHandler
 );
+emittery.on(
+  Trackers.Events.TRACKER_EXPORTED_EVENT,
+  History.Handlers.onTrackerExportedEventHandler
+);
 // =============================
