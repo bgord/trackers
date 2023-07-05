@@ -13,4 +13,11 @@ export class HistoryRepository {
 
     await infra.db.history.create({ data });
   }
+
+  static async list(payload: Pick<VO.HistoryType, "relatedTrackerId">) {
+    return infra.db.history.findMany({
+      where: payload,
+      orderBy: { createdAt: "desc" },
+    });
+  }
 }
