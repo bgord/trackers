@@ -79,3 +79,13 @@ export const onTrackerValueRecalculatedEventHandler =
       });
     }
   );
+
+export const onGoalCreatedEventHandler =
+  EventHandler.handle<Goals.Events.GoalCreatedEventType>(async (event) => {
+    await History.Repos.HistoryRepository.append({
+      createdAt: event.payload.createdAt,
+      operation: "history.goal.created",
+      relatedTrackerId: event.payload.relatedTrackerId,
+      payload: { target: event.payload.target, kind: event.payload.kind },
+    });
+  });

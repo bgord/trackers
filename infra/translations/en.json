@@ -40,6 +40,7 @@
   "history.tracker.exported": "Tracker exported",
   "history.tracker.name.changed": "Tracker name changed to {{name}}",
   "history.tracker.recalculated": "Tracker value changed to {{value}}",
+  "history.goal.created": "Goal with target {{target}} and kind {{kind}} created",
 
   "datapoint.comment.delete": "Delete",
   "datapoint.comment.delete.error": "Comment not deleted",

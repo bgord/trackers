@@ -139,4 +139,8 @@ emittery.on(
   Trackers.Events.TRACKER_VALUE_RECALCULATED_EVENT,
   History.Handlers.onTrackerValueRecalculatedEventHandler
 );
+emittery.on(
+  Goals.Events.GOAL_CREATED_EVENT,
+  History.Handlers.onGoalCreatedEventHandler
+);
 // =============================
