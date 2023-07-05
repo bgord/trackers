@@ -31,3 +31,15 @@ export const onTrackerArchivedEventHandler =
       });
     }
   );
+
+export const onTrackerRestoredEventHandler =
+  EventHandler.handle<Trackers.Events.TrackerRestoredEventType>(
+    async (event) => {
+      await History.Repos.HistoryRepository.append({
+        createdAt: event.payload.restoredAt,
+        operation: "history.tracker.restored",
+        relatedTrackerId: event.payload.id,
+        payload: {},
+      });
+    }
+  );

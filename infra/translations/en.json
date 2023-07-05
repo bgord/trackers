@@ -34,8 +34,11 @@
   "goal.target.label": "Goal target",
   "goal.tracker.current.error": "Tracker already has a goal",
 
-  "history.tracker.created": "{{name}} tracker created",
-  "history.tracker.archived": "Tracker was archived",
+  "history.tracker.created": "Tracker created with name {{name}} and {{kind}} kind",
+  "history.tracker.archived": "Tracker archived",
+  "history.tracker.restored": "Tracker restored",
+  "history.tracker.exported": "Tracker exported",
+  "history.tracker.name.changed": "Tracker name changed to {{name}}",
 
   "datapoint.comment.delete": "Delete",
   "datapoint.comment.delete.error": "Comment not deleted",
