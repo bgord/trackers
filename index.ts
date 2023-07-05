@@ -7,6 +7,7 @@ import * as infra from "./infra";
 import * as Trackers from "./modules/trackers";
 import * as Settings from "./modules/settings";
 import * as Goals from "./modules/goals";
+import * as History from "./modules/history";
 
 const app = express();
 
@@ -153,6 +154,14 @@ app.delete(
   "/goal/:goalId",
   infra.AuthShield.verify,
   bg.Route(Goals.Routes.GoalDelete)
+);
+// =============================
+
+// History =====================
+app.get(
+  "/history/:relatedTrackerId/list",
+  infra.AuthShield.verify,
+  bg.Route(History.Routes.HistoryList)
 );
 // =============================
 
