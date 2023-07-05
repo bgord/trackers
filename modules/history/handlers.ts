@@ -4,6 +4,7 @@ import * as infra from "../../infra";
 
 import * as Trackers from "../trackers";
 import * as History from "../history";
+import * as Goals from "../goals";
 
 const EventHandler = new bg.EventHandler(infra.logger);
 
@@ -85,6 +86,16 @@ export const onGoalCreatedEventHandler =
     await History.Repos.HistoryRepository.append({
       createdAt: event.payload.createdAt,
       operation: "history.goal.created",
+      relatedTrackerId: event.payload.relatedTrackerId,
+      payload: { target: event.payload.target, kind: event.payload.kind },
+    });
+  });
+
+export const onGoalDeletedEventHandler =
+  EventHandler.handle<Goals.Events.GoalDeletedEventType>(async (event) => {
+    await History.Repos.HistoryRepository.append({
+      createdAt: event.payload.deletedAt,
+      operation: "history.goal.deleted",
       relatedTrackerId: event.payload.relatedTrackerId,
       payload: { target: event.payload.target, kind: event.payload.kind },
     });

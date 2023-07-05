@@ -21,7 +21,13 @@ export const GoalDeletedEvent = bg.EventDraft.merge(
   z.object({
     name: z.literal(GOAL_DELETED_EVENT),
     version: z.literal(1),
-    payload: z.object({ id: VO.GoalId, deletedAt: VO.GoalUpdatedAt }),
+    payload: z.object({
+      id: VO.GoalId,
+      deletedAt: VO.GoalUpdatedAt,
+      relatedTrackerId: VO.GoalRelatedTrackerId,
+      kind: VO.GoalKind,
+      target: VO.GoalTarget,
+    }),
   })
 );
 export type GoalDeletedEventType = z.infer<typeof GoalDeletedEvent>;

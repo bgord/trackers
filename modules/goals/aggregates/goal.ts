@@ -92,7 +92,12 @@ export class Goal {
         name: Events.GOAL_DELETED_EVENT,
         stream: this.stream,
         version: 1,
-        payload: { id: this.id },
+        payload: {
+          id: this.id,
+          relatedTrackerId: this.entity?.relatedTrackerId,
+          target: this.entity?.target,
+          kind: this.entity?.kind,
+        },
       })
     );
   }
