@@ -67,3 +67,13 @@ export const onTrackerNameChangedEventHandler =
       });
     }
   );
+
+export const onTrackerSyncedEventHandler =
+  EventHandler.handle<Trackers.Events.TrackerSyncedEventType>(async (event) => {
+    await History.Repos.HistoryRepository.append({
+      createdAt: event.payload.updatedAt,
+      operation: "history.tracker.synced",
+      relatedTrackerId: event.payload.id,
+      payload: { value: event.payload.value },
+    });
+  });
