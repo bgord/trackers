@@ -39,7 +39,7 @@
   "history.tracker.restored": "Tracker restored",
   "history.tracker.exported": "Tracker exported",
   "history.tracker.name.changed": "Tracker name changed to {{name}}",
-  "history.tracker.synced": "Tracker datapoint with value {{value}} added",
+  "history.tracker.recalculated": "Tracker value changed to {{value}}",
 
   "datapoint.comment.delete": "Delete",
   "datapoint.comment.delete.error": "Comment not deleted",

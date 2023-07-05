@@ -136,7 +136,7 @@ emittery.on(
   History.Handlers.onTrackerNameChangedEventHandler
 );
 emittery.on(
-  Trackers.Events.TRACKER_SYNCED_EVENT,
-  History.Handlers.onTrackerSyncedEventHandler
+  Trackers.Events.TRACKER_VALUE_RECALCULATED_EVENT,
+  History.Handlers.onTrackerValueRecalculatedEventHandler
 );
 // =============================
