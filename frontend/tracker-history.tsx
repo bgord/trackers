@@ -63,6 +63,18 @@ export function TrackerHistory(
           </button>
         </div>
 
+        {history.isLoading && (
+          <div data-fs="14" data-color="gray-600">
+            {t("app.loading")}
+          </div>
+        )}
+
+        {history.isError && (
+          <div data-fs="14" data-color="gray-600">
+            {t("history.error")}
+          </div>
+        )}
+
         <ul>
           {history.data?.result.map((item) => (
             <li data-display="flex" data-main="between" key={item.id}>

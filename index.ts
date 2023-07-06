@@ -14,9 +14,9 @@ const app = express();
 bg.addExpressEssentials(app);
 bg.Handlebars.applyTo(app);
 bg.I18n.applyTo(app);
+bg.HttpLogger.applyTo(app, infra.logger);
 infra.Session.applyTo(app);
 infra.AuthShield.applyTo(app);
-bg.HttpLogger.applyTo(app, infra.logger);
 
 // Auth ========================
 app.get("/", bg.CsrfShield.attach, bg.Route(Routes.Home));
