@@ -43,6 +43,7 @@
   "history.goal.created": "Goal with target {{target}} and kind {{kind}} created",
   "history.goal.deleted": "Goal with target {{target}} and kind {{kind}} deleted",
   "history.goal.accomplished": "Goal accomplished",
+  "history.goal.regressed": "Goal regressed",
 
   "datapoint.comment.delete": "Delete",
   "datapoint.comment.delete.error": "Comment not deleted",
