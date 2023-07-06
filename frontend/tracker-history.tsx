@@ -34,10 +34,13 @@ export function TrackerHistory(
 
       <bg.Dialog
         {...dialog}
+        data-wrap="nowrap"
         data-gap="24"
         data-mt="72"
         data-max-width="768"
         data-width="100%"
+        data-px="12"
+        style={bg.Rhythm.base().times(50).maxHeight}
       >
         <div data-display="flex" data-main="between" data-cross="center">
           <div data-fs="14" data-fw="700">
