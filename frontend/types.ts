@@ -19,7 +19,9 @@ export { GoalKindEnum } from "../modules/goals/value-objects/goal-kind-enum";
 export { GoalStatusEnum } from "../modules/goals/value-objects/goal-status-enum";
 export type { GoalType } from "../modules/goals/value-objects/goal";
 
-export type HistoryType = AsyncReturnType<typeof HistoryRepository["list"]>[0];
+export type HistoryType = AsyncReturnType<
+  typeof HistoryRepository["pagedList"]
+>["result"][0];
 
 export type HistoryViewType = HistoryType & { payload: Record<string, any> };
 

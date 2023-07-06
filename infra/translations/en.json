@@ -16,6 +16,11 @@
   "app.sync": "Sync",
   "app.too_many_requests": "Too many requests",
 
+  "app.pagination.first": "first",
+  "app.pagination.previous": "prev",
+  "app.pagination.next": "next",
+  "app.pagination.last": "last",
+
   "goal": "GOAL",
   "goal.automatically.accomplished.error": "Goal would be automatically accomplished",
   "goal.create": "Create",

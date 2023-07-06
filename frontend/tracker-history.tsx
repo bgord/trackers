@@ -15,12 +15,12 @@ export function TrackerHistory(
   const t = bg.useTranslations();
   const dialog = bg.useToggle();
 
-  const page = bg.useField("page", 1);
+  const pagination = bg.usePagination();
 
   const history = useQuery(
-    ["history", id, page.value],
-    () => api.History.list(id, page.value),
-    { enabled: dialog.on }
+    ["history", id, pagination.current],
+    () => api.History.list(id, pagination.current),
+    { onSuccess: (data) => pagination.update(data.meta), enabled: dialog.on }
   );
 
   return (
@@ -44,7 +44,7 @@ export function TrackerHistory(
         data-max-width="768"
         data-width="100%"
         data-px="12"
-        style={bg.Rhythm.base().times(50).maxHeight}
+        style={bg.Rhythm.base().times(45).height}
       >
         <div data-display="flex" data-main="between" data-cross="center">
           <div data-fs="14" data-fw="700">
@@ -73,6 +73,57 @@ export function TrackerHistory(
             </li>
           ))}
         </ul>
+
+        <div
+          data-display="flex"
+          data-main="between"
+          data-cross="center"
+          data-mt="auto"
+        >
+          <button
+            type="button"
+            class="c-button"
+            disabled={pagination.buttons.firstPage.active}
+            data-variant="secondary"
+            onClick={pagination.buttons.firstPage.go}
+          >
+            {t("app.pagination.first")}
+          </button>
+
+          <button
+            type="button"
+            class="c-button"
+            disabled={pagination.buttons.previousPage.disabled}
+            data-variant="secondary"
+            onClick={pagination.buttons.previousPage.go}
+          >
+            {t("app.pagination.previous")}
+          </button>
+
+          <strong data-fs="12" data-color="gray-600">
+            Page {pagination.current} / {pagination.last}
+          </strong>
+
+          <button
+            type="button"
+            class="c-button"
+            disabled={pagination.buttons.nextPage.disabled}
+            data-variant="secondary"
+            onClick={pagination.buttons.nextPage.go}
+          >
+            {t("app.pagination.next")}
+          </button>
+
+          <button
+            type="button"
+            class="c-button"
+            disabled={pagination.buttons.lastPage.disabled}
+            data-variant="secondary"
+            onClick={pagination.buttons.lastPage.go}
+          >
+            {t("app.pagination.last")}
+          </button>
+        </div>
       </bg.Dialog>
     </>
   );
