@@ -54,7 +54,10 @@ export function TrackerHistory(
             class="c-button"
             data-variant="with-icon"
             title={t("app.close")}
-            onClick={bg.exec([dialog.disable, pagination.buttons.firstPage.go])}
+            onClick={bg.exec([
+              dialog.disable,
+              pagination.controls.firstPage.go,
+            ])}
           >
             <Icons.Cancel width="20" height="20" />
           </button>
@@ -86,9 +89,9 @@ export function TrackerHistory(
           <button
             type="button"
             class="c-button"
-            disabled={pagination.buttons.firstPage.active}
+            disabled={pagination.controls.firstPage.active}
             data-variant="secondary"
-            onClick={pagination.buttons.firstPage.go}
+            onClick={pagination.controls.firstPage.go}
           >
             {t("app.pagination.first")}
           </button>
@@ -96,23 +99,23 @@ export function TrackerHistory(
           <button
             type="button"
             class="c-button"
-            disabled={pagination.buttons.previousPage.disabled}
+            disabled={pagination.controls.previousPage.disabled}
             data-variant="secondary"
-            onClick={pagination.buttons.previousPage.go}
+            onClick={pagination.controls.previousPage.go}
           >
             {t("app.pagination.previous")}
           </button>
 
           <strong data-fs="12" data-color="gray-600">
-            Page {pagination.current} / {pagination.last}
+            Page {pagination.current}/{pagination.last}
           </strong>
 
           <button
             type="button"
             class="c-button"
-            disabled={pagination.buttons.nextPage.disabled}
+            disabled={pagination.controls.nextPage.disabled}
             data-variant="secondary"
-            onClick={pagination.buttons.nextPage.go}
+            onClick={pagination.controls.nextPage.go}
           >
             {t("app.pagination.next")}
           </button>
@@ -120,9 +123,9 @@ export function TrackerHistory(
           <button
             type="button"
             class="c-button"
-            disabled={pagination.buttons.lastPage.disabled}
+            disabled={pagination.controls.lastPage.disabled}
             data-variant="secondary"
-            onClick={pagination.buttons.lastPage.go}
+            onClick={pagination.controls.lastPage.go}
           >
             {t("app.pagination.last")}
           </button>
