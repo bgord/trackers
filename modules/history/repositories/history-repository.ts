@@ -1,5 +1,6 @@
-import * as VO from "../value-objects";
+import * as bg from "@bgord/node";
 
+import * as VO from "../value-objects";
 import * as infra from "../../../infra";
 
 type HistoryPayloadType = Pick<
@@ -13,15 +14,25 @@ export class HistoryRepository {
     await infra.db.history.create({ data });
   }
 
-  static async list(payload: Pick<VO.HistoryType, "relatedTrackerId">) {
-    const history = await infra.db.history.findMany({
-      where: payload,
-      orderBy: { createdAt: "desc" },
-    });
+  static async pagedList(
+    where: Pick<VO.HistoryType, "relatedTrackerId">,
+    pagination: bg.PaginationType
+  ) {
+    const [total, histories] = await infra.db.$transaction([
+      infra.db.history.count({ where }),
+      infra.db.history.findMany({
+        where,
+        orderBy: { createdAt: "desc" },
+        ...pagination.values,
+      }),
+    ]);
 
-    return history.map((item) => ({
+    const result = histories.map((item) => ({
       ...item,
       payload: item.payload ? JSON.parse(item.payload) : {},
+      createdAt: bg.RelativeDate.to.now.truthy(item.createdAt),
     }));
+
+    return bg.Pagination.prepare({ total, pagination, result });
   }
 }

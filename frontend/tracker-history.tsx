@@ -15,9 +15,13 @@ export function TrackerHistory(
   const t = bg.useTranslations();
   const dialog = bg.useToggle();
 
-  const history = useQuery(["history", id], () => api.History.list(id), {
-    enabled: dialog.on,
-  });
+  const page = bg.useField("page", 1);
+
+  const history = useQuery(
+    ["history", id, page.value],
+    () => api.History.list(id, page.value),
+    { enabled: dialog.on }
+  );
 
   return (
     <>
@@ -59,13 +63,13 @@ export function TrackerHistory(
         </div>
 
         <ul>
-          {history.data?.map((item) => (
+          {history.data?.result.map((item) => (
             <li data-display="flex" data-main="between">
               <div data-fs="14" data-color="gray-600">
                 {t(item.operation, item.payload)}
               </div>
 
-              <UI.Info>{bg.DateFormatter.datetime(item.createdAt)}</UI.Info>
+              <UI.Info>{item.createdAt.relative}</UI.Info>
             </li>
           ))}
         </ul>

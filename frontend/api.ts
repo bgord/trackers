@@ -148,10 +148,13 @@ export class Goal {
 
 export class History {
   static async list(
-    relatedTrackerId: types.HistoryType["relatedTrackerId"]
-  ): Promise<types.HistoryViewType[]> {
+    relatedTrackerId: types.HistoryType["relatedTrackerId"],
+    page: bg.PageType
+  ): Promise<bg.Paged<types.HistoryViewType>> {
     return bg
-      .API(`/history/${relatedTrackerId}/list`, { method: "GET" })
-      .then((response) => (response.ok ? response.json() : []));
+      .API(`/history/${relatedTrackerId}/list?page=${page}`, { method: "GET" })
+      .then((response) =>
+        response.ok ? response.json() : bg.Pagination.empty
+      );
   }
 }
