@@ -39,14 +39,14 @@
   "goal.target.label": "Goal target",
   "goal.tracker.current.error": "Tracker already has a goal",
 
-  "history.tracker.created": "Tracker created with name {{name}} and {{kind}} kind",
+  "history.tracker.created": "Tracker created with name \"{{name}}\" and \"{{kind}}\" kind",
   "history.tracker.archived": "Tracker archived",
   "history.tracker.restored": "Tracker restored",
   "history.tracker.exported": "Tracker exported",
-  "history.tracker.name.changed": "Tracker name changed to {{name}}",
+  "history.tracker.name.changed": "Tracker name changed to \"{{name}}\"",
   "history.tracker.recalculated": "Tracker value changed to {{value}}",
-  "history.goal.created": "Goal with target {{target}} and kind {{kind}} created",
-  "history.goal.deleted": "Goal with target {{target}} and kind {{kind}} deleted",
+  "history.goal.created": "Goal with target {{target}} and kind \"{{kind}}\" created",
+  "history.goal.deleted": "Goal with target {{target}} and kind \"{{kind}}\" deleted",
   "history.goal.accomplished": "Goal accomplished",
   "history.goal.regressed": "Goal regressed",
 

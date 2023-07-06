@@ -3,10 +3,7 @@ import * as bg from "@bgord/frontend";
 import * as types from "./types";
 
 export class Tracker {
-  static async create(tracker: {
-    name: types.TrackerType["name"];
-    kind: types.TrackerKindEnum;
-  }) {
+  static async create(tracker: Pick<types.TrackerType, "name" | "kind">) {
     return bg.API("/tracker", {
       method: "POST",
       body: JSON.stringify(tracker),

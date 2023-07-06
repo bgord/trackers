@@ -43,20 +43,18 @@ export function TrackerHistory(
         data-mt="72"
         data-max-width="768"
         data-width="100%"
-        data-px="12"
+        data-px="24"
         style={bg.Rhythm.base().times(45).height}
       >
         <div data-display="flex" data-main="between" data-cross="center">
-          <div data-fs="14" data-fw="700">
-            {t("tracker.history")}
-          </div>
+          <div data-fw="700">{t("tracker.history")}</div>
 
           <button
             type="button"
             class="c-button"
             data-variant="with-icon"
             title={t("app.close")}
-            onClick={dialog.disable}
+            onClick={bg.exec([dialog.disable, pagination.buttons.firstPage.go])}
           >
             <Icons.Cancel width="20" height="20" />
           </button>
@@ -64,12 +62,17 @@ export function TrackerHistory(
 
         <ul>
           {history.data?.result.map((item) => (
-            <li data-display="flex" data-main="between">
+            <li data-display="flex" data-main="between" key={item.id}>
               <div data-fs="14" data-color="gray-600">
-                {t(item.operation, item.payload)}
+                - {t(item.operation, item.payload)}
               </div>
 
-              <UI.Info>{item.createdAt.relative}</UI.Info>
+              <UI.Info
+                data-color="gray-400"
+                title={bg.DateFormatter.datetime(item.createdAt.raw)}
+              >
+                {item.createdAt.relative}
+              </UI.Info>
             </li>
           ))}
         </ul>
