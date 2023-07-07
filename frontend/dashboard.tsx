@@ -1,3 +1,4 @@
+import * as bg from "@bgord/frontend";
 import { RoutableProps } from "preact-router";
 import { h } from "preact";
 
@@ -13,7 +14,14 @@ export function Dashboard(_: RoutableProps) {
   hooks.useLeavingPrompt();
 
   return (
-    <main>
+    <main
+      data-display="flex"
+      data-direction="column"
+      data-gap="36"
+      data-mx="auto"
+      data-mt="24"
+      style={bg.Rhythm.base().times(60).maxWidth}
+    >
       <TrackerCreate />
       <TrackerList />
     </main>

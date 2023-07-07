@@ -16,25 +16,19 @@ export function TrackerList() {
   const trackers = trackerListQuery.data ?? [];
 
   if (trackerListQuery.isLoading) {
-    return <UI.Info data-mx="24">{t("app.loading")}</UI.Info>;
+    return <UI.Info data-mx="auto">{t("app.loading")}</UI.Info>;
   }
 
   if (trackerListQuery.isError) {
-    return <UI.Info data-mx="24">{t("tracker.list.error")}</UI.Info>;
+    return <UI.Info data-mx="auto">{t("tracker.list.error")}</UI.Info>;
   }
 
   if (trackerListQuery.data?.length === 0) {
-    return <UI.Info data-mx="24">{t("tracker.list.empty")}</UI.Info>;
+    return <UI.Info data-mx="auto">{t("tracker.list.empty")}</UI.Info>;
   }
 
   return (
-    <ul
-      data-display="flex"
-      data-direction="column"
-      data-gap="24"
-      data-my="24"
-      data-mx="12"
-    >
+    <ul data-display="flex" data-direction="column" data-gap="24">
       {trackers.map((tracker) => (
         <Tracker key={tracker.updatedAt} {...tracker} />
       ))}

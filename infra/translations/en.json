@@ -98,7 +98,7 @@
   "tracker.kind.enum.one_value": "One value",
   "tracker.kind.error": "Invalid tracker kind",
   "tracker.kind.label": "Tracker kind",
-  "tracker.list.empty": "No available trackers",
+  "tracker.list.empty": "No available trackers, add one above",
   "tracker.list.error": "Error while loading trackers",
   "tracker.name.label": "Tracker name",
   "tracker.name.new.change": "Change",
