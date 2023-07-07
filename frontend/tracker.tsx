@@ -27,20 +27,6 @@ export function Tracker(props: types.TrackerType) {
       data-max-width="100%"
     >
       <div data-display="flex" data-cross="center" data-gap="12">
-        <button
-          class="c-button"
-          type="button"
-          data-variant="with-icon"
-          title={
-            details.on ? t("tracker.details.hide") : t("tracker.details.show")
-          }
-          onClick={details.toggle}
-        >
-          {details.off && <Icons.NavArrowRight height="24" width="24" />}
-
-          {details.on && <Icons.NavArrowDown height="24" width="24" />}
-        </button>
-
         {props.status === types.TrackerStatusEnum.active && (
           <div class="c-badge" data-color="green-600" data-bg="green-100">
             {t(`tracker.status.${props.status}`)}
@@ -57,7 +43,7 @@ export function Tracker(props: types.TrackerType) {
           {props.name}
         </div>
 
-        <div data-fs="14" data-fw="700" data-mr="48">
+        <div data-fs="14" data-fw="700" data-mr="auto">
           {props.value}
         </div>
 
@@ -72,6 +58,20 @@ export function Tracker(props: types.TrackerType) {
         {details.on && <TrackerExport {...props} />}
 
         {details.on && <TrackerDelete {...props} />}
+
+        <button
+          class="c-button"
+          type="button"
+          data-variant="with-icon"
+          title={
+            details.on ? t("tracker.details.hide") : t("tracker.details.show")
+          }
+          onClick={details.toggle}
+        >
+          {details.off && <Icons.NavArrowLeft height="24" width="24" />}
+
+          {details.on && <Icons.NavArrowDown height="24" width="24" />}
+        </button>
       </div>
 
       {details.on && (
