@@ -1,5 +1,5 @@
 import * as bg from "@bgord/frontend";
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useQuery } from "react-query";
 
 import * as api from "./api";
@@ -9,6 +9,7 @@ import { Tracker } from "./tracker";
 
 export function TrackerList() {
   const t = bg.useTranslations();
+  const pluralize = bg.usePluralize();
 
   const trackerListQuery = useQuery("trackers", api.Tracker.list, {
     refetchOnMount: true,
@@ -28,15 +29,24 @@ export function TrackerList() {
   }
 
   return (
-    <ul
-      data-display="flex"
-      data-direction="column"
-      data-gap="24"
-      data-max-width="100%"
-    >
-      {trackers.map((tracker) => (
-        <Tracker key={tracker.updatedAt} {...tracker} />
-      ))}
-    </ul>
+    <Fragment>
+      <UI.Info data-color="gray-500" data-ml="12" data-mt="24">
+        {t("tracker.list.count", {
+          value: trackers.length,
+          noun: pluralize({ value: trackers.length, singular: t("tracker") }),
+        })}
+      </UI.Info>
+
+      <ul
+        data-display="flex"
+        data-direction="column"
+        data-gap="12"
+        data-max-width="100%"
+      >
+        {trackers.map((tracker) => (
+          <Tracker key={tracker.updatedAt} {...tracker} />
+        ))}
+      </ul>
+    </Fragment>
   );
 }

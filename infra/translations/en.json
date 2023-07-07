@@ -69,6 +69,7 @@
   "datapoints.empty": "No datapoints added yet, use the form above to add some!",
   "datapoints.error": "Error while loading datapoints",
 
+  "tracker": "tracker",
   "tracker.active.empty": "No active trackers",
   "tracker.active.error": "Tracker is not active",
   "tracker.archive": "Archive tracker",
@@ -100,6 +101,7 @@
   "tracker.kind.enum.one_value": "One value",
   "tracker.kind.error": "Invalid tracker kind",
   "tracker.kind.label": "Tracker kind",
+  "tracker.list.count": "Showing {{value}} {{noun}}",
   "tracker.list.empty": "No available trackers, add one above",
   "tracker.list.error": "Error while loading trackers",
   "tracker.name.label": "Tracker name",
