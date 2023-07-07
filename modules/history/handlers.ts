@@ -120,3 +120,10 @@ export const onGoalRegressedEventHandler =
       payload: {},
     });
   });
+
+export const onHistoryPopulatedEventHandler =
+  EventHandler.handle<History.Events.HistoryPopulatedEventType>(
+    async (event) => {
+      await History.Repos.HistoryRepository.append(event.payload);
+    }
+  );
