@@ -77,7 +77,7 @@ export function TrackerSync(props: types.TrackerType) {
 
         <textarea
           class="c-textarea"
-          rows={3}
+          rows={2}
           maxLength={types.DATAPOINT_COMMENT_MAX_LENGTH}
           placeholder={t("datapoint.comment.placeholder")}
           value={trackerComment.value}
