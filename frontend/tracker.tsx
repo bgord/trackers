@@ -18,11 +18,12 @@ export function Tracker(props: types.TrackerType) {
   const t = bg.useTranslations();
 
   const details = bg.usePersistentToggle(`tracker-details-${props.id}`);
+  const nameChange = bg.useToggle();
 
   return (
     <li
       data-display="flex"
-      data-gap="12"
+      data-gap="6"
       data-direction="column"
       data-max-width="100%"
     >
@@ -60,6 +61,22 @@ export function Tracker(props: types.TrackerType) {
 
         <div data-display="flex" data-cross="center">
           {details.on && props.status === types.TrackerStatusEnum.active && (
+            <button
+              class="c-button"
+              type="button"
+              data-variant="with-icon"
+              onClick={nameChange.toggle}
+              title={
+                details.on
+                  ? t("tracker.name.change.hide")
+                  : t("tracker.name.change.show")
+              }
+            >
+              <Icons.EditPencil height="20" width="20" />
+            </button>
+          )}
+
+          {details.on && props.status === types.TrackerStatusEnum.active && (
             <TrackerArchive {...props} />
           )}
 
@@ -94,16 +111,16 @@ export function Tracker(props: types.TrackerType) {
           data-max-width="100%"
           data-gap="12"
         >
+          {props.status === types.TrackerStatusEnum.active && nameChange.on && (
+            <TrackerNameChange {...props} />
+          )}
+
           <Goal key={props.updatedAt} {...props} />
 
           <DatapointList key={props.updatedAt.raw} {...props} />
 
           {props.status === types.TrackerStatusEnum.active && (
-            <div data-display="flex" data-cross="start" data-gap="48">
-              <TrackerSync key={props.updatedAt} {...props} />
-
-              <TrackerNameChange {...props} />
-            </div>
+            <TrackerSync key={props.updatedAt} {...props} />
           )}
 
           <TrackerMetadata {...props} />

@@ -43,6 +43,8 @@
   "history.tracker.archived": "Tracker archived",
   "history.tracker.restored": "Tracker restored",
   "history.tracker.exported": "Tracker exported",
+  "tracker.name.change.hide": "Hide change tracker name form",
+  "tracker.name.change.show": "Show change tracker name form",
   "history.tracker.name.changed": "Tracker name changed to \"{{name}}\"",
   "history.tracker.recalculated": "Tracker value changed to {{value}}",
   "history.goal.created": "Goal with target {{target}} and kind \"{{kind}}\" created",
