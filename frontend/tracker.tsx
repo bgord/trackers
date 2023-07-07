@@ -26,38 +26,50 @@ export function Tracker(props: types.TrackerType) {
       data-direction="column"
       data-max-width="100%"
     >
-      <div data-display="flex" data-cross="center" data-gap="12">
-        {props.status === types.TrackerStatusEnum.active && (
-          <div class="c-badge" data-color="green-600" data-bg="green-100">
-            {t(`tracker.status.${props.status}`)}
+      <div data-display="flex" data-main="between" data-cross="center">
+        <div data-display="flex" data-cross="center" data-gap="12">
+          {props.status === types.TrackerStatusEnum.active && (
+            <div
+              class="c-badge"
+              data-color="green-600"
+              data-bg="green-100"
+              style={bg.Rhythm.base().times(6.5).width}
+            >
+              {t(`tracker.status.${props.status}`)}
+            </div>
+          )}
+
+          {props.status === types.TrackerStatusEnum.archived && (
+            <div class="c-badge" style={bg.Rhythm.base().times(6.5).width}>
+              {t(`tracker.status.${props.status}`)}
+            </div>
+          )}
+
+          <div class="c-badge" style={bg.Rhythm.base().times(7.5).width}>
+            {t(`tracker.kind.enum.${props.kind}`)}
           </div>
-        )}
 
-        {props.status === types.TrackerStatusEnum.archived && (
-          <div class="c-badge">{t(`tracker.status.${props.status}`)}</div>
-        )}
+          <div data-fs="14" data-color="gray-700">
+            {props.name}
+          </div>
 
-        <div class="c-badge">{t(`tracker.kind.enum.${props.kind}`)}</div>
-
-        <div data-fs="14" data-color="gray-700">
-          {props.name}
+          <div data-fs="14" data-fw="700" data-mr="auto">
+            {props.value}
+          </div>
         </div>
 
-        <div data-fs="14" data-fw="700" data-mr="auto">
-          {props.value}
-        </div>
+        <div data-display="flex" data-cross="center">
+          {details.on && props.status === types.TrackerStatusEnum.active && (
+            <TrackerArchive {...props} />
+          )}
 
-        {details.on && props.status === types.TrackerStatusEnum.active && (
-          <TrackerArchive {...props} />
-        )}
+          {details.on && props.status === types.TrackerStatusEnum.archived && (
+            <TrackerRestore {...props} />
+          )}
 
-        {details.on && props.status === types.TrackerStatusEnum.archived && (
-          <TrackerRestore {...props} />
-        )}
+          {details.on && <TrackerExport {...props} />}
 
-        {details.on && <TrackerExport {...props} />}
-
-        {details.on && <TrackerDelete {...props} />}
+          {details.on && <TrackerDelete {...props} />}
 
           <button
             class="c-button"
