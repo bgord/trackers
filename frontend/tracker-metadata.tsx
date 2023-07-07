@@ -28,7 +28,7 @@ export function TrackerMetadata(props: types.TrackerType) {
         {t("tracker.updated_at", { value: props.updatedAt.relative })}
       </UI.Info>
 
-      <TrackerHistory {...props} />
+      <TrackerHistory data-ml="auto" {...props} />
     </div>
   );
 }
