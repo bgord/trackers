@@ -38,11 +38,11 @@ export function TrackerDelete(
         onClick={dialog.enable}
         disabled={!deleteTracker.isIdle}
         class="c-button"
-        data-variant="bare"
+        data-variant="with-icon"
         title={t("tracker.delete")}
         {...rest}
       >
-        <Icons.DeleteCircledOutline height="24" width="24" />
+        <Icons.BinMinus height="18" width="18" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">

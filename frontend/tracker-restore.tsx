@@ -31,10 +31,10 @@ export function TrackerRestore(props: types.TrackerType) {
         onClick={() => restoreTracker.mutate(props)}
         disabled={!restoreTracker.isIdle}
         class="c-button"
-        data-variant="bare"
+        data-variant="with-icon"
         title={t("tracker.restore")}
       >
-        <Icons.Restart height="20" width="20" />
+        <Icons.Restart height="16" width="16" />
       </button>
     </>
   );

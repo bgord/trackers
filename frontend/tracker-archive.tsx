@@ -41,11 +41,11 @@ export function TrackerArchive(
         onClick={dialog.enable}
         disabled={!archiveTracker.isIdle}
         class="c-button"
-        data-variant="bare"
+        data-variant="with-icon"
         title={t("tracker.archive")}
         {...rest}
       >
-        <Icons.Archive height="20" width="20" />
+        <Icons.Archive height="18" width="18" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">

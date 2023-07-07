@@ -43,11 +43,11 @@ export function TrackerExport(
         onClick={dialog.enable}
         disabled={!exportTracker.isIdle}
         class="c-button"
-        data-variant="bare"
+        data-variant="with-icon"
         title={t("tracker.export")}
         {...rest}
       >
-        <Icons.Download height="24" width="24" />
+        <Icons.Download height="20" width="20" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">

@@ -59,19 +59,20 @@ export function Tracker(props: types.TrackerType) {
 
         {details.on && <TrackerDelete {...props} />}
 
-        <button
-          class="c-button"
-          type="button"
-          data-variant="with-icon"
-          title={
-            details.on ? t("tracker.details.hide") : t("tracker.details.show")
-          }
-          onClick={details.toggle}
-        >
-          {details.off && <Icons.NavArrowLeft height="24" width="24" />}
+          <button
+            class="c-button"
+            type="button"
+            data-variant="with-icon"
+            title={
+              details.on ? t("tracker.details.hide") : t("tracker.details.show")
+            }
+            onClick={details.toggle}
+          >
+            {details.off && <Icons.NavArrowLeft height="22" width="22" />}
 
-          {details.on && <Icons.NavArrowDown height="24" width="24" />}
-        </button>
+            {details.on && <Icons.NavArrowDown height="22" width="22" />}
+          </button>
+        </div>
       </div>
 
       {details.on && (
