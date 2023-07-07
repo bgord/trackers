@@ -1,1 +1,1 @@
-export const TRACKER_NAME_MAX_LENGTH = 256;
+export const TRACKER_NAME_MAX_LENGTH = 42;
