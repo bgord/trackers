@@ -58,7 +58,9 @@ export function Goal(props: types.TrackerType) {
           <div>{t(`goal.kind.enum.${goal.data?.kind}`)}</div>
           <div>{goal.data?.target}</div>
 
-          <GoalDelete {...goal.data} />
+          {props.status === types.TrackerStatusEnum.active && (
+            <GoalDelete {...goal.data} />
+          )}
         </div>
       )}
     </div>
