@@ -94,6 +94,10 @@ export function Tracker(props: types.TrackerType) {
           data-max-width="100%"
           data-gap="12"
         >
+          <Goal key={props.updatedAt} {...props} />
+
+          <DatapointList key={props.updatedAt.raw} {...props} />
+
           {props.status === types.TrackerStatusEnum.active && (
             <div data-display="flex" data-cross="start" data-gap="48">
               <TrackerSync key={props.updatedAt} {...props} />
@@ -101,10 +105,6 @@ export function Tracker(props: types.TrackerType) {
               <TrackerNameChange {...props} />
             </div>
           )}
-
-          <Goal key={props.updatedAt} {...props} />
-
-          <DatapointList key={props.updatedAt.raw} {...props} />
 
           <TrackerMetadata {...props} />
         </div>
