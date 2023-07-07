@@ -36,7 +36,6 @@ export function TrackerCreate() {
     <form
       data-display="flex"
       data-gap="24"
-      data-self="center"
       onSubmit={(event) => {
         event.preventDefault();
         createTracker.mutate({
