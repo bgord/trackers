@@ -4,6 +4,7 @@ import { z } from "zod";
 import * as Trackers from "../modules/trackers";
 import * as Settings from "../modules/settings";
 import * as Goals from "../modules/goals";
+import * as History from "../modules/history";
 
 import * as Events from "../events";
 import * as infra from "../infra";
@@ -29,7 +30,8 @@ type AcceptedEvent =
   | typeof Goals.Events.GoalDeletedEvent
   | typeof Goals.Events.GoalAccomplishedEvent
   | typeof Goals.Events.GoalRegressedEvent
-  | typeof Goals.Events.GoalAccomplishedNotificationScheduledEvent;
+  | typeof Goals.Events.GoalAccomplishedNotificationScheduledEvent
+  | typeof History.Events.HistoryPopulatedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventStore {
