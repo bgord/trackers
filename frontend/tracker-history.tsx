@@ -57,6 +57,7 @@ export function TrackerHistory(
             onClick={bg.exec([
               dialog.disable,
               pagination.controls.firstPage.go,
+              history.remove,
             ])}
           >
             <Icons.Cancel width="20" height="20" />
