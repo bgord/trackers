@@ -17,15 +17,27 @@ export function TrackerList() {
   const trackers = trackerListQuery.data ?? [];
 
   if (trackerListQuery.isLoading) {
-    return <UI.Info data-mx="auto">{t("app.loading")}</UI.Info>;
+    return (
+      <UI.Info data-mx="auto" data-mt="24">
+        {t("app.loading")}
+      </UI.Info>
+    );
   }
 
   if (trackerListQuery.isError) {
-    return <UI.Info data-mx="auto">{t("tracker.list.error")}</UI.Info>;
+    return (
+      <UI.Info data-mx="auto" data-mt="24">
+        {t("tracker.list.error")}
+      </UI.Info>
+    );
   }
 
   if (trackerListQuery.data?.length === 0) {
-    return <UI.Info data-mx="auto">{t("tracker.list.empty")}</UI.Info>;
+    return (
+      <UI.Info data-mx="auto" data-mt="24">
+        {t("tracker.list.empty")}
+      </UI.Info>
+    );
   }
 
   return (
