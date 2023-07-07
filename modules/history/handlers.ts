@@ -11,3 +11,8 @@ export const onHistoryPopulatedEventHandler =
   EventHandler.handle<Events.HistoryPopulatedEventType>(async (event) => {
     await Repos.HistoryRepository.append(event.payload);
   });
+
+export const onHistoryClearedEventHandler =
+  EventHandler.handle<Events.HistoryClearedEventType>(async (event) => {
+    await Repos.HistoryRepository.clear(event.payload);
+  });

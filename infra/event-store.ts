@@ -31,7 +31,8 @@ type AcceptedEvent =
   | typeof Goals.Events.GoalAccomplishedEvent
   | typeof Goals.Events.GoalRegressedEvent
   | typeof Goals.Events.GoalAccomplishedNotificationScheduledEvent
-  | typeof History.Events.HistoryPopulatedEvent;
+  | typeof History.Events.HistoryPopulatedEvent
+  | typeof History.Events.HistoryClearedEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventStore {

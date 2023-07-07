@@ -35,4 +35,8 @@ export class HistoryRepository {
 
     return bg.Pagination.prepare({ total, pagination, result });
   }
+
+  static async clear(where: Pick<VO.HistoryType, "relatedTrackerId">) {
+    await infra.db.history.deleteMany({ where });
+  }
 }

@@ -86,6 +86,10 @@ export const onTrackerDeletedEventHandler =
       }
 
       await Trackers.Repos.TrackerRepository.delete({ id: event.payload.id });
+
+      await History.Services.HistoryPopulator.clear({
+        relatedTrackerId: event.payload.id,
+      });
     }
   );
 

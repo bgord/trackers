@@ -15,4 +15,17 @@ export class HistoryPopulator {
       })
     );
   }
+
+  static async clear(
+    payload: History.Events.HistoryClearedEventType["payload"]
+  ) {
+    return infra.EventStore.save(
+      History.Events.HistoryClearedEvent.parse({
+        name: History.Events.HISTORY_CLEARED_EVENT,
+        stream: "history",
+        version: 1,
+        payload,
+      })
+    );
+  }
 }

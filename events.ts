@@ -38,6 +38,7 @@ export const emittery = new Emittery<{
   GOAL_ACCOMPLISHED_NOTIFICATION_SCHEDULED_EVENT: Goals.Events.GoalAccomplishedNotificationScheduledEventType;
 
   HISTORY_POPULATED_EVENT: History.Events.HistoryPopulatedEventType;
+  HISTORY_CLEARED_EVENT: History.Events.HistoryClearedEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
@@ -120,4 +121,8 @@ emittery.on(
 emittery.on(
   History.Events.HISTORY_POPULATED_EVENT,
   History.Handlers.onHistoryPopulatedEventHandler
+);
+emittery.on(
+  History.Events.HISTORY_CLEARED_EVENT,
+  History.Handlers.onHistoryClearedEventHandler
 );
