@@ -30,7 +30,7 @@ export function DatapointList(props: types.TrackerType) {
   }
 
   if (!datapoints.data || datapoints.data?.length === 0) {
-    return <UI.Info>{t("datapoints.empty")}</UI.Info>;
+    return <UI.Info data-my="24">{t("datapoints.empty")}</UI.Info>;
   }
 
   return (

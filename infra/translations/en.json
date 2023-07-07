@@ -64,7 +64,7 @@
   "datapoint.revert.error": "Datapoint revert error",
   "datapoint.revert.error.does_not_exist": "Datapoint does not exist",
   "datapoint.revert.success": "Datapoint reverted",
-  "datapoints.empty": "No datapoints",
+  "datapoints.empty": "No datapoints added yet, use the form below to sync a value",
   "datapoints.error": "Error while loading datapoints",
 
   "tracker.active.empty": "No active trackers",
