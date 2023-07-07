@@ -17,7 +17,7 @@ export function GoalDelete(props: types.GoalType) {
     onSuccess() {
       dialog.disable();
       notify({ message: "goal.delete.success" });
-      queryClient.invalidateQueries(["goal", props.relatedTrackerId]);
+      queryClient.removeQueries(["goal", props.relatedTrackerId]);
     },
     onError() {
       setTimeout(deleteGoal.reset, 5000);
