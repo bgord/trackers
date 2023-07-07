@@ -20,7 +20,7 @@ export function Dashboard(_: RoutableProps) {
       data-gap="36"
       data-mx="auto"
       data-mt="24"
-      style={bg.Rhythm.base().times(60).maxWidth}
+      style={bg.Rhythm.base().times(64).maxWidth}
     >
       <TrackerCreate />
       <TrackerList />

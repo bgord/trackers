@@ -36,9 +36,9 @@ export function Settings(_: RoutableProps) {
       data-display="flex"
       data-direction="column"
       data-gap="48"
-      data-p="24"
-      data-max-width="768"
+      data-mt="24"
       data-mx="auto"
+      style={bg.Rhythm.base().times(64).maxWidth}
     >
       <header data-display="flex" data-main="between" data-fs="20">
         <div>{t("app.settings")}</div>
