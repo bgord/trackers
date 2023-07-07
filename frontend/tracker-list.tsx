@@ -28,7 +28,12 @@ export function TrackerList() {
   }
 
   return (
-    <ul data-display="flex" data-direction="column" data-gap="24">
+    <ul
+      data-display="flex"
+      data-direction="column"
+      data-gap="24"
+      data-max-width="100%"
+    >
       {trackers.map((tracker) => (
         <Tracker key={tracker.updatedAt} {...tracker} />
       ))}

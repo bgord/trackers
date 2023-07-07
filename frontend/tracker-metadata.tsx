@@ -11,7 +11,7 @@ export function TrackerMetadata(props: types.TrackerType) {
   const t = bg.useTranslations();
 
   return (
-    <div data-display="flex" data-gap="24">
+    <div data-display="flex" data-gap="24" data-mt="6">
       <UI.Info
         title={bg.DateFormatter.datetime(props.createdAt.raw)}
         data-color="gray-400"

@@ -33,7 +33,6 @@ export function GoalCreate(props: types.TrackerType) {
     <form
       data-display="flex"
       data-gap="12"
-      data-my="12"
       onSubmit={(event) => {
         event.preventDefault();
 
