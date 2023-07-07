@@ -19,7 +19,7 @@ export function Dashboard(_: RoutableProps) {
       data-direction="column"
       data-gap="48"
       data-mx="auto"
-      data-mt="24"
+      data-my="24"
       style={bg.Rhythm.base().times(64).maxWidth}
     >
       <TrackerCreate />
