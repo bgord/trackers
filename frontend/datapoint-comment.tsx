@@ -34,6 +34,7 @@ export function DatapointComment(props: types.DatapointType) {
       data-direction="column"
       data-cross="start"
       data-gap="12"
+      data-mx="auto"
     >
       <div data-display="flex" data-direction="column">
         <label class="c-label" {...trackerComment.label.props}>
@@ -42,7 +43,7 @@ export function DatapointComment(props: types.DatapointType) {
 
         <textarea
           class="c-textarea"
-          rows={2}
+          rows={3}
           maxLength={types.DATAPOINT_COMMENT_MAX_LENGTH}
           placeholder={t("datapoint.comment.placeholder")}
           value={trackerComment.value ?? ""}

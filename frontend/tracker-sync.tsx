@@ -43,14 +43,13 @@ export function TrackerSync(props: types.TrackerType) {
   return (
     <form
       data-display="flex"
-      data-gap="12"
       data-cross="start"
       onSubmit={(event) => {
         event.preventDefault();
         trackerSync();
       }}
     >
-      <div data-display="flex" data-direction="column">
+      <div data-display="flex" data-direction="column" data-mr="12">
         <label class="c-label" {...trackerValue.label.props}>
           {t("tracker.value.label")}
         </label>
@@ -123,6 +122,7 @@ export function TrackerSync(props: types.TrackerType) {
         class="c-button"
         data-variant="primary"
         data-mt="24"
+        data-mx="12"
         disabled={trackerValue.unchanged || trackerSyncMutation.isLoading}
       >
         {t("app.sync")}
