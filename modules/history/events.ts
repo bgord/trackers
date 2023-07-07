@@ -12,9 +12,7 @@ export const HistoryPopulatedEvent = bg.EventDraft.merge(
       createdAt: true,
       operation: true,
       relatedTrackerId: true,
-    }),
+    }).merge(z.object({ payload: z.record(z.any()) })),
   })
 );
-export type HistoryPopulatedEventType = z.infer<
-  typeof HistoryPopulatedEvent
-> & { payload: { payload: Record<string, any> } };
+export type HistoryPopulatedEventType = z.infer<typeof HistoryPopulatedEvent>;

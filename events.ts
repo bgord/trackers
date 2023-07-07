@@ -36,6 +36,8 @@ export const emittery = new Emittery<{
   GOAL_ACCOMPLISHED_EVENT: Goals.Events.GoalAccomplishedEventType;
   GOAL_REGRESSED_EVENT: Goals.Events.GoalRegressedEventType;
   GOAL_ACCOMPLISHED_NOTIFICATION_SCHEDULED_EVENT: Goals.Events.GoalAccomplishedNotificationScheduledEventType;
+
+  HISTORY_POPULATED_EVENT: History.Events.HistoryPopulatedEventType;
 }>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
@@ -116,43 +118,6 @@ emittery.on(
 
 // History =====================
 emittery.on(
-  Trackers.Events.TRACKER_ADDED_EVENT,
-  History.Handlers.onTrackerAddedEventHandler
+  History.Events.HISTORY_POPULATED_EVENT,
+  History.Handlers.onHistoryPopulatedEventHandler
 );
-emittery.on(
-  Trackers.Events.TRACKER_ARCHIVED_EVENT,
-  History.Handlers.onTrackerArchivedEventHandler
-);
-emittery.on(
-  Trackers.Events.TRACKER_RESTORED_EVENT,
-  History.Handlers.onTrackerRestoredEventHandler
-);
-emittery.on(
-  Trackers.Events.TRACKER_EXPORTED_EVENT,
-  History.Handlers.onTrackerExportedEventHandler
-);
-emittery.on(
-  Trackers.Events.TRACKER_NAME_CHANGED_EVENT,
-  History.Handlers.onTrackerNameChangedEventHandler
-);
-emittery.on(
-  Trackers.Events.TRACKER_VALUE_RECALCULATED_EVENT,
-  History.Handlers.onTrackerValueRecalculatedEventHandler
-);
-emittery.on(
-  Goals.Events.GOAL_CREATED_EVENT,
-  History.Handlers.onGoalCreatedEventHandler
-);
-emittery.on(
-  Goals.Events.GOAL_DELETED_EVENT,
-  History.Handlers.onGoalDeletedEventHandler
-);
-emittery.on(
-  Goals.Events.GOAL_ACCOMPLISHED_EVENT,
-  History.Handlers.onGoalAccomplishedEventHandler
-);
-emittery.on(
-  Goals.Events.GOAL_REGRESSED_EVENT,
-  History.Handlers.onGoalRegressedEventHandler
-);
-// =============================
