@@ -22,10 +22,15 @@ export function Tracker(props: types.TrackerType) {
 
   return (
     <li
+      box-shadow
       data-display="flex"
       data-gap="12"
       data-direction="column"
       data-max-width="100%"
+      data-bw="1"
+      data-bc={details.on ? "gray-300" : "transparent"}
+      data-py="6"
+      data-px="12"
     >
       <div data-display="flex" data-main="between" data-cross="center">
         <div data-display="flex" data-cross="center" data-gap="12">
@@ -92,14 +97,15 @@ export function Tracker(props: types.TrackerType) {
             class="c-button"
             type="button"
             data-variant="with-icon"
+            data-ml="24"
             title={
               details.on ? t("tracker.details.hide") : t("tracker.details.show")
             }
             onClick={details.toggle}
           >
-            {details.off && <Icons.NavArrowLeft height="22" width="22" />}
+            {details.off && <Icons.NavArrowLeft height="24" width="24" />}
 
-            {details.on && <Icons.NavArrowDown height="22" width="22" />}
+            {details.on && <Icons.NavArrowDown height="24" width="24" />}
           </button>
         </div>
       </div>
@@ -109,7 +115,7 @@ export function Tracker(props: types.TrackerType) {
           data-display="flex"
           data-direction="column"
           data-max-width="100%"
-          data-gap="6"
+          data-gap="3"
         >
           {props.status === types.TrackerStatusEnum.active && nameChange.on && (
             <TrackerNameChange {...props} />
@@ -119,9 +125,9 @@ export function Tracker(props: types.TrackerType) {
             <TrackerSync key={props.updatedAt} {...props} />
           )}
 
-          <Goal key={props.updatedAt} {...props} />
-
           <DatapointList key={props.updatedAt.raw} {...props} />
+
+          <Goal key={props.updatedAt} {...props} />
 
           <TrackerMetadata {...props} />
         </div>

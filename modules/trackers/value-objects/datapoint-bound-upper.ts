@@ -1,1 +1,1 @@
-export const DATAPOINT_BOUND_UPPER = 150;
+export const DATAPOINT_BOUND_UPPER = 140;

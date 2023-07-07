@@ -17,7 +17,7 @@ export function Dashboard(_: RoutableProps) {
     <main
       data-display="flex"
       data-direction="column"
-      data-gap="36"
+      data-gap="48"
       data-mx="auto"
       data-mt="24"
       style={bg.Rhythm.base().times(64).maxWidth}

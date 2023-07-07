@@ -44,6 +44,7 @@ export function TrackerSync(props: types.TrackerType) {
     <form
       data-display="flex"
       data-cross="start"
+      data-mb="12"
       onSubmit={(event) => {
         event.preventDefault();
         trackerSync();

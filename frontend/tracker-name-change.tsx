@@ -26,6 +26,7 @@ export function TrackerNameChange(props: types.TrackerType) {
     <form
       data-display="flex"
       data-gap="12"
+      data-mb="12"
       onSubmit={(event) => {
         event.preventDefault();
         changeName.mutate({ id: props.id, name: newTrackerName.value });
