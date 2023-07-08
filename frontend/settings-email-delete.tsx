@@ -36,7 +36,9 @@ export function SettingsEmailDelete(_props: types.SettingsType) {
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">
-        <div>{t("tracker.export.email.confirmation")}</div>
+        <div data-lh="16" data-transform="center">
+          {t("tracker.export.email.confirmation")}
+        </div>
 
         <form
           data-display="flex"
