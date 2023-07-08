@@ -1,11 +1,13 @@
 import * as bg from "@bgord/frontend";
 import * as Icons from "iconoir-react";
 import { h, Fragment } from "preact";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import * as api from "./api";
 import * as types from "./types";
 import * as UI from "./ui";
+
+const DEFAULT_EXPORT_EMAIL = "";
 
 export function TrackerExport(
   props: types.TrackerType & h.JSX.IntrinsicElements["button"]
@@ -13,13 +15,16 @@ export function TrackerExport(
   const { id, ...rest } = props;
 
   const t = bg.useTranslations();
+  const queryClient = useQueryClient();
 
   const notify = bg.useToastTrigger();
   const dialog = bg.useToggle();
 
   const trackerExportEmail = bg.useField<types.EmailType>(
     "tracker-export-email",
-    ""
+    () =>
+      queryClient.getQueryData<types.SettingsType>("settings")?.email ??
+      DEFAULT_EXPORT_EMAIL
   );
 
   const exportTracker = useMutation(api.Tracker.export, {
@@ -88,8 +93,8 @@ export function TrackerExport(
             </div>
 
             <UI.Clear
-              disabled={trackerExportEmail.unchanged}
-              onClick={trackerExportEmail.clear}
+              disabled={trackerExportEmail.value === DEFAULT_EXPORT_EMAIL}
+              onClick={() => trackerExportEmail.set(DEFAULT_EXPORT_EMAIL)}
             />
           </div>
 
@@ -98,7 +103,7 @@ export function TrackerExport(
               type="submit"
               class="c-button"
               data-variant="primary"
-              disabled={trackerExportEmail.unchanged}
+              disabled={trackerExportEmail.value === DEFAULT_EXPORT_EMAIL}
             >
               {t("app.export")}
             </button>
