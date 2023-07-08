@@ -35,14 +35,17 @@ export function DatapointComment(props: types.DatapointType) {
       data-cross="start"
       data-gap="12"
       data-mx="auto"
+      data-width="100%"
+      style={bg.Rhythm.base().times(26).maxWidth}
     >
-      <div data-display="flex" data-direction="column">
+      <div data-display="flex" data-direction="column" data-width="100%">
         <label class="c-label" {...trackerComment.label.props}>
           {t("datapoint.comment.label")}
         </label>
 
         <textarea
           class="c-textarea"
+          data-width="100%"
           rows={3}
           maxLength={types.DATAPOINT_COMMENT_MAX_LENGTH}
           placeholder={t("datapoint.comment.placeholder")}
@@ -50,7 +53,6 @@ export function DatapointComment(props: types.DatapointType) {
           onChange={(event) =>
             trackerComment.set(event.currentTarget.value as string)
           }
-          style={bg.Rhythm.base().times(20).minWidth}
           {...trackerComment.input.props}
         />
       </div>
