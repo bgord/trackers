@@ -38,3 +38,5 @@ export { WEEKLY_TRACKERS_REPORT_UTC_HOUR } from "../modules/trackers/value-objec
 export { DATAPOINT_COMMENT_MAX_LENGTH } from "../modules/trackers/value-objects/datapoint-comment-max-length";
 
 export { GOAL_TARGET_DEFAULT_VALUE } from "../modules/goals/value-objects/goal-target-default-value";
+
+export { SETTINGS_EMAIL_MAX_LENGTH } from "../modules/settings/value-objects/settings-email-max-length";

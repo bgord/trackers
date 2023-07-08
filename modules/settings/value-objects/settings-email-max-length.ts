@@ -1,0 +1,1 @@
+export const SETTINGS_EMAIL_MAX_LENGTH = 42;

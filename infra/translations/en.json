@@ -141,6 +141,7 @@
   "settings.email.new.placeholder": "new@example.com",
   "settings.email.set": "email set",
   "settings.email.show": "show",
+  "settings.email.structure.error": "Settings email too long",
   "settings.error": "Error wihle loading settings",
   "settings.loading": "Loading settings...",
   "settings.updated_at": "Updated {{when}}",

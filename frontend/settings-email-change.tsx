@@ -51,8 +51,10 @@ export function SettingsEmailChange() {
         <input
           class="c-input"
           onChange={(event) => newEmailField.set(event.currentTarget.value)}
+          type="email"
           inputMode="email"
           placeholder={t("settings.email.new.placeholder")}
+          pattern={`.{1,${types.SETTINGS_EMAIL_MAX_LENGTH}}`}
           required
           data-width="100%"
           value={newEmailField.value}
