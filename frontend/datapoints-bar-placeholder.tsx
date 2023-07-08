@@ -1,17 +1,16 @@
+import * as bg from "@bgord/frontend";
 import { h } from "preact";
 
 import * as types from "./types";
 
-export function DatapointsChartPlaceholder(props: { bars: number }) {
-  const min = types.DATAPOINT_BOUND_LOWER;
-  const max = types.DATAPOINT_BOUND_UPPER;
+const min = types.DATAPOINT_BOUND_LOWER;
+const max = types.DATAPOINT_BOUND_UPPER;
 
-  const bars = Array.from({ length: props.bars - 1 }).map(
-    () => Math.floor(Math.random() * (max - min + 1)) + min
-  );
+export function DatapointsChartPlaceholder() {
+  const isMobile = bg.useBreakpoint(768);
 
-  // Make sure at least one bar is at maximum height
-  bars.push(max);
+  const numberOfBars = isMobile ? 7 : 18;
+  const bars = generateBars(numberOfBars);
 
   return (
     <ul
@@ -38,4 +37,15 @@ function DatapointBarPlaceholder(props: { height: number }) {
       style={{ height: `${props.height}px`, width: "36px" }}
     ></li>
   );
+}
+
+function generateBars(numberOfBars: number) {
+  const bars = Array.from({ length: numberOfBars - 1 }).map(
+    () => Math.floor(Math.random() * (max - min + 1)) + min
+  );
+
+  // Make sure at least one bar is at maximum height
+  bars.push(max);
+
+  return bars;
 }

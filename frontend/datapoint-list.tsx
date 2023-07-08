@@ -22,7 +22,7 @@ export function DatapointList(props: types.TrackerType) {
   const activeDatapointId = bg.useItem<ActiveDatapointIdType>();
 
   if (datapoints.isLoading) {
-    return <DatapointsChartPlaceholder bars={10} />;
+    return <DatapointsChartPlaceholder />;
   }
 
   if (datapoints.isError) {
