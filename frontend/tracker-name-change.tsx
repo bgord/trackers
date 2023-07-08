@@ -27,12 +27,15 @@ export function TrackerNameChange(props: types.TrackerType) {
       data-display="flex"
       data-gap="12"
       data-mb="12"
+      data-mx="auto"
+      data-width="100%"
       onSubmit={(event) => {
         event.preventDefault();
         changeName.mutate({ id: props.id, name: newTrackerName.value });
       }}
+      style={bg.Rhythm.base().times(40).maxWidth}
     >
-      <div data-display="flex" data-direction="column">
+      <div data-display="flex" data-direction="column" data-grow="1">
         <label class="c-label" {...newTrackerName.label.props}>
           {t("tracker.name.new.label")}
         </label>
@@ -48,21 +51,23 @@ export function TrackerNameChange(props: types.TrackerType) {
         />
       </div>
 
-      <button
-        type="submit"
-        class="c-button"
-        data-variant="secondary"
-        data-self="end"
-        disabled={newTrackerName.unchanged || changeName.isLoading}
-      >
-        {t("tracker.name.new.change")}
-      </button>
+      <div data-display="flex" data-wrap="nowrap" data-gap="12">
+        <button
+          type="submit"
+          class="c-button"
+          data-variant="secondary"
+          data-self="end"
+          disabled={newTrackerName.unchanged || changeName.isLoading}
+        >
+          {t("tracker.name.new.change")}
+        </button>
 
-      <UI.Clear
-        onClick={newTrackerName.clear}
-        data-self="end"
-        disabled={newTrackerName.unchanged || changeName.isLoading}
-      />
+        <UI.Clear
+          onClick={newTrackerName.clear}
+          data-self="end"
+          disabled={newTrackerName.unchanged || changeName.isLoading}
+        />
+      </div>
     </form>
   );
 }
