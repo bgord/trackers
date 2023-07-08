@@ -42,6 +42,7 @@ export function SettingsEmailChange() {
         data-direction="column"
         data-wrap="nowrap"
         data-width="100%"
+        style={bg.Rhythm.base().times(25).maxWidth}
       >
         <label class="c-label" {...newEmailField.label.props}>
           {t("settings.email.new.label")}

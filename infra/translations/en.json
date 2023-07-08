@@ -140,7 +140,7 @@
   "settings.email.empty": "no email set",
   "settings.email.error.not_configured": "Settings email not configured",
   "settings.email.hide": "hide",
-  "settings.email.new.label": "New email",
+  "settings.email.new.label": "Updated email",
   "settings.email.new.placeholder": "new@example.com",
   "settings.email.set": "email set",
   "settings.email.show": "show",
