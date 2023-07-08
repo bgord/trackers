@@ -40,11 +40,12 @@ export function TrackerHistory(
         {...dialog}
         data-wrap="nowrap"
         data-gap="24"
-        data-mt="72"
+        data-mt="48"
         data-max-width="768"
         data-width="100%"
-        data-px="24"
-        style={bg.Rhythm.base().times(45).height}
+        data-p="24"
+        data-md-p="6"
+        style={bg.Rhythm.base().times(50).height}
       >
         <div data-display="flex" data-main="between" data-cross="center">
           <div data-fw="700">{t("tracker.history")}</div>
@@ -76,7 +77,7 @@ export function TrackerHistory(
           </div>
         )}
 
-        <ul>
+        <ul data-display="flex" data-direction="column" data-md-gap="6">
           {history.data?.result.map((item) => (
             <li data-display="flex" data-main="between" key={item.id}>
               <div data-fs="14" data-color="gray-600">
@@ -85,6 +86,7 @@ export function TrackerHistory(
 
               <UI.Info
                 data-color="gray-400"
+                data-ml="auto"
                 title={bg.DateFormatter.datetime(item.createdAt.raw)}
               >
                 {item.createdAt.relative}
