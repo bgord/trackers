@@ -40,8 +40,10 @@ export function GoalDelete(props: types.GoalType) {
         <Icons.BinMinus height="18" width="18" />
       </button>
 
-      <bg.Dialog {...dialog} data-gap="24" data-mt="72">
-        <div>{t("goal.delete.confirmation")}</div>
+      <bg.Dialog {...dialog} data-gap="24" data-mt="72" data-md-px="6">
+        <div data-lh="16" data-transform="center">
+          {t("goal.delete.confirmation")}
+        </div>
 
         <div data-display="flex" data-gap="48" data-mx="auto">
           <button
