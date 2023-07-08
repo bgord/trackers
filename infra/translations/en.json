@@ -152,6 +152,7 @@
   "settings.weekly_trackers_report.enable": "Enable",
   "settings.weekly_trackers_report.enable.error": "Weekly trackers report already enabled",
   "settings.weekly_trackers_report.enabled": "Enabled",
-  "settings.weekly_trackers_report.info": "You have to set an email to be able to receive weekly trackers reports.",
+  "settings.weekly_trackers_report.no_email.info": "You have to set an email to be able to receive weekly trackers reports.",
+  "settings.weekly_trackers_report.disabled.info": "The report would be sent at {{local}} every Monday",
   "settings.weekly_trackers_report.schedule": "The report will be sent at {{local}} every Monday"
 }

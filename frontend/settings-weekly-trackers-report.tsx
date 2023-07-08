@@ -100,11 +100,21 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
         </div>
       </div>
 
-      {!props.isWeeklyTrackersReportEnabled && (
+      {!props.isWeeklyTrackersReportEnabled && !props.email && (
         <UI.Info data-display="flex" data-wrap="nowrap" data-gap="12">
           <Icons.InfoEmpty height="18" width="18" style={{ flexShrink: "0" }} />
 
-          {t("settings.weekly_trackers_report.info")}
+          {t("settings.weekly_trackers_report.no_email.info")}
+        </UI.Info>
+      )}
+
+      {!props.isWeeklyTrackersReportEnabled && props.email && (
+        <UI.Info data-display="flex" data-wrap="nowrap" data-gap="12">
+          <Icons.InfoEmpty height="18" width="18" style={{ flexShrink: "0" }} />
+
+          {t("settings.weekly_trackers_report.disabled.info", {
+            local: localWeeklyTrackersReportUtcHour,
+          })}
         </UI.Info>
       )}
 
