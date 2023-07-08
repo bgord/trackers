@@ -55,8 +55,16 @@ export function TrackerExport(
         <Icons.Download height="20" width="20" />
       </button>
 
-      <bg.Dialog {...dialog} data-gap="24" data-mt="72">
-        <div>{t("tracker.export.confirmation")}</div>
+      <bg.Dialog
+        {...dialog}
+        data-gap="24"
+        data-mt="72"
+        data-md-px="6"
+        data-md-mx="auto"
+      >
+        <div data-lh="16" data-transform="center">
+          {t("tracker.export.confirmation")}
+        </div>
 
         <form
           data-display="flex"
