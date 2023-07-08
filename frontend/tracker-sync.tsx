@@ -28,15 +28,12 @@ export function TrackerSync(props: types.TrackerType) {
     props.value
   );
 
-  const trackerComment = bg.useField<string>("tracker-comment", "");
-
   const trackerSync = bg.useRateLimiter({
     limitMs: bg.Time.Seconds(10).toMs(),
     action: () =>
       trackerSyncMutation.mutate({
         id: props.id,
         value: trackerValue.value,
-        comment: trackerComment.value,
       }),
   });
 
@@ -44,13 +41,13 @@ export function TrackerSync(props: types.TrackerType) {
     <form
       data-display="flex"
       data-cross="start"
-      data-mb="12"
+      data-gap="12"
       onSubmit={(event) => {
         event.preventDefault();
         trackerSync();
       }}
     >
-      <div data-display="flex" data-direction="column" data-mr="12">
+      <div data-display="flex" data-direction="column">
         <label class="c-label" {...trackerValue.label.props}>
           {t("tracker.value.label")}
         </label>
@@ -70,73 +67,47 @@ export function TrackerSync(props: types.TrackerType) {
         />
       </div>
 
-      <div data-display="flex" data-direction="column">
-        <label class="c-label" {...trackerComment.label.props}>
-          {t("datapoint.comment.label")}
-        </label>
+      <div data-display="flex" data-wrap="nowrap" data-gap="12" data-self="end">
+        {props.kind === types.TrackerKindEnum.counter && (
+          <button
+            class="c-button"
+            type="button"
+            data-variant="with-icon"
+            title={t("tracker.value.increase")}
+            onClick={() => trackerValue.set(trackerValue.value + 1)}
+            disabled={trackerSyncMutation.isLoading}
+          >
+            <Icons.Plus height="20" width="20" />
+          </button>
+        )}
 
-        <textarea
-          class="c-textarea"
-          rows={2}
-          maxLength={types.DATAPOINT_COMMENT_MAX_LENGTH}
-          placeholder={t("datapoint.comment.placeholder")}
-          value={trackerComment.value}
-          disabled={trackerSyncMutation.isLoading}
-          onChange={(event) =>
-            trackerComment.set(event.currentTarget.value as string)
-          }
-          style={bg.Rhythm.base().times(20).minWidth}
-          {...trackerComment.input.props}
+        {props.kind === types.TrackerKindEnum.counter && (
+          <button
+            class="c-button"
+            type="button"
+            data-variant="with-icon"
+            title={t("tracker.value.decrease")}
+            onClick={() => trackerValue.set(trackerValue.value - 1)}
+            disabled={trackerSyncMutation.isLoading}
+          >
+            <Icons.Minus height="20" width="20" />
+          </button>
+        )}
+
+        <button
+          type="submit"
+          class="c-button"
+          data-variant="primary"
+          disabled={trackerValue.unchanged || trackerSyncMutation.isLoading}
+        >
+          {t("app.sync")}
+        </button>
+
+        <UI.Clear
+          onClick={trackerValue.clear}
+          disabled={trackerValue.unchanged || trackerSyncMutation.isLoading}
         />
       </div>
-
-      {props.kind === types.TrackerKindEnum.counter && (
-        <button
-          class="c-button"
-          type="button"
-          data-variant="with-icon"
-          data-mt="24"
-          title={t("tracker.value.increase")}
-          onClick={() => trackerValue.set(trackerValue.value + 1)}
-          disabled={trackerSyncMutation.isLoading}
-        >
-          <Icons.Plus height="20" width="20" />
-        </button>
-      )}
-
-      {props.kind === types.TrackerKindEnum.counter && (
-        <button
-          class="c-button"
-          type="button"
-          data-variant="with-icon"
-          data-mt="24"
-          title={t("tracker.value.decrease")}
-          onClick={() => trackerValue.set(trackerValue.value - 1)}
-          disabled={trackerSyncMutation.isLoading}
-        >
-          <Icons.Minus height="20" width="20" />
-        </button>
-      )}
-
-      <button
-        type="submit"
-        class="c-button"
-        data-variant="primary"
-        data-mt="24"
-        data-mx="12"
-        disabled={trackerValue.unchanged || trackerSyncMutation.isLoading}
-      >
-        {t("app.sync")}
-      </button>
-
-      <UI.Clear
-        data-mt="24"
-        onClick={bg.exec([trackerValue.clear, trackerComment.clear])}
-        disabled={
-          (trackerValue.unchanged && trackerComment.unchanged) ||
-          trackerSyncMutation.isLoading
-        }
-      />
     </form>
   );
 }
