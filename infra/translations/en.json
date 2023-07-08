@@ -72,7 +72,7 @@
   "tracker": "tracker",
   "tracker.active.empty": "No active trackers",
   "tracker.active.error": "Tracker is not active",
-  "tracker.archive": "Archive tracker",
+  "tracker.archive": "Archive",
   "tracker.archive.confirmation": "Are you sure you want to archive this tracker?",
   "tracker.archive.error": "Cannot archive tracker",
   "tracker.archive.success": "Tracker archieved",

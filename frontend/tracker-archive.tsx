@@ -49,7 +49,7 @@ export function TrackerArchive(
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">
-        <div>{t("tracker.archive.confirmation")}</div>
+        <div data-transform="center">{t("tracker.archive.confirmation")}</div>
 
         <div data-display="flex" data-gap="48" data-mx="auto">
           <button
