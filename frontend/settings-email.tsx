@@ -3,7 +3,6 @@ import { h, Fragment } from "preact";
 import * as Icons from "iconoir-react";
 
 import * as types from "./types";
-import * as UI from "./ui";
 
 import { SettingsEmailDelete } from "./settings-email-delete";
 import { SettingsEmailChange } from "./settings-email-change";
@@ -13,8 +12,19 @@ export function SettingsEmail(props: types.SettingsType) {
   const details = bg.usePersistentToggle("settings-email");
 
   return (
-    <div data-display="flex" data-direction="column" data-gap="24">
-      <div data-display="flex" data-gap="24" data-cross="center">
+    <div
+      data-display="flex"
+      data-direction="column"
+      data-gap="24"
+      data-md-gap="12"
+      data-max-width="100%"
+    >
+      <div
+        data-display="flex"
+        data-cross="center"
+        data-gap="24"
+        data-md-gap="12"
+      >
         {!props.email && (
           <div class="c-badge" data-color="red-600" data-bg="red-100">
             {t("settings.email.empty")}
@@ -27,7 +37,7 @@ export function SettingsEmail(props: types.SettingsType) {
           </div>
         )}
 
-        {t("settings.email")}
+        <div data-fs="14">{t("settings.email")}</div>
 
         {details.on && (
           <button
@@ -59,10 +69,24 @@ export function SettingsEmail(props: types.SettingsType) {
       {details.on && (
         <Fragment>
           {props.email && (
-            <div data-display="flex" data-gap="24" data-wrap="nowrap">
-              <UI.Info data-fs="14" data-transform="nowrap">
-                {t("settings.email.current", { value: props.email })}
-              </UI.Info>
+            <div
+              data-display="flex"
+              data-cross="center"
+              data-gap="24"
+              data-md-gap="12"
+              data-width="100%"
+              data-max-width="100%"
+            >
+              <div class="c-badge">{t("settings.email.current")}</div>
+
+              <div
+                data-fs="14"
+                title={props.email}
+                data-transform="truncate"
+                data-max-width="100%"
+              >
+                {props.email}
+              </div>
 
               <SettingsEmailDelete {...props} />
             </div>

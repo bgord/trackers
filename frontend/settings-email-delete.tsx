@@ -29,10 +29,7 @@ export function SettingsEmailDelete(_props: types.SettingsType) {
         disabled={deleteEmail.isLoading}
         onClick={dialog.enable}
       >
-        {deleteEmail.isIdle && t("settings.email.delete")}
-        {deleteEmail.isLoading && t("settings.email.delete.loading")}
-        {deleteEmail.isSuccess && t("settings.email.delete.success")}
-        {deleteEmail.isError && t("settings.email.delete.error")}
+        {t("settings.email.delete")}
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">
