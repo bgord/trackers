@@ -22,7 +22,6 @@ export function Tracker(props: types.TrackerType) {
 
   return (
     <li
-      box-shadow
       data-display="flex"
       data-gap="12"
       data-direction="column"
@@ -32,7 +31,12 @@ export function Tracker(props: types.TrackerType) {
       data-py="6"
       data-px="12"
     >
-      <div data-display="flex" data-main="between" data-cross="center">
+      <div
+        data-display="flex"
+        data-main="between"
+        data-cross="center"
+        data-gap="6"
+      >
         <div data-display="flex" data-cross="center" data-gap="12">
           {props.status === types.TrackerStatusEnum.active && (
             <div
@@ -55,16 +59,18 @@ export function Tracker(props: types.TrackerType) {
             {t(`tracker.kind.enum.${props.kind}`)}
           </div>
 
-          <div data-fs="14" data-color="gray-700">
-            {props.name}
-          </div>
+          <div data-display="flex" data-wrap="nowrap" data-gap="12">
+            <div data-fs="14" data-color="gray-700">
+              {props.name}
+            </div>
 
-          <div data-fs="14" data-fw="700" data-mr="auto">
-            {props.value}
+            <div data-fs="14" data-fw="700" data-mr="auto">
+              {props.value}
+            </div>
           </div>
         </div>
 
-        <div data-display="flex" data-cross="center">
+        <div data-display="flex" data-cross="center" data-ml="auto">
           {details.on && props.status === types.TrackerStatusEnum.active && (
             <button
               class="c-button"
@@ -115,7 +121,7 @@ export function Tracker(props: types.TrackerType) {
           data-display="flex"
           data-direction="column"
           data-max-width="100%"
-          data-gap="3"
+          data-gap="6"
         >
           {props.status === types.TrackerStatusEnum.active && nameChange.on && (
             <TrackerNameChange {...props} />

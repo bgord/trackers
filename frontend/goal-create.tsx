@@ -75,6 +75,7 @@ export function GoalCreate(props: types.TrackerType) {
               event.currentTarget.valueAsNumber as types.GoalType["target"]
             )
           }
+          style={bg.Rhythm.base().times(8).maxWidth}
           {...goalTarget.input.props}
         />
       </div>
