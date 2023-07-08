@@ -79,23 +79,25 @@ export function GoalCreate(props: types.TrackerType) {
         />
       </div>
 
-      <button
-        type="submit"
-        class="c-button"
-        data-variant="secondary"
-        data-self="end"
-        disabled={goalTarget.unchanged || createGoal.isLoading}
-      >
-        {t("goal.create")}
-      </button>
+      <div data-display="flex" data-wrap="nowrap" data-gap="12">
+        <button
+          type="submit"
+          class="c-button"
+          data-variant="secondary"
+          data-self="end"
+          disabled={goalTarget.unchanged || createGoal.isLoading}
+        >
+          {t("goal.create")}
+        </button>
 
-      <UI.Clear
-        onClick={bg.exec([goalTarget.clear, goalKind.clear])}
-        disabled={
-          (goalTarget.unchanged && goalKind.unchanged) || createGoal.isLoading
-        }
-        data-self="end"
-      />
+        <UI.Clear
+          onClick={bg.exec([goalTarget.clear, goalKind.clear])}
+          disabled={
+            (goalTarget.unchanged && goalKind.unchanged) || createGoal.isLoading
+          }
+          data-self="end"
+        />
+      </div>
     </form>
   );
 }
