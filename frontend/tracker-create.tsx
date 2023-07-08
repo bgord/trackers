@@ -36,6 +36,7 @@ export function TrackerCreate() {
     <form
       data-display="flex"
       data-gap="24"
+      data-md-gap="12"
       data-px="12"
       onSubmit={(event) => {
         event.preventDefault();
@@ -45,7 +46,12 @@ export function TrackerCreate() {
         });
       }}
     >
-      <div data-display="flex" data-direction="column">
+      <div
+        data-display="flex"
+        data-direction="column"
+        data-grow="1"
+        style={bg.Rhythm.base().times(25).maxWidth}
+      >
         <label class="c-label" {...trackerName.label.props}>
           {t("tracker.name.label")}
         </label>
@@ -55,7 +61,6 @@ export function TrackerCreate() {
           pattern={`.{${types.TRACKER_NAME_MIN_LENGTH},${types.TRACKER_NAME_MAX_LENGTH}}`}
           placeholder={t("tracker.name.placeholder")}
           required
-          style={{ minWidth: "200px" }}
           value={trackerName.value}
           {...trackerName.input.props}
         />
@@ -80,21 +85,28 @@ export function TrackerCreate() {
         </UI.Select>
       </div>
 
-      <button
-        type="submit"
-        class="c-button"
-        data-variant="secondary"
-        data-self="end"
-        disabled={trackerName.unchanged || createTracker.isLoading}
+      <div
+        data-display="flex"
+        data-wrap="nowrap"
+        data-gap="24"
+        data-md-gap="12"
       >
-        {t("tracker.create.submit")}
-      </button>
+        <button
+          type="submit"
+          class="c-button"
+          data-variant="secondary"
+          data-self="end"
+          disabled={trackerName.unchanged || createTracker.isLoading}
+        >
+          {t("tracker.create.submit")}
+        </button>
 
-      <UI.Clear
-        disabled={trackerName.unchanged || createTracker.isLoading}
-        data-self="end"
-        onClick={trackerName.clear}
-      />
+        <UI.Clear
+          disabled={trackerName.unchanged || createTracker.isLoading}
+          data-self="end"
+          onClick={trackerName.clear}
+        />
+      </div>
     </form>
   );
 }
