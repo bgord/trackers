@@ -64,7 +64,13 @@ export function Tracker(props: types.TrackerType) {
               {props.name}
             </div>
 
-            <div data-fs="14" data-fw="700" data-mr="auto">
+            <div
+              class="c-badge"
+              data-bg="gray-600"
+              data-color="gray-100"
+              data-mr="auto"
+              style={bg.Rhythm.base().times(2).minWidth}
+            >
               {props.value}
             </div>
           </div>
