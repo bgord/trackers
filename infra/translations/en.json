@@ -112,7 +112,7 @@
   "tracker.name.new.change.error.not_changed": "Tracker name has not changed",
   "tracker.name.new.change.success": "Tracker name changed",
   "tracker.name.new.label": "New tracker name",
-  "tracker.name.placeholder": "Read 5 minutes a day...",
+  "tracker.name.placeholder": "Books read in 2023",
   "tracker.name.structure.error": "Invalid tracker name",
   "tracker.name.unique.error": "Not unique tracker name",
   "tracker.restore": "Restore tracker",
