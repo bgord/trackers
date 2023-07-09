@@ -22,6 +22,7 @@ export * from "./tracker-status-enum";
 export * from "./tracker-status-error-key";
 export * from "./tracker-updated-at";
 export * from "./tracker-value";
+export * from "./tracker-value-default";
 
 export * from "./weekly-trackers-report";
 export * from "./weekly-trackers-report-html";

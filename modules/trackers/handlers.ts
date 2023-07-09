@@ -51,7 +51,7 @@ export const onTrackerRevertedEventHandler =
         );
 
       const value = Trackers.VO.TrackerValue.parse(
-        latestDatapointForTracker?.value ?? Trackers.VO.DEFAULT_TRACKER_VALUE
+        latestDatapointForTracker?.value ?? Trackers.VO.TRACKER_VALUE_DEFAULT
       );
 
       await Trackers.Repos.TrackerRepository.sync({

@@ -14,7 +14,7 @@ export class Tracker {
 
   entity: VO.TrackerType | null = null;
 
-  DEFAULT_TRACKER_VALUE = VO.DEFAULT_TRACKER_VALUE;
+  TRACKER_VALUE_DEFAULT = VO.TRACKER_VALUE_DEFAULT;
 
   DATAPOINTS_LIMIT_PER_DAY = VO.DATAPOINTS_LIMIT_PER_DAY;
 
@@ -52,7 +52,7 @@ export class Tracker {
           values.push(event.payload);
 
           this.entity.value = VO.TrackerValue.parse(
-            _.last(values)?.value ?? this.DEFAULT_TRACKER_VALUE
+            _.last(values)?.value ?? this.TRACKER_VALUE_DEFAULT
           );
 
           this.entity.updatedAt = event.payload.updatedAt;
@@ -64,7 +64,7 @@ export class Tracker {
           _.remove(values, (v) => v.datapointId === event.payload.datapointId);
 
           this.entity.value = VO.TrackerValue.parse(
-            _.last(values)?.value ?? this.DEFAULT_TRACKER_VALUE
+            _.last(values)?.value ?? this.TRACKER_VALUE_DEFAULT
           );
 
           this.entity.updatedAt = event.payload.updatedAt;

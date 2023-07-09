@@ -27,6 +27,8 @@ export type HistoryViewType = HistoryType & { payload: Record<string, any> };
 
 // Constants
 
+export { TRACKER_VALUE_DEFAULT } from "../modules/trackers/value-objects/tracker-value-default";
+
 export { TRACKER_NAME_MIN_LENGTH } from "../modules/trackers/value-objects/tracker-name-min-length";
 export { TRACKER_NAME_MAX_LENGTH } from "../modules/trackers/value-objects/tracker-name-max-length";
 
