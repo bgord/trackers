@@ -17,7 +17,7 @@ export function TrackerCreate() {
   );
   const trackerKind = bg.useField<types.TrackerKindEnum>(
     "tracker-kind",
-    types.TrackerKindEnum.one_value
+    types.TrackerKindEnum.counter
   );
 
   const createTracker = useMutation(api.Tracker.create, {
