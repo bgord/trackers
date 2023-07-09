@@ -35,6 +35,7 @@ export function GoalDelete(props: types.GoalType) {
         disabled={!deleteGoal.isIdle}
         class="c-button"
         data-variant="bare"
+        data-pt="3"
         title={t("goal.delete")}
       >
         <Icons.BinMinus height="18" width="18" />
