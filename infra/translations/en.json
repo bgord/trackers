@@ -51,6 +51,8 @@
   "history.tracker.name.changed": "Tracker name changed to \"{{name}}\"",
   "history.tracker.recalculated": "Tracker value changed to {{value}}",
   "history.tracker.restored": "Tracker restored",
+  "history.page": "Page {{current}} of {{total}}",
+
   "tracker.name.change.hide": "Hide change tracker name form",
   "tracker.name.change.show": "Show change tracker name form",
 

@@ -101,49 +101,56 @@ export function TrackerHistory(
           data-cross="center"
           data-mt="auto"
         >
-          <button
-            type="button"
-            class="c-button"
-            disabled={pagination.controls.firstPage.active}
-            data-variant="secondary"
-            onClick={pagination.controls.firstPage.go}
-          >
-            {t("app.pagination.first")}
-          </button>
+          <div data-display="flex" data-wrap="nowrap" data-gap="24">
+            <button
+              type="button"
+              class="c-button"
+              disabled={pagination.controls.firstPage.active}
+              data-variant="bare"
+              onClick={pagination.controls.firstPage.go}
+            >
+              {t("app.pagination.first")}
+            </button>
 
-          <button
-            type="button"
-            class="c-button"
-            disabled={pagination.controls.previousPage.disabled}
-            data-variant="secondary"
-            onClick={pagination.controls.previousPage.go}
-          >
-            {t("app.pagination.previous")}
-          </button>
+            <button
+              type="button"
+              class="c-button"
+              disabled={pagination.controls.previousPage.disabled}
+              data-variant="bare"
+              onClick={pagination.controls.previousPage.go}
+            >
+              {t("app.pagination.previous")}
+            </button>
+          </div>
 
-          <strong data-fs="12" data-color="gray-600">
-            Page {pagination.current}/{pagination.last}
-          </strong>
+          <UI.Info>
+            {t("history.page", {
+              current: pagination.current,
+              total: pagination.last ?? pagination.current,
+            })}
+          </UI.Info>
 
-          <button
-            type="button"
-            class="c-button"
-            disabled={pagination.controls.nextPage.disabled}
-            data-variant="secondary"
-            onClick={pagination.controls.nextPage.go}
-          >
-            {t("app.pagination.next")}
-          </button>
+          <div data-display="flex" data-wrap="nowrap" data-gap="24">
+            <button
+              type="button"
+              class="c-button"
+              disabled={pagination.controls.nextPage.disabled}
+              data-variant="bare"
+              onClick={pagination.controls.nextPage.go}
+            >
+              {t("app.pagination.next")}
+            </button>
 
-          <button
-            type="button"
-            class="c-button"
-            disabled={pagination.controls.lastPage.disabled}
-            data-variant="secondary"
-            onClick={pagination.controls.lastPage.go}
-          >
-            {t("app.pagination.last")}
-          </button>
+            <button
+              type="button"
+              class="c-button"
+              disabled={pagination.controls.lastPage.disabled}
+              data-variant="bare"
+              onClick={pagination.controls.lastPage.go}
+            >
+              {t("app.pagination.last")}
+            </button>
+          </div>
         </div>
       </bg.Dialog>
     </>
