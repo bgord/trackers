@@ -104,7 +104,7 @@ export const onTrackerExportedEventHandler =
       });
 
       const trackerExportFile = new Trackers.Services.TrackerExportFile({
-        repository: Trackers.Repos.DatapointRepository,
+        repos: Trackers.Repos,
         tracker: event.payload,
       });
 

@@ -3,19 +3,18 @@ import fs from "fs/promises";
 import csv from "csv";
 import _path from "path";
 
-import * as VO from "../value-objects";
-import * as Repos from "../repositories";
+import * as Trackers from "../";
 
 type DatapointType = bg.AsyncReturnType<
-  typeof Repos.DatapointRepository["list"]
+  typeof Trackers.Repos.DatapointRepository["list"]
 >[0];
 
 type DatapointsFileConfigType = {
-  repository: typeof Repos.DatapointRepository;
+  repos: typeof Trackers.Repos;
   tracker: {
-    id: VO.TrackerIdType;
+    id: Trackers.VO.TrackerIdType;
     scheduledAt: bg.Schema.TimestampType;
-    name: VO.TrackerNameType;
+    name: Trackers.VO.TrackerNameType;
     timeZoneOffsetMs: bg.Schema.TimeZoneOffsetValueType;
   };
 };
@@ -41,7 +40,7 @@ export class TrackerExportFile {
   async generate(): Promise<
     bg.Schema.EmailAttachmentType & { subject: bg.Schema.EmailSubjectType }
   > {
-    const datapoints = await this.config.repository.list({
+    const datapoints = await this.config.repos.DatapointRepository.list({
       id: this.config.tracker.id,
     });
 
