@@ -39,13 +39,15 @@ export function DatapointBar(props: DatapointBarPropsType) {
       tabIndex={0}
       onClick={() => props.activeDatapointId.toggle(props.id)}
       onKeyDown={toggleActiveDatapointKeyboardHandler}
-      style={{ maxHeight: `${types.DATAPOINT_BOUND_UPPER}px` }}
+      style={bg.Rhythm.base(types.DATAPOINT_BOUND_UPPER).times(1).maxHeight}
       {...hover.attach}
     >
       <div
         data-display="flex"
         data-main="center"
         data-cross="center"
+        data-px="3"
+        data-fs="12"
         data-bg={
           isInteractive
             ? "gray-300"
@@ -53,16 +55,14 @@ export function DatapointBar(props: DatapointBarPropsType) {
             ? "green-200"
             : "gray-200"
         }
-        data-px="3"
-        data-fs="12"
         data-bwb={props.value.isMin ? "4" : undefined}
         data-bcb={props.value.isMin ? "gray-400" : undefined}
         data-bwt={props.value.isMax ? "4" : undefined}
         data-bct={props.value.isMax ? "gray-400" : undefined}
         style={{
-          minHeight: `${types.DATAPOINT_BOUND_LOWER}px`,
-          height: `${props.value.scaled}px`,
-          minWidth: "36px",
+          ...bg.Rhythm.base(props.value.scaled).times(1).height,
+          ...bg.Rhythm.base(types.DATAPOINT_BOUND_LOWER).times(1).minHeight,
+          ...bg.Rhythm.base().times(3).minWidth,
         }}
       >
         {props.value.actual}
