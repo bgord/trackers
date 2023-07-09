@@ -9,6 +9,7 @@ import { Toasts } from "./toasts";
 import { Navigation } from "./navigation";
 import { Dashboard, InitialDashboardDataType } from "./dashboard";
 import { Settings, InitialSettingsDataType } from "./settings";
+import { ScrollButton } from "./scroll-button";
 
 export type InitialDataType = {
   url: string;
@@ -42,6 +43,7 @@ export function App(props: InitialDataType) {
             <Settings path="/settings" />
           </Router>
 
+          <ScrollButton />
           <Toasts />
         </bg.ToastsContextProvider>
       </bg.TranslationsContextProvider>
