@@ -29,7 +29,7 @@ export class TrackerExportFile {
     "id",
     "value",
     "createdAt",
-    "date",
+    "dateUTC",
     "isMin",
     "isMax",
   ];
@@ -89,7 +89,7 @@ export class TrackerExportFile {
       id: datapoint.id,
       value: datapoint.value.actual,
       createdAt: datapoint.createdAt,
-      date: new Date(datapoint.createdAt).toISOString(),
+      dateUTC: new Date(datapoint.createdAt).toISOString(),
       isMin: datapoint.value.isMin ? 1 : 0,
       isMax: datapoint.value.isMax ? 1 : 0,
     }));
