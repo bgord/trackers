@@ -4,6 +4,7 @@ import csv from "csv";
 import _path from "path";
 
 import * as Trackers from "../";
+import * as Goals from "../../goals";
 
 type DatapointType = bg.AsyncReturnType<
   typeof Trackers.Repos.DatapointRepository["list"]
@@ -31,6 +32,8 @@ export class TrackerExportFile {
     "dateUTC",
     "isMin",
     "isMax",
+    "achievedGoal",
+    "goalTarget",
   ];
 
   constructor(config: DatapointsFileConfigType) {
@@ -44,8 +47,12 @@ export class TrackerExportFile {
       id: this.config.tracker.id,
     });
 
+    const goal = await this.config.repos.TrackerRepository.getGoalForTracker({
+      id: this.config.tracker.id,
+    });
+
     const file = this.getPaths();
-    const data = this.prepare(datapoints);
+    const data = this.prepare(datapoints, goal as Goals.VO.GoalType | null);
 
     const content = csv.stringify(data, {
       header: true,
@@ -83,14 +90,28 @@ export class TrackerExportFile {
     return bg.Schema.EmailAttachment.parse({ filename, path });
   }
 
-  private prepare(datapoints: DatapointType[]) {
-    return datapoints.map((datapoint) => ({
+  private prepare(datapoints: DatapointType[], goal: Goals.VO.GoalType | null) {
+    const result = datapoints.map((datapoint) => ({
       id: datapoint.id,
       value: datapoint.value.actual,
       createdAt: datapoint.createdAt,
       dateUTC: new Date(datapoint.createdAt).toISOString(),
       isMin: datapoint.value.isMin ? 1 : 0,
       isMax: datapoint.value.isMax ? 1 : 0,
+      achievedGoal: 0,
+      goalTarget: "no",
+    }));
+
+    if (!goal) return result;
+
+    const verifier = new Goals.Services.GoalVerifier(goal);
+
+    return result.map((row) => ({
+      ...row,
+      achievedGoal: Number(
+        verifier.verify(row.value as Trackers.VO.TrackerValueType)
+      ),
+      goalTarget: goal.target,
     }));
   }
 }
