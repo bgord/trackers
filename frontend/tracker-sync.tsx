@@ -70,7 +70,7 @@ export function TrackerSync(props: types.TrackerType) {
         />
       </div>
 
-      <div data-display="flex" data-wrap="nowrap" data-gap="12" data-self="end">
+      <div data-display="flex" data-wrap="nowrap" data-gap="6" data-self="end">
         {props.kind === types.TrackerKindEnum.counter && (
           <button
             class="c-button"
