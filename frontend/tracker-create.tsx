@@ -94,7 +94,7 @@ export function TrackerCreate() {
         <button
           type="submit"
           class="c-button"
-          data-variant="secondary"
+          data-variant="primary"
           data-self="end"
           disabled={trackerName.unchanged || createTracker.isLoading}
         >

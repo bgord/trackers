@@ -98,7 +98,7 @@ export function TrackerSync(props: types.TrackerType) {
         <button
           type="submit"
           class="c-button"
-          data-variant="primary"
+          data-variant="secondary"
           disabled={trackerValue.unchanged || trackerSyncMutation.isLoading}
         >
           {t("app.sync")}
