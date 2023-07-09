@@ -128,6 +128,7 @@
   "tracker.value.label": "Tracker value",
 
   "settings.email": "Email address",
+  "settings.email.trigger.change": "Change email",
   "settings.email.change": "Change",
   "settings.email.change.error": "Error while changing email",
   "settings.email.change.error.the_same": "Email has not changed",

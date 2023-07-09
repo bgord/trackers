@@ -9,7 +9,9 @@ import { SettingsEmailChange } from "./settings-email-change";
 
 export function SettingsEmail(props: types.SettingsType) {
   const t = bg.useTranslations();
+
   const details = bg.usePersistentToggle("settings-email");
+  const emailChangeForm = bg.useToggle();
 
   return (
     <div
@@ -88,11 +90,22 @@ export function SettingsEmail(props: types.SettingsType) {
                 {props.email}
               </div>
 
-              <SettingsEmailDelete {...props} />
+              <div data-display="flex" data-wrap="nowrap" data-gap="12">
+                <button
+                  type="button"
+                  class="c-button"
+                  data-variant="bare"
+                  onClick={emailChangeForm.toggle}
+                >
+                  {t("settings.email.trigger.change")}
+                </button>
+
+                <SettingsEmailDelete {...props} />
+              </div>
             </div>
           )}
 
-          <SettingsEmailChange />
+          {(!props.email || emailChangeForm.on) && <SettingsEmailChange />}
         </Fragment>
       )}
     </div>
