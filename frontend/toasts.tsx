@@ -15,7 +15,10 @@ export function Toasts() {
       data-mb="12"
       data-pt="12"
       data-width="100%"
-      style={{ maxWidth: "290px", maxHeight: "300px" }}
+      style={{
+        ...bg.Rhythm.base().times(24).maxWidth,
+        ...bg.Rhythm.base().times(25).maxHeight,
+      }}
     >
       {toasts.items.map((toast) => (
         <bg.Anima key={toast.item.id} effect="opacity" {...toast.props}>

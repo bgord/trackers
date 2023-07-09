@@ -94,8 +94,8 @@ export function TrackerExport(
                 inputMode="email"
                 placeholder={t("tracker.export.email.placeholder")}
                 required
-                style={{ minWidth: "200px" }}
                 value={trackerExportEmail.value}
+                style={bg.Rhythm.base().times(16.5).minWidth}
                 {...trackerExportEmail.input.props}
               />
             </div>

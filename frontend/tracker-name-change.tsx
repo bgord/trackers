@@ -45,8 +45,8 @@ export function TrackerNameChange(props: types.TrackerType) {
           pattern={`.{${types.TRACKER_NAME_MIN_LENGTH},${types.TRACKER_NAME_MAX_LENGTH}}`}
           placeholder={t("tracker.name.placeholder")}
           required
-          style={{ minWidth: "200px" }}
           value={newTrackerName.value}
+          style={bg.Rhythm.base().times(16.5).minWidth}
           {...newTrackerName.input.props}
         />
       </div>
