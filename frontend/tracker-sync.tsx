@@ -57,13 +57,15 @@ export function TrackerSync(props: types.TrackerType) {
           class="c-input"
           type="number"
           step={props.kind === types.TrackerKindEnum.counter ? "1" : "0.01"}
+          min={0}
           value={trackerValue.value}
           disabled={trackerSyncMutation.isLoading}
-          onChange={(event) =>
-            trackerValue.set(
-              event.currentTarget.valueAsNumber as types.TrackerType["value"]
-            )
-          }
+          onChange={(event) => {
+            const value = event.currentTarget.valueAsNumber;
+
+            if (Number.isNaN(value)) return;
+            trackerValue.set(value as types.TrackerType["value"]);
+          }}
           {...trackerValue.input.props}
         />
       </div>
