@@ -37,7 +37,7 @@ export function GoalDelete(props: types.GoalType) {
         data-variant="bare"
         title={t("goal.delete")}
       >
-        <Icons.BinMinus height="18" width="18" data-color="red-500" />
+        <Icons.BinMinus height="18" width="18" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72" data-md-px="6">

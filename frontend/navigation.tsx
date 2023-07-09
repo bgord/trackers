@@ -120,7 +120,11 @@ function NavigationMobile() {
 
 function NavigationShell() {
   return (
-    <nav data-p="12" data-bg="gray-800" style={{ height: "48px" }}>
+    <nav
+      data-p="12"
+      data-bg="gray-800"
+      style={bg.Rhythm.base().times(4).height}
+    >
       <NavigationLogo />
     </nav>
   );

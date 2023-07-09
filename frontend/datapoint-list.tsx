@@ -45,7 +45,9 @@ export function DatapointList(props: types.TrackerType) {
         data-bwy="1"
         data-bcy="gray-200"
         data-overflow="scroll"
-        style={{ minHeight: `${types.DATAPOINT_BOUND_UPPER + 8}px` }}
+        style={
+          bg.Rhythm.base(types.DATAPOINT_BOUND_UPPER + 8).times(1).minHeight
+        }
       >
         {datapoints.data.map((datapoint) => (
           <DatapointBar

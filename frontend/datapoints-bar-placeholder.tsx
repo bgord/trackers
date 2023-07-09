@@ -20,7 +20,7 @@ export function DatapointsChartPlaceholder() {
       data-bwy="1"
       data-bcy="gray-200"
       data-py="3"
-      style={{ minHeight: `${max}px` }}
+      style={bg.Rhythm.base(max).times(1).minHeight}
     >
       {bars.map((value, index) => (
         /* eslint-disable react/no-array-index-key */
@@ -34,7 +34,10 @@ function DatapointBarPlaceholder(props: { height: number }) {
   return (
     <li
       data-bg="gray-100"
-      style={{ height: `${props.height}px`, width: "36px" }}
+      style={{
+        ...bg.Rhythm.base().times(3).width,
+        ...bg.Rhythm.base(props.height).times(1).height,
+      }}
     ></li>
   );
 }
