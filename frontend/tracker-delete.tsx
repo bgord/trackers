@@ -42,7 +42,7 @@ export function TrackerDelete(
         title={t("tracker.delete")}
         {...rest}
       >
-        <Icons.BinMinus height="18" width="18" />
+        <Icons.BinMinus height="18" width="18" data-color="red-500" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">

@@ -1,4 +1,5 @@
 import * as bg from "@bgord/frontend";
+import * as Icons from "iconoir-react";
 import { h, Fragment } from "preact";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -28,8 +29,9 @@ export function SettingsEmailDelete(_props: types.SettingsType) {
         type="button"
         disabled={deleteEmail.isLoading}
         onClick={dialog.enable}
+        title={t("settings.email.delete")}
       >
-        {t("settings.email.delete")}
+        <Icons.BinMinus height="20" width="20" data-color="red-500" />
       </button>
 
       <bg.Dialog {...dialog} data-gap="24" data-mt="72">
