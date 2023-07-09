@@ -1,4 +1,4 @@
 export enum TrackerKindEnum {
-  "one_value" = "one_value",
   "counter" = "counter",
+  "one_value" = "one_value",
 }
