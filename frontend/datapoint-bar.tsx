@@ -52,7 +52,7 @@ export function DatapointBar(props: DatapointBarPropsType) {
           isInteractive
             ? "gray-300"
             : hasAccomplishedGoal
-            ? "green-200"
+            ? "green-100"
             : "gray-200"
         }
         data-bwb={props.value.isMin ? "4" : undefined}

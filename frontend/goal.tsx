@@ -47,7 +47,7 @@ export function Goal(props: types.TrackerType) {
       )}
 
       {goal.data?.status === types.GoalStatusEnum.accomplished && (
-        <div class="c-badge" data-color="green-600" data-bg="green-100">
+        <div class="c-badge" data-color="green-700" data-bg="green-100">
           {goal.data.status}
         </div>
       )}

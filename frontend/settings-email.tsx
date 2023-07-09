@@ -34,7 +34,7 @@ export function SettingsEmail(props: types.SettingsType) {
         )}
 
         {props.email && (
-          <div class="c-badge" data-color="green-600" data-bg="green-100">
+          <div class="c-badge" data-color="green-700" data-bg="green-100">
             {t("settings.email.set")}
           </div>
         )}

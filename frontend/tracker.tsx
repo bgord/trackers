@@ -41,7 +41,7 @@ export function Tracker(props: types.TrackerType) {
           {props.status === types.TrackerStatusEnum.active && (
             <div
               class="c-badge"
-              data-color="green-600"
+              data-color="green-700"
               data-bg="green-100"
               style={bg.Rhythm.base().times(6.5).width}
             >
