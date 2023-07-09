@@ -102,7 +102,7 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
 
       {!props.isWeeklyTrackersReportEnabled && !props.email && (
         <UI.Info data-display="flex" data-wrap="nowrap" data-gap="12">
-          <Icons.InfoEmpty height="18" width="18" style={{ flexShrink: "0" }} />
+          <Icons.InfoEmpty height="18" width="18" data-shrink="0" />
 
           {t("settings.weekly_trackers_report.no_email.info")}
         </UI.Info>
@@ -110,7 +110,7 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
 
       {!props.isWeeklyTrackersReportEnabled && props.email && (
         <UI.Info data-display="flex" data-wrap="nowrap" data-gap="12">
-          <Icons.InfoEmpty height="18" width="18" style={{ flexShrink: "0" }} />
+          <Icons.InfoEmpty height="18" width="18" data-shrink="0" />
 
           {t("settings.weekly_trackers_report.disabled.info", {
             local: localWeeklyTrackersReportUtcHour,
@@ -120,7 +120,7 @@ export function SettingsWeeklyTrackersReport(props: types.SettingsType) {
 
       {props.isWeeklyTrackersReportEnabled && (
         <UI.Info data-display="flex" data-wrap="nowrap" data-gap="12">
-          <Icons.InfoEmpty height="18" width="18" style={{ flexShrink: "0" }} />
+          <Icons.InfoEmpty height="18" width="18" data-shrink="0" />
 
           {t("settings.weekly_trackers_report.schedule", {
             local: localWeeklyTrackersReportUtcHour,
